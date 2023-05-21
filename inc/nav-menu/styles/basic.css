@@ -1,0 +1,268 @@
+/*
+|--------------------------------------------------------------------------
+| General Styling
+|--------------------------------------------------------------------------
+|
+| Applies general styling to nav menu.
+|
+*/
+
+.bc-menu {
+  --item-spacing-y: .75rem;
+  --item-spacing-x: var(--offcanvas-padding-x);
+  --item-font-size: calc(var(--body-font-size) * 1.125);
+  --title-spacing-x: .5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.bc-menu,
+.bc-menu ul {
+  margin-bottom: 0;
+  padding-inline-start: 0;
+  list-style: none;
+}
+
+.bc-menu li {
+  font-size: var(--item-font-size);
+  padding: var(--item-spacing-y) var(--item-spacing-x);
+  position: relative;
+}
+
+.bc-menu .menu-item-title > * {
+  color: inherit;
+}
+
+.bc-menu ul {
+  color: var(--body-color);
+}
+
+.bc-menu ul li {
+  text-align: start;
+  font-size: .925em;
+  padding-inline-start: 0;
+  padding-inline-end: 0;
+}
+
+.bc-menu ul li:after {
+  content: "";
+  position: absolute;
+  width: calc(100% - 2 * var(--item-spacing-x));
+  transform: translateX(-50%);
+  left: 50%;
+  bottom: 0;
+  height: 1px;
+  background-color: var(--border-color);
+}
+
+.bc-menu ul li:last-child:after {
+  display: none;
+}
+
+/*.bc-menu > li:first-child > ul {
+  display: block;
+}*/
+
+.bc-menu a {
+  text-decoration: none;
+}
+
+.bc-menu .menu-item-title {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  height: 100%;
+}
+
+.menu-item-desc {
+  display: none;
+}
+
+.menu-item-has-icon .menu-item-desc {
+  margin-top: .25rem;
+  font-size: .875em;
+  opacity: .75;
+}
+
+.menu-item-title > *:not(:first-child) {
+  margin-inline-start: var(--title-spacing-x);
+}
+
+.bc-menu .sub-menu-btn {
+  margin-inline-start: auto;
+  width: 16px;
+  height: 16px;
+  opacity: .5;
+}
+
+.bc-menu .external-link-arrow {
+  align-self: flex-start;
+  margin-inline-start: 0.125rem;
+  height: 7px;
+  width: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  rotate: -45deg;
+}
+
+.bc-menu ul li:first-child {
+  margin-top: var(--item-spacing-y);
+}
+
+.bc-menu li.icon-only > .menu-item-title > a {
+  display: none;
+}
+
+/**
+ * RTL
+ */
+
+body[direction="rtl"] .bc-menu > li > .external-link-arrow {
+  rotate: -90deg;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Large Media Query
+|--------------------------------------------------------------------------
+|
+| Applies styling for large screen sizes.
+|
+*/
+
+@media (min-width: 992px) {
+  .bc-menu {
+    flex-direction: row;
+  }
+
+  .bc-menu ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    inset-inline-start: 0;
+    width: 250px;
+    background: var(--body-bg);
+    box-shadow: 0 .75rem 3rem rgba(var(--dark-rgb), 0.1);
+    border-radius: .25rem;
+    padding-inline-start: 0;
+/*    padding-top: 1rem;*/
+/*    padding-bottom: 1rem;*/
+  }
+
+  .bc-menu li:hover > ul {
+    display: block;
+  }
+
+  .bc-menu ul li {
+    --item-spacing-x: 1.75rem;
+    text-align: start;
+    font-size: .925em;
+    padding-inline-start: var(--item-spacing-x);
+    padding-inline-end: var(--item-spacing-x);
+  }
+
+  .bc-menu ul li:first-child {
+    padding-top: var(--item-spacing-x);
+  }
+
+  .bc-menu ul li:last-child {
+    padding-bottom: var(--item-spacing-x);
+  }
+
+  .bc-menu ul .sub-menu-btn {
+    rotate: -90deg;
+  }
+
+  /*.bc-menu ul li:first-child {
+    padding-top: calc(var(--item-spacing-y) * 2);
+  }
+
+  .bc-menu ul li:last-child {
+    padding-bottom: calc(var(--item-spacing-y) * 2);
+  }*/
+
+  .bc-menu > li > .menu-item-title > .sub-menu-btn {
+    margin-inline-start: var(--title-spacing-x);
+  }
+
+  .bc-menu ul li:first-child {
+    margin-top: 0;
+  }
+
+  .bc-menu ul ul {
+    top: 0;
+    inset-inline-start: 100%;
+  }
+
+  .menu-item-desc {
+    display: block;
+  }
+}
+
+/*
+|--------------------------------------------------------------------------
+| Hamburger menu effect
+|--------------------------------------------------------------------------
+|
+| 
+|
+*/
+
+.bc-menu-btn svg {
+  stroke: #000;
+  transition: 0.2s;
+}
+
+.bc-menu-btn svg g:first-child {
+  opacity: 1;
+  transition: opacity 0s 0.2s;
+}
+
+.bc-menu-btn svg g:first-child line {
+  transition: transform 0.2s 0.2s;
+  transform: translateY(0px);
+}
+
+.bc-menu-btn svg g:last-child {
+  opacity: 0;
+  transition: opacity 0s 0.2s;
+}
+
+.bc-menu-btn svg g:last-child line {
+  transition: transform 0.2s;
+  transform: rotate(0deg);
+  transform-origin: center;
+}
+
+.bc-menu-btn.open svg g:first-child {
+  opacity: 0;
+}
+
+.bc-menu-btn.open svg g:first-child line {
+  transition: transform 0.2s;
+}
+
+.bc-menu-btn.open svg g:first-child line:first-child {
+  transform: translateY(7px);
+}
+
+.bc-menu-btn.open svg g:first-child line:last-child {
+  transform: translateY(-7px);
+}
+
+.bc-menu-btn.open svg g:last-child {
+  opacity: 1;
+}
+
+.bc-menu-btn.open svg g:last-child line {
+  transition: transform 0.2s 0.2s;
+}
+
+.bc-menu-btn.open svg g:last-child line:first-child {
+  transform: rotate(45deg);
+}
+
+.bc-menu-btn.open svg g:last-child line:last-child {
+  transform: rotate(-45deg);
+}

@@ -1,0 +1,139 @@
+/*!
+Theme Name: Blank Canvas
+Author: Blankcanvas
+Author URI: https://blankcanvas.me/
+Description: This theme is developed by Blank Canvas - a team of passionate people about web design and development in Bahrain.
+Version: 1.0.0
+Requires PHP: 5.6
+License: GNU General Public License v2 or later
+Text Domain: blankcanvas
+*/
+
+/*
+|--------------------------------------------------------------------------
+| Global Variables
+|--------------------------------------------------------------------------
+|
+| Defines css root variables.
+|
+*/
+
+:root {
+  --filter-dark: brightness(0) saturate(100%) invert(8%) sepia(5%) saturate(2044%) hue-rotate(339deg) brightness(99%) contrast(82%);
+  --filter-light: brightness(0) invert(1);
+  --filter-body-color: var(--filter-dark);
+  --filter-body-bg: var(--filter-light);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Custom Styling
+|--------------------------------------------------------------------------
+|
+| Applies custom styling to specific elements and components.
+|
+*/
+
+header {
+  position: relative;
+  z-index: 99;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.site-main {
+  position: relative;
+  z-index: 20;
+}
+
+.custom-logo {
+  height: 40px;
+  width: auto;
+}
+
+.site-header {
+  /* Main color that applies to all header items and icons */
+  --site-header-color: var(--body-color);
+  color: var(--site-header-color);
+}
+
+/*.site-header .icons-col > :first-child {
+  position: relative;
+}
+
+.site-header .icons-col > :first-child:before {
+  content: "";
+  position: absolute;
+  top: 25%;
+  inset-inline-start: 0;
+  height: 50%;
+  width: 1px;
+  background: var(--site-header-color);
+}
+*/
+.site-header .icons-col .btn {
+  --btn-color: var(--site-header-color);
+}
+
+.material-symbols-outlined {
+  font-size: 32px;
+}
+
+.bc-menu .highlighter {
+  height: 100%;
+}
+
+.bc-menu .highlighter:before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  height: 2px;
+  width: calc(100% - (2 * var(--item-spacing-x)));
+  transform: translateX(-50%);
+  background: var(--color-1);
+}
+
+.banner {
+  height: 60vh;
+  min-height: 180px;
+  background-position: center;
+  background-size: cover;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Min (992px | Large) Media Query
+|--------------------------------------------------------------------------
+|
+| Applies styling for specific screen size.
+|
+*/
+
+@media (min-width: 992px) {
+  #offcanvasSearch {
+    height: calc(100vh - 2rem);
+    margin-top: 1rem;
+    margin-inline-end: 1rem;
+    box-shadow: var(--shadow-lg);
+    border-radius: .5rem;
+  }
+
+  /**
+   * Home header
+   */
+
+  /*.home .site-header {
+    --site-header-color: var(--light);
+    position: absolute;
+    top: 0;
+    margin-inline-start: 0;
+    width: 100%;
+  }
+
+  .home .custom-logo {
+    filter: var(--filter-light);
+  }*/
+}

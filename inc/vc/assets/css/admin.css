@@ -1,0 +1,274 @@
+
+/**
+ * Utility classes
+ */
+
+.element-disabled {
+  opacity: .5;
+}
+
+.d-inline-block {
+  display: inline-block;
+}
+
+/**
+ * Grapick field
+ */
+
+.grapick-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.grapick-wrapper > * {
+  flex: 1 0 0%;
+  text-transform: capitalize;
+}
+
+.grapick-wrapper > .grapick {
+  flex: 1 0 100%;
+  position: relative;
+  z-index: 1;
+  min-height: 30px;
+  margin-top: 20px;
+}
+
+/**
+ * CodeMirror fields
+ */
+
+.CodeMirror-hints {
+  z-index: 99999999 !important;
+}
+
+.vc_ui-panel .CodeMirror {
+  border: 1px solid #dcdcde;
+}
+
+/**
+ * Custom HTML
+ */
+
+[name="custom_html"] {
+  clear: both;
+  margin-top: 20px;
+}
+
+/**
+ * Width field
+ */
+
+[data-vc-shortcode-param-name="width"].wpb_el_type_textfield  {
+  display: none !important;
+}
+
+[data-vc-shortcode-param-name="width"].wpb_el_type_textfield + * {
+  padding-top: 0 !important;
+}
+
+/**
+ * Responsive width fields 
+ */
+
+[data-vc-shortcode-param-name^="width_"] {
+    display: flex;
+    align-items: center;
+}
+
+[data-vc-shortcode-param-name^="width_"] > *:first-child {
+    flex-basis: 25%;
+}
+
+[data-vc-shortcode-param-name^="width_"] > *:last-child {
+    flex-basis: 75%;
+}
+
+/**
+ * Rows
+ */
+
+.vc_row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/**
+ * Columns
+ */
+
+[data-width="auto"] {
+  width: auto !important;
+  flex: 0 0 auto;
+  min-width: 150px;
+}
+
+[data-width="max"] {
+  width: initial !important;
+  flex: 1 0;
+}
+
+/**
+ * Icon element
+ */
+
+[data-element_type="bootstrap_icon"] .wpb_element_wrapper {
+  position: relative;
+}
+
+[data-element_type="bootstrap_icon"] [class*="bi-"] {
+  background: none;
+  font-size: 30px;
+}
+
+[data-element_type="bootstrap_icon"] .wpb_element_title > .vc_element-icon {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+[data-element_type="bootstrap_icon"] [data-icon] ~ .column_edit_trigger {
+  display: none;
+}
+
+[data-element_type="bootstrap_icon"] .wpb_element_title,
+[data-element_type="bootstrap_icon"] .vc_admin_label:not(.hidden-label) {
+  padding-left: 42px;
+}
+
+[data-element_type="bootstrap_icon"] .vc_admin_label:not(.hidden-label) ~ .vc_admin_label:not(.hidden-label) {
+  padding-left: 0;
+}
+
+/**
+ * Accordion elements
+ * Tabs elements
+ */
+
+[data-element_type="accordion"] .vc_tta-container,
+[data-element_type="tabs"] .vc_tta-container {
+  margin: 0;
+}
+
+[data-element_type="accordion"] .vc_controls,
+[data-element_type="tabs"] .vc_controls {
+  height: 30px !important;
+  margin-top: 0px;
+}
+
+[data-element_type="accordion"] > .vc_controls,
+[data-element_type="tabs"] > .vc_controls {
+  margin-top: 8px !important;
+}
+
+[data-element_type="accordion"] .vc_controls-out-tc,
+[data-element_type="tabs"] .vc_controls-out-tc {
+  top: 0px !important;
+  padding-bottom: 1px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+[data-element_type="accordion"] .vc_tta-panel-title > a {
+  padding-left: 46px !important;
+}
+
+[data-element_type="accordion"] .vc_tta-panel-title > a > i {
+  position: absolute !important;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+}
+
+/**
+ * Elements (white / silver) bg juggling
+ */
+
+.wpb_vc_row [data-alternate="false"][data-width] > *,
+[data-alternate="false"].wpb_tabs .vc_tta-tab.vc_active > a,
+[data-alternate="false"].wpb_tabs .vc_tta-panels,
+[data-alternate="false"].wpb_tabs .vc_tta-panel-body,
+[data-alternate="false"].wpb_accordion .vc_tta-tab > a,
+[data-alternate="false"].wpb_accordion .vc_tta-section-append > a {
+  background: #ffffff !important;
+}
+
+.wpb_vc_row [data-alternate="true"][data-width] > *,
+[data-alternate="true"].wpb_tabs .vc_tta-tab.vc_active > a,
+[data-alternate="true"].wpb_tabs .vc_tta-panels,
+[data-alternate="true"].wpb_tabs .vc_tta-panel-body,
+[data-alternate="true"].wpb_accordion .vc_tta-tab > a,
+[data-alternate="true"].wpb_accordion .vc_tta-section-append > a {
+  background: #f5f5f5 !important;
+}
+
+/**
+ * Elements spacing
+ */
+
+[data-element_type="section"] .wpb_row_container > .wpb_vc_column_inner {
+  margin-bottom: 0 !important;
+}
+
+[data-element_type="section"] .wpb_content_element + :not(.wpb_content_element), 
+[data-element_type="section"] :not(.wpb_content_element) + .wpb_content_element, 
+[data-element_type="section"] .wpb_vc_row:not(:first-child) {
+  margin-top: 20px !important;
+}
+
+/**
+ * Elements controls
+ */
+
+[data-element_type="section"] .vc_controls-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+[data-element_type="section"] .vc_controls-row > *:first-child {
+  position: initial;
+  margin-inline-end: auto;
+}
+
+/**
+ * Spacing fields
+ */
+
+[data-vc-shortcode-param-name="padding"],
+[data-vc-shortcode-param-name="margin"] {
+  padding-inline-start: 15px;
+  padding-inline-end: 15px;
+}
+
+[data-vc-shortcode-param-name="padding"] .vc_param_group-wrapper,
+[data-vc-shortcode-param-name="margin"] .vc_param_group-wrapper {
+  display: flex;
+}
+
+[data-vc-shortcode-param-name="padding"] .vc_param_group-wrapper > *,
+[data-vc-shortcode-param-name="margin"] .vc_param_group-wrapper > * {
+  padding-top: 0 !important;
+}
+
+[data-vc-shortcode-param-name="padding"] .vc_shortcode-param,
+[data-vc-shortcode-param-name="margin"] .vc_shortcode-param {
+  display: flex;
+  width: auto !important;
+  padding-inline-end: 0;
+  align-items: center;
+}
+
+[data-vc-shortcode-param-name="padding"] .vc_shortcode-param > *:first-child,
+[data-vc-shortcode-param-name="margin"] .vc_shortcode-param > *:first-child {
+  padding-inline-end: 15px;
+}
+
+[data-vc-shortcode-param-name="padding"] .vc_shortcode-param > *:last-child,
+[data-vc-shortcode-param-name="margin"] .vc_shortcode-param > *:last-child {
+  padding-inline-start: 0;
+}
+
+[data-vc-shortcode-param-name="padding"] select,
+[data-vc-shortcode-param-name="margin"] select {
+  min-width: 50px;
+}

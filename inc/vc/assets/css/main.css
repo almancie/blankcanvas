@@ -1,0 +1,50 @@
+
+/*
+|--------------------------------------------------------------------------
+| WPBakery Overrides
+|--------------------------------------------------------------------------
+|
+| Overrides WPBakery default styling.
+|
+*/
+
+[data-vc-full-width="true"] {
+  width: 100vw;
+  inset-inline-start: calc((100vw - 100%) / -2);
+  padding-inline-start: calc((100vw - 100%) / 2);
+  padding-inline-end: calc((100vw - 100%) / 2);
+  position: relative;
+}
+
+[data-vc-stretch-content="true"] {
+  padding-inline-start: 0;
+  padding-inline-end: 0;
+}
+
+.vc_video-bg + * {
+  position: relative;
+  z-index: 1;
+}
+
+[class*="-spill"] {
+  overflow-x: visible;
+  overflow-y: clip;
+}
+
+[class*="-spill"] .vc_parallax-inner,
+[class*="-spill"] .tiles {
+  width: var(--bg-width);
+  left: initial;
+  right: initial;
+  inset-inline-end: 0;
+}
+
+[class*="-spill"]:last-child .vc_parallax-inner,
+[class*="-spill"]:last-child .tiles {
+  inset-inline-end: initial;
+  inset-inline-start: 0;
+}
+
+[class*="-spill"].vc_parallax:after {
+  content: none;
+}
