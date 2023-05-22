@@ -31,7 +31,7 @@ add_filter('walker_nav_menu_start_el', function ($output, $item, $depth, $args) 
 */
 
 add_filter('nav_menu_css_class', function ($classes, $item, $args, $depth) {
-  if (! function_exists('get_field')) $classes;
+  if (! function_exists('get_field')) return $classes;
 
   $iconOnly = get_field('menu_icon_only', $item->ID);
 

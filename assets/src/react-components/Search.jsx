@@ -25,9 +25,9 @@ export default function() {
   }
 
   const postsList = () => posts.map((post) => 
-    <li class="py-2 border-bottom">
-      <a class="text-decoration-none" href={post.url}>
-        <span class="badge bg-color-1 me-2" style={{width: '50px'}}>{post.subtype}</span>
+    <li className="py-2 border-bottom">
+      <a className="text-decoration-none" href={post.url}>
+        <span className="badge bg-color-1 me-2" style={{width: '50px'}}>{post.subtype}</span>
         {post.title}
       </a>
     </li>
@@ -38,18 +38,21 @@ export default function() {
   }, [posts]);
 
   return (
-    <div class="search-component w-100 h-100 d-flex flex-column p-3 pt-0 mt-auto justify-content-end">
-      <ul class="search-results text-capitalize list-unstyled mt-2 small">
+    <div className="search-component w-100 h-100 d-flex flex-column p-3 pt-0 mt-auto justify-content-end">
+      <ul className="search-results text-capitalize list-unstyled mt-2 small">
         {posts ? postsList() : <div>No Results.</div>}
       </ul>
-      <div class="d-flex align-items-center w-100">
+      <div className="search-form-control d-flex align-items-center w-100 border rounded p-2">
         <input 
           id="search-term" 
           type="text" 
-          class="form-control rounded" 
+          className="form-control border-0 shadow-0" 
           onChange={handleInput} 
           placeholder="Type something.."
         />
+        <button type="submit" className="btn btn-color-1 ms-2 d-flex">
+          <i className='bi bi-arrow-right' />
+        </button>
       </div>
     </div>
   )

@@ -49,6 +49,8 @@ window.addEventListener('load', () => {
 
     for (const child of menu.children) {
       child.addEventListener(settings.event, () => {
+        menu.classList.add('active');
+
         anime({
           ...animation,
           ...getCoordinates(child)
@@ -69,10 +71,13 @@ window.addEventListener('load', () => {
         ...coordinates,
         duration: duration ?? animation.duration,
       });
+      
     }
 
     menu.addEventListener('mouseleave', () => {
       goToActive();
+
+      menu.classList.remove('active');
     });
 
     goToActive(0);
