@@ -2,7 +2,7 @@
 
 namespace Blankcanvas\Vc\Shortcodes;
 
-class AdvancedListItem extends \WPBakeryShortCode_Vc_Column_Inner {
+class AdvancedListItem extends \WPBakeryShortCode_Vc_Column {
 
   /**
    * Create instance

@@ -13,6 +13,28 @@ return [
   'as_child' => [
     'only' => 'column',
   ],
+  'js_view' => 'VcBackendTtaTabsView',
+  'custom_markup' =>
+    '<div class="vc_tta-container" data-vc-action="collapse">
+      <div class="vc_general vc_tta vc_tta-tabs vc_tta-color-backend-tabs-white vc_tta-style-flat vc_tta-shape-rounded vc_tta-spacing-1 vc_tta-tabs-position-top vc_tta-controls-align-left">
+        <div class="vc_tta-tabs-container">
+          <ul class="vc_tta-tabs-list">
+            <li class="vc_tta-tab" data-vc-tab data-vc-target-model-id="{{ model_id }}" data-element_type="vc_tta_section">
+              <a href="javascript:;" data-vc-tabs data-vc-container=".vc_tta" data-vc-target="[data-model-id=\'{{ model_id }}\']" data-vc-target-model-id="{{ model_id }}">
+                <span class="vc_tta-title-text">{{ section_title }}</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="vc_tta-panels vc_clearfix {{container-class}}">
+          {{ content }}
+        </div>
+      </div>
+    </div>',
+  'default_content' => '[vc_tta_section title="' . esc_html__('Tab', 'js_composer') . '"][/vc_tta_section]',
+  'admin_enqueue_js' => [
+    vc_asset_url('lib/vc_tabs/vc-tabs.min.js')
+  ],
   'params' => [
     [
       'type' => 'dropdown',
@@ -37,7 +59,7 @@ return [
       'type' => 'el_id',
       'heading' => esc_html__('Element ID', 'js_composer'),
       'param_name' => 'el_id',
-      'description' => sprintf( esc_html__('Enter element ID (Note: make sure it is unique and valid according to %sw3c specification%s).', 'js_composer'), '<a href="https://www.w3schools.com/tags/att_global_id.asp" target="_blank">', '</a>'),
+      'description' => esc_html__('Enter unique element ID.', 'blankcanvas'),
     ],
     [
       'type' => 'checkbox',
@@ -80,27 +102,5 @@ return [
       'group' => esc_html__('Style', 'blankcanvas'),
       'weight' => 55
     ],
-  ],
-  'js_view' => 'VcBackendTtaTabsView',
-  'custom_markup' =>
-    '<div class="vc_tta-container" data-vc-action="collapse">
-      <div class="vc_general vc_tta vc_tta-tabs vc_tta-color-backend-tabs-white vc_tta-style-flat vc_tta-shape-rounded vc_tta-spacing-1 vc_tta-tabs-position-top vc_tta-controls-align-left">
-        <div class="vc_tta-tabs-container">
-          <ul class="vc_tta-tabs-list">
-            <li class="vc_tta-tab" data-vc-tab data-vc-target-model-id="{{ model_id }}" data-element_type="vc_tta_section">
-              <a href="javascript:;" data-vc-tabs data-vc-container=".vc_tta" data-vc-target="[data-model-id=\'{{ model_id }}\']" data-vc-target-model-id="{{ model_id }}">
-                <span class="vc_tta-title-text">{{ section_title }}</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div class="vc_tta-panels vc_clearfix {{container-class}}">
-          {{ content }}
-        </div>
-      </div>
-    </div>',
-  'default_content' => '[vc_tta_section title="' . esc_html__('Tab', 'js_composer') . '"][/vc_tta_section]',
-  'admin_enqueue_js' => [
-    vc_asset_url('lib/vc_tabs/vc-tabs.min.js')
   ],
 ];

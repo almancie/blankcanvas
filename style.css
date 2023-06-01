@@ -77,9 +77,13 @@ body {
   --btn-color: var(--site-header-color);
 }
 
-.material-symbols-outlined {
-  font-size: 32px;
+.home .site-header {
+  border-bottom: 1px solid rgba(var(--light-rgb), .1);
 }
+
+/* .material-symbols-outlined {
+  font-size: 32px;
+} */
 
 .bc-menu .highlighter {
   height: 100%;
@@ -100,6 +104,10 @@ body {
 .bc-menu.active .highlighter:before {
   width: calc(100% - 2 * var(--item-spacing-x));
 }
+
+/**
+ * Other
+ */
 
 .banner {
   height: 60vh;
@@ -125,11 +133,11 @@ body {
     box-shadow: var(--shadow-lg);
     border-radius: .5rem;
   }
-
+  
   /**
-   * Home header
-   */
-
+  * Home header
+  */
+  
   .home .site-header {
     --site-header-color: var(--light);
     position: absolute;
@@ -137,7 +145,7 @@ body {
     margin-inline-start: 0;
     width: 100%;
   }
-
+  
   .home .custom-logo {
     filter: var(--filter-light);
   }

@@ -18,6 +18,7 @@ return [
       'heading' => esc_html__('Text', 'js_composer'),
       'param_name' => 'text',
       'value' => esc_html__('Button', 'blankcanvas'),
+      'admin_label' => true,
       'weight' => 100
     ],
     [
@@ -131,9 +132,9 @@ return [
     ],
     [
       'type' => 'el_id',
-      'param_name' => 'el_id',
       'heading' => esc_html__('Element ID', 'js_composer'),
-      'description' => sprintf(esc_html__('Enter section ID (Note: make sure it is unique and valid according to %sw3c specification%s).', 'js_composer'), '<a href="https://www.w3schools.com/tags/att_global_id.asp" target="_blank">', '</a>'),
+      'param_name' => 'el_id',
+      'description' => esc_html__('Enter unique element ID.', 'blankcanvas'),
     ],
     [
       'type' => 'checkbox',

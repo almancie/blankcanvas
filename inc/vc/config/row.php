@@ -125,10 +125,17 @@ return [
       ],
     ],
     [
+      'type' => 'textfield',
+      'param_name' => 'col_class',
+      'heading' => esc_html__('Columns class name', 'blankcanvas'),
+      'group' => esc_html__('Style', 'blankcanvas'),
+      'weight' => 59
+    ],
+    [
       'type' => 'el_id',
-      'heading' => esc_html__('Row ID', 'js_composer'),
+      'heading' => esc_html__('Element ID', 'js_composer'),
       'param_name' => 'el_id',
-      'description' => sprintf(esc_html__('Enter element ID (Note: make sure it is unique and valid according to %sw3c specification%s).', 'js_composer'), '<a href="https://www.w3schools.com/tags/att_global_id.asp" target="_blank">', '</a>'),
+      'description' => esc_html__('Enter unique element ID.', 'blankcanvas'),
     ],
     [
       'type' => 'checkbox',
@@ -139,6 +146,5 @@ return [
         esc_html__('Yes', 'js_composer') => 'yes'
       ],
     ],
-    // ...require THEME_DIR . '/inc/vc/params/rowResponsive.php'
   ],
 ];

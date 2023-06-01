@@ -67,8 +67,6 @@ $updatedShortcodes = [];
 foreach ($items as $key => $panel) {
   $shortcode = $panel[0];
 
-  // $panelAtts = $panel[1];
-
   // Add extra atts to panel shortcode
   $shortcode = str_replace('[accordion_item', sprintf('[accordion_item %s item_class="%s" header_class="%s" body_class="%s"', $always_close ? "parent_id='$el_id'" : '', $item_class, $header_class, $body_class), $shortcode);
 

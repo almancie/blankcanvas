@@ -39,7 +39,9 @@ $classes = apply_filters(
   $atts
 );
 
-$attributes[] = sprintf('class="%s"', esc_attr(trim($classes)));
+if (! empty($classes)) {
+  $attributes[] = sprintf('class="%s"', trim($classes));
+}
 
 // Output
 return sprintf(

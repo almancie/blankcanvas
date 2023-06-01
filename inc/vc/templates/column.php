@@ -9,6 +9,9 @@ extract(
 
 wp_enqueue_script('wpb_composer_front_js');
 
+// Col class (passed from the parent)
+$col_class = $atts['col_class'] ?? '';
+
 // Width responsive CSS classes
 $widths = [
   ''    => $width_default, 
@@ -62,7 +65,7 @@ $attributes = [];
 
 // Id
 if ($el_id) {
-  $attributes[] = sprintf('id="%s"', $id);
+  $attributes[] = sprintf('id="%s"', $el_id);
 }
 
 // Has background video
@@ -113,6 +116,11 @@ if ($el_class) {
   $classes[] = $el_class;
 }
 
+// Col class
+if ($col_class) {
+  $classes[] = $col_class;
+}
+
 // Filter: VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG
 $classes = apply_filters(
   VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 
@@ -121,7 +129,9 @@ $classes = apply_filters(
   $atts
 );
 
-$attributes[] = sprintf('class="%s"', esc_attr(trim($classes)));
+if (! empty($classes)) {
+  $attributes[] = sprintf('class="%s"', trim($classes));
+}
 
 // Output
 return sprintf(

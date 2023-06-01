@@ -9,8 +9,7 @@ extract(
 
 // CSS classes
 $classes = [
-  'element',
-  'bi',
+  'element-group',
 ];
 
 // Hide
@@ -26,21 +25,12 @@ if ($el_id) {
   $attributes[] = sprintf('id="%s"', $el_id);
 }
 
-// Icon size
-if ($icon_size) {
-  $classes[] = sprintf('bi-%s', $icon_size);
-}
-
-// Icon name
-if ($icon_name) {
-  $classes[] = sprintf('bi-%s', $icon_name);
-}
-
 // Class
 if ($el_class) {
   $classes[] = $el_class;
 }
 
+// Filter: VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG
 $classes = apply_filters(
   VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 
   implode(' ', array_filter(array_unique($classes))), 
@@ -48,9 +38,13 @@ $classes = apply_filters(
   $atts
 );
 
-// Add classes to the list of attributes
 if (! empty($classes)) {
   $attributes[] = sprintf('class="%s"', trim($classes));
 }
 
-return sprintf('<i %s></i>', implode(' ', $attributes));
+// Output
+return sprintf(
+  '<div %s>%s</div>', 
+  implode(' ', $attributes), 
+  wpb_js_remove_wpautop($content)
+);

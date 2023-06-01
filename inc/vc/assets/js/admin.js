@@ -1,11 +1,137 @@
-import cmEditor from './modules/codeMirrorEditor.js';
+import codeMirrorEditor from './modules/codeMirrorEditor.js';
 import grapick from './modules/grapick.js';
 
 window.addEventListener('load', () => {
   if (! window.vc) return;
 
-  // Switch to WPBakery backend editor automatically.
-  vc.events.trigger("vc:backend_editor:show");
+  // document.querySelector('#vc_logo').style.background = bc.theme + '/asssets/imgs/BCLogo.svg';
+
+  const vcRows = {
+    'vc_row': 'vc_column',
+    'vc_row_inner': 'vc_column_inner',
+  };
+
+  const rows = {
+    'row': 'column',
+    'row_inner': 'column_inner',
+    'row_inner_inner': 'column_inner_inner',
+    'advanced_list': 'advanced_list_item',
+    'glide': 'glide_slide',
+    'group': 'group_column'
+  };
+
+  const containers = {
+    ...rows,
+    'tabs': 'panel',
+    'accordion': 'accordion_item'
+  };
+
+  // Enable column sorting for our container elements
+  // const sortingSelector = [
+  //   ...Object.values(vcRows),
+  //   ...Object.values(rows), 
+  // ].map(
+  //   column => `> [data-element-type=${column}]`
+  // ).toString();
+
+  // VcRowView.prototype.sortingSelector = sortingSelector;
+
+  VcRowView.prototype.sortingSelector = `
+    > [data-element_type=vc_column], 
+    > [data-element_type=vc_column_inner], 
+    > [data-element_type=column], 
+    > [data-element_type=column_inner], 
+    > [data-element_type=column_inner_inner], 
+    > [data-element_type=group_column], 
+    > [data-element_type=glide_slide], 
+    > [data-element_type=advanced_list_item]`;
+
+  /**
+   * Elements title
+   */
+  vc.events.on('shortcodeView:ready', function(view) {
+    const element = view.$el;
+
+    const shortcode = view.model.attributes.shortcode;
+
+    const name = vc.getMapped(shortcode).name;
+
+    // Add title
+    if (containers[shortcode] || shortcode === 'section') {
+      const control = element.find('> .vc_controls-row .column_add, > .vc_controls .column_move').last();
+
+      control?.after(`<i class="element-title">${name}</i>`)
+    }
+  });
+
+  vc.events.on('sync', model => {
+    // const models = collection.models ?? [collection];
+
+    // models.forEach(model => {
+      // console.log(model.attributes.shortcode);
+      const element = model.view.$el;
+
+      const attributes = model.view.model.attributes;
+
+      const excluded = ['vc_section', 'vc_row', 'section'];
+
+      if (excluded.includes(attributes.shortcode)) return;
+
+      const parent = vc.app.views[attributes.parent_id];
+
+      // If column, match it with parent.
+      if (containers[parent.model.attributes.shortcode]) {
+        element.attr('data-alternate', parent.$el.data('alternate'));
+
+        return;
+      }
+
+      element.attr('data-alternate', ! parent.$el.data('alternate'));
+    // });
+  });
+
+  /**
+   * Alternate elements colors (white/silver)
+   */
+  // vc.events.on('shortcodeView:ready', function(view) {
+  //   const element = view.$el;
+
+  //   const attributes = view.model.attributes;
+
+  //   const excluded = ['vc_section', 'vc_row', 'section'];
+
+  //   if (excluded.includes(attributes.shortcode)) return;
+
+  //   const parent = vc.app.views[attributes.parent_id];
+
+  //   // If column, match it with parent.
+  //   if (containers[parent.model.attributes.shortcode]) {
+  //     element.attr('data-alternate', parent.$el.data('alternate'));
+
+  //     return;
+  //   }
+
+  //   element.attr('data-alternate', ! parent.$el.data('alternate'));
+  // });
+
+  /**
+   * Hide / Show Element
+   */
+  vc.events.on('shortcodes:update shortcodes:sync', function(model) {
+    let el = model.view.el;
+
+    let disableElement = model.attributes.params.disable_element;
+
+    if (disableElement === 'yes') {
+      el.classList.add('element-disabled');
+
+      return;
+    }
+
+    if (el.classList.contains('element-disabled')) {
+      el.classList.remove('element-disabled');
+    }
+  });
 
   /**
    * Section Element
@@ -41,26 +167,48 @@ window.addEventListener('load', () => {
   vc.events.on('shortcodes:vc_column:add', function(model) {
     let parent = vc.shortcodes.get(model.attributes.parent_id).attributes.shortcode;
 
-    let containers = {
-      'advanced_list': 'advanced_list_item',
-      'row': 'column',
-      'row_inner': 'column_inner',
-      'row_inner_inner': 'column_inner_inner',
+    if (! rows[parent]) return;
+
+    // Update shortcode
+    model.attributes.shortcode = rows[parent];
+
+    let widths = ['xxl', 'xl', 'lg', 'md', 'sm', 'default'];
+
+    widths.forEach(name => {
+      delete model.attributes.params[`width_${name}`];
+    });
+
+    // A bug :/
+    const buggyAttributes = [
+      'video_bg_url',
+      'parallax_speed_video', 
+      'parallax_speed_bg'
+    ];
+
+    // Remove extra params
+    for (let param in model.attributes.params) {
+
+      // Empty
+      if (! model.attributes.params[param]) {
+        delete model.attributes.params[param];
+      }
+
+      // Non existing
+      if (model.attributes.shortcode !== 'row' && buggyAttributes.includes(param)) {
+        delete model.attributes.params[param];
+      }
     }
 
-    if (containers[parent]) {
-      model.attributes.shortcode = containers[parent];
+    if (model.attributes.shortcode === 'glide_slide') {
+      model.attributes.params.width = '1/3';
+
+      return;
     }
 
-    let params = model.attributes.params;
+    // Set width_default param
+    model.attributes.params.width_default = model.attributes.params.width;
 
-    let widthParams = ['xxl', 'xl', 'lg', 'md', 'sm', 'default'];
-
-    widthParams.forEach(name => {
-      delete model.attributes.params['width_'+name];
-    })
-
-    params.width_default = params.width;
+    model.view.render();
   });
 
   /**
@@ -145,8 +293,6 @@ window.addEventListener('load', () => {
    * Panel item / Accordion item
    */
   vc.events.on('shortcodes:vc_tta_section:add', function(model) {
-    let parentId = model.attributes.parent_id;
-
     let parent = vc.shortcodes.get(model.attributes.parent_id).attributes.shortcode;
 
     if (parent === 'tabs') {
@@ -167,8 +313,19 @@ window.addEventListener('load', () => {
   vc.edit_element_block_view.on('afterRender', function () {
     if (this.model.attributes.shortcode !== 'html') return;
 
-    cmEditor(this.el.querySelector('[name="content"]'), {
+    codeMirrorEditor(this.el.querySelector('[name="content"]'), {
       mode: 'htmlmixed'
+    });
+  });
+
+  /**
+   * Glide
+   */
+  vc.edit_element_block_view.on('afterRender', function () {
+    if (this.model.attributes.shortcode !== 'glide') return;
+
+    codeMirrorEditor(this.el.querySelector('[name="configuration"]'), {
+      mode: 'javascript'
     });
   });
 
@@ -191,57 +348,56 @@ window.addEventListener('load', () => {
 
     // CSS
     if (tab === 'style') {
-      this.cssEditor = cmEditor(this.el.querySelector('[name="custom_css"]'));
+      this.cssEditor = codeMirrorEditor(this.el.querySelector('[name="custom_css"]'));
     }
 
     // JS
     if (tab === 'script') {
-      this.jsEditor = cmEditor(this.el.querySelector('[name="custom_js"]'), {
+      this.jsEditor = codeMirrorEditor(this.el.querySelector('[name="custom_js"]'), {
         mode: 'javascript'
       });
     }
   });
 
   /**
-   * Elements colors (white/silver)
+   * Elements highlighter
    */
-  vc.events.on('shortcodes:add shortcodes:sync', function(model) {
-    let element = model.view.$el;
-    let parent = vc.app.views[model.attributes.parent_id];
+  
+  // Add checkbox
+  document.querySelector('.vc_ui-panel-header-actions').innerHTML +=
+    `<div class="elements-highlighter" style="margin-top: 1rem">
+      <input type="checkbox" id="bc-elements-highlighter">
+      <label for="bc-elements-highlighter">Show Blank Canvas Elements Only</label>
+    </div>`;
 
-    if (! parent) {
-      element.attr('data-alternate', false);
+  const bcElementsOnly = localStorage.getItem('bcElementsOnly');
 
-      return;
-    }
+  // VC elements
+  const vcElements = Array.prototype.filter.call(
+    document.querySelectorAll('.wpb-elements-list [data-element]'), 
+    element => element.dataset.element.slice(0, 3) === 'vc_'
+  );
 
-    let containers = ['row', 'row_inner', 'row_inner_inner', 'advanced_list','tabs', 'accordion'];
+  // Hide VC elements on load
+  if (bcElementsOnly == 'true') {
+    document.querySelector('.elements-highlighter input').checked = true;
 
-    if (containers.includes(parent.model.attributes.shortcode)) {
-      element.attr('data-alternate', parent.$el.data('alternate'));
+    vcElements.forEach(element => {
+      element.classList.toggle('element-hidden', bcElementsOnly);
+    });
+  }
 
-      return;
-    }
+  // Add onchange listener
+  document.querySelector('.elements-highlighter').onchange = (e) => {
+    const active = e.target.checked;
 
-    element.attr('data-alternate', ! parent.$el.data('alternate'));
-  })
+    localStorage.setItem('bcElementsOnly', active);
 
-  /**
-   * Hide / Show Element
-   */
-  vc.events.on('shortcodes:update shortcodes:sync', function(model) {
-    let el = model.view.el;
+    vcElements.forEach(element => {
+      element.classList.toggle('element-hidden', active);
+    });
+  }
 
-    let disableElement = model.attributes.params.disable_element;
-
-    if (disableElement === 'yes') {
-      el.classList.add('element-disabled');
-
-      return;
-    }
-
-    if (el.classList.contains('element-disabled')) {
-      el.classList.remove('element-disabled');
-    }
-  });
+  // Switch to WPBakery backend editor automatically.
+  vc.events.trigger("vc:backend_editor:show");
 });

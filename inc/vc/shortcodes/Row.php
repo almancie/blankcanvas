@@ -119,7 +119,7 @@ class Row extends \WPBakeryShortCode_Vc_Row {
     $customLayout = sprintf(
       '<a class="vc_control-set-column set_columns custom_columns" data-cells="custom" data-cells-mask="custom" title="%s">%s</a>', 
       esc_attr__('Custom layout', 'js_composer'), 
-      esc_html__('More', 'blankcanvas')
+      esc_html__('Custom', 'blankcanvas')
     );
 
     return sprintf(

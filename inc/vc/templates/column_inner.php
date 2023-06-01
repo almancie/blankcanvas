@@ -41,6 +41,9 @@ foreach ($widths as $size => $value) {
   );
 }
 
+// Col class (passed from the parent)
+$col_class = $atts['col_class'] ?? '';
+
 // CSS classes
 $classes = $widthClasses;
 
@@ -54,12 +57,16 @@ $attributes = [];
 
 // Id
 if ($el_id) {
-  $attributes[] = sprintf('id="%s"', $id);
+  $attributes[] = sprintf('id="%s"', $el_id);
 }
 
 // Class
 if ($el_class) {
   $classes[] = $el_class;
+}
+
+if ($col_class) {
+  $classes[] = $col_class;
 }
 
 // Filter: VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG
@@ -70,7 +77,9 @@ $classes = apply_filters(
   $atts
 );
 
-$attributes[] = sprintf('class="%s"', esc_attr(trim($classes)));
+if (! empty($classes)) {
+  $attributes[] = sprintf('class="%s"', trim($classes));
+}
 
 // Output
 return sprintf(

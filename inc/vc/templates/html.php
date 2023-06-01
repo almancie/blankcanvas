@@ -23,7 +23,7 @@ $attributes = [];
 
 // Id
 if ($el_id) {
-  $attributes[] = sprintf('id="%s"', $id);
+  $attributes[] = sprintf('id="%s"', $el_id);
 }
 
 // Class
@@ -39,7 +39,9 @@ $classes = apply_filters(
   $atts
 );
 
-$attributes[] = sprintf('class="%s"', $classes);
+if (! empty($classes)) {
+  $attributes[] = sprintf('class="%s"', trim($classes));
+}
 
 $content = urldecode(base64_decode($content));
 

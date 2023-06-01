@@ -19,9 +19,9 @@ return [
       'heading' => esc_html__('Use video background?', 'js_composer'),
       'param_name' => 'video_bg',
       'description' => esc_html__('If checked, video will be used as row background.', 'js_composer'),
-      'value' => [ 
-        esc_html__('Yes', 'js_composer') => 'yes' 
-      ],
+      // 'value' => [ 
+      //   esc_html__('Yes', 'js_composer') => 'yes' 
+      // ],
       'weight' => 100,
     ],
     [
@@ -53,17 +53,17 @@ return [
     ],
     [
       'type' => 'dropdown',
-      'heading' => esc_html__('Parallax', 'js_composer'),
-      'param_name' => 'parallax',
-      'value' => [
-        esc_html__('None', 'js_composer') => '',
-        esc_html__('Simple', 'js_composer') => 'content-moving',
-        esc_html__('With fade', 'js_composer') => 'content-moving-fade',
+			'heading' => esc_html__('Parallax', 'js_composer'),
+			'param_name' => 'parallax',
+			'value' => [
+				esc_html__('None', 'js_composer') => '',
+				esc_html__('Simple', 'js_composer') => 'content-moving',
+				esc_html__('With fade', 'js_composer') => 'content-moving-fade',
       ],
-      'description' => esc_html__('Add parallax type background for row (Note: If no image is specified, parallax will use background image from Design Options).', 'js_composer'),
-      'dependency' => [
-        'element' => 'video_bg',
-        'is_empty' => true,
+			'description' => esc_html__('Add parallax type background for row (Note: If no image is specified, parallax will use background image from Design Options).', 'js_composer'),
+			'dependency' => [
+				'element' => 'video_bg',
+				'is_empty' => true,
       ],
     ],
     [
@@ -101,9 +101,9 @@ return [
     ],
     [
       'type' => 'el_id',
-      'heading' => esc_html__('Column ID', 'blankcanvas'),
+      'heading' => esc_html__('Element ID', 'js_composer'),
       'param_name' => 'el_id',
-      'description' => sprintf(esc_html__('Enter element ID (Note: make sure it is unique and valid according to %sw3c specification%s).', 'js_composer'), '<a href="https://www.w3schools.com/tags/att_global_id.asp" target="_blank">', '</a>'),
+      'description' => esc_html__('Enter unique element ID.', 'blankcanvas'),
     ],
     [
       'type' => 'checkbox',

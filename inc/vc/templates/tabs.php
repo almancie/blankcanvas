@@ -7,13 +7,6 @@ extract(
   )
 );
 
-// ob_start();
-// var_dump(vc_map_get_attributes(
-//     $this->getShortcode(), 
-//     $atts
-//   ));
-// return ob_get_clean();
-
 // CSS classes
 $classes = [
   'element',
@@ -36,11 +29,11 @@ if ($disable_element) {
 }
 
 // Attributes
-$attributes = [];
+$elAttributes = [];
 
 // Id
 if ($el_id) {
-  $attributes[] = sprintf('id="%s"', $id);
+  $elAttributes[] = sprintf('id="%s"', $el_id);
 }
 
 // Nav style
@@ -49,33 +42,33 @@ if ($style) {
 }
 
 // Navbar position
-if ($navbar_position) {
-  $classes[] = 'd-flex';
+// if ($navbar_position) {
+//   $classes[] = 'd-flex';
 
-  switch ($navbar_position) {
-    case 'bottom':
-      $classes[] = 'flex-column-reverse';
+//   switch ($navbar_position) {
+//     case 'bottom':
+//       $classes[] = 'flex-column-reverse';
 
-      break;
+//       break;
 
-    case 'start':
-      $classes[] = 'flex-row';
+//     case 'start':
+//       $classes[] = 'flex-row';
  
-      $navbarClasses[] = 'flex-column';
+//       $navbarClasses[] = 'flex-column';
 
-      break;
-    case 'end':
-      $classes[] = 'flex-row-reverse';
+//       break;
+//     case 'end':
+//       $classes[] = 'flex-row-reverse';
 
-      $navbarClasses[] = 'flex-column';
+//       $navbarClasses[] = 'flex-column';
 
-      break;
-  }
-}
+//       break;
+//   }
+// }
 
-if ($nav_items_position) {
-  $navbarClasses[] = sprintf('justify-content-%s', $nav_items_position);
-}
+// if ($nav_items_position) {
+//   $navbarClasses[] = sprintf('justify-content-%s', $nav_items_position);
+// }
 
 if ($navbar_class) {
   $navbarClasses[] = $navbar_class;
@@ -98,7 +91,9 @@ $classes = apply_filters(
   $atts
 );
 
-$attributes[] = sprintf('class="%s"', esc_attr(trim($classes)));
+if ($classes) {
+  $elAttributes[] = sprintf('class="%s"', trim($classes));
+}
 
 // Nav Items
 $navItems = [];
@@ -113,33 +108,34 @@ if (is_int((int) $active_section)) {
 // Panels (initial)
 preg_match_all('/\[panel(?:\s*)(.*?)\](?:.|\n)*?\[\/panel\]/', $content, $panels, PREG_SET_ORDER);
 
+
 foreach ($panels as $key => $panel) {
   $panelShortcode = $panel[0];
-
+  
   $panelAtts = $panel[1];
-
+  
   // Is active
   $active = ($key === $active_section);
-
+  
   extract(vc_map_get_attributes('panel', shortcode_parse_atts($panelAtts)));
 
   $navItems[] = sprintf(
     '<li class="nav-item">
-      <a 
-        class="nav-link%s%s" id="tab-%s" 
-        type="button" role="tab"
-        data-bs-toggle="tab" data-bs-target="#tab-%s-pane" 
-        aria-controls="#tab-%s" aria-selected="%s"
-      >
-        %s
-        </a>
+    <a 
+    class="nav-link%s%s" id="tab-%s" 
+    type="button" role="tab"
+    data-bs-toggle="tab" data-bs-target="#tab-%s-pane" 
+    aria-controls="#tab-%s" aria-selected="%s"
+    >
+    %s
+    </a>
     </li>', 
     $active ? ' active' : '', $nav_btn_class ? ' ' . $nav_btn_class : '', $tab_id,  $tab_id,  $tab_id, json_encode($active), $title ?: esc_html__('No Title', 'blankcanvas')
   );
-
+  
   // Add extra atts to panel shortcode
   $panelShortcode = str_replace('[panel', sprintf('[panel active="%s" panel_class="%s"', $active, $panel_class), $panelShortcode);
-
+  
   // Add updated panel shortcode
   $navPanels[] = $panelShortcode;
 }
@@ -151,9 +147,9 @@ return sprintf(
     <ul class="%s">%s</ul>
     <div class="%s">%s</div>
   </div>',
-  implode(' ', $attributes), 
+  implode(' ', $elAttributes), 
   implode(' ', $navbarClasses),
-  implode('', $navItems),
+  implode(' ', $navItems),
   implode(' ', $contentClasses),
   wpb_js_remove_wpautop($content)
 );

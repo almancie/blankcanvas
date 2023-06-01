@@ -13,30 +13,6 @@ return [
   'as_child' => [
     'only' => 'tabs'
   ],
-  'params' => [
-    [
-      'type' => 'textfield',
-      'param_name' => 'title',
-      'heading' => esc_html__( 'Title', 'js_composer' ),
-      'description' => esc_html__( 'Enter section title (Note: you can leave it empty).', 'js_composer' ),
-      'weight' => 100
-    ],
-    [
-      'type' => 'el_id',
-      'param_name' => 'tab_id',
-      'settings' => [
-        'auto_generate' => true,
-      ],
-      'heading' => esc_html__( 'Section ID', 'js_composer' ),
-      'description' => sprintf( esc_html__( 'Enter section ID (Note: make sure it is unique and valid according to %sw3c specification%s).', 'js_composer' ), '<a href="https://www.w3schools.com/tags/att_global_id.asp" target="_blank">', '</a>' ),
-    ],
-    [
-      'type' => 'textfield',
-      'heading' => esc_html__( 'Extra class name', 'js_composer' ),
-      'param_name' => 'el_class',
-      'description' => esc_html__( 'If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file.', 'js_composer' ),
-    ],
-  ],
   'js_view' => 'VcBackendTtaSectionView',
   'custom_markup' => 
     '<div class="vc_tta-panel-heading">
@@ -54,4 +30,28 @@ return [
       </div>
     </div>',
   'default_content' => '',
+  'params' => [
+    [
+      'type' => 'textfield',
+      'param_name' => 'title',
+      'heading' => esc_html__( 'Title', 'js_composer' ),
+      'description' => esc_html__( 'Enter section title (Note: you can leave it empty).', 'js_composer' ),
+      'weight' => 100
+    ],
+    [
+      'type' => 'el_id',
+      'param_name' => 'tab_id',
+      'settings' => [
+        'auto_generate' => true,
+      ],
+      'heading' => esc_html__( 'Section ID', 'js_composer' ),
+      'description' => esc_html__('Enter unique element ID.', 'blankcanvas'),
+    ],
+    [
+      'type' => 'textfield',
+      'heading' => esc_html__( 'Extra class name', 'js_composer' ),
+      'param_name' => 'el_class',
+      'description' => esc_html__( 'If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file.', 'js_composer' ),
+    ],
+  ],
 ];

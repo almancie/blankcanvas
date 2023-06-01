@@ -2,6 +2,23 @@
 
 /*
 |--------------------------------------------------------------------------
+| JS Data 
+|--------------------------------------------------------------------------
+|
+| Exposes certain PHP data to JS.
+|
+*/
+
+$jsData = [
+  'home' => home_url(),
+  'theme' => get_template_directory_uri(),
+  'l10n' => [
+    'search' => __('Search', 'blankcanvas')
+  ]
+];
+
+/*
+|--------------------------------------------------------------------------
 | Script Filter
 |--------------------------------------------------------------------------
 |
@@ -28,7 +45,14 @@ add_filter('script_loader_tag', function($tag, $handle) {
 |
 */
 
-add_action('wp_enqueue_scripts', function () {
+add_action('wp_enqueue_scripts', function () use ($jsData) {
+
+  /**
+   * Glide Slider
+   */
+  wp_register_style('glide', 'https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.6.0/css/glide.core.min.css', [], '3.6.0');
+  wp_register_style('glide-theme', 'https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.6.0/css/glide.theme.min.css', [], '3.6.0');
+  wp_register_script('glide', 'https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.6.0/glide.min.js', [], '3.6.0');
 
   /**
    * Theme bundle 
@@ -117,14 +141,7 @@ add_action('wp_enqueue_scripts', function () {
   /**
    * Localize data
    */
-  wp_localize_script('blankcanvas-bundle', 'bc',
-    [
-      'home' => home_url(),
-      'l10n' => [
-        'search' => __('Search', 'blankcanvas')
-      ]
-    ]
-  );
+  wp_localize_script('blankcanvas-bundle', 'bc', $jsData);
 });
 
 /*
@@ -136,7 +153,7 @@ add_action('wp_enqueue_scripts', function () {
 |
 */
 
-add_action('admin_enqueue_scripts', function () {
+add_action('admin_enqueue_scripts', function () use ($jsData) {
 
   /**
    * Admin Main JS & CSS
@@ -163,4 +180,28 @@ add_action('admin_enqueue_scripts', function () {
 
   // WP code editor
   // wp_enqueue_script('code-editor');
+
+  /**
+   * Localize data
+   */
+  wp_localize_script('blankcanvas-admin', 'bc', $jsData);
 }, 99);
+
+/*
+|--------------------------------------------------------------------------
+| Script Filter
+|--------------------------------------------------------------------------
+|
+| Filters scripts and styles to add extra attributes.
+|
+*/
+
+add_filter('script_loader_tag', function($tag, $handle) {
+
+  // Load scripts as modules
+  if (substr($handle, 0, 7) === 'module-') {
+    $tag = str_replace('<script', '<script type="module"', $tag);
+  }
+
+  return $tag;
+}, 20, 2);

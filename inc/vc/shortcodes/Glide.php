@@ -2,7 +2,7 @@
 
 namespace Blankcanvas\Vc\Shortcodes;
 
-class AdvancedList extends \WPBakeryShortCode_Vc_Row {
+class Glide extends \WPBakeryShortCode_Vc_Row {
 
   /**
    * Create instance
@@ -15,7 +15,7 @@ class AdvancedList extends \WPBakeryShortCode_Vc_Row {
   /**
    * 
    */
-  // public function getLayoutsControl() {
-  //   return '';
-  // }
+  public function getLayoutsControl() {
+    return '';
+  }
 }

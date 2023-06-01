@@ -39,7 +39,9 @@ if ($el_id) {
   $attributes[] = sprintf('id="%s"', $el_id);
 }
 
-$attributes[] = sprintf('class="%s"', $classes);
+if (! empty($classes)) {
+  $attributes[] = sprintf('class="%s"', trim($classes));
+}
 
 // Wrap content with P tag
 $content = sprintf('<p>%s</p>', $content);

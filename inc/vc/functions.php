@@ -76,10 +76,10 @@ vc_set_shortcodes_templates_dir(THEME_DIR . '/inc/vc/templates');
 $elements = [
   'section', 
   'row', 
-  'row_inner', 
-  'row_inner_inner', 
   'column', 
-  'column_inner', 
+  'row_inner', 
+  'column_inner',
+  'row_inner_inner', 
   'column_inner_inner', 
   'tabs', 
   'panel', 
@@ -92,6 +92,10 @@ $elements = [
   'advanced_list',
   'advanced_list_item',
   'html',
+  'glide',
+  'glide_slide',
+  'group',
+  'group_column'
 ];
 
 add_action('vc_before_init', function() use ($elements) {
@@ -178,6 +182,7 @@ add_filter('vc_shortcode_content_filter_after', function ($output, $shortcode, $
     'overlay_color'             => '--overlay-color: %s',
     'overlay_opacity'           => '--overlay-opacity: %s',
     'text_color'                => 'color: %s',
+    'custom_css'                => ''
   ];
 
   $style = [];
@@ -189,27 +194,17 @@ add_filter('vc_shortcode_content_filter_after', function ($output, $shortcode, $
     ! is_array($img) ?: $style[] = sprintf('background-image: url(%s); background-size: cover', $img[0]);
   }
 
-  // Rest
-  foreach ($css as $key => $cssProperty) {
-    if (empty($atts[$key])) continue;
+  foreach ($atts as $key => $value) {
+    if (! isset($css[$key]) || empty($value)) continue;
 
-    $style[] = sprintf($cssProperty, $atts[$key]);
-  }
-
-  // Custom CSS
-  if (! empty($atts['custom_css'])) {
-    $style[] = preg_replace( '/[\n\r]/', ' ', sanitize_textarea_field($atts['custom_css']));
-  }
-
-  if (empty($style)) {
-    return $output;
+    $style[] = sprintf($css[$key], $value);
   }
 
   // Get the tags
   preg_match('/<.*?>/', $output, $tags);
 
   // Extract style from the parent tag only
-  preg_match('/style="(.*?)"/', $tags[0], $tagStyle);
+  preg_match('/style="(.*?)"/', empty($tags) ? '' : $tags[0], $tagStyle);
 
   // Prepend it to our style
   if (! empty($tagStyle[1])) {

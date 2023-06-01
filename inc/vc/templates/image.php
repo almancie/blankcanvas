@@ -63,8 +63,8 @@ $classes = apply_filters(
   $atts
 );
 
-if ($classes) {
-  $attributes[] = sprintf('class="%s"', $classes);
+if (! empty($classes)) {
+  $attributes[] = sprintf('class="%s"', trim($classes));
 }
 
 array_push($attributes,

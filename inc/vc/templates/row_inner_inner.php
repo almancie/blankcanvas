@@ -24,7 +24,7 @@ $attributes = [];
 
 // Id
 if ($el_id) {
-  $attributes[] = sprintf('id="%s"', $id);
+  $attributes[] = sprintf('id="%s"', $el_id);
 }
 
 // Columns X position
@@ -42,6 +42,11 @@ if ($el_class) {
   $classes[] = $el_class;
 }
 
+// Columns classes
+if ($col_class) {
+  $content = preg_replace('/\[column_inner_inner/', sprintf('[column_inner_inner col_class="%s" ', $col_class), $content);
+}
+
 // Filter: VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG
 $classes = apply_filters(
   VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 
@@ -50,7 +55,9 @@ $classes = apply_filters(
   $atts
 );
 
-$attributes[] = sprintf('class="%s"', esc_attr(trim($classes)));
+if (! empty($classes)) {
+  $attributes[] = sprintf('class="%s"', trim($classes));
+}
 
 // Output
 return sprintf(

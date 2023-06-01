@@ -15,10 +15,10 @@ return [
   'params' => [
     [
       'type' => 'el_id',
-      'heading' => esc_html__('Column ID', 'blankcanvas'),
+      'heading' => esc_html__('Element ID', 'js_composer'),
       'param_name' => 'el_id',
-      'description' => sprintf(esc_html__('Enter element ID (Note: make sure it is unique and valid according to %sw3c specification%s).', 'js_composer'), '<a href="https://www.w3schools.com/tags/att_global_id.asp" target="_blank">', '</a>'),
-      'weight' => 100,
+      'description' => esc_html__('Enter unique element ID.', 'blankcanvas'),
+      'weight' => 100
     ],
     [
       'type' => 'checkbox',

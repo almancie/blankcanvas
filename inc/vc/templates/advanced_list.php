@@ -9,7 +9,8 @@ extract(
 
 // CSS classes
 $classes = [
-  'element'
+  'row',
+  'list-unstyled'
 ];
 
 // Hide
@@ -20,31 +21,19 @@ if ($disable_element) {
 // Attributes
 $attributes = [];
 
-// Layout (can be moved to JS)
-switch ($layout) {
-  case 'auto':
-    $classes[] = 'list-inline';
-
-    $content = preg_replace('/(\[advanced_list_item)/', '\1 layout_class="list-inline-item"', $content);
-
-    break;
-
-  case 'max':
-    array_push($classes, 'list-inline', 'd-flex');
-
-    $content = preg_replace('/(\[advanced_list_item)/', '\1 layout_class="col"', $content);
-
-    break;
-
-  default:
-    $classes[] = 'list-unstyled';
-
-    break;
+// Id
+if ($el_id) {
+  $attributes[] = sprintf('id="%s"', $el_id);
 }
 
 // Class
 if ($el_class) {
   $classes[] = $el_class;
+}
+
+// Item class
+if ($item_class) {
+  $content = preg_replace('/\[advanced_list_item[^_]/', sprintf('[advanced_list_item item_class="%s" ', $item_class), $content);
 }
 
 // Filter: VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG
@@ -55,12 +44,9 @@ $classes = apply_filters(
   $atts
 );
 
-// Id
-if ($el_id) {
-  $attributes[] = sprintf('id="%s"', $id);
+if (! empty($classes)) {
+  $attributes[] = sprintf('class="%s"', trim($classes));
 }
-
-$attributes[] = sprintf('class="%s"', $classes);
 
 // Output
 return sprintf(
