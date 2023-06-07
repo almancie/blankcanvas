@@ -1,7 +1,7 @@
 <?php
 
 return [
-  'name' => esc_html__('Tab Panel', 'js_composer' ),
+  'name' => esc_html__('Tab Panel', 'js_composer'),
   'base' => 'panel',
   'php_class_name' => 'Blankcanvas\Vc\Shortcodes\Panel',
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
@@ -34,8 +34,8 @@ return [
     [
       'type' => 'textfield',
       'param_name' => 'title',
-      'heading' => esc_html__( 'Title', 'js_composer' ),
-      'description' => esc_html__( 'Enter section title (Note: you can leave it empty).', 'js_composer' ),
+      'heading' => esc_html__('Title', 'js_composer'),
+      'description' => esc_html__('Enter section title (Note: you can leave it empty).', 'js_composer'),
       'weight' => 100
     ],
     [
@@ -44,14 +44,16 @@ return [
       'settings' => [
         'auto_generate' => true,
       ],
-      'heading' => esc_html__( 'Section ID', 'js_composer' ),
+      'heading' => esc_html__('Section ID', 'js_composer'),
       'description' => esc_html__('Enter unique element ID.', 'blankcanvas'),
+      'weight' => 100
     ],
     [
       'type' => 'textfield',
-      'heading' => esc_html__( 'Extra class name', 'js_composer' ),
+      'heading' => esc_html__('Extra class name', 'js_composer'),
       'param_name' => 'el_class',
-      'description' => esc_html__( 'If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file.', 'js_composer' ),
+      'description' => esc_html__('If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file.', 'js_composer'),
+      'weight' => 100
     ],
   ],
 ];

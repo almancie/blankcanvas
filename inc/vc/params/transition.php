@@ -19,6 +19,13 @@ return [
     'weight' => 0
   ],
   [
+    'type' => 'textfield',
+    'heading' => esc_html__('Anchor', 'blankcanvas'),
+    'param_name' => 'transition_anchor',
+    'group' => esc_html__('Transition', 'blankcanvas'),
+    'description' => esc_html__('Add a selector to a different element that will trigger the animation of this element.', 'blankcanvas'),
+  ],
+  [
     'type' => 'checkbox',
     'heading' => esc_html__('Custom timing?', 'blankcanvas'),
     'param_name' => 'transition_custom_timing',
@@ -45,5 +52,12 @@ return [
       'element' => 'transition_custom_timing',
       'not_empty' => true
     ],
+  ],
+  [
+    'type' => 'textarea_raw_html',
+    'heading' => esc_html__('Custom transition', 'blankcanvas'),
+    'param_name' => 'transition_extra',
+    'group' => esc_html__('Transition', 'blankcanvas'),
+    'description' => __('Add extra css properties to animate. Learn more by <a target="_blank" href="https://animejs.com/documentation/#cssProperties">clicking here</a>.', 'blankcanvas'),
   ],
 ];

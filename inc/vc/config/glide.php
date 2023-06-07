@@ -21,29 +21,39 @@ return [
   'params' => [
     [
       'type' => 'textarea_raw_html',
-      'heading' => esc_html__('Configuration', 'blankcanvas'),
-      'param_name' => 'configuration',
+      'heading' => esc_html__('Options', 'blankcanvas'),
+      'param_name' => 'config',
       'description' => __('For available options, <a target="_blank" href="https://glidejs.com/docs/options/">click here</a>.', 'blankcanvas'),
-      'value' => "type: 'slider', \nautoplay: true, \nhoverpause: true,\n",
+      'value' => urlencode(base64_encode("type: 'carousel',\nautoplay: 3000, \n")),
+      'weight' => 100
+    ],
+    [
+      'type' => 'textarea_raw_html',
+      'heading' => esc_html__('Events', 'blankcanvas'),
+      'param_name' => 'events',
+      'description' => __('For available events, <a target="_blank" href="https://glidejs.com/docs/events/">click here</a>.', 'blankcanvas'),
+      'value' => urlencode(base64_encode("// slider.on('mount.before', () => {});")),
       'weight' => 100
     ],
     [
       'type' => 'checkbox',
-      'heading' => esc_html__('Hide Arrows?', 'blankcanvas'),
+      // 'heading' => esc_html__('Hide Arrows?', 'blankcanvas'),
       'param_name' => 'hide_arrows',
       'description' => __('Hide control arrows.', 'blankcanvas'),
       'value' => [
-        esc_html__('Yes', 'js_composer') => 'yes'
+        esc_html__(' Hide arrows', 'blankcanvas') => 'yes'
       ],
+      'weight' => 99
     ],
     [
       'type' => 'checkbox',
-      'heading' => esc_html__('Hide Bullets?', 'blankcanvas'),
+      // 'heading' => esc_html__('Hide Bullets?', 'blankcanvas'),
       'param_name' => 'hide_bullets',
       'description' => __('Hide control bullets.', 'blankcanvas'),
       'value' => [
-        esc_html__('Yes', 'js_composer') => 'yes'
+        esc_html__(' Hide bullets', 'blankcanvas') => 'yes'
       ],
+      'weight' => 99
     ],
     [
       'type' => 'textfield',
@@ -70,23 +80,10 @@ return [
       'type' => 'textfield',
       'param_name' => 'slide_class',
       'heading' => esc_html__('Slides class name', 'blankcanvas'),
+      'description' => esc_html__('Add the same class names to every slide inside this slider.', 'blankcanvas'),
       'group' => esc_html__('Style', 'blankcanvas'),
       'weight' => 57
     ],
-    [
-      'type' => 'el_id',
-      'heading' => esc_html__('Element ID', 'js_composer'),
-      'param_name' => 'el_id',
-      'description' => esc_html__('Enter unique element ID.', 'blankcanvas'),
-    ],
-    [
-      'type' => 'checkbox',
-      'heading' => esc_html__('Hide?', 'blankcanvas'),
-      'param_name' => 'disable_element',
-      'description' => esc_html__('If checked the section won\'t be visible on the public side of your website. You can switch it back any time.', 'js_composer'),
-      'value' => [
-        esc_html__('Yes', 'js_composer') => 'yes'
-      ],
-    ],
+    ...require THEME_DIR . '/inc/vc/params/general.php'
   ],
 ];

@@ -32,13 +32,14 @@ return [
       'type' => 'dropdown',
       'heading' => esc_html__('Columns position (Y)', 'js_composer'),
       'param_name' => 'columns_position_y',
+      'description' => esc_html__('Select columns position within row.', 'js_composer'),
       'value' => [
         esc_html__('Equal height', 'blankcanvas') => '',
         esc_html__('Top', 'js_composer') => 'top',
         esc_html__('Middle', 'js_composer') => 'center',
         esc_html__('Bottom', 'js_composer') => 'bottom',
       ],
-      'description' => esc_html__('Select columns position within row.', 'js_composer'),
+      'weight' => 100
     ],
     [
       'type' => 'checkbox',
@@ -48,103 +49,96 @@ return [
       'value' => [
         esc_html__('Yes', 'js_composer') => 'yes'
       ],
+      'weight' => 100
     ],
     [
       'type' => 'textfield',
       'heading' => esc_html__('YouTube link', 'js_composer'),
       'param_name' => 'video_bg_url',
-      'value' => 'https://www.youtube.com/watch?v=lMJXxhRFO1k',
-      // default video url
+      'value' => 'https://www.youtube.com/watch?v=lMJXxhRFO1k', // default video url
       'description' => esc_html__('Add YouTube link.', 'js_composer'),
       'dependency' => [
         'element' => 'video_bg',
         'not_empty' => true,
       ],
+      'weight' => 100
     ],
     [
       'type' => 'dropdown',
       'heading' => esc_html__('Parallax', 'js_composer'),
       'param_name' => 'video_bg_parallax',
+      'description' => esc_html__('Add parallax type background for row.', 'js_composer'),
       'value' => [
         esc_html__('None', 'js_composer') => '',
         esc_html__('Simple', 'js_composer') => 'content-moving',
         esc_html__('With fade', 'js_composer') => 'content-moving-fade',
       ],
-      'description' => esc_html__('Add parallax type background for row.', 'js_composer'),
       'dependency' => [
         'element' => 'video_bg',
         'not_empty' => true,
       ],
+      'weight' => 100
     ],
     [
       'type' => 'dropdown',
       'heading' => esc_html__('Parallax', 'js_composer'),
       'param_name' => 'parallax',
+      'description' => esc_html__('Add parallax type background for row (Note: If no image is specified, parallax will use background image from Design Options).', 'js_composer'),
       'value' => [
         esc_html__('None', 'js_composer') => '',
         esc_html__('Simple', 'js_composer') => 'content-moving',
         esc_html__('With fade', 'js_composer') => 'content-moving-fade',
       ],
-      'description' => esc_html__('Add parallax type background for row (Note: If no image is specified, parallax will use background image from Design Options).', 'js_composer'),
       'dependency' => [
         'element' => 'video_bg',
         'is_empty' => true,
       ],
+      'weight' => 100
     ],
     [
       'type' => 'attach_image',
       'heading' => esc_html__('Image', 'js_composer'),
       'param_name' => 'parallax_image',
-      'value' => '',
       'description' => esc_html__('Select image from media library.', 'js_composer'),
+      'value' => '',
       'dependency' => [
         'element' => 'parallax',
         'not_empty' => true,
       ],
+      'weight' => 100
     ],
     [
       'type' => 'textfield',
       'heading' => esc_html__('Parallax speed', 'js_composer'),
       'param_name' => 'parallax_speed_video',
-      'value' => '1.5',
       'description' => esc_html__('Enter parallax speed ratio (Note: Default value is 1.5, min value is 1)', 'js_composer'),
+      'value' => '1.5',
       'dependency' => [
         'element' => 'video_bg_parallax',
         'not_empty' => true,
       ],
+      'weight' => 100
     ],
     [
       'type' => 'textfield',
       'heading' => esc_html__('Parallax speed', 'js_composer'),
       'param_name' => 'parallax_speed_bg',
-      'value' => '1.5',
       'description' => esc_html__('Enter parallax speed ratio (Note: Default value is 1.5, min value is 1)', 'js_composer'),
+      'value' => '1.5',
       'dependency' => [
         'element' => 'parallax',
         'not_empty' => true,
       ],
+      'weight' => 100
     ],
     [
       'type' => 'textfield',
       'param_name' => 'col_class',
       'heading' => esc_html__('Columns class name', 'blankcanvas'),
       'group' => esc_html__('Style', 'blankcanvas'),
+      'description' => esc_html__('Add the same class names to every column inside this row.', 'blankcanvas'),
       'weight' => 59
     ],
-    [
-      'type' => 'el_id',
-      'heading' => esc_html__('Element ID', 'js_composer'),
-      'param_name' => 'el_id',
-      'description' => esc_html__('Enter unique element ID.', 'blankcanvas'),
-    ],
-    [
-      'type' => 'checkbox',
-      'heading' => esc_html__('Hide?', 'blankcanvas'),
-      'param_name' => 'disable_element',
-      'description' => esc_html__('If checked the section won\'t be visible on the public side of your website. You can switch it back any time.', 'js_composer'),
-      'value' => [
-        esc_html__('Yes', 'js_composer') => 'yes'
-      ],
-    ],
+    ...require THEME_DIR . '/inc/vc/params/general.php'
   ],
 ];

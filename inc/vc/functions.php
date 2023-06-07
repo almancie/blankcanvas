@@ -15,9 +15,7 @@ if (! defined('WPB_VC_VERSION')) return;
  * Loads WPBakery built-in elements classes (e.g. vc-section).
  */
 spl_autoload_register(function ($class) {
-  if (! str_starts_with($class, 'WPBakeryShortCode_Vc_')) {
-    return;
-  }
+  if (! str_starts_with($class, 'WPBakeryShortCode_Vc_')) return;
 
   // Converts WPBakeryShortCode_Vc_Foo to vc-foo Because 
   // WPBakery names classes different than their files.
@@ -31,9 +29,7 @@ spl_autoload_register(function ($class) {
  * Loads WPBakery custom elements classes.
  */
 spl_autoload_register(function ($class) {
-  if (! str_starts_with($class, 'Blankcanvas\Vc\Shortcode')) {
-    return;
-  }
+  if (! str_starts_with($class, 'Blankcanvas\Vc\Shortcode')) return;
 
   require THEME_DIR . sprintf('/inc/vc/shortcodes/%s.php', substr($class, 26));
 });
@@ -115,7 +111,7 @@ add_action('vc_before_init', function() use ($elements) {
 
 $fields = [
   'design', 
-  'spacing', 
+  // 'spacing', 
   'style', 
   'script', 
   'attributes',
@@ -136,93 +132,153 @@ add_action('vc_after_init', function () use ($elements, $fields) {
 
 /*
 |--------------------------------------------------------------------------
-| Content Filters
+| CSS Classes
 |--------------------------------------------------------------------------
 |
-| Modifies shortcode's HTML output.
+| Modifies shortcode's HTML output to add Class
 |
 */
 
-/**
- * Data attributes
- */
-add_filter('vc_shortcode_content_filter_after', function ($output, $shortcode, $atts, $content) {
-  $dataAttributes = [];
-
-  if (! empty($atts['attributes'])) {
-    $dataAttributes[] = str_replace(',', ' ', $atts['attributes']);
-  }
-
-  $transitionAtts = shortcode_atts([
-    'transition' => '',
-    'transition_duration' => '',
-    'transition_delay' => '',
+add_filter(VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, function ($classes, $shortcode, $atts) {
+  $atts = shortcode_atts([
+    'overlay' => '',
   ], $atts, $shortcode);
 
-  foreach ($transitionAtts as $key => $value) {
-    if (! $value) continue;
+  $classes = [
+    $classes,
+    $atts['overlay'] ? 'has-overlay' : ''
+  ];
 
-    $dataAttributes[] = sprintf('data-%s="%s"', str_replace('_', '-', $key), $value);
-  }
+  return implode(' ', array_filter($classes));
+}, 99, 3);
 
-  if (! empty($dataAttributes)) {
-    $output = preg_replace('/>/', sprintf(' %s>', implode(' ', $dataAttributes)), $output, 1);
+/*
+|--------------------------------------------------------------------------
+| Style Attribute
+|--------------------------------------------------------------------------
+|
+| Modifies shortcode's HTML output to add style.
+|
+*/
+
+$style = [];
+
+/**
+ * Background image
+ */
+add_filter('vc_shortcode_content_filter_after', function ($output, $shortcode, $atts, $content) use (&$style) {
+  if (empty($atts['background_image'])) return $output;
+
+  $img = wp_get_attachment_image_src($atts['background_image'], 'full');
+
+  if (is_array($img)) {
+    $style[] = sprintf('background-image: url(%s); background-size: cover', $img[0]);
   }
 
   return $output;
 }, 99, 4);
 
 /**
- * CSS
+ * Design options
  */
-add_filter('vc_shortcode_content_filter_after', function ($output, $shortcode, $atts, $content) {
-  $css = [
+add_filter('vc_shortcode_content_filter_after', function ($output, $shortcode, $atts, $content) use (&$style) { 
+  $design = [
     'background_color'          => 'background-color: %s',
     'gradient_background_color' => 'background: %s',
     'overlay_color'             => '--overlay-color: %s',
     'overlay_opacity'           => '--overlay-opacity: %s',
     'text_color'                => 'color: %s',
-    'custom_css'                => ''
   ];
+ 
+  foreach ($design as $name => $value) {
+    if (empty($atts[$name])) continue;
 
-  $style = [];
-
-  // Background image
-  if (! empty($atts['background_image'])) {
-    $img = wp_get_attachment_image_src($atts['background_image'], 'full');
-
-    ! is_array($img) ?: $style[] = sprintf('background-image: url(%s); background-size: cover', $img[0]);
+    $style[] = sprintf($value, $atts[$name]);
   }
 
-  foreach ($atts as $key => $value) {
-    if (! isset($css[$key]) || empty($value)) continue;
+  return $output;
+}, 00, 4);
 
-    $style[] = sprintf($css[$key], $value);
+/**
+ * Custom CSS
+ */
+add_filter('vc_shortcode_content_filter_after', function ($output, $shortcode, $atts, $content) use (&$style) {  
+  if (! empty($atts['custom_css'])) {
+    $style[] = $atts['custom_css'];
   }
 
-  // Get the tags
-  preg_match('/<.*?>/', $output, $tags);
-
-  // Extract style from the parent tag only
-  preg_match('/style="(.*?)"/', empty($tags) ? '' : $tags[0], $tagStyle);
-
-  // Prepend it to our style
-  if (! empty($tagStyle[1])) {
-    array_unshift($style, substr($tagStyle[1], 0, -1));
-
-    return preg_replace('/style="(.*?)"/', sprintf('style="%s"', implode('; ', $style)), $output, 1);
-  }
-
-  return preg_replace('/>/', sprintf('style="%s">', implode('; ', $style)), $output, 1);
+  return $output;
 }, 99, 4);
 
 /**
- * Script
+ * Style
  */
+add_filter('vc_shortcode_content_filter_after', function ($output, $shortcode, $atts, $content) use (&$style) {  
+  if (empty($style)) return $output;
+
+  // Get the HTML tags from output
+  preg_match('/<.*?>/', $output, $tags);
+
+  // Extract style from the root tag only
+  preg_match('/style="(.*?)"/', empty($tags) ? '' : $tags[0], $tagStyle);
+
+  // Append our style to the element style if exists
+  $tagStyle = (empty($tagStyle[1]) ? '' : substr($tagStyle[1], 0, -1)) . implode('; ', $style);
+
+  // Reset style for next element
+  $style = [];
+
+  return preg_replace('/(style=".*")?>/', 
+    sprintf('style="%s">', wp_strip_all_tags($tagStyle, true)), 
+    $output, 
+    1
+  );
+}, 110, 4);
+
+/*
+|--------------------------------------------------------------------------
+| Data Attributes
+|--------------------------------------------------------------------------
+|
+| Modifies shortcode's HTML output to add data attbiutes.
+|
+*/
+
 add_filter('vc_shortcode_content_filter_after', function ($output, $shortcode, $atts, $content) {
-  if (empty($atts['custom_js'])) {
-    return $output;
+  $dataAtts = empty($atts['attributes']) 
+    ? [] 
+    : explode(',', $atts['attributes']);
+
+  $transitionAtts = shortcode_atts([
+    'transition' => '',
+    'transition_duration' => '',
+    'transition_delay' => '',
+    'transition_anchor' => '',
+    'transition_extra' => ''
+  ], $atts, $shortcode);
+
+  foreach ($transitionAtts as $name => $value) {
+    if (! $value) continue;
+
+    $dataAtts[] = sprintf('data-%s="%s"', str_replace('_', '-', $name), $value);
   }
+
+  return empty($dataAtts) 
+    ? $output 
+    : preg_replace('/>/', sprintf(' %s>', implode(' ', $dataAtts)), $output, 1);
+}, 99, 4);
+
+/*
+|--------------------------------------------------------------------------
+| Script
+|--------------------------------------------------------------------------
+|
+| Modifies shortcode's HTML output to append script.
+|
+*/
+
+add_filter('vc_shortcode_content_filter_after', function ($output, $shortcode, $atts, $content) {
+  if (empty($atts['custom_js'])) return $output;
 
   // Generate random custom class to refer to it in our JS.
   $customClass = 'custom-' . mt_rand();
@@ -241,32 +297,3 @@ add_filter('vc_shortcode_content_filter_after', function ($output, $shortcode, $
 
   return $output;
 }, 99, 4);
-
-/*
-|--------------------------------------------------------------------------
-| CSS Class Filters
-|--------------------------------------------------------------------------
-|
-| Modifies shortcode's element CSS class attribute.
-|
-*/
-
-/**
- * Design options
- */
-add_filter(VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, function ($classes, $shortcode, $atts) {
-  $atts = shortcode_atts([
-    'padding_class' => '',
-    'margin_class' => '',
-    'overlay' => '',
-  ], $atts, $shortcode);
-
-  $css = [
-    $classes,
-    $atts['padding_class'],
-    $atts['margin_class'], 
-    $atts['overlay'] ? 'has-overlay' : ''
-  ];
-
-  return implode(' ', array_filter($css));
-}, 99, 3);

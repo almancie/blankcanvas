@@ -40,18 +40,14 @@ return [
     ],
     [
       'type' => 'el_id',
-      'heading' => esc_html__('Element ID', 'js_composer'),
-      'param_name' => 'el_id',
-      'description' => esc_html__('Enter unique element ID.', 'blankcanvas'),
-    ],
-    [
-      'type' => 'el_id',
       'param_name' => 'collapse_id',
       'settings' => [
         'auto_generate' => true,
       ],
       'heading' => esc_html__('Collapse ID', 'js_composer'),
       'description' => esc_html__('Links section title to body to enable collapse functionality.', 'blankcanvas'),
-    ]
+      'weight' => 100
+    ],
+    require THEME_DIR . '/inc/vc/params/id.php'
   ],
 ];

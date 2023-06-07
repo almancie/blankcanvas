@@ -98,18 +98,31 @@ let init = (container = 'body') => {
 
   container.querySelectorAll('[data-transition]').forEach(element => {
     let data = element.dataset;
+    
+    let extra = {};
 
-    let transition = animations[data.transition](element);
+    if (data.transitionExtra) {
+      data.transitionExtra.split(',').forEach(transition => {
+        const [property, value] = transition.split(':');
 
-    if (data?.transitionDuration) {
+        extra[property] = value.trim();
+      })
+    }
+
+    let transition = {
+      ...animations[data.transition](element),
+      ...extra
+    }
+
+    if (data.transitionDuration) {
       transition.delay = data.transitionDuration;
     }
 
-    if (data?.transitionDelay) {
+    if (data.transitionDelay) {
       transition.delay = data.transitionDelay;
     }
 
-    // Inital class
+    // Initial class
     element.classList.add('transition-init');
 
     // Active class
@@ -121,6 +134,18 @@ let init = (container = 'body') => {
     transition.complete = () => {
       element.classList.remove('transition-active');
       element.classList.add('transition-complete');
+    }
+    
+    const anchor = data.transitionAnchor 
+      ? document.querySelector(data.transitionAnchor)
+      : undefined;
+
+    if (anchor) {
+      onScreen.is(anchor, () => {
+        anime(transition);
+      });
+
+      return;
     }
 
     // Attach transition to element to be executed when it's on screen.

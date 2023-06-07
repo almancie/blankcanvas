@@ -23,13 +23,12 @@ return [
     ],
     [
       'type' => 'vc_link',
-      // 'holder' => 'div',
       'heading' => esc_html__('Link', 'js_composer'),
       'param_name' => 'link',
+      'weight' => 100
     ],
     [
       'type' => 'dropdown',
-      // 'holder' => 'div',
       'heading' => esc_html__('Size', 'blankcanvas'),
       'param_name' => 'size',
       'value' => [
@@ -37,20 +36,20 @@ return [
         esc_html__('Small', 'blankcanvas') => 'sm',
         esc_html__('Large', 'blankcanvas') => 'lg',
       ],
+      'weight' => 100
     ],
     [
       'type' => 'dropdown',
-      // 'holder' => 'div',
       'heading' => esc_html__('Style', 'blankcanvas'),
       'param_name' => 'style',
       'value' => [
         esc_html__('Solid', 'blankcanvas') => '',
         esc_html__('Outline', 'blankcanvas') => 'outline',
-      ]
+      ],
+      'weight' => 100
     ],
     [
       'type' => 'dropdown',
-      // 'holder' => 'div',
       'heading' => esc_html__('Color', 'blankcanvas'),
       'param_name' => 'color',
       'value' => [
@@ -60,7 +59,8 @@ return [
         esc_html__('Dark', 'blankcanvas') => 'dark', 
         esc_html__('Light', 'blankcanvas') => 'light', 
         esc_html__('Color 1', 'blankcanvas') => 'color-1', 
-      ]
+      ],
+      'weight' => 100
     ],
     [
       'type' => 'checkbox',
@@ -69,6 +69,7 @@ return [
       'value' => [
         esc_html__( 'Yes', 'js_composer' ) => 'yes'
       ],
+      'weight' => 100
     ],
     [
       'type' => 'textfield',
@@ -80,6 +81,7 @@ return [
         'not_empty' => true,
       ],
       'admin_label' => true,
+      'weight' => 100
     ],
     [
       'type' => 'dropdown',
@@ -97,6 +99,7 @@ return [
         'element' => 'icon',
         'not_empty' => true,
       ],
+      'weight' => 100
     ],
     [
       'type' => 'dropdown',
@@ -112,6 +115,7 @@ return [
         'element' => 'icon',
         'not_empty' => true,
       ],
+      'weight' => 100
     ],
     [
       'type' => 'dropdown',
@@ -129,21 +133,8 @@ return [
         'element' => 'icon',
         'not_empty' => true,
       ],
+      'weight' => 100
     ],
-    [
-      'type' => 'el_id',
-      'heading' => esc_html__('Element ID', 'js_composer'),
-      'param_name' => 'el_id',
-      'description' => esc_html__('Enter unique element ID.', 'blankcanvas'),
-    ],
-    [
-      'type' => 'checkbox',
-      'heading' => esc_html__('Hide?', 'blankcanvas'),
-      'param_name' => 'disable_element',
-      'description' => esc_html__( 'If checked the section won\'t be visible on the public side of your website. You can switch it back any time.', 'js_composer' ),
-      'value' => [
-        esc_html__( 'Yes', 'js_composer' ) => 'yes'
-      ],
-    ],
+    ...require THEME_DIR . '/inc/vc/params/general.php'
   ],
 ];

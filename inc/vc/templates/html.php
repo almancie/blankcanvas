@@ -46,15 +46,17 @@ if (! empty($classes)) {
 $content = urldecode(base64_decode($content));
 
 // Get tags count
-preg_match_all('/<(?:(.*))>(?:.|\n)+?<\/\1>/', $content, $matches);
+// preg_match_all('/<(?:(.*))>(?:.|\n)+?<\/\1>/', $content, $matches);
+
+// var_dump($matches);
 
 // If multiple tags, wrap everything with a div and
 // add settings on the wrapper div
-if (count($matches[0]) === 1) {
+// if (count($matches[0]) === 1) {
 
   // If only one tag, add settings to the tag
-  return preg_replace('/>/', sprintf(' %s>', implode(' ', $attributes)), $content, 1);
-}
+  // return preg_replace('/>/', sprintf(' %s>', implode(' ', $attributes)), $content, 1);
+// }
 
 // Output
 return sprintf(

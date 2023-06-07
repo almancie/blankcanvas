@@ -23,9 +23,9 @@ $options = [
   // esc_html__( '80%', 'js_composer' ) => '4/5',
 ];
 
-$options1 = [esc_html__('Inherit', 'blankcanvas') => ''] + $options;
+$responsive = [esc_html__('Inherit', 'blankcanvas') => ''] + $options;
 
-$options2 = [esc_html__('Default', 'blankcanvas') => ''] + $options;
+$default = [esc_html__('Default', 'blankcanvas') => ''] + $options;
 
 return [
   [
@@ -40,41 +40,41 @@ return [
     'heading' => esc_html__('≥ 1400px', 'blankcanvas'),
     'param_name' => 'width_xxl',
     'group' => $group,
-    'value' => $options1,
+    'value' => $responsive,
   ],
   [
     'type' => 'dropdown',
     'heading' => esc_html__('≥ 1200px', 'blankcanvas'),
     'param_name' => 'width_xl',
     'group' => $group,
-    'value' => $options1,
+    'value' => $responsive,
   ],
   [
     'type' => 'dropdown',
     'heading' => esc_html__('≥ 992px', 'blankcanvas'),
     'param_name' => 'width_lg',
     'group' => $group,
-    'value' => $options1,
+    'value' => $responsive,
   ],
   [
     'type' => 'dropdown',
     'heading' => esc_html__('≥ 768px', 'blankcanvas'),
     'param_name' => 'width_md',
     'group' => $group,
-    'value' => $options1,
+    'value' => $responsive,
   ],
   [
     'type' => 'dropdown',
     'heading' => esc_html__('≥ 576px', 'blankcanvas'),
     'param_name' => 'width_sm',
     'group' => $group,
-    'value' => $options1,
+    'value' => $responsive,
   ],
   [
     'type' => 'dropdown',
     'heading' => esc_html__('> 0px', 'blankcanvas'),
     'param_name' => 'width_default',
     'group' => $group,
-    'value' => $options2,
+    'value' => $default,
   ],
 ];

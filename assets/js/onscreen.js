@@ -31,7 +31,7 @@ function is(element, callback) {
     element = document.querySelector(element);
   }
 
-  let ref = Math.random().toString().substr(10);
+  let ref = Math.random().toString().substring(10);
 
   callbacks[ref] = callback;
 

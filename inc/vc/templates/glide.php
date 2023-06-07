@@ -65,14 +65,32 @@ if (! empty($classes)) {
   $attributes[] = sprintf('class="%s"', trim($classes));
 }
 
+// $default = "
+//   type: 'slider', 
+//   autoplay: 2000, 
+//   hoverpause: true,
+// ";
+
 $script = sprintf(
   "<script>
-    window.addEventListener('load', () => {
-      new Glide('#%s').mount({\n%s\n});\n
+    window.addEventListener('load', function () {
+      const element = document.querySelector('#%s');
+
+      const slider = new Glide(element, {
+        %s
+      });
+
+      %s
+
+      element.slider = slider;
+
+      slider.mount();
     });
   </script>",
   $el_id,
-  urldecode(base64_decode($configuration))
+  // $default,
+  urldecode(base64_decode($config)),
+  urldecode(base64_decode($events))
 );
 
 // Arrows
@@ -112,9 +130,9 @@ return sprintf(
   </div>
   %s', 
   implode(' ', $attributes), 
-  $arrows,
+  $hide_arrows ? '' : $arrows,
   implode(' ', $wrapperClasses),
   wpb_js_remove_wpautop($content),
-  $bullets,
+  $hide_bullets ? '' : $bullets,
   $script
 );

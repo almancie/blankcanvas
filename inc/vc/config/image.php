@@ -52,6 +52,7 @@ return [
         'value' => 'media_library',
       ],
       'admin_label' => true,
+      'weight' => 100
     ],
     [
       'type' => 'textfield',
@@ -63,6 +64,7 @@ return [
         'value' => 'external_link',
       ],
       'admin_label' => true,
+      'weight' => 100
     ],
     [
       'type' => 'dropdown',
@@ -76,6 +78,7 @@ return [
           'featured_image',
         ],
       ],
+      'weight' => 100
     ],
     [
       'type' => 'textfield',
@@ -87,19 +90,8 @@ return [
         'element' => 'source',
         'value' => 'external_link',
       ],
+      'weight' => 100
     ],
-    [
-      'type' => 'el_id',
-      'heading' => esc_html__('Element ID', 'js_composer'),
-      'param_name' => 'el_id',
-      'description' => esc_html__('Enter unique element ID.', 'blankcanvas'),
-    ],
-    [
-      'type' => 'checkbox',
-      'heading' => esc_html__( 'Hide?', 'blankcanvas' ),
-      'param_name' => 'disable_element',
-      'description' => esc_html__( 'If checked the section won\'t be visible on the public side of your website. You can switch it back any time.', 'js_composer' ),
-      'value' => [ esc_html__( 'Yes', 'js_composer' ) => 'yes' ],
-    ],
+    ...require THEME_DIR . '/inc/vc/params/general.php'
   ],
 ];

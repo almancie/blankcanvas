@@ -1,4 +1,4 @@
-import codeMirrorEditor from './modules/codeMirrorEditor.js';
+import codeMirror from './modules/codeMirror.js';
 import grapick from './modules/grapick.js';
 
 window.addEventListener('load', () => {
@@ -6,10 +6,10 @@ window.addEventListener('load', () => {
 
   // document.querySelector('#vc_logo').style.background = bc.theme + '/asssets/imgs/BCLogo.svg';
 
-  const vcRows = {
-    'vc_row': 'vc_column',
-    'vc_row_inner': 'vc_column_inner',
-  };
+  // const vcRows = {
+  //   'vc_row': 'vc_column',
+  //   'vc_row_inner': 'vc_column_inner',
+  // };
 
   const rows = {
     'row': 'column',
@@ -23,7 +23,6 @@ window.addEventListener('load', () => {
   const containers = {
     ...rows,
     'tabs': 'panel',
-    'accordion': 'accordion_item'
   };
 
   // Enable column sorting for our container elements
@@ -36,9 +35,7 @@ window.addEventListener('load', () => {
 
   // VcRowView.prototype.sortingSelector = sortingSelector;
 
-  VcRowView.prototype.sortingSelector = `
-    > [data-element_type=vc_column], 
-    > [data-element_type=vc_column_inner], 
+  VcRowView.prototype.sortingSelector += `, 
     > [data-element_type=column], 
     > [data-element_type=column_inner], 
     > [data-element_type=column_inner_inner], 
@@ -64,73 +61,79 @@ window.addEventListener('load', () => {
     }
   });
 
-  vc.events.on('sync', model => {
-    // const models = collection.models ?? [collection];
+  /**
+   * Elements icons (attribute)
+   */
+  vc.events.on('shortcodes:add shortcodes:update shortcodes:sync', function(model) {
+    const params = model.attributes.params;
 
-    // models.forEach(model => {
-      // console.log(model.attributes.shortcode);
-      const element = model.view.$el;
+    const element = model.view.el;
 
-      const attributes = model.view.model.attributes;
+    const iconParams = ['custom_css', 'custom_js', 'background_image'];
 
-      const excluded = ['vc_section', 'vc_row', 'section'];
+    const icons = iconParams.filter(value => params[value]);
 
-      if (excluded.includes(attributes.shortcode)) return;
+    element.setAttribute('data-icons', icons.join('|'));
+  });
 
-      const parent = vc.app.views[attributes.parent_id];
+  /**
+   * Elements icons (HTML)
+   */
+  vc.events.on('shortcodeView:ready', function(view) {
+    const element = view.$el;
 
-      // If column, match it with parent.
-      if (containers[parent.model.attributes.shortcode]) {
-        element.attr('data-alternate', parent.$el.data('alternate'));
+    const title = element.find('.element-title');
 
-        return;
-      }
+    if (element.find('> .icons').length) return;
 
-      element.attr('data-alternate', ! parent.$el.data('alternate'));
-    // });
+    let icons = `
+    <div class="icons">
+      <i class="icon-css"></i>
+      <i class="icon-js"></i>
+      <i class="icon-bg"></i>
+    </div>`;
+
+    // If container, append the icons inside controls
+    if (rows[view.model.attributes.shortcode]) {
+      title.after(icons);
+
+      return;
+    };
+
+    element.append(icons);
   });
 
   /**
    * Alternate elements colors (white/silver)
    */
-  // vc.events.on('shortcodeView:ready', function(view) {
-  //   const element = view.$el;
+  vc.events.on('shortcodeView:ready', function(view) {
+    const element = view.$el;
 
-  //   const attributes = view.model.attributes;
+    const attributes = view.model.attributes;
 
-  //   const excluded = ['vc_section', 'vc_row', 'section'];
+    if (['vc_section', 'vc_row', 'section'].includes(attributes.shortcode)) return;
 
-  //   if (excluded.includes(attributes.shortcode)) return;
+    const parent = vc.app.views[attributes.parent_id];
 
-  //   const parent = vc.app.views[attributes.parent_id];
-
-  //   // If column, match it with parent.
-  //   if (containers[parent.model.attributes.shortcode]) {
-  //     element.attr('data-alternate', parent.$el.data('alternate'));
-
-  //     return;
-  //   }
-
-  //   element.attr('data-alternate', ! parent.$el.data('alternate'));
-  // });
-
-  /**
-   * Hide / Show Element
-   */
-  vc.events.on('shortcodes:update shortcodes:sync', function(model) {
-    let el = model.view.el;
-
-    let disableElement = model.attributes.params.disable_element;
-
-    if (disableElement === 'yes') {
-      el.classList.add('element-disabled');
+    // If column, match it with parent.
+    if (containers[parent.model.attributes.shortcode]) {
+      element.attr('data-alternate', parent.$el.data('alternate'));
 
       return;
     }
 
-    if (el.classList.contains('element-disabled')) {
-      el.classList.remove('element-disabled');
-    }
+    element.attr('data-alternate', ! parent.$el.data('alternate'));
+  });
+
+  /**
+   * Hide / Show Element
+   */
+  vc.events.on('shortcodes:add shortcodes:update shortcodes:sync', function(model) {
+    let el = model.view.el;
+
+    let disableElement = model.attributes.params.disable_element;
+
+    el.setAttribute('data-element-disabled', disableElement === 'yes');
   });
 
   /**
@@ -308,25 +311,64 @@ window.addEventListener('load', () => {
   });
 
   /**
-   * HTML
+   * Coding fields
    */
   vc.edit_element_block_view.on('afterRender', function () {
-    if (this.model.attributes.shortcode !== 'html') return;
+    const shortcode = this.model.attributes.shortcode;
 
-    codeMirrorEditor(this.el.querySelector('[name="content"]'), {
-      mode: 'htmlmixed'
+    const settings = {
+      html: [
+        {
+          field: '[name="content"]', 
+          options: {mode: 'htmlmixed'}
+        }
+      ],
+      glide: [
+        {
+          field: '[name="config"]',  
+          options: {}
+        },
+        {
+          field: '[name="events"]',  
+          options: {mode: 'javascript'}
+        }
+      ]
+    };
+
+    settings[shortcode]?.forEach(setting => {
+      const element = this.el.querySelector(setting.field);
+
+      codeMirror(element, setting.options);
     });
   });
 
-  /**
-   * Glide
-   */
-  vc.edit_element_block_view.on('afterRender', function () {
-    if (this.model.attributes.shortcode !== 'glide') return;
+  vc.edit_element_block_view.on('tabChange', function () {
+    const tab = this.$tabsMenu[0].querySelector('.vc_active').querySelector('button').innerText.toLowerCase();
 
-    codeMirrorEditor(this.el.querySelector('[name="configuration"]'), {
-      mode: 'javascript'
-    });
+    const settings = {
+      style: {
+        field: '[name="custom_css"]',
+        options: {}
+      },
+      script: {
+        field: '[name="custom_js"]',
+        options: {mode: 'javascript'}
+      },
+      transition: {
+        field: '[name="transition_extra"]',
+        options: {},
+      },
+      attributes: {
+        field: '[name="attributes"]',
+        options: {}
+      }
+    };
+
+    if (! settings[tab]) return;
+
+    const element = this.el.querySelector(settings[tab].field);
+
+    codeMirror(element, settings[tab]);
   });
 
   /**
@@ -338,25 +380,6 @@ window.addEventListener('load', () => {
     if (! this?.mapped_params[field]) return;
 
     grapick(this.$el.find(`[name="${field}"]`));
-  });
-
-  /**
-   * CSS & JS fields
-   */
-  vc.edit_element_block_view.on('tabChange', function () {
-    let tab = this.$tabsMenu[0].querySelector('.vc_active').querySelector('button').innerText.toLowerCase();
-
-    // CSS
-    if (tab === 'style') {
-      this.cssEditor = codeMirrorEditor(this.el.querySelector('[name="custom_css"]'));
-    }
-
-    // JS
-    if (tab === 'script') {
-      this.jsEditor = codeMirrorEditor(this.el.querySelector('[name="custom_js"]'), {
-        mode: 'javascript'
-      });
-    }
   });
 
   /**

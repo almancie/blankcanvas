@@ -41,35 +41,6 @@ if ($style) {
   $navbarClasses[] = sprintf('nav-%s', $style);
 }
 
-// Navbar position
-// if ($navbar_position) {
-//   $classes[] = 'd-flex';
-
-//   switch ($navbar_position) {
-//     case 'bottom':
-//       $classes[] = 'flex-column-reverse';
-
-//       break;
-
-//     case 'start':
-//       $classes[] = 'flex-row';
- 
-//       $navbarClasses[] = 'flex-column';
-
-//       break;
-//     case 'end':
-//       $classes[] = 'flex-row-reverse';
-
-//       $navbarClasses[] = 'flex-column';
-
-//       break;
-//   }
-// }
-
-// if ($nav_items_position) {
-//   $navbarClasses[] = sprintf('justify-content-%s', $nav_items_position);
-// }
-
 if ($navbar_class) {
   $navbarClasses[] = $navbar_class;
 }
@@ -121,16 +92,22 @@ foreach ($panels as $key => $panel) {
 
   $navItems[] = sprintf(
     '<li class="nav-item">
-    <a 
-    class="nav-link%s%s" id="tab-%s" 
-    type="button" role="tab"
-    data-bs-toggle="tab" data-bs-target="#tab-%s-pane" 
-    aria-controls="#tab-%s" aria-selected="%s"
-    >
-    %s
-    </a>
+      <a 
+        class="nav-link%s%s" id="tab-%s" 
+        type="button" role="tab"
+        data-bs-toggle="tab" data-bs-target="#tab-%s-pane" 
+        aria-controls="#tab-%s" aria-selected="%s"
+      >
+      %s
+      </a>
     </li>', 
-    $active ? ' active' : '', $nav_btn_class ? ' ' . $nav_btn_class : '', $tab_id,  $tab_id,  $tab_id, json_encode($active), $title ?: esc_html__('No Title', 'blankcanvas')
+    $active ? ' active' : '', 
+    $nav_btn_class ? ' ' . $nav_btn_class : '', 
+    $tab_id,  
+    $tab_id,  
+    $tab_id, 
+    json_encode($active), 
+    $title ?: esc_html__('No Title', 'blankcanvas')
   );
   
   // Add extra atts to panel shortcode

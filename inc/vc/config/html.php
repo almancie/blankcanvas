@@ -19,11 +19,6 @@ return [
       'heading' => esc_html__('HTML content', 'blankcanvas'),
       'weight' => 100
     ],
-    [
-      'type' => 'el_id',
-      'heading' => esc_html__('Element ID', 'js_composer'),
-      'param_name' => 'el_id',
-      'description' => esc_html__('Enter unique element ID.', 'blankcanvas'),
-    ],
+    ...require THEME_DIR . '/inc/vc/params/general.php'
   ],
 ];

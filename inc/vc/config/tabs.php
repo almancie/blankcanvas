@@ -46,35 +46,20 @@ return [
         esc_html__('Buttons', 'blankcanvas') => 'pills',
         esc_html__('Links', 'blankcanvas') => 'links',
       ],
-      'weight' => 100,
+      'weight' => 100
     ],
     [
       'type' => 'textfield',
       'param_name' => 'active_section',
       'heading' => esc_html__('Active section', 'js_composer'),
-      'value' => 1,
       'description' => esc_html__('Enter active section number (Note: to have all sections closed on initial load enter non-existing number).', 'js_composer'),
-    ],
-    [
-      'type' => 'el_id',
-      'heading' => esc_html__('Element ID', 'js_composer'),
-      'param_name' => 'el_id',
-      'description' => esc_html__('Enter unique element ID.', 'blankcanvas'),
-    ],
-    [
-      'type' => 'checkbox',
-      'heading' => esc_html__('Hide?', 'blankcanvas'),
-      'param_name' => 'disable_element',
-      'description' => esc_html__('If checked the section won\'t be visible on the public side of your website. You can switch it back any time.', 'js_composer'),
-      'value' => [
-        esc_html__('Yes', 'js_composer') => 'yes'
-      ],
+      'value' => 1,
+      'weight' => 100
     ],
     [
       'type' => 'textfield',
       'heading' => esc_html__('Navbar class name', 'blankcanvas'),
       'param_name' => 'navbar_class',
-      // 'description' => esc_html__('Navbar element class name.', 'blankcanvas'),
       'group' => esc_html__('Style', 'blankcanvas'),
       'weight' => 55
     ],
@@ -82,7 +67,6 @@ return [
       'type' => 'textfield',
       'heading' => esc_html__('Tab title class name', 'blankcanvas'),
       'param_name' => 'nav_btn_class',
-      // 'description' => esc_html__('Tab nav button class name.', 'blankcanvas'),
       'group' => esc_html__('Style', 'blankcanvas'),
       'weight' => 55
     ],
@@ -90,7 +74,6 @@ return [
       'type' => 'textfield',
       'heading' => esc_html__('Tab content class name', 'blankcanvas'),
       'param_name' => 'content_class',
-      // 'description' => esc_html__('Tab body class name.', 'blankcanvas'),
       'group' => esc_html__('Style', 'blankcanvas'),
       'weight' => 55
     ],
@@ -98,9 +81,9 @@ return [
       'type' => 'textfield',
       'heading' => esc_html__('Tab panel class name', 'blankcanvas'),
       'param_name' => 'panel_class',
-      // 'description' => esc_html__('Tab body class name.', 'blankcanvas'),
       'group' => esc_html__('Style', 'blankcanvas'),
       'weight' => 55
     ],
+    ...require THEME_DIR . '/inc/vc/params/general.php'
   ],
 ];

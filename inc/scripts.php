@@ -168,15 +168,15 @@ add_action('admin_enqueue_scripts', function () use ($jsData) {
   // Bootstrap icons
   wp_enqueue_style('bootstrap-icons', 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css', [], '1.9.1');
 
-  // Grapick (advanced color picker)
+  // Grapick (gradient color picker)
   wp_enqueue_style('grapick', 'https://cdn.jsdelivr.net/gh/artf/grapick@0.1.13/dist/grapick.min.css', [], '0.1.13');
   wp_enqueue_script('grapick', 'https://cdn.jsdelivr.net/gh/artf/grapick@0.1.13/dist/grapick.min.js', [], '0.1.13', true);
   wp_enqueue_script('module-grapick', THEME_URI.'/inc/vc/assets/js/modules/grapick.js', ['grapick'], THEME_VER, true);
 
-  // CodeMirror
+  // CodeMirror (code editor)
   wp_enqueue_style('wp-codemirror');
   wp_enqueue_script('wp-codemirror');
-  wp_enqueue_script('module-wp-codemirror-editor', THEME_URI.'/inc/vc/assets/js/modules/codeMirrorEditor.js', [], THEME_VER, true);
+  wp_enqueue_script('module-wp-codemirror-editor', THEME_URI.'/inc/vc/assets/js/modules/codeMirror.js', [], THEME_VER, true);
 
   // WP code editor
   // wp_enqueue_script('code-editor');
