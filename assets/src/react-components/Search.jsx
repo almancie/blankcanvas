@@ -24,8 +24,8 @@ export default function() {
     setPosts(posts);
   }
 
-  const postsList = () => posts.map((post) => 
-    <li className="py-2 border-bottom">
+  const postList = () => posts.map((post, index) => 
+    <li className={"py-2" + ((index + 1) < posts.length ? ' border-bottom' : '')}>
       <a className="text-decoration-none" href={post.url}>
         <span className="badge bg-color-1 me-2" style={{width: '50px'}}>{post.subtype}</span>
         {post.title}
@@ -40,7 +40,7 @@ export default function() {
   return (
     <div className="search-component w-100 h-100 d-flex flex-column p-3 pt-0 mt-auto justify-content-end">
       <ul className="search-results text-capitalize list-unstyled mt-2 small">
-        {posts ? postsList() : <div>No Results.</div>}
+        {posts ? postList() : <div>No Results.</div>}
       </ul>
       <div className="search-form-control d-flex align-items-center w-100 border rounded p-2">
         <input 

@@ -15,13 +15,13 @@
   wp_body_open(); ?>
 
   <div class="site">
-    <header class="site-header d-flex align-items-center justify-content-between py-2 py-lg-3">
+    <header class="site-header d-flex align-items-center justify-content-between py-2 py-lg-4">
       <div class="container-xxl">
-        <div class="row align-items-center justify-content-between">
+        <div class="row align-items-center justify-content-between flex-row-reverse">
 
           <!-- Logo -->
-          <div class="col-auto col-lg-2 d-flex justify-content-center justify-content-lg-start">
-            <div class="site-branding">
+          <div class="col-auto d-flex justify-content-center justify-content-lg-start">
+            <div class="site-branding px-4">
 
               <?php
               the_custom_logo(); ?>
@@ -69,7 +69,7 @@
                   wp_nav_menu([
                     'theme_location' => 'menu-1',
                     'menu_id'        => 'main-menu',
-                    'menu_class'     => 'menu main-menu bc-menu animatab',
+                    'menu_class'     => 'menu main-menu bc-menu',
                     'container'      => false
                   ]); ?>
 
@@ -79,9 +79,8 @@
           </div>
 
           <!-- Icons -->
-          <div class="col-auto col-lg-2 icons-col d-none d-lg-flex align-items-center justify-content-end">
+          <!-- <div class="col-auto col-lg-2 icons-col d-none d-lg-flex align-items-center justify-content-end">
             <a class="site-header-btn btn d-inline-flex flex-center px-2" role="button" aria-controls="offcanvasSearch" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSearch">
-              <!-- <i class="bi bi-search"></i> -->
               <svg width="20px" height="20px" viewBox="0 -0.5 21 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 </defs>
                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -97,7 +96,7 @@
             <div class="offcanvas offcanvas-end text-start" id="offcanvasSearch" aria-labelledby="offcanvasSearchLabel">
               <div class="offcanvas-body d-lg-flex align-items-lg-center px-0 pb-0" id="offcanvasSearchBody"></div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </header>

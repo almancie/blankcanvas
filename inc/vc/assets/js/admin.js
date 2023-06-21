@@ -35,13 +35,15 @@ window.addEventListener('load', () => {
 
   // VcRowView.prototype.sortingSelector = sortingSelector;
 
-  VcRowView.prototype.sortingSelector += `, 
-    > [data-element_type=column], 
-    > [data-element_type=column_inner], 
-    > [data-element_type=column_inner_inner], 
-    > [data-element_type=group_column], 
-    > [data-element_type=glide_slide], 
-    > [data-element_type=advanced_list_item]`;
+  if (window.VcRowView) {
+    VcRowView.prototype.sortingSelector += `, 
+      > [data-element_type=column], 
+      > [data-element_type=column_inner], 
+      > [data-element_type=column_inner_inner], 
+      > [data-element_type=group_column], 
+      > [data-element_type=glide_slide], 
+      > [data-element_type=advanced_list_item]`;
+  }
 
   /**
    * Elements title
@@ -296,7 +298,7 @@ window.addEventListener('load', () => {
    * Panel item / Accordion item
    */
   vc.events.on('shortcodes:vc_tta_section:add', function(model) {
-    let parent = vc.shortcodes.get(model.attributes.parent_id).attributes.shortcode;
+    const parent = vc.shortcodes.get(model.attributes.parent_id).attributes.shortcode;
 
     if (parent === 'tabs') {
       model.attributes.shortcode = 'panel';
@@ -368,14 +370,14 @@ window.addEventListener('load', () => {
 
     const element = this.el.querySelector(settings[tab].field);
 
-    codeMirror(element, settings[tab]);
+    codeMirror(element, settings[tab].options);
   });
 
   /**
    * Gradient background field
    */
   vc.edit_element_block_view.on('afterRender', function () {
-    let field = 'gradient_background_color';
+    const field = 'gradient_background_color';
 
     if (! this?.mapped_params[field]) return;
 
@@ -385,12 +387,11 @@ window.addEventListener('load', () => {
   /**
    * Elements highlighter
    */
-  
   // Add checkbox
   document.querySelector('.vc_ui-panel-header-actions').innerHTML +=
     `<div class="elements-highlighter" style="margin-top: 1rem">
       <input type="checkbox" id="bc-elements-highlighter">
-      <label for="bc-elements-highlighter">Show Blank Canvas Elements Only</label>
+      <label for="bc-elements-highlighter">Hide WPBakery Elements</label>
     </div>`;
 
   const bcElementsOnly = localStorage.getItem('bcElementsOnly');

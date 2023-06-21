@@ -1,0 +1,31 @@
+.animatab {
+    position: relative;
+}
+
+.animatab-item {
+    position: relative;
+    z-index: 1;
+}
+
+.animatab-highlighter {
+    position: absolute;
+
+}
+
+.animatab-highlighter:before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  height: 2px;
+  width: 20px;
+  transform: translateX(-50%);
+  background-color: #aaaaaa;
+  transition: all .4s;
+}
+
+.animatab-on .animatab-highlighter:before {
+  opacity: .25;
+  height: 100%;
+  width: 100%;
+}

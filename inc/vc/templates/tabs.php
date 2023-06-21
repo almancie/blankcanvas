@@ -66,6 +66,8 @@ if ($classes) {
   $elAttributes[] = sprintf('class="%s"', trim($classes));
 }
 
+$animatab = $style === 'links-animated' ? ' data-animatab="true"' : '';
+
 // Nav Items
 $navItems = [];
 
@@ -78,7 +80,6 @@ if (is_int((int) $active_section)) {
 
 // Panels (initial)
 preg_match_all('/\[panel(?:\s*)(.*?)\](?:.|\n)*?\[\/panel\]/', $content, $panels, PREG_SET_ORDER);
-
 
 foreach ($panels as $key => $panel) {
   $panelShortcode = $panel[0];
@@ -121,11 +122,12 @@ $content = implode('', $navPanels);
 
 return sprintf(
   '<div %s>
-    <ul class="%s">%s</ul>
+    <ul class="%s"%s>%s</ul>
     <div class="%s">%s</div>
   </div>',
   implode(' ', $elAttributes), 
   implode(' ', $navbarClasses),
+  $animatab,
   implode(' ', $navItems),
   implode(' ', $contentClasses),
   wpb_js_remove_wpautop($content)

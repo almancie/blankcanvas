@@ -3,8 +3,33 @@
   align-items: center;
 }
 
+.section-stretched {
+  position: relative;
+  width: 100vw;
+  inset-inline-start: calc((100vw - 100%) / -2);
+  padding-inline-start: calc((100vw - 100%) / 2);
+  padding-inline-end: calc((100vw - 100%) / 2);
+}
+
+.section-stretched-content {
+  position: relative;
+  width: 100vw;
+  inset-inline-start: calc((100vw - 100%) / -2);
+  padding-inline-start: 0;
+  padding-inline-end: 0;
+}
+
+.section-full-height {
+  height: 100vh;
+}
+
 .overlay {
   position: relative;
+}
+
+.overlay > * {
+  position: relative;
+  z-index: 2;
 }
 
 .overlay:after {
@@ -16,7 +41,7 @@
   height: 100%;
   background-color: var(--overlay-color);
   opacity: var(--overlay-opacity);
-  z-index: -1;
+  z-index: 1;
 }
 
 .effect-glass {
@@ -26,13 +51,25 @@
   backdrop-filter: blur(25px) !important;
 }
 
+@each $name, $value in $theme-colors {
+  .filter-#{$name} {
+    filter: var(--filter-#{$name});
+  }
+}
+
 $utilities: map-merge(
   $utilities,
   (
     "z-index": (
       class: z-index,
       property: z-index,
-      values: (0 1 2 3 4 5 10 20 30 40 50)
+      values: (0 1 2 3 4 5 10 20 30 40 50),
+    ),
+    "bg-opacity": (
+      css-var: true,
+      css-variable-name: bg-opacity,
+      class: bg-opacity,
+      values: (1: .1, 5: .5, 10: .1, 20: .2, 25: .25, 30: .3, 40: .4, 50: .5, 60: .6, 70: .7, 75: .75, 80: .8, 90: .9, 95: .95, 99: .99)
     ),
     "overlay-color": (
       css-var: true,
@@ -45,7 +82,12 @@ $utilities: map-merge(
       css-var: true,
       css-variable-name: overlay-opacity,
       class: overlay,
-      values: (5: .5, 10: .1, 20: .2, 25: .25, 30: .3, 40: .4, 50: .5, 60: .6, 70: .7, 75: .75, 80: .8, 90: .9, 95: .95)
+      values: (1: .1, 5: .5, 10: .1, 20: .2, 25: .25, 30: .3, 40: .4, 50: .5, 60: .6, 70: .7, 75: .75, 80: .8, 90: .9, 95: .95, 99: .99)
+    ),
+    "start": (
+      class: start,
+      property: inset-inline-start,
+      values: (0: 0, 25: 25%, 50: 50%, 75: 75%, 100: 100%)
     ),
   )
 );

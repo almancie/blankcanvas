@@ -25,8 +25,8 @@ return [
       'param_name' => 'full_width',
       'value' => [
         esc_html__('Default', 'js_composer') => '',
-        esc_html__('Stretch section', 'js_composer') => 'stretch_row',
-        esc_html__('Stretch section and content', 'js_composer') => 'stretch_row_content',
+        esc_html__('Stretch section', 'js_composer') => 'stretch',
+        esc_html__('Stretch section and content', 'js_composer') => 'stretch_content',
       ],
       'description' => esc_html__('Stretch section to be screen wide.', 'js_composer'),
       'weight' => 100,

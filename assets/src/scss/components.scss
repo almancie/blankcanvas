@@ -1,7 +1,7 @@
 
 /*
 |--------------------------------------------------------------------------
-| Responsive classes
+| Spill
 |--------------------------------------------------------------------------
 |
 | 
@@ -26,25 +26,37 @@
      */
     .col-has-#{$size}-spill {
 
+      // Children
+      * {
+        position: relative;
+        // z-index: 3;
+      }
+
       // Fist column
+      &:before {
+        background-image: inherit;
+        background-size: cover;
+        background-position: 50% 0;
+        // z-index: 1;
+      }
+      
+      &:before,
       &:after {
         content: "";
         position: absolute;
         top: 0;
+        inset-inline-start: initial;
         inset-inline-end: 0;
         height: 100%;
-        width: calc(100% + ((100vw - var(--container-max-width)) / 2));
-        inset-inline-end: 0;
-        background-image: inherit;
-        background-size: cover;
-        background-position: 50% 0;
+        width: calc(100% + 4px + ((100vw - var(--container-max-width)) / 2));
       }
 
       // Last column
       &:last-child {
-        &:after {
+        &:before {
           inset-inline-start: 0;
           inset-inline-end: initial;
+          // z-index: 1;
         }
       }
     }

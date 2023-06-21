@@ -28,9 +28,12 @@ import {
 import { createRoot } from 'react-dom/client';
 import Search from './react-components/Search.jsx';
 
-// Search Component
-const root = createRoot(
-  document.getElementById('offcanvasSearchBody')
-);
+const searchElement = document.getElementById('offcanvasSearchBody');
 
-root.render(<Search />);
+if (searchElement) {
+
+  // Search Component
+  const root = createRoot(searchElement);
+  
+  root.render(<Search />);
+}

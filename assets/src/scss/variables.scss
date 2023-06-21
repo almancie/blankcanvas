@@ -1,12 +1,15 @@
 
 $light:        #ffffff;
-$dark:         #0a0a0e;
-// $color-1:      #ff7200;
-$color-1: $dark;
+$dark:         #0f0f0f;
+$color-1:      #00D6D6;
+// $color-1: $dark;
 
 // $light:        rgb(255, 255, 255);
 // $dark:         rgb(20, 20, 26);
 // $color-1:      rgb(255, 114, 0);
+
+// $body-bg:                   $dark;
+// $body-color:                $light;
 
 // No RGB
 $colors: ();  // Empty all default colors
@@ -15,14 +18,14 @@ $colors: ();  // Empty all default colors
 $theme-colors: (
   "light":      $light,
   "dark":       $dark,
-  // "body-bg":    $light,
-  // "body-color": $dark,
+  // "body-bg":    $body-bg,
+  // "body-color": $body-color,
   "color-1":    $color-1
 );
 
 // The contrast ratio to reach against white, to determine if color changes from "light" to "dark". Acceptable values for WCAG 2.0 are 3, 4.5 and 7.
 // See https://www.w3.org/TR/WCAG20/#visual-audio-contrast-contrast
-$min-contrast-ratio:   2;
+$min-contrast-ratio:   3;
 
 // Customize the light and dark text colors for use in our color contrast function.
 // $color-contrast-dark:      $black !default;
@@ -61,7 +64,7 @@ $prefix:                      '';
 // // The gradient which is added to components if `$enable-gradients` is `true`
 // // This gradient is also added to elements with `.bg-gradient`
 // // scss-docs-start variable-gradient
-// $gradient: linear-gradient(180deg, rgba($white, .15), rgba($white, 0)) !default;
+$gradient: linear-gradient(-45deg, rgba(var(--dark-rgb), .25), rgba(var(--dark-rgb), 0));
 // // scss-docs-end variable-gradient
 
 // // Spacing
@@ -102,18 +105,18 @@ $spacers: (
 // //
 // // Settings for the `<body>` element.
 
-$body-bg:                   $light;
-$body-color:                $dark;
+$body-bg:                   $dark;
+$body-color:                $light;
 // $body-text-align:           null !default;
 
 // // Links
 // //
 // // Style anchor elements.
 
-$link-color:                              var(--dark);
+$link-color:                              var(--#{$prefix}body-color);
 // $link-decoration:                         none;
 // $link-shade-percentage:                   35%;
-$link-hover-color:                        rgba(var(--dark-rgb), .75);
+$link-hover-color:                        rgba(var(--#{$prefix}body-color-rgb), .75);
 // $link-hover-color:                        shift-color($link-color, $link-shade-percentage) !default;
 // $link-hover-decoration:                   null !default;
 
@@ -253,6 +256,7 @@ $transition-collapse:         height .75s ease;
 // $font-family-sans-serif:      system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
 // $font-family-monospace:       SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
 // // stylelint-enable value-keyword-case
+// $font-family-base:            'Poppins';
 $font-family-base:            'Poppins';
 // $font-family-base:            var(--#{$prefix}font-sans-serif) !default;
 // $font-family-code:            var(--#{$prefix}font-monospace) !default;
@@ -260,7 +264,7 @@ $font-family-base:            'Poppins';
 // // $font-size-root affects the value of `rem`, which is used for as well font sizes, paddings, and margins
 // // $font-size-base affects the font size of the body text
 // $font-size-root:              null !default;
-$font-size-base:              1rem; // Assumes the browser default, typically `16px`
+$font-size-base:              .9375rem; // Assumes the browser default, typically `16px`
 // $font-size-sm:                $font-size-base * .875 !default;
 // $font-size-lg:                $font-size-base * 1.25 !default;
 
@@ -299,7 +303,7 @@ $font-size-base:              1rem; // Assumes the browser default, typically `1
 // // scss-docs-start headings-variables
 // $headings-margin-bottom:      $spacer * 1;
 $headings-margin-bottom:      $spacer * 1;
-$headings-font-family:        var(--#{$prefix}heading-font-family);
+$headings-font-family:        var(--heading-font-family, $font-family-base);
 // $headings-font-style:         null !default;
 // $headings-font-weight:        500 !default;
 // $headings-line-height:        1.2 !default;
@@ -766,8 +770,8 @@ $form-check-input-border:                 1px solid rgba(var(--#{$prefix}body-co
 // // Navs
 
 // // scss-docs-start nav-variables
-// $nav-link-padding-y:                .5rem !default;
-// $nav-link-padding-x:                1rem !default;
+$nav-link-padding-y:                1rem !default;
+$nav-link-padding-x:                1.5rem !default;
 // $nav-link-font-size:                null !default;
 // $nav-link-font-weight:              null !default;
 // $nav-link-color:                    var(--#{$prefix}link-color) !default;
@@ -1317,7 +1321,7 @@ $tooltip-padding-x:                 $input-btn-padding-x;
 // // scss-docs-start offcanvas-variables
 // $offcanvas-padding-y:               $modal-inner-padding !default;
 // $offcanvas-padding-x:               $modal-inner-padding !default;
-$offcanvas-padding-x:               1.5rem;
+$offcanvas-padding-x:               1rem;
 $offcanvas-horizontal-width:        275px;
 // $offcanvas-vertical-height:         30vh !default;
 $offcanvas-transition-duration:     .5s;

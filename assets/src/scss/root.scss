@@ -1,4 +1,11 @@
 :root {
-  --heading-font-family: 'Bebas Neue';
+  // Filters
+  --filter-dark: brightness(0) saturate(100%) invert(8%) sepia(5%) saturate(2044%) hue-rotate(339deg) brightness(99%) contrast(82%);
+  --filter-light: brightness(0) invert(1);
+  --filter-body-color: var(--filter-dark);
+  --filter-body-bg: var(--filter-light);
+
+  // --heading-font-family: 'Bebas Neue';
+  --heading-font-family: 'Manrope';
   --section-spacing: 5rem;
 }

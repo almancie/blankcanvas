@@ -16,14 +16,14 @@ return [
   'js_view' => 'VcRowView',
   'default_content' => '[group_column][/group_column]',
   'params' => [
-    [
-      'type' => 'textfield',
-      'param_name' => 'child_class',
-      'heading' => esc_html__('Elements class name', 'blankcanvas'),
-      'group' => esc_html__('Style', 'blankcanvas'),
-      'description' => esc_html__('Add the same class names to every element inside this group.', 'blankcanvas'),
-      'weight' => 59
-    ],
+    // [
+    //   'type' => 'textfield',
+    //   'param_name' => 'child_class',
+    //   'heading' => esc_html__('Elements class name', 'blankcanvas'),
+    //   'group' => esc_html__('Style', 'blankcanvas'),
+    //   'description' => esc_html__('Add the same class names to every element inside this group.', 'blankcanvas'),
+    //   'weight' => 59
+    // ],
     ...require THEME_DIR . '/inc/vc/params/general.php'
   ],
 ];

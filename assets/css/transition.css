@@ -1,7 +1,9 @@
+[data-transition="fade"],
 [data-transition="start"],
 [data-transition="end"],
 [data-transition="up"],
-[data-transition="down"] {
+[data-transition="down"],
+[data-transition="zoomIn"] {
   opacity: 0;
 }
 

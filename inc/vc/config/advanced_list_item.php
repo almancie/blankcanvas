@@ -8,7 +8,10 @@ return [
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
   'class' => 'wpb_vc_column',
   'is_container' => true,
-  'allowed_container_element' => 'row_inner',
+  'as_parent' => [
+    'only' => 'bootstrap_icon, button, group, html, row_inner, text'
+  ],
+  // 'allowed_container_element' => 'row_inner',
   'content_element' => false, // Hides it from "Add element"
   'js_view' => 'VcColumnView',
   'params' => [

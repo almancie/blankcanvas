@@ -57,32 +57,39 @@ return [
     ],
     [
       'type' => 'textfield',
+      'param_name' => 'track_class',
+      'heading' => esc_html__('Track class name', 'blankcanvas'),
+      'group' => esc_html__('Style', 'blankcanvas'),
+      'weight' => 59
+    ],
+    [
+      'type' => 'textfield',
       'param_name' => 'wrapper_class',
       'heading' => esc_html__('Slides wrapper class name', 'blankcanvas'),
       'group' => esc_html__('Style', 'blankcanvas'),
-      'weight' => 59
+      'weight' => 58
     ],
     [
       'type' => 'textfield',
       'param_name' => 'arrows_class',
       'heading' => esc_html__('Arrows wrapper class name', 'blankcanvas'),
       'group' => esc_html__('Style', 'blankcanvas'),
-      'weight' => 58
+      'weight' => 57
     ],
     [
       'type' => 'textfield',
       'param_name' => 'bullets_class',
       'heading' => esc_html__('Bullets wrapper class name', 'blankcanvas'),
       'group' => esc_html__('Style', 'blankcanvas'),
-      'weight' => 58
+      'weight' => 56
     ],
     [
       'type' => 'textfield',
       'param_name' => 'slide_class',
-      'heading' => esc_html__('Slides class name', 'blankcanvas'),
+      'heading' => esc_html__('Slide class name', 'blankcanvas'),
       'description' => esc_html__('Add the same class names to every slide inside this slider.', 'blankcanvas'),
       'group' => esc_html__('Style', 'blankcanvas'),
-      'weight' => 57
+      'weight' => 55
     ],
     ...require THEME_DIR . '/inc/vc/params/general.php'
   ],

@@ -1,4 +1,3 @@
-
 /*
 |--------------------------------------------------------------------------
 | WPBakery Overrides
@@ -7,19 +6,6 @@
 | Overrides WPBakery default styling.
 |
 */
-
-[data-vc-full-width="true"] {
-  width: 100vw;
-  inset-inline-start: calc((100vw - 100%) / -2);
-  padding-inline-start: calc((100vw - 100%) / 2);
-  padding-inline-end: calc((100vw - 100%) / 2);
-  position: relative;
-}
-
-[data-vc-stretch-content="true"] {
-  padding-inline-start: 0;
-  padding-inline-end: 0;
-}
 
 .vc_video-bg + * {
   position: relative;

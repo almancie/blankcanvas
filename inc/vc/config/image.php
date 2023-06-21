@@ -82,6 +82,14 @@ return [
     ],
     [
       'type' => 'textfield',
+      'heading' => esc_html__('Wrapper', 'blankcanvas'),
+      'param_name' => 'wrapper_tag',
+      'description' => esc_html__('Choose a wrapper for your image or leave empty if you don\'t want to wrap your image.', 'blankcanvas'),
+      'value' => 'figure',
+      'weight' => 100
+    ],
+    [
+      'type' => 'textfield',
       'heading' => esc_html__('Image size', 'js_composer'),
       'param_name' => 'external_img_size',
       'value' => '',
@@ -91,6 +99,17 @@ return [
         'value' => 'external_link',
       ],
       'weight' => 100
+    ],
+    [
+      'type' => 'textfield',
+      'param_name' => 'img_class',
+      'heading' => esc_html__('Image class name', 'blankcanvas'),
+      'group' => esc_html__('Style', 'blankcanvas'),
+      'weight' => 59,
+      'dependency' => [
+        'element' => 'wrapper_tag',
+        'not_empty' => true,
+      ],
     ],
     ...require THEME_DIR . '/inc/vc/params/general.php'
   ],

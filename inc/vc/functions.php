@@ -144,12 +144,12 @@ add_filter(VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, function ($classes, $shortcode, $
     'overlay' => '',
   ], $atts, $shortcode);
 
-  $classes = [
+  $list = [
     $classes,
-    $atts['overlay'] ? 'has-overlay' : ''
+    $atts['overlay'] ? 'overlay' : ''
   ];
 
-  return implode(' ', array_filter($classes));
+  return implode(' ', array_filter($list));
 }, 99, 3);
 
 /*
@@ -254,13 +254,20 @@ add_filter('vc_shortcode_content_filter_after', function ($output, $shortcode, $
     'transition_duration' => '',
     'transition_delay' => '',
     'transition_anchor' => '',
-    'transition_extra' => ''
   ], $atts, $shortcode);
 
   foreach ($transitionAtts as $name => $value) {
     if (! $value) continue;
 
     $dataAtts[] = sprintf('data-%s="%s"', str_replace('_', '-', $name), $value);
+  }
+
+  if (! empty($atts['transition_extra'])) {
+    $extra = urldecode(
+      base64_decode($atts['transition_extra'])
+    );
+
+    $dataAtts[] = sprintf("data-transition-extra='{%s}'", trim(preg_replace('/\s+/', ' ', $extra)));
   }
 
   return empty($dataAtts) 
@@ -281,9 +288,9 @@ add_filter('vc_shortcode_content_filter_after', function ($output, $shortcode, $
   if (empty($atts['custom_js'])) return $output;
 
   // Generate random custom class to refer to it in our JS.
-  $customClass = 'custom-' . mt_rand();
+  $class = sprintf('custom-%s', mt_rand());
 
-  $output = preg_replace('/class="(.*?)"/', sprintf('class="\1 %s"', $customClass), $output, 1);
+  $output = preg_replace('/class="(.*?)"/', sprintf('class="\1 %s"', $class), $output, 1);
 
   // Decode
   $js = urldecode(base64_decode($atts['custom_js']));
@@ -291,7 +298,7 @@ add_filter('vc_shortcode_content_filter_after', function ($output, $shortcode, $
   // Attach script to the element's HTML output.
   $output .= sprintf(
     "<script>(() => {\nconst $0 = document.querySelector('.%s');\n%s\n})()</script>", 
-    $customClass, 
+    $class, 
     $js
   );
 

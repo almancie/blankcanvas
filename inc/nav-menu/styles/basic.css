@@ -8,7 +8,7 @@
 */
 
 .bc-menu {
-  --item-spacing-y: .75rem;
+  --item-spacing-y: .35rem;
   --item-spacing-x: var(--offcanvas-padding-x);
   --item-font-size: calc(var(--body-font-size) * 1.125);
   --title-spacing-x: .5rem;

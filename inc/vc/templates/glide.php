@@ -16,6 +16,10 @@ $classes = [
   'glide'
 ];
 
+$trackClasses = [
+  'glide__track'
+];
+
 $wrapperClasses = [
   'glide__slides'
 ];
@@ -48,7 +52,14 @@ if ($el_class) {
   $classes[] = $el_class;
 }
 
-// Slides classes
+if ($track_class) {
+  $trackClasses[] = $track_class;
+}
+
+if ($wrapper_class) {
+  $wrapperClasses[] = $wrapper_class;
+}
+
 if ($slide_class) {
   $content = preg_replace('/\[glide_slide/', sprintf('[glide_slide slide_class="%s"', $slide_class), $content);
 }
@@ -123,7 +134,7 @@ $bullets = sprintf(
 return sprintf(
   '<div %s>
     %s
-    <div class="glide__track" data-glide-el="track">
+    <div class="%s" data-glide-el="track">
     <ul class="%s">%s</ul>
     </div>
     %s
@@ -131,6 +142,7 @@ return sprintf(
   %s', 
   implode(' ', $attributes), 
   $hide_arrows ? '' : $arrows,
+  implode(' ', $trackClasses),
   implode(' ', $wrapperClasses),
   wpb_js_remove_wpautop($content),
   $hide_bullets ? '' : $bullets,

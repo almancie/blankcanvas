@@ -34,26 +34,27 @@ if ($el_id) {
 }
 
 // Stretch
-if ($full_width) {
-  array_push($attributes, 'data-vc-full-width="true"');
+if ($full_width === 'stretch') {
+  $classes[] = 'section-stretched';
+}
 
-  if ($full_width === 'stretch_row_content') {
-    $attributes[] = 'data-vc-stretch-content="true"';
-  }
+// Stretch content
+if ($full_width === 'stretch_content') {
+  $classes[] = 'section-stretched-content';
 }
 
 // Full height
 if ($full_height) {
-  $classes[] = 'vc_row-o-full-height';
+  $classes[] = 'section-full-height';
 }
 
 // Content alignment
 if ($content_placement) {
-  array_push($classes, 'd-flex', sprintf('align-items-%s', $content_placement));
+  $classes[] = sprintf('d-flex align-items-%s', $content_placement);
 }
 
 // Has background video
-$has_video_bg = ( ! empty( $video_bg ) && ! empty( $video_bg_url ) && vc_extract_youtube_id( $video_bg_url ) );
+$has_video_bg = ! empty($video_bg) && ! empty($video_bg_url) && vc_extract_youtube_id($video_bg_url);
 
 // Parallax effect
 $parallax_speed = $parallax_speed_bg;

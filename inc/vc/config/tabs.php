@@ -45,6 +45,7 @@ return [
         esc_html__('Tabs', 'blankcanvas') => 'tabs',
         esc_html__('Buttons', 'blankcanvas') => 'pills',
         esc_html__('Links', 'blankcanvas') => 'links',
+        esc_html__('Animated links', 'blankcanvas') => 'links-animated',
       ],
       'weight' => 100
     ],

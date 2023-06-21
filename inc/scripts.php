@@ -86,6 +86,7 @@ add_action('wp_enqueue_scripts', function () use ($jsData) {
    * 
    * This tiny library is developed by us.
    */
+  wp_enqueue_style('blankcanvas-animatab', THEME_URI . '/assets/css/animatab.css', [], THEME_VER);
   wp_enqueue_script('blankcanvas-animatab', THEME_URI . '/assets/js/animatab.js', ['animejs'], THEME_VER, true);
 
   /**
@@ -105,7 +106,7 @@ add_action('wp_enqueue_scripts', function () use ($jsData) {
    * 
    * https://blankcanvas.me/
    */
-  wp_enqueue_script('blankcanvas-onscreen', THEME_URI . '/assets/js/onscreen.js', [], THEME_VER, true);
+  wp_enqueue_script('blankcanvas-onscreen', THEME_URI . '/assets/js/onscreen.js', [], THEME_VER);
 
   /**
    * Blankcanvas transition
@@ -171,15 +172,12 @@ add_action('admin_enqueue_scripts', function () use ($jsData) {
   // Grapick (gradient color picker)
   wp_enqueue_style('grapick', 'https://cdn.jsdelivr.net/gh/artf/grapick@0.1.13/dist/grapick.min.css', [], '0.1.13');
   wp_enqueue_script('grapick', 'https://cdn.jsdelivr.net/gh/artf/grapick@0.1.13/dist/grapick.min.js', [], '0.1.13', true);
-  wp_enqueue_script('module-grapick', THEME_URI.'/inc/vc/assets/js/modules/grapick.js', ['grapick'], THEME_VER, true);
+  wp_enqueue_script('module-grapick', THEME_URI.'/inc/vc/assets/js/modules/grapick.js', ['grapick'], THEME_VER, true); // Just a wrapper
 
   // CodeMirror (code editor)
   wp_enqueue_style('wp-codemirror');
   wp_enqueue_script('wp-codemirror');
-  wp_enqueue_script('module-wp-codemirror-editor', THEME_URI.'/inc/vc/assets/js/modules/codeMirror.js', [], THEME_VER, true);
-
-  // WP code editor
-  // wp_enqueue_script('code-editor');
+  wp_enqueue_script('module-wp-codemirror-editor', THEME_URI.'/inc/vc/assets/js/modules/codeMirror.js', ['wp-codemirror'], THEME_VER, true); // Just a wrapper
 
   /**
    * Localize data
