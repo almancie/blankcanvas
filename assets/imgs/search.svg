@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
-<svg width="800px" height="800px" viewBox="0 -0.5 21 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-  </defs>
-  <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-    <g id="Dribbble-Light-Preview" transform="translate(-259.000000, -280.000000)" fill="#000000">
-      <g id="icons" transform="translate(56.000000, 160.000000)">
-        <path d="M207.45515,134.343 L208.93985,135.757 L204.48575,140 L203,138.586 L207.45515,134.343 Z M215.6,134 C212.1266,134 209.3,131.308 209.3,128 C209.3,124.691 212.1266,122 215.6,122 C219.07445,122 221.9,124.691 221.9,128 C221.9,131.308 219.07445,134 215.6,134 L215.6,134 Z M215.6,120 C210.9611,120 207.2,123.582 207.2,128 C207.2,132.418 210.9611,136 215.6,136 C220.23995,136 224,132.418 224,128 C224,123.582 220.23995,120 215.6,120 L215.6,120 Z" id="search_right-[#1505]">
-        </path>
-      </g>
+<svg width="800px" height="800px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    
+    <title>search</title>
+    <desc>Created with Sketch Beta.</desc>
+    <defs>
+
+</defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Icon-Set" sketch:type="MSLayerGroup" transform="translate(-256.000000, -1139.000000)" fill="#000000">
+            <path d="M269.46,1163.45 C263.17,1163.45 258.071,1158.44 258.071,1152.25 C258.071,1146.06 263.17,1141.04 269.46,1141.04 C275.75,1141.04 280.85,1146.06 280.85,1152.25 C280.85,1158.44 275.75,1163.45 269.46,1163.45 L269.46,1163.45 Z M287.688,1169.25 L279.429,1161.12 C281.591,1158.77 282.92,1155.67 282.92,1152.25 C282.92,1144.93 276.894,1139 269.46,1139 C262.026,1139 256,1144.93 256,1152.25 C256,1159.56 262.026,1165.49 269.46,1165.49 C272.672,1165.49 275.618,1164.38 277.932,1162.53 L286.224,1170.69 C286.629,1171.09 287.284,1171.09 287.688,1170.69 C288.093,1170.3 288.093,1169.65 287.688,1169.25 L287.688,1169.25 Z" id="search" sketch:type="MSShapeGroup">
+
+</path>
+        </g>
     </g>
-  </g>
 </svg>

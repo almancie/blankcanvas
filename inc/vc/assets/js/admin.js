@@ -1,4 +1,4 @@
-import codeMirror from './modules/codeMirror.js';
+import codeMirror from '../../../../assets/js/modules/codeMirror.js';
 import grapick from './modules/grapick.js';
 
 window.addEventListener('load', () => {
@@ -35,15 +35,16 @@ window.addEventListener('load', () => {
 
   // VcRowView.prototype.sortingSelector = sortingSelector;
 
-  if (window.VcRowView) {
-    VcRowView.prototype.sortingSelector += `, 
-      > [data-element_type=column], 
-      > [data-element_type=column_inner], 
-      > [data-element_type=column_inner_inner], 
-      > [data-element_type=group_column], 
-      > [data-element_type=glide_slide], 
-      > [data-element_type=advanced_list_item]`;
-  }
+  VcRowView.prototype.sortingSelector += `, 
+    > [data-element_type=column], 
+    > [data-element_type=column_inner], 
+    > [data-element_type=column_inner_inner], 
+    > [data-element_type=group_column], 
+    > [data-element_type=glide_slide], 
+    > [data-element_type=advanced_list_item]`;
+
+  // vc.visualComposerView.prototype.rowSortableSelector += `,
+  //   > .wpb_html`;
 
   /**
    * Elements title
@@ -95,8 +96,10 @@ window.addEventListener('load', () => {
       <i class="icon-bg"></i>
     </div>`;
 
-    // If container, append the icons inside controls
-    if (rows[view.model.attributes.shortcode]) {
+    const shortcode = view.model.attributes.shortcode;
+
+    // If container or section, append the icons inside controls
+    if (rows[shortcode] || shortcode === 'section') {
       title.after(icons);
 
       return;
@@ -329,10 +332,6 @@ window.addEventListener('load', () => {
         {
           field: '[name="config"]',  
           options: {}
-        },
-        {
-          field: '[name="events"]',  
-          options: {mode: 'javascript'}
         }
       ]
     };
@@ -345,7 +344,7 @@ window.addEventListener('load', () => {
   });
 
   vc.edit_element_block_view.on('tabChange', function () {
-    const tab = this.$tabsMenu[0].querySelector('.vc_active').querySelector('button').innerText.toLowerCase();
+    const tab = this.el.querySelector('.vc_ui-tabs-line .vc_active button').innerText.toLowerCase();
 
     const settings = {
       style: {
@@ -356,13 +355,17 @@ window.addEventListener('load', () => {
         field: '[name="custom_js"]',
         options: {mode: 'javascript'}
       },
-      transition: {
-        field: '[name="transition_extra"]',
-        options: {},
-      },
+      // transition: {
+      //   field: '[name="transition_extra"]',
+      //   options: {},
+      // },
       attributes: {
         field: '[name="attributes"]',
         options: {}
+      },
+      events: {
+        field: '[name="events"]',
+        options: {mode: 'javascript'}
       }
     };
 
@@ -385,13 +388,13 @@ window.addEventListener('load', () => {
   });
 
   /**
-   * Elements highlighter
+   * Elements filter
    */
   // Add checkbox
   document.querySelector('.vc_ui-panel-header-actions').innerHTML +=
-    `<div class="elements-highlighter" style="margin-top: 1rem">
-      <input type="checkbox" id="bc-elements-highlighter">
-      <label for="bc-elements-highlighter">Hide WPBakery Elements</label>
+    `<div class="elements-filter" style="margin-top: 1rem">
+      <input type="checkbox" id="bc-elements-filter">
+      <label for="bc-elements-filter">Hide WPBakery Elements</label>
     </div>`;
 
   const bcElementsOnly = localStorage.getItem('bcElementsOnly');
@@ -404,7 +407,7 @@ window.addEventListener('load', () => {
 
   // Hide VC elements on load
   if (bcElementsOnly == 'true') {
-    document.querySelector('.elements-highlighter input').checked = true;
+    document.querySelector('.elements-filter input').checked = true;
 
     vcElements.forEach(element => {
       element.classList.toggle('element-hidden', bcElementsOnly);
@@ -412,7 +415,7 @@ window.addEventListener('load', () => {
   }
 
   // Add onchange listener
-  document.querySelector('.elements-highlighter').onchange = (e) => {
+  document.querySelector('.elements-filter').onchange = (e) => {
     const active = e.target.checked;
 
     localStorage.setItem('bcElementsOnly', active);

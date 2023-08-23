@@ -39,18 +39,18 @@ if ($color) {
 if ($icon) {
   $classes[] = 'btn-has-icon';
 
-  if ($gap) {
-    $classes[] = sprintf('gap-%s', $gap);
-  }
+  // if ($gap) {
+  //   $classes[] = sprintf('gap-%s', $gap);
+  // }
 
   $iconClasses = [
     'btn-icon',
     'bi',
   ];
 
-  if ($icon_size) {
-    $iconClasses[] = sprintf('bi-%s', $icon_size);
-  }
+  // if ($icon_size) {
+  //   $iconClasses[] = sprintf('bi-%s', $icon_size);
+  // }
 
   if ($icon_name) {
     $iconClasses[] = sprintf('bi-%s', $icon_name);

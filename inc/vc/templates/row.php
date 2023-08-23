@@ -49,8 +49,8 @@ if ($columns_position_x) {
 }
 
 // Columns Y position
-if ($columns_position_x) {
-  $classes[] = sprintf('align-items-%s', $columns_position_x);
+if ($columns_position_y) {
+  $classes[] = sprintf('align-items-%s', $columns_position_y);
 }
 
 // Has background

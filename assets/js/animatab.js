@@ -29,10 +29,11 @@
     highlighterClass: 'animatab-highlighter',
     highlighterStyle: {},
     highlighterAnimation: {},
+    highlighterOnStartAnimation: {},
     highlighterDefaultPosition: {top: 0, left: 0, height: 0, width: 0},
     animateOnClick: true,
     animateOnHover: false,
-    animateOnStart: true
+    animateOnStart: true,
   };
 
   /**
@@ -155,15 +156,15 @@
       settings.highlighterClass, 
       {
         opacity: 0,
-      position: 'absolute',
-      pointerEvents: 'none',
-      zIndex: 0,
-      ...settings.highlighterStyle ?? {}
+        position: 'absolute',
+        pointerEvents: 'none',
+        zIndex: 0,
+        ...settings.highlighterStyle ?? {}
       }
     );
 
     // Event handlers
-    Array.from(element.children).forEach(child => {
+    [...element.children].forEach(child => {
       child.classList.add(settings.itemClass);
 
       if (isTrue(settings.animateOnClick)) {
@@ -197,7 +198,7 @@
     if (isTrue(settings.animateOnStart)) {
       
       // Animate to active item on load
-      animateToElement(element, highlighter, settings, true);
+      animateToElement(element, highlighter, settings, true, settings.highlighterOnStartAnimation);
 
       return;
     }

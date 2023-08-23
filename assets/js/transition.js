@@ -1,4 +1,5 @@
 (function() {
+
   /**
    * Animations
    */
@@ -11,16 +12,7 @@
         easing: 'easeInOutCirc',
       }
     },
-    zoomIn: (element) => {
-      return {
-        targets: element,
-        opacity: 1,
-        duration: 1000,
-        scale: [.85, 1],
-        easing: 'easeInOutCirc',
-      }
-    },
-    start: (element) => {
+    fadeStart: (element) => {
       return {
         targets: element,
         translateX: ['100px', 0],
@@ -29,7 +21,7 @@
         easing: 'easeInOutCirc',
       }
     },
-    end: (element) => {
+    fadeEnd: (element) => {
       return {
         targets: element,
         translateX: ['-100px', 0],
@@ -38,7 +30,7 @@
         easing: 'easeInOutCirc',
       }
     },
-    up: (element) => {
+    fadeUp: (element) => {
       return {
         targets: element,
         translateY: ['100px', 0],
@@ -47,7 +39,7 @@
         easing: 'easeInOutCirc',
       }
     },
-    down: (element) => {
+    fadeDown: (element) => {
       return {
         targets: element,
         translateY: ['-100px', 0],
@@ -56,35 +48,90 @@
         easing: 'easeInOutCirc',
       }
     },
-    downBounce: (element) => {
+    fadeUpStart: (element) => {
       return {
         targets: element,
+        translateX: ['100px', 0],
+        translateY: ['100px', 0],
+        opacity: 1,
+        duration: 1000,
+        easing: 'easeInOutCirc',
+      }
+    },
+    fadeUpEnd: (element) => {
+      return {
+        targets: element,
+        translateX: ['-100px', 0],
+        translateY: ['100px', 0],
+        opacity: 1,
+        duration: 1000,
+        easing: 'easeInOutCirc',
+      }
+    },
+    fadeDownStart: (element) => {
+      return {
+        targets: element,
+        translateX: ['100px', 0],
         translateY: ['-100px', 0],
         opacity: 1,
-        delay: 200,
-        duration: 2000,
+        duration: 1000,
+        easing: 'easeInOutCirc',
+      }
+    },
+    fadeDownEnd: (element) => {
+      return {
+        targets: element,
+        translateX: ['-100px', 0],
+        translateY: ['-100px', 0],
+        opacity: 1,
+        duration: 1000,
+        easing: 'easeInOutCirc',
+      }
+    },
+
+    fadeZoomIn: (element) => {
+      return {
+        targets: element,
+        opacity: 1,
+        duration: 1000,
+        scale: [.85, 1],
+        easing: 'easeInOutCirc',
+      }
+    },
+    fadeDownBounce: (element) => {
+      return {
+        targets: element,
+        translateY: ['-250px', 0],
+        opacity: 1,
+        // delay: 200,
+        duration: 1400,
         easing: 'easeOutBounce',
       }
     },
-    downRotateBounce: (element) => {
+    fadeDownRotateBounce: (element) => {
       return {
         targets: element,
-        translateY: ['-100px', 0],
+        translateY: ['-250px', 0],
         rotate: ['-180deg', 0],
         opacity: 1,
-        delay: 200,
-        duration: 2000,
+        // delay: 200,
+        duration: 1400,
         easing: 'easeOutBounce',
       }
     },
     tiles: (element) => {
-      const count = 25;
+      const tileWidth = 100;
+      const tileHeight = 100;
+      const countX = Math.floor(element.offsetWidth / tileWidth);
+      const countY = Math.floor(element.offsetHeight / tileHeight);
+      const count = countX * countY;
+
       const wrapper = document.createElement('div');
       wrapper.classList.add('tiles');
       const tiles = [];
 
-      [...Array(count)].map((_, i) => {
-        let tile = document.createElement('div');
+      [...Array(count + countX)].map((_, i) => {
+        const tile = document.createElement('div');
         wrapper.appendChild(tile);
         tiles.push(tile);
       });
@@ -96,31 +143,43 @@
         opacity: 0,
         duration: 1000,
         easing: 'easeInExpo', 
-        delay: anime.stagger(75, {from: 'center'}),
+        delay: anime.stagger(100, {from: 'center'}),
       }
-    },
-    custom: (element) => {
-      return {
-        targets: element,
-        duration: 1000,
-        easing: 'easeInOutCirc',
-      };
     }
   }
 
-  /**
-   * Parse value to object
-   */
-  function parse(value) {
-    let object;
+  function add(element) {
+    const {transition, transitionDuration, transitionDelay, transitionAnchor = element} = element.dataset;
 
-    try {
-      object = JSON.parse(value);
-    } catch (e) {
-      return value;
+    if (! settings[transition]) return;
+
+    const customTiming = {};
+
+    // Duration
+    if (transitionDuration) {
+      customTiming.duration = transitionDuration;
     }
 
-    return object;
+    // Delay
+    if (transitionDelay) {
+      customTiming.delay = transitionDelay;
+    }
+
+    onScreen(transitionAnchor, async () => {
+      await anime({
+        begin: () => {
+          element.classList.add('transitioning');
+        },
+        complete: () => {
+          element.classList.remove('transitioning');
+          element.classList.add('transition-done');
+        },
+        ...settings[transition](element),
+        ...customTiming
+      });
+    });
+
+    element.classList.add('transition-init');
   }
 
   /**
@@ -131,49 +190,7 @@
       ? document.querySelector(container)
       : container
 
-    container.querySelectorAll('[data-transition]').forEach(element => {
-      let data = element.dataset;
-
-      // Extra
-      const extra = parse(data.transitionExtra) ?? {}
-
-      // Animation
-      let transition = {
-        ...settings[data.transition](element),
-        ...extra
-      }
-
-      // Duration
-      if (data.transitionDuration) {
-        transition.duration = data.transitionDuration;
-      }
-
-      // Delay
-      if (data.transitionDelay) {
-        transition.delay = data.transitionDelay;
-      }
-
-      // Initial class
-      element.classList.add('transition-init');
-
-      // Active class
-      transition.begin = () => {
-        element.classList.add('transition-active');
-      }
-
-      // Complete class
-      transition.complete = () => {
-        element.classList.remove('transition-active');
-        element.classList.add('transition-complete');
-      }
-
-      // Anchor
-      const anchor = document.querySelector(data.transitionAnchor);
-
-      onScreen(anchor ?? element, () => {
-        anime(transition);
-      });
-    });
+    container.querySelectorAll('[data-transition]').forEach(add);
   };
 
   window.Transition = {init}

@@ -14,10 +14,7 @@ return [
     'except' => '',
   ],
   'js_view' => 'VcRowView',
-  'default_content' => '
-    [vc_column][/vc_column]
-    [vc_column][/vc_column]
-    [vc_column][/vc_column]',
+  'default_content' => '[vc_column][/vc_column]',
   'params' => [
     [
       'type' => 'textarea_raw_html',
@@ -30,6 +27,7 @@ return [
     [
       'type' => 'textarea_raw_html',
       'heading' => esc_html__('Events', 'blankcanvas'),
+      'group' => esc_html__('Events', 'blankcanvas'),
       'param_name' => 'events',
       'description' => __('For available events, <a target="_blank" href="https://glidejs.com/docs/events/">click here</a>.', 'blankcanvas'),
       'value' => urlencode(base64_encode("// slider.on('mount.before', () => {});")),

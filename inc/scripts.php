@@ -13,7 +13,11 @@ $jsData = [
   'home' => home_url(),
   'theme' => get_template_directory_uri(),
   'l10n' => [
-    'search' => __('Search', 'blankcanvas')
+    'search' => [
+      'button' => __('Search', 'blankcanvas'),
+      'placeholder' => __('Type Something', 'blankcanvas'),
+      'noResults' => __('No Results Found', 'blankcanvas'),
+    ],
   ]
 ];
 
@@ -48,19 +52,18 @@ add_filter('script_loader_tag', function($tag, $handle) {
 add_action('wp_enqueue_scripts', function () use ($jsData) {
 
   /**
-   * Glide Slider
+   * Lottie player
    */
-  wp_register_style('glide', 'https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.6.0/css/glide.core.min.css', [], '3.6.0');
-  wp_register_style('glide-theme', 'https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.6.0/css/glide.theme.min.css', [], '3.6.0');
-  wp_register_script('glide', 'https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.6.0/glide.min.js', [], '3.6.0');
+  wp_register_script('lottie-player', 'https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js', [], null);
 
   /**
    * Theme bundle 
    * 
    * Contains customized version of bootstrap (5.2).
    */
-  wp_enqueue_style('blankcanvas-bundle', THEME_URI . '/assets/css/bundle.min.css', [], THEME_VER);
-  wp_enqueue_script('blankcanvas-bundle', THEME_URI . '/assets/js/bundle.min.js', [], THEME_VER, true);
+  wp_enqueue_style('blankcanvas-bundle', THEME_URI.'/assets/css/bundle.min.css', [], THEME_VER);
+  wp_enqueue_script('blankcanvas-bundle', THEME_URI.'/assets/js/bundle.min.js', [], THEME_VER, true);
+  wp_localize_script('blankcanvas-bundle', 'bc', $jsData);
 
   /**
    * Bootstrap icons
@@ -86,8 +89,8 @@ add_action('wp_enqueue_scripts', function () use ($jsData) {
    * 
    * This tiny library is developed by us.
    */
-  wp_enqueue_style('blankcanvas-animatab', THEME_URI . '/assets/css/animatab.css', [], THEME_VER);
-  wp_enqueue_script('blankcanvas-animatab', THEME_URI . '/assets/js/animatab.js', ['animejs'], THEME_VER, true);
+  wp_enqueue_style('blankcanvas-animatab', THEME_URI.'/assets/css/animatab.css', [], THEME_VER);
+  wp_enqueue_script('blankcanvas-animatab', THEME_URI.'/assets/js/animatab.js', ['animejs'], THEME_VER, true);
 
   /**
    * Particles
@@ -106,7 +109,7 @@ add_action('wp_enqueue_scripts', function () use ($jsData) {
    * 
    * https://blankcanvas.me/
    */
-  wp_enqueue_script('blankcanvas-onscreen', THEME_URI . '/assets/js/onscreen.js', [], THEME_VER);
+  wp_enqueue_script('blankcanvas-onscreen', THEME_URI.'/assets/js/onscreen.js', [], THEME_VER, true);
 
   /**
    * Blankcanvas transition
@@ -118,14 +121,53 @@ add_action('wp_enqueue_scripts', function () use ($jsData) {
    * 
    * https://blankcanvas.me/
    */
-  wp_enqueue_style('blankcanvas-transition', THEME_URI . '/assets/css/transition.css', [], THEME_VER);
-  wp_enqueue_script('blankcanvas-transition', THEME_URI . '/assets/js/transition.js', ['blankcanvas-onscreen', 'animejs'], THEME_VER, true);
+  wp_enqueue_style('blankcanvas-transition', THEME_URI.'/assets/css/transition.css', [], THEME_VER);
+  wp_enqueue_script('blankcanvas-transition', THEME_URI.'/assets/js/transition.js', ['blankcanvas-onscreen', 'animejs'], THEME_VER, true);
+
+  /**
+   * Blankcanvas revealer
+   * 
+   * This Tiny library is developed by us. 
+   * 
+   * This library allows us to attach cool reveal animations to elements and text.
+   * 
+   * https://blankcanvas.me/
+   */
+  wp_enqueue_style('blankcanvas-revealer', THEME_URI.'/assets/css/revealer.css', [], THEME_VER);
+  wp_enqueue_script('blankcanvas-revealer', THEME_URI.'/assets/js/revealer.js', ['blankcanvas-onscreen', 'animejs'], THEME_VER, true);
+  
+  /**
+   * Blankcanvas Youtube player
+   */
+  
+  wp_enqueue_script('youtube-iframe-api', 'https://www.youtube.com/iframe_api', [], null, true);
+  wp_enqueue_style('blankcanvas-youtube-player', THEME_URI.'/assets/css/youtube-player.css', [], THEME_VER);
+  wp_enqueue_script('blankcanvas-youtube-player', THEME_URI.'/assets/js/youtube-player.js', ['youtube-iframe-api', 'blankcanvas-onscreen'], THEME_VER, true);
+  
+  /**
+   * Blankcanvas video player
+   */
+  wp_enqueue_script('blankcanvas-video-player', THEME_URI.'/assets/js/video-player.js', ['blankcanvas-onscreen'], THEME_VER, true);
+    
+  /**
+   * Theme toggle
+   */
+  wp_enqueue_style('open-props-easings', 'https://unpkg.com/open-props@1.5.10/easings.min.css', [], '1.5.10');
+  wp_enqueue_style('blankcanvas-theme-toggle', THEME_URI.'/assets/css/theme-toggle.css', ['open-props-easings'], THEME_VER);
+  wp_enqueue_script('blankcanvas-theme-toggle', THEME_URI.'/assets/js/theme-toggle.js', [], THEME_VER);
+
+  /**
+   * Glide slider
+   */
+  wp_register_script('glide', 'https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.6.0/glide.min.js', [], '3.6.0', true);
+  wp_register_style('glide', 'https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.6.0/css/glide.core.min.css', [], '3.6.0');
+  wp_register_style('glide-theme', 'https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.6.0/css/glide.theme.min.css', [], '3.6.0');
 
   /**
    * Theme main JS & CSS
    */
   wp_enqueue_style('blankcanvas', get_stylesheet_uri(), [], THEME_VER);
-  wp_enqueue_script('blankcanvas', THEME_URI . '/assets/js/main.js', [], THEME_VER, true);
+  wp_enqueue_script('blankcanvas', THEME_URI.'/assets/js/main.js', [], THEME_VER, true);
 
   /**
    *  WP comment
@@ -138,11 +180,6 @@ add_action('wp_enqueue_scripts', function () use ($jsData) {
    * WPBakery main CSS
    */
   wp_enqueue_style('blankcanvas-vc-main', THEME_URI.'/inc/vc/assets/css/main.css', [], THEME_VER);
-
-  /**
-   * Localize data
-   */
-  wp_localize_script('blankcanvas-bundle', 'bc', $jsData);
 });
 
 /*
@@ -156,13 +193,11 @@ add_action('wp_enqueue_scripts', function () use ($jsData) {
 
 add_action('admin_enqueue_scripts', function () use ($jsData) {
 
-  /**
-   * Admin Main JS & CSS
-   */
+  // Admin main assets
   wp_enqueue_style('blankcanvas-admin', THEME_URI.'/assets/css/admin.css', [], THEME_VER);
   wp_enqueue_script('blankcanvas-admin', THEME_URI.'/assets/js/admin.js', [], THEME_VER, true);
 
-  // WPBakery Main CSS & JS
+  // WPBakery
   wp_enqueue_style('blankcanvas-vc-admin', THEME_URI.'/inc/vc/assets/css/admin.css', [], THEME_VER);
   wp_enqueue_script('module-blankcanvas-vc-admin', THEME_URI.'/inc/vc/assets/js/admin.js', [], THEME_VER, true);
 
@@ -177,7 +212,10 @@ add_action('admin_enqueue_scripts', function () use ($jsData) {
   // CodeMirror (code editor)
   wp_enqueue_style('wp-codemirror');
   wp_enqueue_script('wp-codemirror');
-  wp_enqueue_script('module-wp-codemirror-editor', THEME_URI.'/inc/vc/assets/js/modules/codeMirror.js', ['wp-codemirror'], THEME_VER, true); // Just a wrapper
+  wp_enqueue_script('module-wp-codemirror-editor', THEME_URI.'/assets/js/modules/codeMirror.js', ['wp-codemirror'], THEME_VER, true); // Just a wrapper
+  
+  // Contact Form 7
+  wp_enqueue_script('module-blankcanvas-wpcf7-admin', THEME_URI.'/inc/wpcf7/assets/js/admin.js', [], THEME_VER, true);
 
   /**
    * Localize data

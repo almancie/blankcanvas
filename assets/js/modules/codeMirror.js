@@ -1,5 +1,9 @@
 export default function(field, settings = {}) {
-  // Check if field is already initilized.
+
+  // Check if exists
+  if (! field) return;
+
+  // Check if already initilized
   if (field.dataset.init) return;
 
   let editorSettings = {

@@ -50,11 +50,11 @@ $content = sprintf('<p>%s</p>', $content);
 $content = preg_replace('/<(.*)><\/\1>/', '', $content);
 
 // Get tags count
-preg_match_all('/<(?:(.*))>(?:.|\n)+?<\/\1>/', $content, $matches);
+// preg_match_all('/<(?:(.*))>(?:.|\n)+?<\/\1>/', $content, $matches);
 
 // If multiple tags, wrap everything with a div and
 // add settings on the wrapper div
-if (count($matches[0]) > 1) {
+// if (count($matches[0]) > 1) {
 
   // Output
   return sprintf(
@@ -62,7 +62,7 @@ if (count($matches[0]) > 1) {
     implode(' ', $attributes), 
     wpb_js_remove_wpautop($content)
   );
-}
+// }
 
 // If only one tag, add settings to the tag
-return preg_replace('/>/', sprintf(' %s>', implode(' ', $attributes)), $content, 1);
+// return preg_replace('/>/', sprintf(' %s>', implode(' ', $attributes)), $content, 1);

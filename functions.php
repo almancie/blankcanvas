@@ -167,3 +167,14 @@ require THEME_DIR . '/inc/shortcodes/functions.php';
 */
 
 require THEME_DIR . '/inc/vc/functions.php';
+
+/*
+|--------------------------------------------------------------------------
+| Contact Form 7 additions
+|--------------------------------------------------------------------------
+|
+| Alters Contact Form 7 behaviour
+|
+*/
+
+require THEME_DIR . '/inc/wpcf7/functions.php';

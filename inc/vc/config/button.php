@@ -14,7 +14,6 @@ return [
   'params' => [
     [
       'type' => 'textfield',
-      // 'holder' => 'div',
       'heading' => esc_html__('Text', 'js_composer'),
       'param_name' => 'text',
       'value' => esc_html__('Button', 'blankcanvas'),
@@ -54,11 +53,11 @@ return [
       'param_name' => 'color',
       'value' => [
         esc_html__('None', 'blankcanvas') => '', 
-        esc_html__('Text color', 'blankcanvas') => 'body-color', 
-        esc_html__('Body color', 'blankcanvas') => 'body-bg', 
-        esc_html__('Dark', 'blankcanvas') => 'dark', 
         esc_html__('Light', 'blankcanvas') => 'light', 
-        esc_html__('Color 1', 'blankcanvas') => 'color-1', 
+        esc_html__('Dark', 'blankcanvas') => 'dark', 
+        esc_html__('Primary', 'blankcanvas') => 'primary', 
+        esc_html__('Secondary', 'blankcanvas') => 'secondary', 
+        esc_html__('Link', 'blankcanvas') => 'link', 
       ],
       'weight' => 100
     ],
@@ -83,24 +82,24 @@ return [
       'admin_label' => true,
       'weight' => 100
     ],
-    [
-      'type' => 'dropdown',
-      'heading' => esc_html__('Icon size', 'blankcanvas'),
-      'param_name' => 'icon_size',
-      'value' => [
-        esc_html__('Default', 'blankcanvas') => '',
-        esc_html__('Small', 'blankcanvas') => 'sm',
-        esc_html__('Medium', 'blankcanvas') => 'md',
-        esc_html__('Large', 'blankcanvas') => 'lg',
-        esc_html__('X large', 'blankcanvas') => 'xl',
-        esc_html__('2x large', 'blankcanvas') => 'xxl',
-      ],
-      'dependency' => [
-        'element' => 'icon',
-        'not_empty' => true,
-      ],
-      'weight' => 100
-    ],
+    // [
+    //   'type' => 'dropdown',
+    //   'heading' => esc_html__('Icon size', 'blankcanvas'),
+    //   'param_name' => 'icon_size',
+    //   'value' => [
+    //     esc_html__('Default', 'blankcanvas') => '',
+    //     esc_html__('Small', 'blankcanvas') => 'sm',
+    //     esc_html__('Medium', 'blankcanvas') => 'md',
+    //     esc_html__('Large', 'blankcanvas') => 'lg',
+    //     esc_html__('X large', 'blankcanvas') => 'xl',
+    //     esc_html__('2x large', 'blankcanvas') => 'xxl',
+    //   ],
+    //   'dependency' => [
+    //     'element' => 'icon',
+    //     'not_empty' => true,
+    //   ],
+    //   'weight' => 100
+    // ],
     [
       'type' => 'dropdown',
       'heading' => esc_html__('Icon position', 'blankcanvas'),
@@ -117,24 +116,24 @@ return [
       ],
       'weight' => 100
     ],
-    [
-      'type' => 'dropdown',
-      'heading' => esc_html__('Gap', 'blankcanvas'),
-      'param_name' => 'gap',
-      'value' => [
-        esc_html__('Defaut', 'js_composer') => '',
-        esc_html__('1 ', 'js_composer') => '1',
-        esc_html__('2 ', 'js_composer') => '2',
-        esc_html__('3 ', 'js_composer') => '3',
-        esc_html__('4 ', 'js_composer') => '4',
-        esc_html__('5 ', 'js_composer') => '5'
-      ],
-      'dependency' => [
-        'element' => 'icon',
-        'not_empty' => true,
-      ],
-      'weight' => 100
-    ],
+    // [
+    //   'type' => 'dropdown',
+    //   'heading' => esc_html__('Gap', 'blankcanvas'),
+    //   'param_name' => 'gap',
+    //   'value' => [
+    //     esc_html__('Defaut', 'js_composer') => '',
+    //     esc_html__('1 ', 'js_composer') => '1',
+    //     esc_html__('2 ', 'js_composer') => '2',
+    //     esc_html__('3 ', 'js_composer') => '3',
+    //     esc_html__('4 ', 'js_composer') => '4',
+    //     esc_html__('5 ', 'js_composer') => '5'
+    //   ],
+    //   'dependency' => [
+    //     'element' => 'icon',
+    //     'not_empty' => true,
+    //   ],
+    //   'weight' => 100
+    // ],
     ...require THEME_DIR . '/inc/vc/params/general.php'
   ],
 ];

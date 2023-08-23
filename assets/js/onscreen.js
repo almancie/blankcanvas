@@ -1,50 +1,79 @@
 (function() {
+
   /**
-   * Observer options
+   * Observer settings
    */
-  let observerOptions = {
-    rootMargin: '0px 0px -20% 0px'
+  const offset = 25;
+
+  const observerSettings = {
+    rootMargin: `-${offset}%`, 
+    // threshold: .5
+  };
+
+  /**
+   * Get the element
+   */
+  const getElement = (selector) => typeof selector === 'string'
+    ? document.querySelector(selector)
+    : selector;
+
+  /**
+   * Push to stack of callbacks
+   */
+  const addCallback = (element, callback) => {
+    if (element.onScreen) return element.onScreen.push(callback);
+
+    element.onScreen = [callback];
+
+    return false;
   }
 
   /**
-   * Callbacks
+   * Create on screen observer
    */
-  let callbacks = {};
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+
+      // Stops script from running on initial load.
+      if (entry.intersectionRatio === 0) return;
+
+      const element = entry.target;
+
+      element.onScreen?.forEach(callback => callback());
+
+      observer.unobserve(element);
+
+      element.classList.add('onscreen-done');
+    });
+  }, observerSettings);
 
   /**
-   * Create Observer
+   * Check if element is already scrolled beyoned
    */
-  let observer = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (! entry.isIntersecting) return;
+  const isBeyond = element => {
 
-      callbacks[entry.target.dataset.onscreen].forEach(callback => callback.call());
+    // How much is scrolled + 80% of window height
+    const triggerPoint = window.scrollY + window.innerHeight * (100 - offset) / 100;
 
-      observer.unobserve(entry.target);
-    });
-  }, observerOptions);
+    // Element offset from top
+    const elementOffset = element.getBoundingClientRect().top;
+
+    return triggerPoint >= elementOffset;
+  }
 
   /**
    * Attach element to the observer
    */
-  function onScreen(element, callback) {
-    element = typeof element === 'string'
-      ? document.querySelector(element)
-      : element;
+  const onScreen = (selector, callback) => {
+    const element = getElement(selector);
 
-    let ref = element.dataset.onscreen;
-      
-    // If exists, push to the stack
-    if (ref) return callbacks[ref].push(callback);
+    if (isBeyond(element)) return callback();
 
-    // Create it
-    ref = Math.random().toString().substring(10);
-
-    callbacks[ref] = [callback];
-
-    element.setAttribute('data-onscreen', ref);
+    if (addCallback(element, callback)) return;
 
     observer.observe(element);
+
+    element.classList.add('onscreen-init');
   }
 
   window.onScreen = onScreen;

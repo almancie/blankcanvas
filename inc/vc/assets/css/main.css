@@ -12,7 +12,8 @@
   z-index: 1;
 }
 
-[class*="-spill"] {
+[class*="-spill"],
+[class*="-spill"].vc_parallax {
   overflow-x: visible;
   overflow-y: clip;
 }
@@ -20,15 +21,18 @@
 [class*="-spill"] .vc_parallax-inner,
 [class*="-spill"] .tiles {
   width: var(--bg-width);
-  left: initial;
-  right: initial;
-  inset-inline-end: 0;
+  inset-inline-end: 0 !important;
+  inset-inline-start: initial !important;
+}
+
+[class*="-spill"] .vc_parallax-inner {
+  background-color: var(--body-bg) !important;
 }
 
 [class*="-spill"]:last-child .vc_parallax-inner,
 [class*="-spill"]:last-child .tiles {
-  inset-inline-end: initial;
-  inset-inline-start: 0;
+  inset-inline-end: initial !important;
+  inset-inline-start: 0 !important;
 }
 
 [class*="-spill"].vc_parallax:after {

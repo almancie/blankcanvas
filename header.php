@@ -15,13 +15,13 @@
   wp_body_open(); ?>
 
   <div class="site">
-    <header class="site-header d-flex align-items-center justify-content-between py-2 py-lg-4">
+    <header class="site-header d-flex align-items-center justify-content-between p-lg-3">
       <div class="container-xxl">
         <div class="row align-items-center justify-content-between flex-row-reverse">
 
           <!-- Logo -->
-          <div class="col-auto d-flex justify-content-center justify-content-lg-start">
-            <div class="site-branding px-4">
+          <div class="col-auto">
+            <div class="site-branding px-2">
 
               <?php
               the_custom_logo(); ?>
@@ -34,36 +34,42 @@
             <nav class="navbar main-navigation d-flex align-items-center">
               <button 
                 type="button" 
-                class="bc-menu-btn btn border-0 d-flex flex-center d-lg-none p-2" 
+                class="bc-menu-btn btn p-2 border-0 d-lg-none" 
                 aria-controls="offcanvasMenu" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu"
               >
-                <svg width="32px" height="32px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                  <g>
-                    <line x1="4" x2="44" y1="19" y2="19" stroke-width="2" />
-                    <line x1="4" x2="44" y1="32" y2="32" stroke-width="2" />
-                  </g>
-                  
-                  <g>
-                    <line x1="4" x2="44" y1="24" y2="24" stroke-width="2" />
-                    <line x1="4" x2="44" y1="24" y2="24" stroke-width="2" />
-                  </g>
-                </svg>
-                <!-- <i class="material-symbols-outlined">menu</i> -->
-                <!-- <?=__('Menu', 'blankcanvas') ?> -->
+                <div class="bc-menu-btn-icon">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
               </button>
               <div class="offcanvas-lg offcanvas-start" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
-                <div class="offcanvas-header">
-                  <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" role="switch" id="darkSwitch">
-                    <label class="form-check-label" for="darkSwitch">
-                      <i class="bi bi-moon-stars-fill"></i>
-                    </label>
-                  </div>
-                  <!-- <a class="btn p-0" role="button" aria-controls="offcanvasSearch" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSearch">
-                    <i class="bi bi-search"></i>
-                  </a> -->
+                <div class="offcanvas-header justify-content-end h-auto py-2 mt-1">
+                  <button class="theme-toggle btn p-2 border-0" title="Toggles light & dark" aria-label="auto" aria-live="polite">
+                    <svg class="sun-and-moon" aria-hidden="true" width="28" height="28" viewBox="0 0 24 24">
+                      <mask class="moon" id="moon-mask">
+                        <rect x="0" y="0" width="100%" height="100%" fill="var(--light)" />
+                        <circle cx="24" cy="10" r="6" />
+                      </mask>
+                      <circle class="sun" cx="12" cy="12" r="6" mask="url(#moon-mask)" fill="var(--offcanvas-color)" />
+                      <g class="sun-beams" stroke="var(--dark)" stroke-width="2">
+                        <line x1="12" y1="1" x2="12" y2="3" />
+                        <line x1="12" y1="21" x2="12" y2="23" />
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                        <line x1="1" y1="12" x2="3" y2="12" />
+                        <line x1="21" y1="12" x2="23" y2="12" />
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                      </g>
+                    </svg>
+                  </button>
+                  <div class="icon-separator"></div>
+                  <button class="btn p-2 border-0 mb-1" role="button" aria-controls="offcanvasSearch" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSearch">
+                    <img src="<?= get_template_directory_uri() ?>/assets/imgs/search-normal.svg" width="24px" height="24px" class="filter-body-color" />
+                  </button>
                 </div>
-                <div class="offcanvas-body d-lg-flex align-items-lg-center px-0">
+                <div class="offcanvas-body d-lg-flex align-items-lg-center">
 
                   <?php
                   wp_nav_menu([
@@ -78,24 +84,14 @@
             </nav>
           </div>
 
+          <div class="offcanvas offcanvas-start text-start" id="offcanvasSearch" aria-labelledby="offcanvasSearchLabel">
+            <div class="offcanvas-body d-lg-flex align-items-lg-center px-0 pb-0" id="offcanvasSearchBody"></div>
+          </div>
           <!-- Icons -->
-          <!-- <div class="col-auto col-lg-2 icons-col d-none d-lg-flex align-items-center justify-content-end">
-            <a class="site-header-btn btn d-inline-flex flex-center px-2" role="button" aria-controls="offcanvasSearch" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSearch">
-              <svg width="20px" height="20px" viewBox="0 -0.5 21 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                </defs>
-                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                  <g transform="translate(-259.000000, -280.000000)" fill="var(--btn-color)">
-                    <g id="icons" transform="translate(56.000000, 160.000000)">
-                      <path d="M207.45515,134.343 L208.93985,135.757 L204.48575,140 L203,138.586 L207.45515,134.343 Z M215.6,134 C212.1266,134 209.3,131.308 209.3,128 C209.3,124.691 212.1266,122 215.6,122 C219.07445,122 221.9,124.691 221.9,128 C221.9,131.308 219.07445,134 215.6,134 L215.6,134 Z M215.6,120 C210.9611,120 207.2,123.582 207.2,128 C207.2,132.418 210.9611,136 215.6,136 C220.23995,136 224,132.418 224,128 C224,123.582 220.23995,120 215.6,120 L215.6,120 Z" id="search_right-[#1505]">
-                      </path>
-                    </g>
-                  </g>
-                </g>
-              </svg>
-            </a>
-            <div class="offcanvas offcanvas-end text-start" id="offcanvasSearch" aria-labelledby="offcanvasSearchLabel">
-              <div class="offcanvas-body d-lg-flex align-items-lg-center px-0 pb-0" id="offcanvasSearchBody"></div>
-            </div>
+          <!-- <div class="col-auto col-lg-2 icons-col d-lg-flex align-items-center justify-content-end">
+            <button class="btn" role="button" aria-controls="offcanvasSearch" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSearch">
+              <i class="bi bi-search"></i>
+            </button>
           </div> -->
         </div>
       </div>

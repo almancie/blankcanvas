@@ -1,0 +1,8 @@
+/* .video {
+  opacity: 0;
+}
+
+.video:not([data-video-state="playing"]):not([data-video-state="scroll"]),
+.video-started {
+  opacity: 1;
+} */

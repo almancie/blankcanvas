@@ -91,7 +91,9 @@ $elements = [
   'glide',
   'glide_slide',
   'group',
-  'group_column'
+  'group_column',
+  'lottie_player',
+  'video_player'
 ];
 
 add_action('vc_before_init', function() use ($elements) {
@@ -111,7 +113,7 @@ add_action('vc_before_init', function() use ($elements) {
 
 $fields = [
   'design', 
-  // 'spacing', 
+  'spacing', 
   'style', 
   'script', 
   'attributes',
@@ -197,7 +199,7 @@ add_filter('vc_shortcode_content_filter_after', function ($output, $shortcode, $
   }
 
   return $output;
-}, 00, 4);
+}, 99, 4);
 
 /**
  * Custom CSS
@@ -213,7 +215,7 @@ add_filter('vc_shortcode_content_filter_after', function ($output, $shortcode, $
 /**
  * Style
  */
-add_filter('vc_shortcode_content_filter_after', function ($output, $shortcode, $atts, $content) use (&$style) {  
+add_filter('vc_shortcode_content_filter_after', function ($output, $shortcode, $atts, $content) use (&$style) {
   if (empty($style)) return $output;
 
   // Get the HTML tags from output
@@ -221,9 +223,10 @@ add_filter('vc_shortcode_content_filter_after', function ($output, $shortcode, $
 
   // Extract style from the root tag only
   preg_match('/style="(.*?)"/', empty($tags) ? '' : $tags[0], $tagStyle);
-
+  
   // Append our style to the element style if exists
-  $tagStyle = (empty($tagStyle[1]) ? '' : substr($tagStyle[1], 0, -1)) . implode('; ', $style);
+  // $tagStyle = (empty($tagStyle[1]) ? '' : substr($tagStyle[1], 0, -1)) . implode('; ', $style);
+  $tagStyle = (empty($tagStyle[1]) ? '' : $tagStyle[1]) . ' ' . implode('; ', $style);
 
   // Reset style for next element
   $style = [];
@@ -233,7 +236,7 @@ add_filter('vc_shortcode_content_filter_after', function ($output, $shortcode, $
     $output, 
     1
   );
-}, 110, 4);
+}, 99, 4);
 
 /*
 |--------------------------------------------------------------------------
@@ -251,6 +254,7 @@ add_filter('vc_shortcode_content_filter_after', function ($output, $shortcode, $
 
   $transitionAtts = shortcode_atts([
     'transition' => '',
+    'transition_out' => '',
     'transition_duration' => '',
     'transition_delay' => '',
     'transition_anchor' => '',
@@ -260,14 +264,6 @@ add_filter('vc_shortcode_content_filter_after', function ($output, $shortcode, $
     if (! $value) continue;
 
     $dataAtts[] = sprintf('data-%s="%s"', str_replace('_', '-', $name), $value);
-  }
-
-  if (! empty($atts['transition_extra'])) {
-    $extra = urldecode(
-      base64_decode($atts['transition_extra'])
-    );
-
-    $dataAtts[] = sprintf("data-transition-extra='{%s}'", trim(preg_replace('/\s+/', ' ', $extra)));
   }
 
   return empty($dataAtts) 

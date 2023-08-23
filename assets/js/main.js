@@ -1,6 +1,6 @@
 /*
 |--------------------------------------------------------------------------
-| Menu Animation
+| Main Menu
 |--------------------------------------------------------------------------
 |
 | Animates menu items.
@@ -9,11 +9,20 @@
 
 if (document.body.classList.contains('home')) {
   anime({
-    targets: '#main-menu .menu-item',
+    targets: ['#main-menu .menu-item', '.custom-logo'],
     translateY: [50, 0],
     delay: anime.stagger(100),
     opacity: 1,
     easing: 'easeInOutCirc'
+  });
+
+  window?.Animatab.add('.main-menu', {
+    activeItemClass: 'current-menu-item',
+    animateOnHover: true,
+    highlighterAnimation: {
+      easing: 'easeOutCirc',
+      duration: 500,
+    },
   });
 }
 
@@ -37,16 +46,17 @@ window?.Transition.init();
 |
 */
 
-// Main menu
-window?.Animatab.add('.main-menu', {
-  activeItemClass: 'current-menu-item',
-  // animateOnStart: false,
-  animateOnHover: true,
-  highlighterAnimation: {
-    easing: 'easeOutQuad',
-    duration: 300
-  },
-  highlighterStyle: {bottom: 0, right: 0},
-});
-
 window?.Animatab.init();
+
+/*
+|--------------------------------------------------------------------------
+| Revealer Init
+|--------------------------------------------------------------------------
+|
+| 
+|
+*/
+
+window?.Revealer.init({
+  color: 'var(--body-color)'
+});

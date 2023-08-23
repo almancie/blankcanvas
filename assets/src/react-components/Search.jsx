@@ -40,15 +40,15 @@ export default function() {
   return (
     <div className="search-component w-100 h-100 d-flex flex-column p-3 pt-0 mt-auto justify-content-end">
       <ul className="search-results text-capitalize list-unstyled mt-2 small">
-        {posts ? postList() : <div>No Results.</div>}
+        {posts ? postList() : <div>bc.l10n.search.noResults</div>}
       </ul>
       <div className="search-form-control d-flex align-items-center w-100 border rounded p-2">
         <input 
           id="search-term" 
           type="text" 
-          className="form-control border-0 shadow-0" 
+          className="form-control border-0 shadow-none" 
           onChange={handleInput} 
-          placeholder="Type something.."
+          placeholder={bc.l10n.search.placeholder + '..'}
         />
         <button type="submit" className="btn btn-color-1 ms-2 d-flex">
           <i className='bi bi-arrow-right' />

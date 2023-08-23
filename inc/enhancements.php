@@ -29,6 +29,6 @@ add_action('wp_head', function () {
 add_filter('upload_mimes', function ($mimes) {
   return array_merge($mimes, [
     'svg'  => 'image/svg+xml',
-    'json' => 'text/json'
+    'json' => 'text/plain'
   ]);
 });

@@ -97,6 +97,11 @@
  * Tabs & Accordion
  */
 
+.wpb_tabs,
+.wpb_accordion {
+  position: relative;
+}
+
 .wpb_accordion .vc_tta-container,
 .wpb_tabs .vc_tta-container {
   margin: 0;
@@ -155,6 +160,21 @@
 
 .wpb_image img.vc_element-icon {
   background-image: none;
+}
+
+/* Prevents hidden fields from showing on edit window inital opening */
+.vc_properties-list-init [data-vc-shortcode-param-name="custom_src"],
+.vc_properties-list-init [data-vc-shortcode-param-name="external_img_size"] {
+  display: none;
+}
+
+/**
+ * HTML
+ */
+
+.wpb_html {
+  max-height: 200px;
+  overflow: hidden;
 }
 
 /**
@@ -344,7 +364,7 @@
 }
 
 /**
- * Element icon
+ * Element icons
  */
 
 .icons {
@@ -361,11 +381,17 @@
   margin-inline-start: auto;
 }
 
-[data-width] > .icons {
+[data-width]:not(.wpb_section) > .icons {
   bottom: initial;
   right: initial;
-  left: calc(var(--element-spacing) / 2 + 3px);
-  top: 1px;
+  /* left: calc(var(--element-spacing) / 2 + 3px); */
+  /* top: 1px; */
+  left: calc(50% + 35px);
+  top: 4px;
+}
+
+[data-width]:not(.wpb_section).vc_empty-column > .icons {
+  left: calc(50% + 25px);
 }
 
 .icons > *:after {
@@ -402,7 +428,13 @@
  * Spacing fields
  */
 
-[data-vc-shortcode-param-name="padding"],
+/* [data-vc-shortcode-param-name*="padding_"], */
+/* [data-vc-shortcode-param-name*="margin_"]  { */
+  /* width: 25% !important; */
+  /* padding-top: 0 !important; */
+/* } */
+
+/* [data-vc-shortcode-param-name="padding"],
 [data-vc-shortcode-param-name="margin"] {
   padding-inline-start: 15px;
   padding-inline-end: 15px;
@@ -439,13 +471,13 @@
 [data-vc-shortcode-param-name="padding"] select,
 [data-vc-shortcode-param-name="margin"] select {
   min-width: 50px;
-}
+} */
 
 /**
  * Grapick field
  */
 
- .grapick-wrapper {
+.grapick-wrapper {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -467,6 +499,10 @@
 /**
  * CodeMirror fields
  */
+
+.CodeMirror {
+  height: 400px !important;
+}
 
 .CodeMirror-hints {
   z-index: 99999999 !important;
@@ -516,7 +552,7 @@
 
 /*
 |--------------------------------------------------------------------------
-| Media Queries
+| Container Queries
 |--------------------------------------------------------------------------
 |
 */

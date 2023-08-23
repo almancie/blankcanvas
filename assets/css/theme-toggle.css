@@ -1,0 +1,62 @@
+.sun-and-moon > :is(.moon, .sun, .sun-beams) {
+  transform-origin: center;
+}
+
+[data-bs-theme].theme-updating * {
+  transition: background-color .6s ease-in-out;
+}
+
+[data-bs-theme="dark"] .sun-and-moon > .sun {
+  transform: scale(1.75);
+}
+
+[data-bs-theme="dark"] .sun-and-moon > .sun-beams {
+  opacity: 0;
+}
+
+[data-bs-theme="dark"] .sun-and-moon > .moon > circle {
+  transform: translateX(-7px);
+}
+
+@supports (cx: 1) {
+  [data-bs-theme="dark"] .sun-and-moon > .moon > circle {
+    cx: 17;
+    transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .sun-and-moon > .sun {
+    transition: transform 1s var(--ease-elastic-3);
+  }
+
+  .sun-and-moon > .sun-beams {
+    transition: transform 1s var(--ease-elastic-4), opacity 1s var(--ease-3);
+  }
+
+  .sun-and-moon .moon > circle {
+    transition: transform .5s var(--ease-out-5);
+  }
+
+  @supports (cx: 1) {
+    .sun-and-moon .moon > circle {
+      transition: cx .5s var(--ease-out-5);
+    }
+  }
+
+  [data-bs-theme="dark"] .sun-and-moon > .sun {
+    transition-timing-function: var(--ease-3);
+    transition-duration: .5s;
+    transform: scale(1.75);
+  }
+
+  [data-bs-theme="dark"] .sun-and-moon > .sun-beams {
+    transition-duration: .3s;
+    transform: rotateZ(-25deg);
+  }
+
+  [data-bs-theme="dark"] .sun-and-moon > .moon > circle {
+    transition-duration: 1s;
+    transition-delay: .5s;
+  }
+}

@@ -41,95 +41,124 @@ return [
       ],
       'weight' => 100
     ],
-    [
-      'type' => 'checkbox',
-      'heading' => esc_html__('Use video background?', 'js_composer'),
-      'param_name' => 'video_bg',
-      'description' => esc_html__('If checked, video will be used as row background.', 'js_composer'),
-      'value' => [
-        esc_html__('Yes', 'js_composer') => 'yes'
-      ],
-      'weight' => 100
-    ],
-    [
-      'type' => 'textfield',
-      'heading' => esc_html__('YouTube link', 'js_composer'),
-      'param_name' => 'video_bg_url',
-      'value' => 'https://www.youtube.com/watch?v=lMJXxhRFO1k', // default video url
-      'description' => esc_html__('Add YouTube link.', 'js_composer'),
-      'dependency' => [
-        'element' => 'video_bg',
-        'not_empty' => true,
-      ],
-      'weight' => 100
-    ],
-    [
-      'type' => 'dropdown',
-      'heading' => esc_html__('Parallax', 'js_composer'),
-      'param_name' => 'video_bg_parallax',
-      'description' => esc_html__('Add parallax type background for row.', 'js_composer'),
-      'value' => [
-        esc_html__('None', 'js_composer') => '',
-        esc_html__('Simple', 'js_composer') => 'content-moving',
-        esc_html__('With fade', 'js_composer') => 'content-moving-fade',
-      ],
-      'dependency' => [
-        'element' => 'video_bg',
-        'not_empty' => true,
-      ],
-      'weight' => 100
-    ],
+    // [
+    //   'type' => 'checkbox',
+    //   'heading' => esc_html__('Use video background?', 'js_composer'),
+    //   'param_name' => 'video_bg',
+    //   'description' => esc_html__('If checked, video will be used as row background.', 'js_composer'),
+    //   'value' => [
+    //     esc_html__('Yes', 'js_composer') => 'yes'
+    //   ],
+    //   'weight' => 100
+    // ],
+    // [
+    //   'type' => 'textfield',
+    //   'heading' => esc_html__('YouTube link', 'js_composer'),
+    //   'param_name' => 'video_bg_url',
+    //   'value' => 'https://www.youtube.com/watch?v=lMJXxhRFO1k', // default video url
+    //   'description' => esc_html__('Add YouTube link.', 'js_composer'),
+    //   'dependency' => [
+    //     'element' => 'video_bg',
+    //     'not_empty' => true,
+    //   ],
+    //   'weight' => 100
+    // ],
+    // [
+    //   'type' => 'dropdown',
+    //   'heading' => esc_html__('Parallax', 'js_composer'),
+    //   'param_name' => 'video_bg_parallax',
+    //   'description' => esc_html__('Add parallax type background for row.', 'js_composer'),
+    //   'value' => [
+    //     esc_html__('None', 'js_composer') => '',
+    //     esc_html__('Simple', 'js_composer') => 'content-moving',
+    //     esc_html__('With fade', 'js_composer') => 'content-moving-fade',
+    //   ],
+    //   'dependency' => [
+    //     'element' => 'video_bg',
+    //     'not_empty' => true,
+    //   ],
+    //   'weight' => 100
+    // ],
+    // [
+    //   'type' => 'dropdown',
+    //   'heading' => esc_html__('Parallax', 'js_composer'),
+    //   'param_name' => 'parallax',
+    //   'description' => esc_html__('Add parallax type background for row (Note: If no image is specified, parallax will use background image from Design Options).', 'js_composer'),
+    //   'value' => [
+    //     esc_html__('None', 'js_composer') => '',
+    //     esc_html__('Simple', 'js_composer') => 'content-moving',
+    //     esc_html__('With fade', 'js_composer') => 'content-moving-fade',
+    //   ],
+    //   'dependency' => [
+    //     'element' => 'video_bg',
+    //     'is_empty' => true,
+    //   ],
+    //   'weight' => 100
+    // ],
+    // [
+    //   'type' => 'attach_image',
+    //   'heading' => esc_html__('Image', 'js_composer'),
+    //   'param_name' => 'parallax_image',
+    //   'description' => esc_html__('Select image from media library.', 'js_composer'),
+    //   'value' => '',
+    //   'dependency' => [
+    //     'element' => 'parallax',
+    //     'not_empty' => true,
+    //   ],
+    //   'weight' => 100
+    // ],
+    // [
+    //   'type' => 'textfield',
+    //   'heading' => esc_html__('Parallax speed', 'js_composer'),
+    //   'param_name' => 'parallax_speed_video',
+    //   'description' => esc_html__('Enter parallax speed ratio (Note: Default value is 1.5, min value is 1)', 'js_composer'),
+    //   'value' => '1.5',
+    //   'dependency' => [
+    //     'element' => 'video_bg_parallax',
+    //     'not_empty' => true,
+    //   ],
+    //   'weight' => 100
+    // ],
+    // [
+    //   'type' => 'textfield',
+    //   'heading' => esc_html__('Parallax speed', 'js_composer'),
+    //   'param_name' => 'parallax_speed_bg',
+    //   'description' => esc_html__('Enter parallax speed ratio (Note: Default value is 1.5, min value is 1)', 'js_composer'),
+    //   'value' => '1.5',
+    //   'dependency' => [
+    //     'element' => 'parallax',
+    //     'not_empty' => true,
+    //   ],
+    //   'weight' => 100
+    // ],
     [
       'type' => 'dropdown',
       'heading' => esc_html__('Parallax', 'js_composer'),
       'param_name' => 'parallax',
-      'description' => esc_html__('Add parallax type background for row (Note: If no image is specified, parallax will use background image from Design Options).', 'js_composer'),
+      'group' => esc_html__('Design', 'blankcanvas'),
       'value' => [
         esc_html__('None', 'js_composer') => '',
         esc_html__('Simple', 'js_composer') => 'content-moving',
-        esc_html__('With fade', 'js_composer') => 'content-moving-fade',
       ],
+      'description' => esc_html__('Add parallax effect to your background.', 'blankcanvas'),
       'dependency' => [
-        'element' => 'video_bg',
-        'is_empty' => true,
+        'element' => 'background',
+        'value' => 'image',
       ],
-      'weight' => 100
-    ],
-    [
-      'type' => 'attach_image',
-      'heading' => esc_html__('Image', 'js_composer'),
-      'param_name' => 'parallax_image',
-      'description' => esc_html__('Select image from media library.', 'js_composer'),
-      'value' => '',
-      'dependency' => [
-        'element' => 'parallax',
-        'not_empty' => true,
-      ],
-      'weight' => 100
-    ],
-    [
-      'type' => 'textfield',
-      'heading' => esc_html__('Parallax speed', 'js_composer'),
-      'param_name' => 'parallax_speed_video',
-      'description' => esc_html__('Enter parallax speed ratio (Note: Default value is 1.5, min value is 1)', 'js_composer'),
-      'value' => '1.5',
-      'dependency' => [
-        'element' => 'video_bg_parallax',
-        'not_empty' => true,
-      ],
-      'weight' => 100
+      'weight' => 79
     ],
     [
       'type' => 'textfield',
       'heading' => esc_html__('Parallax speed', 'js_composer'),
       'param_name' => 'parallax_speed_bg',
-      'description' => esc_html__('Enter parallax speed ratio (Note: Default value is 1.5, min value is 1)', 'js_composer'),
+      'group' => esc_html__('Design', 'blankcanvas'),
       'value' => '1.5',
+      'description' => esc_html__('Enter parallax speed ratio (Note: Default value is 1.5, min value is 1)', 'js_composer'),
       'dependency' => [
         'element' => 'parallax',
         'not_empty' => true,
       ],
-      'weight' => 100
+      'weight' => 79
     ],
     [
       'type' => 'textfield',

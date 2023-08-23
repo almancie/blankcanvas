@@ -9,7 +9,7 @@ return [
   'class' => 'wpb_vc_column',
   'is_container' => true,
   'as_parent' => [
-    'only' => 'bootstrap_icon, button, group, html, row_inner, text'
+    'only' => 'bootstrap_icon, button, group, html, row_inner, text, image'
   ],
   // 'allowed_container_element' => 'row_inner',
   'content_element' => false, // Hides it from "Add element"

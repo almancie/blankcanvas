@@ -12,7 +12,7 @@
 add_filter('walker_nav_menu_start_el', function ($output, $item, $depth, $args) {
   if (! function_exists('get_field')) return $output;
 
-  $icon = get_field('menu_icon', $item->ID);
+  $icon = get_field('menu_item_icon', $item->ID);
 
   if ($icon) {
     $output = sprintf('<i class="bi bi-%s"></i>', $icon) . $output;
@@ -30,23 +30,23 @@ add_filter('walker_nav_menu_start_el', function ($output, $item, $depth, $args) 
 |
 */
 
-add_filter('nav_menu_css_class', function ($classes, $item, $args, $depth) {
-  if (! function_exists('get_field')) return $classes;
+// add_filter('nav_menu_css_class', function ($classes, $item, $args, $depth) {
+//   if (! function_exists('get_field')) return $classes;
 
-  $iconOnly = get_field('menu_icon_only', $item->ID);
+//   $iconOnly = get_field('menu_icon_only', $item->ID);
 
-  if ($iconOnly) {
-    $classes[] = 'icon-only';
-  }
+//   if ($iconOnly) {
+//     $classes[] = 'icon-only';
+//   }
 
-  $hasIcon = get_field('menu_icon', $item->ID);
+//   $hasIcon = get_field('menu_icon', $item->ID);
 
-  if ($hasIcon) {
-    $classes[] = 'menu-item-has-icon';
-  }
+//   if ($hasIcon) {
+//     $classes[] = 'menu-item-has-icon';
+//   }
 
-  return $classes;
-}, 10, 4);
+//   return $classes;
+// }, 10, 4);
 
 /*
 |--------------------------------------------------------------------------
@@ -66,11 +66,8 @@ add_filter('walker_nav_menu_start_el', function ($output, $item, $depth, $args) 
 
   ob_start(); ?>
 
-  <!-- <svg class="external-link-arrow d-inline-block" aria-hidden="true" height="7" viewBox="0 0 6 6" width="7">
-    <path d="M1.25215 5.54731L0.622742 4.9179L3.78169 1.75597H1.3834L1.38936 0.890915H5.27615V4.78069H4.40513L4.41109 2.38538L1.25215 5.54731Z"></path>
-  </svg> -->
-
   <i class="external-link-arrow bi bi-arrow-right-short"></i>
+  <!-- <img src="<?= get_template_directory_uri().'/inc/nav-menu/imgs/arrow-circle-down.svg' ?>" class="external-link-arrow" /> -->
 
   <?php
   return $output .= ob_get_clean();
@@ -100,11 +97,7 @@ add_filter('walker_nav_menu_start_el', function ($output, $item, $depth, $args) 
     data-bs-toggle="collapse" data-bs-target="#sub-menu-<?= $item->ID ?>" 
     aria-expanded="false" aria-controls="sub-menu-<?= $item->ID ?>"
   >
-    <!-- <i class="bi bi-chevron-up close position-absolute small" style="opacity: 0;"></i>
-    <i class="bi bi-chevron-down open position-absolute small"></i> -->
-    <svg data-testid="geist-icon" fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24" aria-hidden="true" style="color:currentColor">
-      <path d="M6 9l6 6 6-6"></path>
-    </svg>
+    <img src="<?= get_template_directory_uri().'/inc/nav-menu/imgs/up-arrow.png' ?>" />
   </button>
 
   <?php
@@ -141,7 +134,7 @@ add_filter('walker_nav_menu_start_el', function ($output, $item, $depth, $args) 
 add_filter('walker_nav_menu_start_el', function ($output, $item, $depth, $args) {
   if (! function_exists('get_field')) return $output;
 
-  $desc = get_field('menu_description', $item->ID);
+  $desc = get_field('menu_item_desc', $item->ID);
 
   if (! $desc) {
     return $output;
@@ -149,7 +142,7 @@ add_filter('walker_nav_menu_start_el', function ($output, $item, $depth, $args) 
 
   ob_start(); ?>
 
-  <p class="menu-item-desc mb-0"><?= $desc ?></p>
+  <p class="menu-item-desc"><?= $desc ?></p>
 
   <?php
   return $output .= ob_get_clean();

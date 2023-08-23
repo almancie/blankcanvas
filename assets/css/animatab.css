@@ -1,31 +1,25 @@
 .animatab {
-    position: relative;
+  position: relative;
 }
 
 .animatab-item {
-    position: relative;
-    z-index: 1;
+  position: relative;
+  z-index: 1;
 }
 
 .animatab-highlighter {
-    position: absolute;
+  position: absolute;
 
 }
 
 .animatab-highlighter:before {
   content: "";
   position: absolute;
-  bottom: 0;
-  left: 50%;
-  height: 2px;
-  width: 20px;
-  transform: translateX(-50%);
-  background-color: #aaaaaa;
-  transition: all .4s;
-}
-
-.animatab-on .animatab-highlighter:before {
-  opacity: .25;
+  top: 50%;
+  inset-inline-start: 50%;
   height: 100%;
   width: 100%;
+  translate: -50% -50%;
+  background-color: #36454F;
+  transition: all .4s;
 }

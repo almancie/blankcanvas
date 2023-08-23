@@ -25,7 +25,9 @@
      * the end of screen.
      */
     .col-has-#{$size}-spill {
-
+      --bg-width: calc(100% + ((100vw - var(--container-max-width)) / 2));
+      position: relative;
+      
       // Children
       * {
         position: relative;
@@ -39,16 +41,15 @@
         background-position: 50% 0;
         // z-index: 1;
       }
-      
-      &:before,
-      &:after {
+
+      &:before {
         content: "";
         position: absolute;
         top: 0;
         inset-inline-start: initial;
         inset-inline-end: 0;
         height: 100%;
-        width: calc(100% + 4px + ((100vw - var(--container-max-width)) / 2));
+        width: var(--bg-width);
       }
 
       // Last column
@@ -73,11 +74,55 @@
 */
 
 .section {
+  --section-spacing: 10rem;
+  --title-margin-bottom: 4rem;
   padding-bottom: var(--section-spacing);
 }
 
 .section-has-fill {
   padding-top: var(--section-spacing);
+}
+
+.section-stretched {
+  --section-width: var(--body-width, 100vw);
+  width: var(--section-width);
+  inset-inline-start: calc((var(--section-width) - 100%) / -2);
+  padding-inline-start: calc((var(--section-width) - 100%) / 2);
+  padding-inline-end: calc((var(--section-width) - 100%) / 2);
+  position: relative;
+}
+
+.section-stretched-content {
+  --section-width: var(--body-width, 100vw);
+  width: var(--section-width);
+  inset-inline-start: calc((var(--body-width, 100vw) - 100%) / -2);
+  position: relative;
+}
+
+.section-full-height {
+  height: 100vh;
+}
+
+// .section-title,
+// .element.section-title {
+//   font-size: 105px;
+//   line-height: 90px;
+//   font-weight: 900;
+//   margin-bottom: var(--title-margin-bottom);
+// }
+
+/*
+|--------------------------------------------------------------------------
+| Section Title
+|--------------------------------------------------------------------------
+|
+| 
+|
+*/
+
+.section-title,
+.text-block.section-title {
+  margin-bottom: var(--title-margin-bottom);
 }
 
 /*
@@ -89,7 +134,15 @@
 |
 */
 
-// Silence.
+.element {
+  margin-bottom: $paragraph-margin-bottom;
+}
+
+.element.bi {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
 
 /*
 |--------------------------------------------------------------------------
@@ -110,7 +163,67 @@
 
 /*
 |--------------------------------------------------------------------------
-| Font Icons
+| Icon
+|--------------------------------------------------------------------------
+|
+| 
+|
+*/
+
+$icon-sizes: (
+  sm: 24px,
+  md: 32px,
+  lg: 48px,
+  xl: 64px,
+  xxl: 96px,
+);
+
+@each $size, $value in $icon-sizes {
+  .icon-#{$size} {
+    width: #{$value};
+    aspect-ratio: 1/1;
+  }
+}
+
+/*
+|--------------------------------------------------------------------------
+| Figure
+|--------------------------------------------------------------------------
+|
+| 
+|
+*/
+
+.figure-icon {
+  --figure-icon-bg: var(--body-color);
+  --figure-icon-filter: var(--filter-body-bg);
+  --figure-icon-padding: 1rem;
+  --figure-icon-border-radius: 50%;
+  background-color: var(--figure-icon-bg);
+  padding: var(--figure-icon-padding);
+  border-radius: var(--figure-icon-border-radius);
+  display: inline-block;
+}
+
+.figure-icon .icon {
+  filter: var(--figure-icon-filter);
+}
+
+@each $color, $value in $theme-colors {
+  .figure-icon-#{$color} {
+    --figure-icon-bg: var(--#{$color});
+
+    @if color-contrast($value) == $white {
+      --figure-icon-filter: var(--filter-light);
+    } @else {
+      --figure-icon-filter: var(--filter-dark);
+    }
+  }
+}
+
+/*
+|--------------------------------------------------------------------------
+| Bootstrap Icon
 |--------------------------------------------------------------------------
 |
 | 
@@ -135,35 +248,6 @@ $font-sizes: (
 @each $size, $value in $font-sizes {
   .bi-#{$size} {
     font-size: #{$value};
-  }
-}
-
-/*
-|--------------------------------------------------------------------------
-| SVG Icons
-|--------------------------------------------------------------------------
-|
-| 
-|
-*/
-
-$icon-sizes: (
-  sm: 24px,
-  md: 32px,
-  lg: 48px,
-  xl: 64px,
-  xxl: 96px,
-);
-
-// .icon {
-//   display: flex;
-//   @extend .flex-center
-// }
-
-@each $size, $value in $icon-sizes {
-  .icon-#{$size} {
-    height: #{$value};
-    width: #{$value};
   }
 }
 
@@ -196,4 +280,94 @@ $icon-sizes: (
 .btn-has-icon-bottom {
   --gap: var(--btn-padding-y);
   --direction: column-reverse;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Feature
+|--------------------------------------------------------------------------
+|
+| 
+|
+*/
+
+.feature {
+  --feature-padding-x: 3rem;
+  --feature-padding-y: 3rem;
+  --feature-bg: linear-gradient(135deg, rgba(var(--light-rgb), .15), transparent);
+  --feature-color: var(--secondary-color);
+  --feature-accent-color: var(--body-color);
+  --feature-figure-bg: var(--body-color);
+  --feature-figure-filter: var(--filter-body-bg);
+
+  @if ($enable-rounded) {
+    --feature-border-radius: var(--border-radius);
+  }
+
+  padding: var(--feature-padding-x) var(--feature-padding-y);
+  background: var(--feature-bg);
+  background-color: var(--feature-bg);
+  color: var(--feature-color);
+  border-radius: var(--feature-border-radius);
+  position: relative;
+}
+
+.feature[class*="text-"],
+.feature[class*="text-bg-"] {
+  --feature-color: unset;
+  --feature-accent-color: unset;
+}
+
+.feature-number {
+  --feature-number-color: var(--feature-accent-color);
+  position: relative;
+  margin-bottom: $paragraph-margin-bottom;
+  color: var(--feature-number-color);
+}
+
+.feature-number:before {
+  content: "";
+  position: absolute;
+  inset-inline-end: calc(100% + 10px);
+  margin-inline-start: -10px;
+  width: 3rem;
+  height: 1px;
+  top: 50%;
+  translate: 0 -50%;
+  background-color: var(--feature-number-color);
+}
+
+.feature-title {
+  color: var(--feature-accent-color);
+  margin-bottom: $paragraph-margin-bottom;
+}
+
+.feature-figure {
+  position: absolute;
+  inset-inline-end: -1rem;
+  bottom: -1rem;
+  padding: 1rem;
+  background-color: var(--feature-figure-bg);
+  border-radius: var(--feature-figure-border-radius);
+  margin-bottom: 0;
+
+  @if ($enable-rounded) {
+    --feature-figure-border-radius: var(--border-radius);
+  }
+}
+
+.feature-figure .icon {
+  filter: var(--feature-figure-filter);
+}
+
+@each $color, $value in $theme-colors {
+  .feature-#{$color} {
+    --feature-accent-color: var(--#{$color});
+
+    @if color-contrast($value) == $white {
+      --feature-figure-filter: var(--filter-light);
+    } @else {
+      --feature-figure-filter: var(--filter-dark);
+    }
+  }
 }
