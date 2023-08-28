@@ -297,7 +297,7 @@ $font-sizes: (
   --feature-bg: linear-gradient(135deg, rgba(var(--light-rgb), .15), transparent);
   --feature-color: var(--secondary-color);
   --feature-accent-color: var(--body-color);
-  --feature-figure-bg: var(--body-color);
+  --feature-figure-bg: var(--feature-accent-color);
   --feature-figure-filter: var(--filter-body-bg);
 
   @if ($enable-rounded) {
@@ -352,7 +352,7 @@ $font-sizes: (
   margin-bottom: 0;
 
   @if ($enable-rounded) {
-    --feature-figure-border-radius: var(--border-radius);
+    --feature-figure-border-radius: 50%;
   }
 }
 

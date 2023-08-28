@@ -1,60 +1,69 @@
 <?php
 
 return [
-  // [
-  //   'type' => 'textfield',
-  //   'heading' => esc_html__('Top', 'blankcanvas'),
-  //   'param_name' => 'padding_top',
-  //   'group' => esc_html__('Spacing', 'blankcanvas'),
-  // ],
-  // [
-  //   'type' => 'textfield',
-  //   'heading' => esc_html__('End', 'blankcanvas'),
-  //   'param_name' => 'padding_end',
-  //   'group' => esc_html__('Spacing', 'blankcanvas'),
-  // ],
-  // [
-  //   'type' => 'textfield',
-  //   'heading' => esc_html__('Bottom', 'blankcanvas'),
-  //   'param_name' => 'padding_bottom',
-  //   'group' => esc_html__('Spacing', 'blankcanvas'),
-  // ],
-  // [
-  //   'type' => 'textfield',
-  //   'heading' => esc_html__('Start', 'blankcanvas'),
-  //   'param_name' => 'padding_start',
-  //   'group' => esc_html__('Spacing', 'blankcanvas'),
-  // ],
-  // [
-  //   'type' => 'textfield',
-  //   'heading' => esc_html__('Top', 'blankcanvas'),
-  //   'param_name' => 'margin_top',
-  //   'group' => esc_html__('Spacing', 'blankcanvas'),
-  // ],
-  // [
-  //   'type' => 'textfield',
-  //   'heading' => esc_html__('End', 'blankcanvas'),
-  //   'param_name' => 'margin_end',
-  //   'group' => esc_html__('Spacing', 'blankcanvas'),
-  // ],
-  // [
-  //   'type' => 'textfield',
-  //   'heading' => esc_html__('Bottom', 'blankcanvas'),
-  //   'param_name' => 'margin_bottom',
-  //   'group' => esc_html__('Spacing', 'blankcanvas'),
-  // ],
-  // [
-  //   'type' => 'textfield',
-  //   'heading' => esc_html__('Start', 'blankcanvas'),
-  //   'param_name' => 'margin_start',
-  //   'group' => esc_html__('Spacing', 'blankcanvas'),
-  // ],
+  [
+    'type' => 'textfield',
+    'heading' => esc_html__('P. Top', 'blankcanvas'),
+    'param_name' => 'padding_top',
+    'group' => esc_html__('Spacing', 'blankcanvas'),
+    'edit_field_class' => 'vc_col-xs-3',
+    'weight' => 70
+  ],
+  [
+    'type' => 'textfield',
+    'heading' => esc_html__('P. Bottom', 'blankcanvas'),
+    'param_name' => 'padding_bottom',
+    'group' => esc_html__('Spacing', 'blankcanvas'),
+    'edit_field_class' => 'vc_col-xs-3',
+  ],
+  [
+    'type' => 'textfield',
+    'heading' => esc_html__('P. Start', 'blankcanvas'),
+    'param_name' => 'padding_start',
+    'group' => esc_html__('Spacing', 'blankcanvas'),
+    'edit_field_class' => 'vc_col-xs-3',
+  ],
+  [
+    'type' => 'textfield',
+    'heading' => esc_html__('P. End', 'blankcanvas'),
+    'param_name' => 'padding_end',
+    'group' => esc_html__('Spacing', 'blankcanvas'),
+    'edit_field_class' => 'vc_col-xs-3',
+  ],
+  [
+    'type' => 'textfield',
+    'heading' => esc_html__('M. Top', 'blankcanvas'),
+    'param_name' => 'margin_top',
+    'group' => esc_html__('Spacing', 'blankcanvas'),
+    'edit_field_class' => 'vc_col-xs-3',
+  ],
+  [
+    'type' => 'textfield',
+    'heading' => esc_html__('M. Bottom', 'blankcanvas'),
+    'param_name' => 'margin_bottom',
+    'group' => esc_html__('Spacing', 'blankcanvas'),
+    'edit_field_class' => 'vc_col-xs-3',
+  ],
+  [
+    'type' => 'textfield',
+    'heading' => esc_html__('M. Start', 'blankcanvas'),
+    'param_name' => 'margin_start',
+    'group' => esc_html__('Spacing', 'blankcanvas'),
+    'edit_field_class' => 'vc_col-xs-3',
+  ],
+  [
+    'type' => 'textfield',
+    'heading' => esc_html__('M. End', 'blankcanvas'),
+    'param_name' => 'margin_end',
+    'group' => esc_html__('Spacing', 'blankcanvas'),
+    'edit_field_class' => 'vc_col-xs-3',
+  ],
   // [
   //   'type' => 'textfield',
   //   'heading' => esc_html__('Padding', 'blankcanvas'),
   //   'param_name' => 'padding',
   //   'group' => esc_html__('Spacing', 'blankcanvas'),
-  //   'description' => esc_html__('Bootstrap classes (e.g. ps-2 pe-md-4)'),
+  //   'description' => esc_html__('Format should be: Top Right Bottom Left. (Example: 5px 10px 6px 8px)', 'blankcanvas'),
   //   'weight' => 70,
   // ],
   // [
@@ -62,14 +71,14 @@ return [
   //   'heading' => esc_html__('Margin', 'blankcanvas'),
   //   'param_name' => 'margin',
   //   'group' => esc_html__('Spacing', 'blankcanvas'),
-  //   'description' => esc_html__('Bootstrap classes (e.g. mt-2 mb-md-4)'),
+  //   'description' => esc_html__('Format should be: Top Right Bottom Left. (Example: 5px 10px 6px 8px)', 'blankcanvas'),
+  //   'weight' => 70,
   // ],
   // [
   //   'type' => 'param_group',
   //   'heading' => esc_html__('Spacing', 'blankcanvas'),
   //   'param_name' => 'padding',
   //   'group' => esc_html__('Spacing', 'blankcanvas'),
-  //   // 'description' => esc_html__('Bootstrap classes (e.g. ps-2 pe-md-4)'),
   //   'weight' => 70,
   //   'params' => [
   //     [

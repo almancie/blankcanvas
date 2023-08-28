@@ -142,16 +142,18 @@ add_action('vc_after_init', function () use ($elements, $fields) {
 */
 
 add_filter(VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, function ($classes, $shortcode, $atts) {
-  $atts = shortcode_atts([
-    'overlay' => '',
-  ], $atts, $shortcode);
-
-  $list = [
-    $classes,
-    $atts['overlay'] ? 'overlay' : ''
+  $options = [
+    'overlay_color' => 'overlay',
+    'border' => 'border',
   ];
 
-  return implode(' ', array_filter($list));
+  foreach ($options as $name => $value) {
+    if (empty($atts[$name])) continue;
+
+    $classes .= ' ' . $value;
+  }
+
+  return trim($classes);
 }, 99, 3);
 
 /*
@@ -184,15 +186,45 @@ add_filter('vc_shortcode_content_filter_after', function ($output, $shortcode, $
  * Design options
  */
 add_filter('vc_shortcode_content_filter_after', function ($output, $shortcode, $atts, $content) use (&$style) { 
-  $design = [
+  $options = [
     'background_color'          => 'background-color: %s',
+    'custom_background_color'   => 'background-color: %s',
     'gradient_background_color' => 'background: %s',
     'overlay_color'             => '--overlay-color: %s',
+    'custom_overlay_color'      => '--overlay-color: %s',
     'overlay_opacity'           => '--overlay-opacity: %s',
     'text_color'                => 'color: %s',
+    'border_color'              => '--border-color: %s',
+    'border_size'               => '--border-width: %s',
   ];
  
-  foreach ($design as $name => $value) {
+  foreach ($options as $name => $value) {
+    if (empty($atts[$name])) continue;
+
+    if ($atts[$name] === 'custom') continue;
+
+    $style[] = sprintf($value, $atts[$name]);
+  }
+
+  return $output;
+}, 99, 4);
+
+/**
+ * Spacing
+ */
+add_filter('vc_shortcode_content_filter_after', function ($output, $shortcode, $atts, $content) use (&$style) { 
+  $options = [
+    'padding_top'    => 'padding-top: %s',
+    'padding_bottom' => 'padding-bottom: %s',
+    'padding_start'  => 'padding-inline-start: %s',
+    'padding_end'    => 'padding-inline-end: %s',
+    'margin_top'     => 'margin-top: %s',
+    'margin_bottom'  => 'margin-bottom: %s',
+    'margin_start'   => 'margin-inline-start: %s',
+    'margin_end'     => 'margin-inline-end: %s',
+  ];
+ 
+  foreach ($options as $name => $value) {
     if (empty($atts[$name])) continue;
 
     $style[] = sprintf($value, $atts[$name]);

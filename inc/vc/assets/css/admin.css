@@ -1,15 +1,19 @@
-.wpb_section {
-  --element-bg-color-def: #ffffff;
-  --element-bg-color-alt: #f5f5f5;
-  --element-radius: 8px;
-  --element-spacing: 10px;
-  --control-bg-color: #e6e6e6;
-  --row-spacing: 25px;
+/**
+ * General
+ */
+
+.vc_col-xs-3:first-child + .vc_col-xs-3,
+.vc_col-xs-3:first-child + .vc_col-xs-3 + .vc_col-xs-3,
+.vc_col-xs-3:first-child + .vc_col-xs-3 + .vc_col-xs-3 + .vc_col-xs-3,
+.vc_col-xs-4:first-child + .vc_col-xs-4,
+.vc_col-xs-4:first-child + .vc_col-xs-4 + .vc_col-xs-4,
+.vc_col-xs-6:first-child + .vc_col-xs-6 {
+  padding-top: 0 !important;
 }
 
 /**
- * Utilities
- */
+* Utilities
+*/
 
 [data-element-disabled="true"] {
   opacity: .5;
@@ -21,6 +25,19 @@
 
 .d-inline-block {
   display: inline-block;
+}
+
+/**
+ * Sections
+ */
+
+.wpb_section {
+  --element-bg-color-def: #ffffff;
+  --element-bg-color-alt: #f5f5f5;
+  --element-radius: 8px;
+  --element-spacing: 10px;
+  --control-bg-color: #e6e6e6;
+  --row-spacing: 25px;
 }
 
 /**
@@ -384,8 +401,6 @@
 [data-width]:not(.wpb_section) > .icons {
   bottom: initial;
   right: initial;
-  /* left: calc(var(--element-spacing) / 2 + 3px); */
-  /* top: 1px; */
   left: calc(50% + 35px);
   top: 4px;
 }
@@ -423,55 +438,6 @@
 [data-icons*="background_image"] > .vc_controls .icons .icon-bg {
   display: block;
 }
-
-/**
- * Spacing fields
- */
-
-/* [data-vc-shortcode-param-name*="padding_"], */
-/* [data-vc-shortcode-param-name*="margin_"]  { */
-  /* width: 25% !important; */
-  /* padding-top: 0 !important; */
-/* } */
-
-/* [data-vc-shortcode-param-name="padding"],
-[data-vc-shortcode-param-name="margin"] {
-  padding-inline-start: 15px;
-  padding-inline-end: 15px;
-}
-
-[data-vc-shortcode-param-name="padding"] .vc_param_group-wrapper,
-[data-vc-shortcode-param-name="margin"] .vc_param_group-wrapper {
-  display: flex;
-}
-
-[data-vc-shortcode-param-name="padding"] .vc_param_group-wrapper > *,
-[data-vc-shortcode-param-name="margin"] .vc_param_group-wrapper >  * {
-  padding-top: 0 !important;
-}
-
-[data-vc-shortcode-param-name="padding"] .vc_shortcode-param,
-[data-vc-shortcode-param-name="margin"] .vc_shortcode-param {
-  display: flex;
-  width: auto !important;
-  padding-inline-end: 0;
-  align-items: center;
-}
-
-[data-vc-shortcode-param-name="padding"] .vc_shortcode-param > *:first-child,
-[data-vc-shortcode-param-name="margin"] .vc_shortcode-param > *:first-child {
-  padding-inline-end: 15px;
-}
-
-[data-vc-shortcode-param-name="padding"] .vc_shortcode-param > *:last-child,
-[data-vc-shortcode-param-name="margin"] .vc_shortcode-param > *:last-child {
-  padding-inline-start: 0;
-}
-
-[data-vc-shortcode-param-name="padding"] select,
-[data-vc-shortcode-param-name="margin"] select {
-  min-width: 50px;
-} */
 
 /**
  * Grapick field

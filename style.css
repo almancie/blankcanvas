@@ -115,6 +115,17 @@ body {
   font-family: 'Sora';
 }
 
+.inquiry-form .animatab-highlighter:before {
+  width: calc(100% - var(--gutter-x));
+  border-radius: .5rem;
+  background-color: transparent;
+  border: var(--border-width) var(--border-style) var(--primary);
+}
+
+.inquire-form .active .feature {
+  --feature-accent-color: var(--primary);
+}
+
 /* .section-sub-title {
   position: relative;
   margin-bottom: 3rem;

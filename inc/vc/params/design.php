@@ -1,5 +1,17 @@
 <?php
 
+$colors = [
+  esc_html__('Primary', 'blankcanvas') => 'var(--primary)',
+  esc_html__('Secondary', 'blankcanvas') => 'var(--secondary)',
+  esc_html__('Light', 'blankcanvas') => 'var(--light)',
+  esc_html__('Dark', 'blankcanvas') => 'var(--dark)',
+  esc_html__('Custom', 'blankcanvas') => 'custom',
+];
+
+$bgColors = [esc_html__('None', 'blankcanvas') => ''] + $colors;
+
+$textColors = [esc_html__('Default', 'blankcanvas') => ''] + $colors;
+
 return [
   [
     'type' => 'dropdown',
@@ -18,7 +30,6 @@ return [
     'type' => 'attach_image',
     'heading' => esc_html__('Background image', 'blankcanvas'),
     'param_name' => 'background_image',
-    // 'description' => esc_html__('Select image from media library.', 'js_composer'),
     'group' => esc_html__('Design', 'blankcanvas'),
     'dependency' => [
       'element' => 'background',
@@ -26,13 +37,26 @@ return [
     ],
   ],
   [
-    'type' => 'colorpicker',
+    'type' => 'dropdown',
     'heading' => esc_html__('Background color', 'blankcanvas'),
     'param_name' => 'background_color',
     'group' => esc_html__('Design', 'blankcanvas'),
+    'edit_field_class' => 'vc_col-xs-4',
     'dependency' => [
       'element' => 'background',
       'value' => 'solid'
+    ],
+    'value' => $bgColors
+  ],
+  [
+    'type' => 'colorpicker',
+    'heading' => esc_html__('Custom color', 'blankcanvas'),
+    'param_name' => 'custom_background_color',
+    'group' => esc_html__('Design', 'blankcanvas'),
+    'edit_field_class' => 'vc_col-xs-4',
+    'dependency' => [
+      'element' => 'background_color',
+      'value' => 'custom'
     ]
   ],
   [
@@ -46,41 +70,102 @@ return [
       'value' => 'gradient'
     ]
   ],
-  // [
-  //   'type' => 'checkbox',
-  //   'heading' => esc_html__('Add overlay?', 'blankcanvas'),
-  //   'param_name' => 'overlay',
-  //   'group' => esc_html__('Design', 'blankcanvas'),
-  //   'dependency' => [
-  //     'element' => 'background',
-  //     'value' => 'image'
-  //   ],
-  // ],
   [
-    'type' => 'colorpicker',
-    'heading' => esc_html__('Overlay', 'blankcanvas'),
+    'type' => 'dropdown',
+    'heading' => esc_html__('Overlay color', 'blankcanvas'),
     'param_name' => 'overlay_color',
     'group' => esc_html__('Design', 'blankcanvas'),
+    'edit_field_class' => 'vc_col-xs-4',
     'dependency' => [
       'element' => 'background',
       'value' => 'image'
-    ]
+    ],
+    'value' => $bgColors
   ],
-  // [
-  //   'type' => 'textfield',
-  //   'heading' => esc_html__('Overlay opacity', 'blankcanvas'),
-  //   'param_name' => 'overlay_opacity',
-  //   'description' => esc_html__('Use a value between 0 and 1.', 'blankcanvas'),
-  //   'group' => esc_html__('Design', 'blankcanvas'),
-  //   'dependency' => [
-  //     'element' => 'overlay',
-  //     'not_empty' => true
-  //   ]
-  // ],
+  [
+    'type' => 'textfield',
+    'heading' => esc_html__('Overlay opacity', 'blankcanvas'),
+    'param_name' => 'overlay_opacity',
+    // 'description' => esc_html__('Use a value between 0 and 1.', 'blankcanvas'),
+    'group' => esc_html__('Design', 'blankcanvas'),
+    'edit_field_class' => 'vc_col-xs-4',
+    'dependency' => [
+      'element' => 'overlay_color',
+      'not_empty' => true
+    ],
+    'value' => '0%'
+  ],
   [
     'type' => 'colorpicker',
+    'heading' => esc_html__('Custom color', 'blankcanvas'),
+    'param_name' => 'custom_overlay_color',
+    'group' => esc_html__('Design', 'blankcanvas'),
+    // 'edit_field_class' => 'vc_col-xs-3',
+    'dependency' => [
+      'element' => 'overlay_color',
+      'value' => 'custom'
+    ]
+  ],
+  [
+    'type' => 'dropdown',
     'heading' => esc_html__('Text color', 'blankcanvas'),
     'param_name' => 'text_color',
     'group' => esc_html__('Design', 'blankcanvas'),
+    'value' => $textColors
+  ],
+  [
+    'type' => 'colorpicker',
+    'heading' => esc_html__('Custom color', 'blankcanvas'),
+    'param_name' => 'custom_text_color',
+    'group' => esc_html__('Design', 'blankcanvas'),
+    'dependency' => [
+      'element' => 'text_color',
+      'value' => 'custom'
+    ]
+  ],
+  [
+    'type' => 'checkbox',
+    // 'heading' => esc_html__('Border?', 'blankcanvas'),
+    'param_name' => 'border',
+    'group' => esc_html__('Design', 'blankcanvas'),
+    // 'description' => esc_html__('Add border', 'blankcanvas'),
+    'value' => [
+      esc_html__(' Border', 'blankcanvas') => 'yes' 
+    ],
+  ],
+  [
+    'type' => 'dropdown',
+    'heading' => esc_html__('Border color', 'blankcanvas'),
+    'param_name' => 'border_color',
+    'group' => esc_html__('Design', 'blankcanvas'),
+    'edit_field_class' => 'vc_col-xs-4',
+    'dependency' => [
+      'element' => 'border',
+      'not_empty' => true
+    ],
+    'value' => $textColors
+  ],
+  [
+    'type' => 'textfield',
+    'heading' => esc_html__('Border size', 'blankcanvas'),
+    'param_name' => 'border_size',
+    'group' => esc_html__('Design', 'blankcanvas'),
+    'edit_field_class' => 'vc_col-xs-4',
+    'dependency' => [
+      'element' => 'border',
+      'not_empty' => true
+    ],
+    'value' => '1px'
+  ],
+  [
+    'type' => 'colorpicker',
+    'heading' => esc_html__('Custom color', 'blankcanvas'),
+    'param_name' => 'custom_border_color',
+    'group' => esc_html__('Design', 'blankcanvas'),
+    // 'edit_field_class' => 'vc_col-xs-4',
+    'dependency' => [
+      'element' => 'border_color',
+      'value' => 'custom'
+    ]
   ],
 ];
