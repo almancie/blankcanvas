@@ -2,9 +2,10 @@
 [data-bs-theme=light] {
   --filter-dark: brightness(0) saturate(100%) invert(8%) sepia(5%) saturate(2044%) hue-rotate(339deg) brightness(99%) contrast(82%);
   --filter-light: brightness(0) invert(1);
+  --filter-primary: brightness(0) saturate(100%) invert(68%) sepia(11%) saturate(1613%) hue-rotate(194deg) brightness(97%) contrast(92%);
   --filter-body-color: var(--filter-dark);
   --filter-body-bg: var(--filter-light);
-  --body-secondary-font-family: 'Sora';
+  // --body-secondary-font-family: 'Sora';
   // --heading-font-family: 'Sora';
   // --section-spacing: 6rem;
 }

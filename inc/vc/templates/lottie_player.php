@@ -7,7 +7,7 @@ extract(
   )
 );
 
-wp_enqueue_script('lottie-player');
+// wp_enqueue_script('lottie-player');
 
 // CSS classes
 $classes = [

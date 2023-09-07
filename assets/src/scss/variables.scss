@@ -16,7 +16,7 @@ $gray-600: #6c757d;
 // $gray-700: #495057 !default;
 // $gray-800: #343a40 !default;
 $gray-900: #212529;
-// $black:    #000 !default;
+$black:    #000;
 // scss-docs-end gray-color-variables
 
 // fusv-disable
@@ -69,16 +69,24 @@ $cyan:    #0dcaf0;
 
 // The contrast ratio to reach against white, to determine if color changes from "light" to "dark". Acceptable values for WCAG 2.0 are 3, 4.5 and 7.
 // See https://www.w3.org/TR/WCAG20/#visual-audio-contrast-contrast
-// $min-contrast-ratio:   4.5 !default;
+// $min-contrast-ratio:   3;
 
 // Customize the light and dark text colors for use in our color contrast function.
 // $color-contrast-dark:      $black !default;
 // $color-contrast-light:     $white !default;
 
 // scss-docs-start theme-color-variables
-$primary:       #ffd60a;
-// $primary:       #ff8d7c;
-$secondary:     #ff8d7c;
+// $primary:       #f1da66;
+// $primary:       #f5a828;
+$light:         #fbf6ef;
+$dark:          #1c2541;
+
+$primary:       #98a6ee;
+// $primary:       #48e5c2;
+// $primary:       #06d6a0;
+$secondary:     #faf0ca;
+// $primary:       #c9184a;
+// $tertiary:      #c5283d;
 // $primary:       #E76161;
 // $secondary:     $gray-600;
 // $secondary:     #ff9767;
@@ -86,21 +94,26 @@ $success:       $green;
 $info:          $cyan;
 $warning:       $yellow;
 $danger:        $red;
-$light:         $gray-100;
-$dark:          #14141a;
 // $dark:          #0a0f1b;
 // scss-docs-end theme-color-variables
 
 // scss-docs-start theme-colors-map
 $theme-colors: (
-  "primary":    $primary,
-  "secondary":  $secondary,
-  "success":    $success,
-  "info":       $info,
-  "warning":    $warning,
-  "danger":     $danger,
-  "light":      $light,
-  "dark":       $dark
+  "primary":         $primary,
+  "primary-light":   tint-color($primary, 40%),
+  "primary-dark":    shade-color($primary, 40%),
+  "secondary":       $secondary,
+  "secondary-light": tint-color($secondary, 40%),
+  "secondary-dark":  shade-color($secondary, 40%),
+  // "tertiary":        $tertiary,
+  // "tertiary-light": tint-color($tertiary, 40%),
+  // "tertiary-dark":  shade-color($tertiary, 40%),
+  "success":         $success,
+  "info":            $info,
+  "warning":         $warning,
+  "danger":          $danger,
+  "light":           $light,
+  "dark":            $dark
 );
 // scss-docs-end theme-colors-map
 
@@ -151,7 +164,7 @@ $theme-colors: (
 // Quickly modify global styling by enabling or disabling optional features.
 
 // $enable-caret:                true !default;
-$enable-rounded:              true;
+$enable-rounded:              false;
 // $enable-shadows:              false !default;
 // $enable-gradients:            false !default;
 // $enable-transitions:          true !default;
@@ -180,7 +193,7 @@ $prefix:                      '';
 // The gradient which is added to components if `$enable-gradients` is `true`
 // This gradient is also added to elements with `.bg-gradient`
 // scss-docs-start variable-gradient
-// $gradient: linear-gradient(180deg, rgba($white, .15), rgba($white, 0)) !default;
+$gradient: linear-gradient(345deg, rgba(var(--dark-rgb), .15), transparent);
 // scss-docs-end variable-gradient
 
 // Spacing
@@ -212,9 +225,17 @@ $spacers: (
 // scss-docs-start position-map
 $position-values: (
   0: 0,
+  10: 10%,
+  20: 20%,
   25: 25%,
+  30: 30%,
+  40: 40%,
   50: 50%,
+  60: 60%,
+  70: 70%,
   75:75%,
+  80: 80%,
+  90: 90%,
   100: 100%
 );
 // scss-docs-end position-map
@@ -229,8 +250,8 @@ $body-bg:                   $light;
 // $body-color:                $gray-900 !default;
 // $body-bg:                   $white !default;
 
-// $body-secondary-color:      rgba($body-color, .75) !default;
-// $body-secondary-bg:         $gray-200 !default;
+// $body-secondary-color:      #D8C4B6;
+$body-secondary-bg:         lighten($body-color, 5%);
 
 // $body-tertiary-color:       rgba($body-color, .5) !default;
 // $body-tertiary-bg:          $gray-100 !default;
@@ -242,7 +263,7 @@ $body-bg:                   $light;
 // Style anchor elements.
 
 // $link-color:                              $primary !default;
-// $link-decoration:                         underline !default;
+$link-decoration:                         none;
 // $link-shade-percentage:                   20% !default;
 // $link-hover-color:                        shift-color($link-color, $link-shade-percentage) !default;
 // $link-hover-decoration:                   null !default;
@@ -272,14 +293,15 @@ $paragraph-margin-bottom:   1.5rem;
 // adapting to different screen sizes, for use in media queries.
 
 // scss-docs-start grid-breakpoints
-// $grid-breakpoints: (
-//   xs: 0,
-//   sm: 576px,
-//   md: 768px,
-//   lg: 992px,
-//   xl: 1200px,
-//   xxl: 1400px
-// ) !default;
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px,
+  xxxl: 1600px
+);
 // scss-docs-end grid-breakpoints
 
 // @include _assert-ascending($grid-breakpoints, "$grid-breakpoints");
@@ -291,6 +313,14 @@ $paragraph-margin-bottom:   1.5rem;
 // Define the maximum width of `.container` for different screen sizes.
 
 // scss-docs-start container-max-widths
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1320px,
+  xxxl: 1500px
+);
 // $container-max-widths: (
 //   sm: 540px,
 //   md: 720px,
@@ -335,11 +365,11 @@ $border-color:                $gray-900;
 // scss-docs-end border-variables
 
 // scss-docs-start border-radius-variables
-$border-radius:               .5rem !default;
-$border-radius-sm:            1rem !default;
-$border-radius-lg:            1.5rem !default;
-$border-radius-xl:            3rem !default;
-$border-radius-xxl:           5rem !default;
+// $border-radius:               .5rem !default;
+// $border-radius-sm:            1rem !default;
+// $border-radius-lg:            1.5rem !default;
+// $border-radius-xl:            3rem !default;
+// $border-radius-xxl:           5rem !default;
 // $border-radius-pill:          50rem !default;
 // scss-docs-end border-radius-variables
 // fusv-disable
@@ -347,9 +377,9 @@ $border-radius-xxl:           5rem !default;
 // fusv-enable
 
 // scss-docs-start box-shadow-variables
-// $box-shadow:                  0 .5rem 1rem rgba($black, .15) !default;
-// $box-shadow-sm:               0 .125rem .25rem rgba($black, .075) !default;
-// $box-shadow-lg:               0 1rem 3rem rgba($black, .175) !default;
+$box-shadow:                  0 .5rem 1rem rgba($black, .15);
+$box-shadow-sm:               0 .125rem .25rem rgba($black, .1);
+$box-shadow-lg:               0 1rem 3rem rgba($black, .15);
 // $box-shadow-inset:            inset 0 1px 2px rgba($black, .075) !default;
 // scss-docs-end box-shadow-variables
 
@@ -397,7 +427,8 @@ $border-radius-xxl:           5rem !default;
 // $font-family-sans-serif:      system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
 // $font-family-monospace:       SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
 // stylelint-enable value-keyword-case
-$font-family-base:            'Manrope';
+// $font-family-base:            'Manrope';
+$font-family-base:            'Sora';
 // $font-family-code:            var(--#{$prefix}font-monospace) !default;
 
 // $font-size-root affects the value of `rem`, which is used for as well font sizes, paddings, and margins
@@ -576,8 +607,8 @@ $h6-font-size:                $font-size-base;
 // Shared variables that are reassigned to `$input-` and `$btn-` specific variables.
 
 // scss-docs-start input-btn-variables
-// $input-btn-padding-y:         .375rem !default;
-// $input-btn-padding-x:         .75rem !default;
+$input-btn-padding-y:         .5rem !default;
+$input-btn-padding-x:         1rem !default;
 // $input-btn-font-family:       null !default;
 // $input-btn-font-size:         $font-size-base !default;
 // $input-btn-line-height:       $line-height-base !default;
@@ -588,12 +619,12 @@ $h6-font-size:                $font-size-base;
 // $input-btn-focus-blur:          $focus-ring-blur !default;
 // $input-btn-focus-box-shadow:    $focus-ring-box-shadow !default;
 
-// $input-btn-padding-y-sm:      .25rem !default;
-// $input-btn-padding-x-sm:      .5rem !default;
+$input-btn-padding-y-sm:      .35rem !default;
+$input-btn-padding-x-sm:      .75rem !default;
 // $input-btn-font-size-sm:      $font-size-sm !default;
 
-// $input-btn-padding-y-lg:      .5rem !default;
-// $input-btn-padding-x-lg:      1rem !default;
+$input-btn-padding-y-lg:      .75rem !default;
+$input-btn-padding-x-lg:      1.5rem !default;
 // $input-btn-font-size-lg:      $font-size-lg !default;
 
 // $input-btn-border-width:      var(--#{$prefix}border-width) !default;

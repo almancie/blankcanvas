@@ -9,8 +9,11 @@ return [
   'class' => 'wpb_vc_column',
   'is_container' => true,
   'content_element' => false, // Hides it from "Add element"
-  'as_parent' => [
-    'only' => 'image, bootstrap_icon, text, button, html',
+  // 'as_parent' => [
+  //   'only' => 'text, image, bootstrap_icon, button, html',
+  // ],
+  'as_child' => [
+    'only' => 'group'
   ],
   'js_view' => 'VcColumnView',
   'params' => [

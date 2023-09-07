@@ -8,7 +8,7 @@
     layers: 1,
     duration: 1500,
     delay: 0,       // initial delay
-    stagger: 75,    // delay between layers
+    stagger: 100,    // delay between layers
     easing: 'easeInOutQuint',
   };
 
@@ -43,13 +43,22 @@
    */
   function reveal(element) {
     let data = element.dataset;
+    
+    // Blocks
+    let layers = (data.revealLayers || defaultOptions.layers)
+    
+    // Timing
+    let duration = (Number(data.revealDuration) || defaultOptions.duration) / 2;
+    let easing = data.revealEasing || defaultOptions.easing;
+    let delay = Number(data.revealDelay) || defaultOptions.delay;
+    let stagger = Number(data.revealStagger) || defaultOptions.stagger;
 
     // Blocks wrapper
     let blocksWrapper = document.createElement('div');
     blocksWrapper.classList.add('reveal-blocks');
 
     // Blocks
-    for (let i = 0; i < (data.revealLayers || defaultOptions.layers); i++) {
+    for (let i = 0; i < layers; i++) {
       let block = document.createElement('div');
       block.style.backgroundColor = data.revealColor || defaultOptions.color;
       blocksWrapper.appendChild(block);
@@ -67,12 +76,6 @@
     element.appendChild(blocksWrapper);
     element.style.opacity = 1;
 
-    // Timing
-    let duration = (Number(data.revealDuration) || defaultOptions.duration) / 2;
-    let easing = data.revealEasing || defaultOptions.easing;
-    let delay = Number(data.revealDelay) || defaultOptions.delay;
-    let stagger = Number(data.revealStagger) || defaultOptions.stagger;
-
     let animation = anime.timeline({
       targets: blocksWrapper.children, 
       easing
@@ -88,7 +91,7 @@
       delay: anime.stagger(stagger), 
       width: ['100%', 0],
     }).add({
-      delay,
+      delay: delay + (stagger * layers) - stagger,
       targets: contentWrapper,
       opacity: 1,
       translateX: ['-10%', 0],

@@ -4,13 +4,6 @@ import grapick from './modules/grapick.js';
 window.addEventListener('load', () => {
   if (! window.vc) return;
 
-  // document.querySelector('#vc_logo').style.background = bc.theme + '/asssets/imgs/BCLogo.svg';
-
-  // const vcRows = {
-  //   'vc_row': 'vc_column',
-  //   'vc_row_inner': 'vc_column_inner',
-  // };
-
   const rows = {
     'row': 'column',
     'row_inner': 'column_inner',
@@ -23,17 +16,8 @@ window.addEventListener('load', () => {
   const containers = {
     ...rows,
     'tabs': 'panel',
+    'accordion': 'accordion_item',
   };
-
-  // Enable column sorting for our container elements
-  // const sortingSelector = [
-  //   ...Object.values(vcRows),
-  //   ...Object.values(rows), 
-  // ].map(
-  //   column => `> [data-element-type=${column}]`
-  // ).toString();
-
-  // VcRowView.prototype.sortingSelector = sortingSelector;
 
   VcRowView.prototype.sortingSelector += `, 
     > [data-element_type=column], 
@@ -42,9 +26,6 @@ window.addEventListener('load', () => {
     > [data-element_type=group_column], 
     > [data-element_type=glide_slide], 
     > [data-element_type=advanced_list_item]`;
-
-  // vc.visualComposerView.prototype.rowSortableSelector += `,
-  //   > .wpb_html`;
 
   /**
    * Elements title
@@ -139,6 +120,10 @@ window.addEventListener('load', () => {
     let disableElement = model.attributes.params.disable_element;
 
     el.setAttribute('data-element-disabled', disableElement === 'yes');
+
+    // We have to remove them and rely on our data attribute 
+    // because they use !important and cannot be overridden.
+    el.classList.remove('vc_hidden-xs' 'vc_hidden-sm' 'vc_hidden-md' 'vc_hidden-lg');
   });
 
   /**
@@ -249,6 +234,14 @@ window.addEventListener('load', () => {
   });
 
   /**
+   * Text
+   */ 
+  vc.events.on('shortcodes:text:add shortcodes:text:update shortcodes:text:sync', function(model) {
+    const contentEl = model.view.el.querySelector('[name="content"]');
+    contentEl.innerHTML = contentEl.innerText;
+  });
+
+  /**
    * Icon
    */
   vc.events.on('shortcodes:bootstrap_icon:add shortcodes:bootstrap_icon:update shortcodes:bootstrap_icon:sync', function(model) {
@@ -355,10 +348,6 @@ window.addEventListener('load', () => {
         field: '[name="custom_js"]',
         options: {mode: 'javascript'}
       },
-      // transition: {
-      //   field: '[name="transition_extra"]',
-      //   options: {},
-      // },
       attributes: {
         field: '[name="attributes"]',
         options: {}

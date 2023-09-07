@@ -1,7 +1,7 @@
 <?php
 
 return [
-  'name' => esc_html__('Lottie Animation', 'blankcanvas'),
+  'name' => esc_html__('Lottie', 'blankcanvas'),
   'description' => esc_html__('Add lottie animation', 'blankcanvas'),
   'base' => 'lottie_player',
   'php_class_name' => 'Blankcanvas\Vc\Shortcodes\LottiePlayer',

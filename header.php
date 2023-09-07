@@ -16,8 +16,8 @@
 
   <div class="site">
     <header class="site-header d-flex align-items-center justify-content-between p-lg-3">
-      <div class="container-xxl">
-        <div class="row align-items-center justify-content-between flex-row-reverse">
+      <div class="container-xxxl">
+        <div class="row align-items-center">
 
           <!-- Logo -->
           <div class="col-auto">
@@ -30,7 +30,7 @@
           </div>
 
           <!-- Menu -->
-          <div class="col-auto">
+          <div class="col-auto ms-auto">
             <nav class="navbar main-navigation d-flex align-items-center">
               <button 
                 type="button" 
@@ -82,6 +82,34 @@
                 </div>
               </div>
             </nav>
+          </div>
+
+          <!-- Icons -->
+          <div class="col-auto">
+            <div class="header-icons d-flex align-items-center ms-5">
+              <button class="theme-toggle btn p-2 border-0" title="Toggles light & dark" aria-label="auto" aria-live="polite">
+                <svg class="sun-and-moon" aria-hidden="true" width="28" height="28" viewBox="0 0 24 24">
+                  <mask class="moon" id="moon-mask2">
+                    <rect x="0" y="0" width="100%" height="100%" fill="var(--light)"></rect>
+                    <circle cx="24" cy="10" r="6"></circle>
+                  </mask>
+                  <circle class="sun" cx="12" cy="12" r="6" mask="url(#moon-mask2)" fill="var(--body-color)" />
+                  <g class="sun-beams" stroke="var(--body-color)" stroke-width="2">
+                    <line x1="12" y1="1" x2="12" y2="3" />
+                    <line x1="12" y1="21" x2="12" y2="23" />
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                    <line x1="1" y1="12" x2="3" y2="12" />
+                    <line x1="21" y1="12" x2="23" y2="12" />
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                  </g>
+                </svg>
+              </button>
+              <button class="btn p-2 border-0 mb-1 ms-2" role="button" aria-controls="offcanvasSearch" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSearch">
+                <img src="<?= get_template_directory_uri() ?>/assets/imgs/search-normal.svg" width="24px" height="24px" class="filter-body-color" />
+              </button>
+            </div>
           </div>
 
           <div class="offcanvas offcanvas-start text-start" id="offcanvasSearch" aria-labelledby="offcanvasSearchLabel">

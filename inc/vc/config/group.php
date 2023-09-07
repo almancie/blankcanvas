@@ -11,7 +11,7 @@ return [
   'is_container' => true,
   'show_settings_on_create' => false,
   'as_child' => [
-    'except' => ''
+    'only' => 'column'
   ],
   'js_view' => 'VcRowView',
   'default_content' => '[group_column][/group_column]',

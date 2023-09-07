@@ -54,7 +54,7 @@ add_action('wp_enqueue_scripts', function () use ($jsData) {
   /**
    * Lottie player
    */
-  wp_register_script('lottie-player', 'https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js', [], null);
+  wp_enqueue_script('lottie-player', 'https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js', [], null);
 
   /**
    * Theme bundle 
@@ -200,6 +200,10 @@ add_action('admin_enqueue_scripts', function () use ($jsData) {
   // WPBakery
   wp_enqueue_style('blankcanvas-vc-admin', THEME_URI.'/inc/vc/assets/css/admin.css', [], THEME_VER);
   wp_enqueue_script('module-blankcanvas-vc-admin', THEME_URI.'/inc/vc/assets/js/admin.js', [], THEME_VER, true);
+
+  // WPBakery
+  // wp_enqueue_style('blankcanvas-acf-admin', THEME_URI.'/inc/acf/assets/css/admin.css', [], THEME_VER);
+  wp_enqueue_script('blankcanvas-acf-admin', THEME_URI.'/inc/acf/assets/js/admin.js', [], THEME_VER, true);
 
   // Bootstrap icons
   wp_enqueue_style('bootstrap-icons', 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css', [], '1.9.1');

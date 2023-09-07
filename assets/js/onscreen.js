@@ -67,6 +67,12 @@
   const onScreen = (selector, callback) => {
     const element = getElement(selector);
 
+    if (! element) {
+      console.error(`Element ${selector} does not exist.`);
+
+      return;
+    }
+
     if (isBeyond(element)) return callback();
 
     if (addCallback(element, callback)) return;

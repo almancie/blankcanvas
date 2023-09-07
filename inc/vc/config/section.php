@@ -14,7 +14,7 @@ return [
     'only' => '', // Only root
   ],
   'as_parent' => [
-    'only' => 'row'
+    'only' => 'row, video_player'
   ],
   'js_view' => 'VcSectionView',
   'default_content' => '[row][/row]',

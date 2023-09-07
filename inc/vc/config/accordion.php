@@ -10,6 +10,9 @@ return [
   'icon' => 'icon-wpb-ui-accordion',
   'is_container' => true,
   'show_settings_on_create' => false,
+  'as_child' => [
+    'only' => 'column',
+  ],
   'js_view' => 'VcBackendTtaAccordionView',
   'custom_markup' => 
     '<div class="vc_tta-container" data-vc-action="collapseAll">
@@ -30,9 +33,6 @@ return [
       </div>
     </div>',
   'default_content' => '[vc_tta_section title="' . esc_html__('Tab', 'js_composer') . '"][/vc_tta_section]',
-  'as_child' => [
-    'only' => 'section, column',
-  ],
   'params' => [
     [
       'type' => 'checkbox',

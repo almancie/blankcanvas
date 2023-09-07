@@ -9,7 +9,7 @@
         targets: element,
         opacity: 1,
         duration: 1000,
-        easing: 'easeInOutCirc',
+        easing: 'easeOutExpo',
       }
     },
     fadeStart: (element) => {
@@ -18,7 +18,7 @@
         translateX: ['100px', 0],
         opacity: 1,
         duration: 1000,
-        easing: 'easeInOutCirc',
+        easing: 'easeOutExpo',
       }
     },
     fadeEnd: (element) => {
@@ -27,7 +27,7 @@
         translateX: ['-100px', 0],
         opacity: 1,
         duration: 1000,
-        easing: 'easeInOutCirc',
+        easing: 'easeOutExpo',
       }
     },
     fadeUp: (element) => {
@@ -35,8 +35,8 @@
         targets: element,
         translateY: ['100px', 0],
         opacity: 1,
-        duration: 1000,
-        easing: 'easeInOutCirc',
+        duration: 1800,
+        easing: 'easeOutExpo',
       }
     },
     fadeDown: (element) => {
@@ -45,7 +45,7 @@
         translateY: ['-100px', 0],
         opacity: 1,
         duration: 1000,
-        easing: 'easeInOutCirc',
+        easing: 'easeOutExpo',
       }
     },
     fadeUpStart: (element) => {
@@ -55,7 +55,7 @@
         translateY: ['100px', 0],
         opacity: 1,
         duration: 1000,
-        easing: 'easeInOutCirc',
+        easing: 'easeOutExpo',
       }
     },
     fadeUpEnd: (element) => {
@@ -65,7 +65,7 @@
         translateY: ['100px', 0],
         opacity: 1,
         duration: 1000,
-        easing: 'easeInOutCirc',
+        easing: 'easeOutExpo',
       }
     },
     fadeDownStart: (element) => {
@@ -75,7 +75,7 @@
         translateY: ['-100px', 0],
         opacity: 1,
         duration: 1000,
-        easing: 'easeInOutCirc',
+        easing: 'easeOutExpo',
       }
     },
     fadeDownEnd: (element) => {
@@ -85,7 +85,7 @@
         translateY: ['-100px', 0],
         opacity: 1,
         duration: 1000,
-        easing: 'easeInOutCirc',
+        easing: 'easeOutExpo',
       }
     },
 
@@ -95,7 +95,7 @@
         opacity: 1,
         duration: 1000,
         scale: [.85, 1],
-        easing: 'easeInOutCirc',
+        easing: 'easeOutExpo',
       }
     },
     fadeDownBounce: (element) => {
@@ -120,8 +120,8 @@
       }
     },
     tiles: (element) => {
-      const tileWidth = 100;
-      const tileHeight = 100;
+      const tileWidth = 150;
+      const tileHeight = 150;
       const countX = Math.floor(element.offsetWidth / tileWidth);
       const countY = Math.floor(element.offsetHeight / tileHeight);
       const count = countX * countY;
@@ -139,11 +139,14 @@
       element.prepend(wrapper);
 
       return {
-        targets: tiles,
+        targets: tiles.sort(() => Math.random() - 0.5),
         opacity: 0,
         duration: 1000,
-        easing: 'easeInExpo', 
-        delay: anime.stagger(100, {from: 'center'}),
+        easing: 'easeOutSine', 
+        delay: anime.stagger(250, {grid: [3, 3]}),
+        complete: () => {
+          wrapper.remove();
+        }
       }
     }
   }
@@ -165,8 +168,8 @@
       customTiming.delay = transitionDelay;
     }
 
-    onScreen(transitionAnchor, async () => {
-      await anime({
+    onScreen(transitionAnchor, () => {
+      anime({
         begin: () => {
           element.classList.add('transitioning');
         },

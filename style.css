@@ -43,6 +43,10 @@ body {
   /* border-bottom: var(--border-width) solid var(--border-color); */
 }
 
+.header-icons > * {
+  opacity: 0;
+}
+
 .banner {
   height: 60vh;
   min-height: 180px;
@@ -60,17 +64,36 @@ body {
 
 .bc-menu .animatab-highlighter:before {
   background-color: var(--primary);
-  border-radius: var(--border-radius-pill);
+  /* top: 100%; */
+  /* height: 2px; */
+  /* width: calc(100% - var(--item-spacing-x)); */
+  width: 100%;
+  /* border-radius: 20rem; */
   opacity: 1;
 }
 
 .bc-menu > li {
   opacity: 0;
   transition: color .4s;
+  /* text-transform: uppercase; */
 }
+
+/* .bc-menu > li:hover ~ .animatab-highlighter:before {
+  height: 100%;
+  width: 100%;
+  top: 50%;
+} */
+
+/* .bc-menu > li:hover {
+  color: var(--dark);
+} */
 
 .bc-menu > li > .menu-item-title > .sub-menu-btn {
   transition: filter .4s;
+}
+
+.bc-menu > li:hover > .menu-item-title > .sub-menu-btn {
+  filter: var(--filter-dark);
 }
 
 .bc-menu:not(:hover) > .current-menu-item:first-of-type,
@@ -110,10 +133,10 @@ body {
   translate: 50% -50%;
 }
 
-.feature-number,
+/* .feature-number,
 .feature-title {
   font-family: 'Sora';
-}
+} */
 
 .inquiry-form .animatab-highlighter:before {
   width: calc(100% - var(--gutter-x));
@@ -173,7 +196,7 @@ body {
   .custom-logo {
     height: 24px;
   }
-
+  
   #offcanvasSearch {
     height: calc(100vh - 2rem);
     margin-top: 1rem;
@@ -181,12 +204,7 @@ body {
     box-shadow: var(--shadow-lg);
     border-radius: .5rem;
   }
-
-  .bc-menu > li {
-    --item-spacing-y: .5rem;
-    /* --item-spacing-x: 1.25rem; */
-  }
-
+  
   .bc-menu .animatab-highlighter {
     display: block;
   }
@@ -194,14 +212,259 @@ body {
   /**
   * Home header
   */
-
+  
   /* .home .site-header {
     position: absolute;
     margin-inline-start: 0;
     width: 100%;
-  }
+  } */
   
-  .home .custom-logo {
+  /* .home .custom-logo {
     filter: var(--filter-light);
   } */
+}
+
+
+
+
+
+
+
+
+/**
+*-----------------------------------------------------------------
+* Sliders
+*-----------------------------------------------------------------
+*/
+
+.glide__track,
+.glide__slides {
+  overflow: visible !important;
+}
+
+.glide__slide {
+  --slide-border-radius: 2rem;
+  transition: opacity 1s;
+  position: relative;
+  /* border-radius: var(--slide-border-radius); */
+}
+
+.glide__slide:has(+ .glide__slide--active) {
+  opacity: 0;
+}
+
+.glide__slide--active {
+  /* transition: all .7s; */
+  opacity: 1;
+}
+
+.solutions-slider .glide__slide {
+  --feature-padding-x: 3rem;
+  --feature-padding-y: 3rem;
+  /* height: 150px; */
+  padding: var(--feature-padding-x) var(--feature-padding-y);
+  /* padding-bottom: 6rem; */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  /* transition: all 1s; */
+  background-color: var(--secondary-bg);
+  /* box-shadow: var(--box-shadow-sm); */
+  /* color: var(--light); */
+  border-radius: var(--slide-border-radius);
+}
+
+/* .solutions-slider .glide__slide:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  inset-inline-start: 0;
+  height: 100%;
+  width: 100%;
+  background-image: url(http://localhost/wp/wp-content/uploads/revslider/video-media/Cgi-Point-Cloud-Priest-Church-by-vastisa-E28093-Stock-Footage-_-Artlist_221-scaled.jpeg);
+  background-size: cover;
+  background-position: center;
+  opacity: .15;
+  transition: all .4s;
+  border-radius: var(--slide-border-radius);
+}
+
+.solutions-slider .glide__slide--active:before {
+  opacity: 1;
+  transition: all 1s .25s;
+} */
+
+.solutions-slider .glide__slide:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  inset-inline-start: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: opacity 1s;
+  border-radius: var(--slide-border-radius);
+  background-color: var(--primary);
+  z-index: 0;
+}
+
+.solutions-slider .glide__slide--active:after {
+  opacity: 1;
+}
+
+.solutions-slider .glide__slide > * {
+  position: relative;
+  z-index: 1  ;
+}
+
+.solutions-slider .glide__slide:after {
+  transition: all 1s;
+  /* border-radius: var(--slide-border-radius); */
+}
+
+/* .solutions-slider .glide__slide--active {
+  color: var(--dark);
+} */
+
+/* .solutions-slider .glide__slide--active > * {
+  opacity: 1;
+} */
+
+.solutions-slider .feature-icon {
+  display: none;
+  background-image: var(--gradient);
+  box-shadow: var(--box-shadow-sm);
+}
+
+.solutions-slider .feature-title {
+  margin-bottom: 0;
+  opacity: .5;
+  transition: color 1s;
+  color: var(--light);
+}
+
+.solutions-slider .feature-title > * {
+  font-weight: 400;
+}
+
+.solutions-slider .glide__slide--active .feature-title {
+  opacity: 1;
+  color: var(--dark);
+}
+
+.solutions-slider .feature-text {
+  display: none;
+  min-height: 75px;
+}
+
+.solutions-slider .feature-number {
+  color: var(--secondary-bg);
+  position: absolute;
+  bottom: 100%;
+  inset-inline-end: 0;
+  font-size: 100px;
+  line-height: 100px;
+  margin-bottom: -15px;
+  transition: all 1.2s cubic-bezier(.5, -.1, .1, 1.5);
+  /*mix-blend-mode: exclusion;*/
+}
+
+.solutions-slider .glide__slide--active .feature-number {
+  color: var(--primary);
+  inset-inline-end: 100%;
+  translate: 100% 0;
+}
+
+.solutions-slider .feature-icon .icon {
+  filter: var(--filter-body-color);
+}
+
+.solutions-slider .feature-number > * {
+  font-size: inherit !important;
+}
+
+.solutions-slider-icons .figure-icon {
+  margin-bottom: 0;
+  opacity: 0;
+  /* margin-inline-start: -40px; */
+  position: absolute;
+  background-color: var(--light);
+  background-image: var(--gradient);
+  margin-bottom: 8px;
+  /* border-radius: 1.5rem; */
+  padding: 1.25rem;
+  box-shadow: var(--box-shadow);
+}
+
+/**
+*-----------------------------------------------------------------
+* Why Section
+*-----------------------------------------------------------------
+*/
+
+.reasons .row {
+  opacity: 0;
+  font-size: 1.175em;
+  align-items: center;
+}
+
+.reasons .bi {
+  background: var(--body-color);
+  color: var(--body-bg);
+  padding: .25rem;
+  border-radius: 20rem;
+}
+
+/**
+*-----------------------------------------------------------------
+* Process Section
+*-----------------------------------------------------------------
+*/
+
+.process .feature {
+  height: 350px;
+}
+
+/**
+*-----------------------------------------------------------------
+* Techonologies Section
+*-----------------------------------------------------------------
+*/
+
+.technologies-list .figure-icon {
+  opacity: 0;
+  position: relative;
+  /*--figure-icon-border-radius: var(--border-radius);*/
+}
+
+.technologies-icons .figure-icon {
+  margin-bottom: 0;
+}
+
+.technologies-icons > *:not(:last-child) {
+  border-inline-end: var(--border-width) var(--border-style) var(--border-color);
+}
+
+/**
+*-----------------------------------------------------------------
+* Other
+*-----------------------------------------------------------------
+*/
+
+.section {
+  padding-top: var(--section-spacing);
+}
+
+.hero-text {
+  font-size: 100px;
+  line-height: 100px;
+  font-weight: 500;
+  font-family: var(--body-secondary-font-family);
+  margin-bottom: 0;
+  /*text-transform: uppercase;*/
+}
+
+.hero-text > * {
+  margin-bottom: 0;
 }

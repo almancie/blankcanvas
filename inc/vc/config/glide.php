@@ -2,7 +2,7 @@
 
 return [
   'name' => esc_html__('Slider', 'blankcanvas'),
-  'description' => esc_html__('Place content elements inside carousel', 'blankcanvas'),
+  'description' => esc_html__('Place content elements inside slider', 'blankcanvas'),
   'base' => 'glide',
   'php_class_name' => 'Blankcanvas\Vc\Shortcodes\Glide',
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
@@ -11,10 +11,13 @@ return [
   'is_container' => true,
   'show_settings_on_create' => false,
   'as_child' => [
-    'except' => '',
+    'only' => 'column',
   ],
   'js_view' => 'VcRowView',
-  'default_content' => '[vc_column][/vc_column]',
+  'default_content' => '
+    [vc_column width="1/3"][/vc_column]
+    [vc_column width="1/3"][/vc_column]
+    [vc_column width="1/3"][/vc_column]',
   'params' => [
     [
       'type' => 'textarea_raw_html',

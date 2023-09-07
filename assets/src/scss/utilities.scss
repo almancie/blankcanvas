@@ -28,7 +28,7 @@ $utilities: map-merge(
     "opacity": (
       class: opacity,
       property: opacity,
-      values: (1: .01, 5: .05, 10: .1, 20: .2, 25: .25, 30: .3, 40: .4, 50: .5, 60: .6, 70: .7, 75: .75, 80: .8, 90: .9, 95: .95, 99: .99)
+      values: (0: 0, 1: .01, 5: .05, 10: .1, 20: .2, 25: .25, 30: .3, 40: .4, 50: .5, 60: .6, 70: .7, 75: .75, 80: .8, 90: .9, 95: .95, 99: .99)
     ),
     // "start": (
     //   class: start,
@@ -50,20 +50,34 @@ $utilities: map-merge(
   filter: var(--filter-body-color);
 }
 
+.filter-body-bg {
+  filter: var(--filter-body-bg);
+}
+
+.filter-primary {
+  filter: var(--filter-primary);
+}
+
 .flex-center {
   justify-content: center;
   align-items: center;
 }
 
-.position-center {
-  @extend .position-absolute;
-  top: 50%;
-  inset-inline-start: 50%;
-  translate: -50% -50%;
-}
+// .absolute-middle {
+//   @extend .position-absolute;
+//   top: 50%;
+//   inset-inline-start: 50%;
+//   // translate: -50% -50%;
+// }
+
+// .position-full {
+  
+// }
 
 .overlay {
   position: relative;
+  --overlay-color: var(--body-bg);
+  --overlay-opacity: .75;
 }
 
 .overlay > * {
@@ -73,12 +87,15 @@ $utilities: map-merge(
 
 .overlay:after {
   content: '';
-  @extend .position-center;
+  position: absolute;
+  top: 0;
+  inset-inline-start: 0;
   height: 100%;
   width: 100%;
   background-color: var(--overlay-color);
   opacity: var(--overlay-opacity);
   z-index: 0;
+  transition: background-color .6s ease-in-out;
 }
 
 .effect-glass {

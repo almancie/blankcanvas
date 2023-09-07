@@ -8,9 +8,11 @@ $colors = [
   esc_html__('Custom', 'blankcanvas') => 'custom',
 ];
 
-$bgColors = [esc_html__('None', 'blankcanvas') => ''] + $colors;
+$bg = [esc_html__('None', 'blankcanvas') => ''] + $colors;
 
-$textColors = [esc_html__('Default', 'blankcanvas') => ''] + $colors;
+$text = [esc_html__('Default', 'blankcanvas') => ''] + $colors;
+
+$overlay = [esc_html__('None', 'blankcanvas') => '', esc_html__('Default', 'blankcanvas') => 'var(--body-bg)'] + $colors;
 
 return [
   [
@@ -46,7 +48,7 @@ return [
       'element' => 'background',
       'value' => 'solid'
     ],
-    'value' => $bgColors
+    'value' => $bg
   ],
   [
     'type' => 'colorpicker',
@@ -80,7 +82,7 @@ return [
       'element' => 'background',
       'value' => 'image'
     ],
-    'value' => $bgColors
+    'value' => $overlay
   ],
   [
     'type' => 'textfield',
@@ -93,7 +95,7 @@ return [
       'element' => 'overlay_color',
       'not_empty' => true
     ],
-    'value' => '0%'
+    'value' => '75%'
   ],
   [
     'type' => 'colorpicker',
@@ -111,7 +113,7 @@ return [
     'heading' => esc_html__('Text color', 'blankcanvas'),
     'param_name' => 'text_color',
     'group' => esc_html__('Design', 'blankcanvas'),
-    'value' => $textColors
+    'value' => $text
   ],
   [
     'type' => 'colorpicker',
@@ -143,7 +145,7 @@ return [
       'element' => 'border',
       'not_empty' => true
     ],
-    'value' => $textColors
+    'value' => $text
   ],
   [
     'type' => 'textfield',

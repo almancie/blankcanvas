@@ -57,7 +57,7 @@ if ($disable_element) {
 
 // Has background
 if (/*$background ||*/ $video_bg || $parallax) {
-  $classes[] = 'vc_section-has-fill';
+  $classes[] = 'col-has-fill';
 }
 
 // Attributes

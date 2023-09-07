@@ -93,11 +93,11 @@ add_filter('walker_nav_menu_start_el', function ($output, $item, $depth, $args) 
 
   <button 
     type="button" 
-    class="sub-menu-btn btn btn-link p-0 rounded-circle d-flex flex-center" 
+    class="sub-menu-btn btn btn-link p-0 rounded-circle d-flex flex-center border-0" 
     data-bs-toggle="collapse" data-bs-target="#sub-menu-<?= $item->ID ?>" 
     aria-expanded="false" aria-controls="sub-menu-<?= $item->ID ?>"
   >
-    <img src="<?= get_template_directory_uri().'/inc/nav-menu/imgs/up-arrow.png' ?>" />
+    <img src="<?= get_template_directory_uri().'/inc/nav-menu/imgs/arrow-down-circle.svg' ?>" />
   </button>
 
   <?php

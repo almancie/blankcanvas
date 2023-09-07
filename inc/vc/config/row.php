@@ -13,8 +13,8 @@ return [
     'only' => 'section'
   ],
   'show_settings_on_create' => false,
-  'js_view' => 'VcRowView',
-  'default_content' => '[vc_column][/vc_column]',
+  'js_view' => 'VcRowView', // Allows us to reorder columns
+  'default_content' => '[vc_column][/vc_column]', // Changing row layout creates vc_column that is why we default to it and then change it with JS.
   'params' => [
     [
       'type' => 'dropdown',
@@ -35,9 +35,9 @@ return [
       'description' => esc_html__('Select columns position within row.', 'js_composer'),
       'value' => [
         esc_html__('Equal height', 'blankcanvas') => '',
-        esc_html__('Top', 'js_composer') => 'top',
+        esc_html__('Top', 'js_composer') => 'start',
         esc_html__('Middle', 'js_composer') => 'center',
-        esc_html__('Bottom', 'js_composer') => 'bottom',
+        esc_html__('Bottom', 'js_composer') => 'end',
       ],
       'weight' => 100
     ],

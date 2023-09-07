@@ -9,9 +9,9 @@
 
 if (document.body.classList.contains('home')) {
   anime({
-    targets: ['#main-menu .menu-item', '.custom-logo'],
-    translateY: [50, 0],
-    delay: anime.stagger(100),
+    targets: ['.custom-logo', '#main-menu .menu-item', '.header-icons > *'],
+    translateX: [-50, 0],
+    delay: anime.stagger(50),
     opacity: 1,
     easing: 'easeInOutCirc'
   });
@@ -58,5 +58,5 @@ window?.Animatab.init();
 */
 
 window?.Revealer.init({
-  color: 'var(--body-color)'
+  color: 'var(--primary)'
 });

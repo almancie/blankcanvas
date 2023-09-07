@@ -4,7 +4,7 @@ return [
   'name' => esc_html__('List', 'blankcanvas'),
   'description' => esc_html__('Place content elements inside unordered list', 'js_composer'),
   'base' => 'advanced_list',
-  'php_class_name' => 'Blankcanvas\Vc\Shortcodes\Row',
+  'php_class_name' => 'Blankcanvas\Vc\Shortcodes\AdvancedList',
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
   'icon' => 'icon-wpb-row',
   'class' => 'wpb_vc_row',
