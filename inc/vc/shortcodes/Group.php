@@ -2,19 +2,19 @@
 
 namespace Blankcanvas\Vc\Shortcodes;
 
-class Group extends \WPBakeryShortCode_Vc_Row {
+class Group extends \WPBakeryShortCodesContainer {
 
   /**
    * Create instance
    */
   public function __construct($settings) {
-    $settings['controls'] = [
-      'move', 
-      'toggle', 
-      'edit', 
-      'clone', 
-      'delete'
-    ];
+    // $settings['controls'] = [
+    //   'move', 
+    //   'toggle', 
+    //   'edit', 
+    //   'clone', 
+    //   'delete'
+    // ];
 
     parent::__construct($settings);
   }

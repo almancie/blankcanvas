@@ -9,14 +9,95 @@ License: GNU General Public License v2 or later
 Text Domain: blankcanvas
 */
 
-header {
-  position: relative;
-  z-index: 99;
+/*
+|--------------------------------------------------------------------------
+| Fonts
+|--------------------------------------------------------------------------
+|
+| Fonts import and definition.
+|
+*/
+
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap'); */
+/* @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue:wght@200;300;400;500;600;700;800&display=swap'); */
+/* @import url('https://fonts.googleapis.com/css2?family=Sora:wght@200;300;400;500;600;700;800&display=swap'); */
+/* @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
+
+@font-face {
+  font-family: "integralcf";
+  src: url("assets/fonts/integralcf-heavy.otf") format("opentype");
+  font-weight: 700;
 }
 
-body {
-  overflow-x: hidden;
+@font-face {
+  font-family: "integralcf";
+  src: url("assets/fonts/integralcf-extrabold.otf") format("opentype");
+  font-weight: 600;
 }
+
+@font-face {
+  font-family: "integralcf";
+  src: url("assets/fonts/integralcf-bold.otf") format("opentype");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "integralcf";
+  src: url("assets/fonts/integralcf-medium.otf") format("opentype");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "integralcf";
+  src: url("assets/fonts/integralcf-regular.otf") format("opentype");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "phonk";
+  src: url("assets/fonts/PhonkRegular.otf") format("opentype");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "phonk";
+  src: url("assets/fonts/PhonkContrast.otf") format("opentype");
+  font-weight: 500;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Root Variables
+|--------------------------------------------------------------------------
+|
+| Root variables definition.
+|
+*/
+
+:root {
+  --headings-font-family: 'phonk', serif;
+  --body-font-family: 'Manrope', serif;
+  /* --body-secondary-font-family: 'phonk', serif; */
+}
+
+/*
+|--------------------------------------------------------------------------
+| Style
+|--------------------------------------------------------------------------
+|
+| General styling.
+|
+*/
+
+header {
+  position: relative;
+  z-index: 100;
+}
+
+/* body {
+  overflow-x: hidden;
+} */
 
 .site-main {
   position: relative;
@@ -24,7 +105,7 @@ body {
 }
 
 .custom-logo {
-  opacity: 0;
+  /* opacity: 0; */
   height: 22px;
   width: auto;
   filter: var(--filter-body-color);
@@ -43,9 +124,13 @@ body {
   /* border-bottom: var(--border-width) solid var(--border-color); */
 }
 
-.header-icons > * {
+/* .home .section:first-child > .row:first-child {
+  min-height: calc(100vh - var(--header-height));
+} */
+
+/* .header-icons > * {
   opacity: 0;
-}
+} */
 
 .banner {
   height: 60vh;
@@ -54,28 +139,51 @@ body {
   background-size: cover;
 }
 
-.section:first-child {
+/* .section {
+  padding: 0 5rem;
+} */
+
+/* .section:first-child {
   padding-top: var(--section-spacing);
-}
+} */
 
 .bc-menu .animatab-highlighter {
   display: none;
 }
 
 .bc-menu .animatab-highlighter:before {
+  /* background: linear-gradient(145deg, var(--primary), var(--secondary)); */
   background-color: var(--primary);
+  /* border: 1px solid var(--body-color); */
+  /* background-image: var(--gradient); */
   /* top: 100%; */
   /* height: 2px; */
   /* width: calc(100% - var(--item-spacing-x)); */
   width: 100%;
-  /* border-radius: 20rem; */
+  /* border-radius: .5rem; */
+  /* box-shadow: var(--box-shadow-sm); */
   opacity: 1;
+}
+
+.bc-menu {
+  --item-font-size: 6rem;
+  flex-direction: column;
+  align-items: center;
+  line-height: 6rem;
+  font-family: var(--headings-font-family);
 }
 
 .bc-menu > li {
   opacity: 0;
   transition: color .4s;
-  /* text-transform: uppercase; */
+  /* display: inline-flex; */
+  /* border: 1px solid var(--body-color); */
+  /* margin-inline-end: 1.5rem; */
+  /* justify-content: center; */
+  /* min-width: 120px; */
+  /* border-radius: .5rem; */
+  text-transform: lowercase;
+  letter-spacing: 3px;
 }
 
 /* .bc-menu > li:hover ~ .animatab-highlighter:before {
@@ -88,32 +196,30 @@ body {
   color: var(--dark);
 } */
 
-.bc-menu > li > .menu-item-title > .sub-menu-btn {
+/* .bc-menu > li > .menu-item-title > .sub-menu-btn {
   transition: filter .4s;
-}
-
-.bc-menu > li:hover > .menu-item-title > .sub-menu-btn {
-  filter: var(--filter-dark);
-}
+} */
 
 .bc-menu:not(:hover) > .current-menu-item:first-of-type,
 .bc-menu:not(:hover) > .current-menu-parent,
 .bc-menu > li:hover {
   color: var(--dark);
+  /* border-color: var(--primary); */
 }
 
+/* .bc-menu > li:hover > .menu-item-title > .sub-menu-btn,
 .bc-menu:not(:hover) > .current-menu-item:first-of-type > .menu-item-title > .sub-menu-btn,
 .bc-menu:not(:hover) > .current-menu-parent > .menu-item-title > .sub-menu-btn,
 .bc-menu > li:hover > .menu-item-title > .sub-menu-btn {
   filter: var(--filter-dark);
-}
+} */
 
-.bc-menu-btn {
+/* .bc-menu-btn {
   position: relative;
   z-index: 9999;
-}
+} */
 
-.icon-separator {
+/* .icon-separator {
   --gutter-x: 1rem;
   position: relative;
   height: 100%;
@@ -131,14 +237,22 @@ body {
   inset-inline-end: 0;
   top: 50%;
   translate: 50% -50%;
+} */
+
+/* .letter-justify td:not(:first-child) {
+  text-align: center;
 }
+
+.letter-justify td:nth-child(5) {
+  text-align: end;
+} */
 
 /* .feature-number,
 .feature-title {
   font-family: 'Sora';
 } */
 
-.inquiry-form .animatab-highlighter:before {
+/* .inquiry-form .animatab-highlighter:before {
   width: calc(100% - var(--gutter-x));
   border-radius: .5rem;
   background-color: transparent;
@@ -147,7 +261,7 @@ body {
 
 .inquire-form .active .feature {
   --feature-accent-color: var(--primary);
-}
+} */
 
 /* .section-sub-title {
   position: relative;
@@ -183,9 +297,71 @@ body {
   to {inset-inline-end: 0%; opacity: 1}
 } */
 
+/* #rev_slider_78_1_wrapper,
+#rev_slider_78_1 {
+  max-height: calc(100vh - var(--header-height) - 25vh);
+} */
+
+.btn-1 {
+  margin: 0rem 5rem;
+  position: absolute;
+  top: 50%;
+  inset-inline-start: 50%;
+  translate: -50% -50%;
+  border-radius: 50%;
+  height: 200px;
+  width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .5s;
+  /* overflow: hidden; */
+  /* background-size: 250px 250px !important; */
+  border: 1px solid var(--primary);
+}
+
+.btn-1:hover {
+  background-color: var(--primary);
+  height: 300px;
+  width: 300px;
+}
+
+.btn-1 a {
+  color: var(--body-color);
+}
+
+.btn-1:hover a {
+  color: var(--dark);
+}
+
+#offcanvasMenu ~ .offcanvas-backdrop {
+  display: none;
+}
+
+#offcanvasMenu {
+  margin-top: var(--header-height);
+  top: 0;
+  inset-inline-start: 0;
+  width: 100%;
+  /* transition: opacity 5s; */
+  /* height: 0; */
+  transition: background-color .5s;
+  height: calc(100% - var(--header-height));
+  background-color: transparent;
+}
+
+#offcanvasMenu.showing,
+#offcanvasMenu.show {
+  background-color: var(--body-bg);
+}
+
+#offcanvasMenu.hiding {
+  background-color: transparent;
+}
+
 /*
 |--------------------------------------------------------------------------
-| Min (992px | Large) Media Query
+| Media Queries
 |--------------------------------------------------------------------------
 |
 | Applies styling for specific screen size.
@@ -193,10 +369,6 @@ body {
 */
 
 @media (min-width: 992px) {
-  .custom-logo {
-    height: 24px;
-  }
-  
   #offcanvasSearch {
     height: calc(100vh - 2rem);
     margin-top: 1rem;
@@ -204,10 +376,30 @@ body {
     box-shadow: var(--shadow-lg);
     border-radius: .5rem;
   }
-  
+
   .bc-menu .animatab-highlighter {
     display: block;
   }
+
+  /* .bc-menu {
+    --item-font-size: 1.5rem !important;
+  }
+
+  .bc-menu a {
+    display: none;
+  } */
+
+  /* .bc-menu > li {
+    --item-spacing-x: 1.5rem;
+    margin: 0 var(--item-spacing-x);
+  }
+
+  .bc-menu > li:not(:nth-last-child(2)):after {
+    content: "/";
+    position: absolute;
+    inset-inline-end: calc(-1 * var(--item-spacing-x));
+    color: var(--body-color);
+  } */
   
   /**
   * Home header
@@ -222,249 +414,4 @@ body {
   /* .home .custom-logo {
     filter: var(--filter-light);
   } */
-}
-
-
-
-
-
-
-
-
-/**
-*-----------------------------------------------------------------
-* Sliders
-*-----------------------------------------------------------------
-*/
-
-.glide__track,
-.glide__slides {
-  overflow: visible !important;
-}
-
-.glide__slide {
-  --slide-border-radius: 2rem;
-  transition: opacity 1s;
-  position: relative;
-  /* border-radius: var(--slide-border-radius); */
-}
-
-.glide__slide:has(+ .glide__slide--active) {
-  opacity: 0;
-}
-
-.glide__slide--active {
-  /* transition: all .7s; */
-  opacity: 1;
-}
-
-.solutions-slider .glide__slide {
-  --feature-padding-x: 3rem;
-  --feature-padding-y: 3rem;
-  /* height: 150px; */
-  padding: var(--feature-padding-x) var(--feature-padding-y);
-  /* padding-bottom: 6rem; */
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-end;
-  /* transition: all 1s; */
-  background-color: var(--secondary-bg);
-  /* box-shadow: var(--box-shadow-sm); */
-  /* color: var(--light); */
-  border-radius: var(--slide-border-radius);
-}
-
-/* .solutions-slider .glide__slide:before {
-  content: "";
-  position: absolute;
-  top: 0;
-  inset-inline-start: 0;
-  height: 100%;
-  width: 100%;
-  background-image: url(http://localhost/wp/wp-content/uploads/revslider/video-media/Cgi-Point-Cloud-Priest-Church-by-vastisa-E28093-Stock-Footage-_-Artlist_221-scaled.jpeg);
-  background-size: cover;
-  background-position: center;
-  opacity: .15;
-  transition: all .4s;
-  border-radius: var(--slide-border-radius);
-}
-
-.solutions-slider .glide__slide--active:before {
-  opacity: 1;
-  transition: all 1s .25s;
-} */
-
-.solutions-slider .glide__slide:after {
-  content: "";
-  position: absolute;
-  top: 0;
-  inset-inline-start: 0;
-  height: 100%;
-  width: 100%;
-  opacity: 0;
-  transition: opacity 1s;
-  border-radius: var(--slide-border-radius);
-  background-color: var(--primary);
-  z-index: 0;
-}
-
-.solutions-slider .glide__slide--active:after {
-  opacity: 1;
-}
-
-.solutions-slider .glide__slide > * {
-  position: relative;
-  z-index: 1  ;
-}
-
-.solutions-slider .glide__slide:after {
-  transition: all 1s;
-  /* border-radius: var(--slide-border-radius); */
-}
-
-/* .solutions-slider .glide__slide--active {
-  color: var(--dark);
-} */
-
-/* .solutions-slider .glide__slide--active > * {
-  opacity: 1;
-} */
-
-.solutions-slider .feature-icon {
-  display: none;
-  background-image: var(--gradient);
-  box-shadow: var(--box-shadow-sm);
-}
-
-.solutions-slider .feature-title {
-  margin-bottom: 0;
-  opacity: .5;
-  transition: color 1s;
-  color: var(--light);
-}
-
-.solutions-slider .feature-title > * {
-  font-weight: 400;
-}
-
-.solutions-slider .glide__slide--active .feature-title {
-  opacity: 1;
-  color: var(--dark);
-}
-
-.solutions-slider .feature-text {
-  display: none;
-  min-height: 75px;
-}
-
-.solutions-slider .feature-number {
-  color: var(--secondary-bg);
-  position: absolute;
-  bottom: 100%;
-  inset-inline-end: 0;
-  font-size: 100px;
-  line-height: 100px;
-  margin-bottom: -15px;
-  transition: all 1.2s cubic-bezier(.5, -.1, .1, 1.5);
-  /*mix-blend-mode: exclusion;*/
-}
-
-.solutions-slider .glide__slide--active .feature-number {
-  color: var(--primary);
-  inset-inline-end: 100%;
-  translate: 100% 0;
-}
-
-.solutions-slider .feature-icon .icon {
-  filter: var(--filter-body-color);
-}
-
-.solutions-slider .feature-number > * {
-  font-size: inherit !important;
-}
-
-.solutions-slider-icons .figure-icon {
-  margin-bottom: 0;
-  opacity: 0;
-  /* margin-inline-start: -40px; */
-  position: absolute;
-  background-color: var(--light);
-  background-image: var(--gradient);
-  margin-bottom: 8px;
-  /* border-radius: 1.5rem; */
-  padding: 1.25rem;
-  box-shadow: var(--box-shadow);
-}
-
-/**
-*-----------------------------------------------------------------
-* Why Section
-*-----------------------------------------------------------------
-*/
-
-.reasons .row {
-  opacity: 0;
-  font-size: 1.175em;
-  align-items: center;
-}
-
-.reasons .bi {
-  background: var(--body-color);
-  color: var(--body-bg);
-  padding: .25rem;
-  border-radius: 20rem;
-}
-
-/**
-*-----------------------------------------------------------------
-* Process Section
-*-----------------------------------------------------------------
-*/
-
-.process .feature {
-  height: 350px;
-}
-
-/**
-*-----------------------------------------------------------------
-* Techonologies Section
-*-----------------------------------------------------------------
-*/
-
-.technologies-list .figure-icon {
-  opacity: 0;
-  position: relative;
-  /*--figure-icon-border-radius: var(--border-radius);*/
-}
-
-.technologies-icons .figure-icon {
-  margin-bottom: 0;
-}
-
-.technologies-icons > *:not(:last-child) {
-  border-inline-end: var(--border-width) var(--border-style) var(--border-color);
-}
-
-/**
-*-----------------------------------------------------------------
-* Other
-*-----------------------------------------------------------------
-*/
-
-.section {
-  padding-top: var(--section-spacing);
-}
-
-.hero-text {
-  font-size: 100px;
-  line-height: 100px;
-  font-weight: 500;
-  font-family: var(--body-secondary-font-family);
-  margin-bottom: 0;
-  /*text-transform: uppercase;*/
-}
-
-.hero-text > * {
-  margin-bottom: 0;
 }

@@ -13,6 +13,7 @@ return [
   'base' => 'bootstrap_icon',
   'php_class_name' => 'Blankcanvas\Vc\Shortcodes\BootstrapIcon',
   'icon' => 'icon-wpb-vc_icon',
+  'class' => 'bc-element',
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
   'description' => esc_html__('Bootstrap icon', 'blankcanvas'),
   'as_child' => [

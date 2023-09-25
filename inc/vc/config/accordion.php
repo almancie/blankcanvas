@@ -6,7 +6,7 @@ return [
   'base' => 'accordion',
   'php_class_name' => 'Blankcanvas\Vc\Shortcodes\Accordion',
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
-  'class' => 'wpb_vc_tta_accordion',
+  'class' => 'wpb_vc_tta_accordion bc-element',
   'icon' => 'icon-wpb-ui-accordion',
   'is_container' => true,
   'show_settings_on_create' => false,

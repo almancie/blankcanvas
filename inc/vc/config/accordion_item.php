@@ -5,7 +5,7 @@ return [
   'base' => 'accordion_item',
   'php_class_name' => 'Blankcanvas\Vc\Shortcodes\AccordionItem',
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
-  'class' => 'wpb_vc_tta_section',
+  'class' => 'wpb_vc_tta_section bc-element',
   'icon' => 'icon-wpb-ui-tta-section',
   'allowed_container_element' => 'row_inner',
   'is_container' => true,

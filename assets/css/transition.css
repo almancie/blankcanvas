@@ -2,7 +2,17 @@
   opacity: 0;
 }
 
+[data-transition*="fade"].transitioning {
+  opacity: 1;
+  animation: fadeIn .4s;
+}
+
+[data-transition*="fade"].transition-done {
+  opacity: 1;
+}
+
 [data-transition="tiles"] {
+  --tile-color: var(--body-bg, #333);
   position: relative;
 }
 
@@ -21,5 +31,10 @@
 }
 
 [data-transition="tiles"] .tiles > * {
-  background: var(--body-bg);
+  background-color: var(--tile-color);
+}
+
+@keyframes fadeIn {
+  from {opacity: 0}
+  to {opacity: 1}
 }

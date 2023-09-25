@@ -4,13 +4,27 @@ import grapick from './modules/grapick.js';
 window.addEventListener('load', () => {
   if (! window.vc) return;
 
+  // Prepare bcWPBakery from local storage
+  let bcWPBakeryDefaults = {
+    // toggleElements: [],
+    bcElementsOnly: false
+  };
+
+  let bcWPBakery = localStorage.getItem('bcWPBakery') 
+    ?  JSON.parse(localStorage.getItem('bcWPBakery')) 
+    : bcWPBakeryDefaults;
+
+  const updateBcWPBakery = () => {
+    localStorage.setItem('bcWPBakery', JSON.stringify(bcWPBakery));
+  }
+
   const rows = {
     'row': 'column',
     'row_inner': 'column_inner',
     'row_inner_inner': 'column_inner_inner',
     'advanced_list': 'advanced_list_item',
     'glide': 'glide_slide',
-    'group': 'group_column'
+    'group': true
   };
 
   const containers = {
@@ -30,20 +44,26 @@ window.addEventListener('load', () => {
   /**
    * Elements title
    */
-  vc.events.on('shortcodeView:ready', function(view) {
-    const element = view.$el;
+  // vc.events.on('shortcodeView:ready', function(view) {
+  //   const element = view.$el;
 
-    const shortcode = view.model.attributes.shortcode;
+  //   const shortcode = view.model.attributes.shortcode;
 
-    const name = vc.getMapped(shortcode).name;
+  //   const name = vc.getMapped(shortcode).name;
 
-    // Add title
-    if (containers[shortcode] || shortcode === 'section') {
-      const control = element.find('> .vc_controls-row .column_add, > .vc_controls .column_move').last();
+  //   // Add title
+  //   if (containers[shortcode] || shortcode === 'section') {
+  //     // const control = element.find('> .vc_controls-row .column_add, > .vc_controls .column_move').last();
+  //     const control = element.find('> .vc_controls-row > div:first-child');
 
-      control?.after(`<i class="element-title">${name}</i>`)
-    }
-  });
+  //     control?.after(`<div class="element-title">${name}</div>`)
+  //   }
+
+  //   // Wrap old title text node
+  //   element.find('> .wpb_element_wrapper > .wpb_element_title').contents().filter(function() { 
+  //     return this.nodeType === 3  && this.data.trim().length > 0;
+  //   }).wrap('<span class="text-node"></span>');
+  // });
 
   /**
    * Elements icons (attribute)
@@ -102,7 +122,9 @@ window.addEventListener('load', () => {
     const parent = vc.app.views[attributes.parent_id];
 
     // If column, match it with parent.
-    if (containers[parent.model.attributes.shortcode]) {
+    const parentShortcode = parent.model.attributes.shortcode;
+
+    if (containers[parentShortcode] && typeof containers[parentShortcode] === 'string') {
       element.attr('data-alternate', parent.$el.data('alternate'));
 
       return;
@@ -123,7 +145,7 @@ window.addEventListener('load', () => {
 
     // We have to remove them and rely on our data attribute 
     // because they use !important and cannot be overridden.
-    el.classList.remove('vc_hidden-xs' 'vc_hidden-sm' 'vc_hidden-md' 'vc_hidden-lg');
+    el.classList.remove('vc_hidden-xs', 'vc_hidden-sm', 'vc_hidden-md', 'vc_hidden-lg');
   });
 
   /**
@@ -234,6 +256,27 @@ window.addEventListener('load', () => {
   });
 
   /**
+   * Tab
+   */
+  vc.events.on('shortcodes:vc_tta_section:add', function(model) {
+    let parent = vc.shortcodes.get(model.attributes.parent_id).attributes.shortcode;
+
+    console.log(parent);
+
+    const map = {
+      tabs: 'panel',
+      accordion: 'accordion_item'
+    };
+
+    if (! map[parent]) return;
+  
+    // Update shortcode
+    model.attributes.shortcode = map[parent];
+
+    model.view.render();
+  });
+
+  /**
    * Text
    */ 
   vc.events.on('shortcodes:text:add shortcodes:text:update shortcodes:text:sync', function(model) {
@@ -244,23 +287,23 @@ window.addEventListener('load', () => {
   /**
    * Icon
    */
-  vc.events.on('shortcodes:bootstrap_icon:add shortcodes:bootstrap_icon:update shortcodes:bootstrap_icon:sync', function(model) {
-    let element = document.querySelector(`[data-model-id="${model.id}"]`);
+  // vc.events.on('shortcodes:bootstrap_icon:add shortcodes:bootstrap_icon:update shortcodes:bootstrap_icon:sync', function(model) {
+  //   let element = document.querySelector(`[data-model-id="${model.id}"]`);
 
-    let icon = element.querySelector('.vc_element-icon');
+  //   let icon = element.querySelector('.vc_element-icon');
 
-    let iconClass = model.attributes.params['icon_name'];
+  //   let iconClass = model.attributes.params['icon_name'];
 
-    if (icon.dataset.icon) {
-      icon.classList.remove('bi-' + icon.dataset.icon);
-    }
+  //   if (icon.dataset.icon) {
+  //     icon.classList.remove('bi-' + icon.dataset.icon);
+  //   }
 
-    if (iconClass) {
-      icon.setAttribute('data-icon', iconClass);
+  //   if (iconClass) {
+  //     icon.setAttribute('data-icon', iconClass);
 
-      icon.classList.add('bi-' + iconClass);
-    }
-  });
+  //     icon.classList.add('bi-' + iconClass);
+  //   }
+  // });
 
   /**
    * Tabs
@@ -377,6 +420,47 @@ window.addEventListener('load', () => {
   });
 
   /**
+   * Elements toggle
+   */
+  // VcRowView.prototype.events['click > .vc_controls [data-vc-control="toggle"]'] = "toggleElementAndSave";
+
+  // VcRowView.prototype.toggleElementAndSave = function (e) {
+  //   e && e.preventDefault && e.preventDefault();
+
+  //   this.toggleElement();
+
+  //   let toggleElements = bcWPBakery.toggleElements;
+
+  //   const index = toggleElements.indexOf(this.model.cid);
+
+  //   // If does not exist, add it.
+  //   if (index === -1) {
+  //     toggleElements.push(this.model.cid);
+  //   } else {
+  //     delete toggleElements[index];
+
+  //     bcWPBakery.toggleElements = toggleElements.filter(id => id);
+  //   }
+
+  //   updateBcWPBakery();
+  // }
+
+  /**
+   * Elements toggle on load
+   */
+
+  // vc.events.on('app.addAll', () => {
+  //   bcWPBakery.toggleElements.forEach(id => {
+  //     const model = vc.shortcodes.get(id);
+
+  //     // Does not work because changing elements order changes the id.
+  //     console.log(model.view);
+
+  //     model.view?.toggleElement();
+  //   });
+  // });
+
+  /**
    * Elements filter
    */
   // Add checkbox
@@ -386,32 +470,35 @@ window.addEventListener('load', () => {
       <label for="bc-elements-filter">Hide WPBakery Elements</label>
     </div>`;
 
-  const bcElementsOnly = localStorage.getItem('bcElementsOnly');
-
-  // VC elements
-  const vcElements = Array.prototype.filter.call(
-    document.querySelectorAll('.wpb-elements-list [data-element]'), 
-    element => element.dataset.element.slice(0, 3) === 'vc_'
-  );
-
-  // Hide VC elements on load
-  if (bcElementsOnly == 'true') {
-    document.querySelector('.elements-filter input').checked = true;
-
+    
+  const toggleVcElements = (value) => {
+    document.querySelector('.elements-filter input').checked = value;
+    
+    // VC elements
+    const vcElements = Array.prototype.filter.call(
+      document.querySelectorAll('.wpb-elements-list [data-element]'), 
+      element => element.dataset.element.slice(0, 3) === 'vc_'
+    );
+  
     vcElements.forEach(element => {
-      element.classList.toggle('element-hidden', bcElementsOnly);
+      element.classList.toggle('element-hidden', value);
     });
+  }
+    
+  // Hide VC elements on load
+  if (bcWPBakery.bcElementsOnly) {
+    toggleVcElements(true);
   }
 
   // Add onchange listener
   document.querySelector('.elements-filter').onchange = (e) => {
     const active = e.target.checked;
+    
+    bcWPBakery.bcElementsOnly = active;
+    
+    updateBcWPBakery();
 
-    localStorage.setItem('bcElementsOnly', active);
-
-    vcElements.forEach(element => {
-      element.classList.toggle('element-hidden', active);
-    });
+    toggleVcElements(active);
   }
 
   // Switch to WPBakery backend editor automatically.

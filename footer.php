@@ -11,14 +11,14 @@
 
 ?>
 
-	<footer class="site-footer text-center">
+	<!-- <footer class="site-footer text-center">
 		<div class="site-info">
 
 			<?php
 			printf(esc_html__('Created by %s.', 'blankcanvas' ), '<a target="_blank" href="https://www.blankcanvas.me">Blank Canvas</a>'); ?>
 
 		</div>
-	</footer>
+	</footer> -->
 </div>
 
 <?php wp_footer(); ?>

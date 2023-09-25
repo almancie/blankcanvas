@@ -7,6 +7,7 @@ return [
   'php_class_name' => 'Blankcanvas\Vc\Shortcodes\Button',
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
   'icon' => 'icon-wpb-ui-button',
+  'class' => 'bc-element',
   'show_settings_on_create' => false,
   'as_child' => [
     'except' => ', section',
@@ -26,17 +27,17 @@ return [
       'param_name' => 'link',
       'weight' => 100
     ],
-    [
-      'type' => 'dropdown',
-      'heading' => esc_html__('Size', 'blankcanvas'),
-      'param_name' => 'size',
-      'value' => [
-        esc_html__('Default', 'blankcanvas') => '',
-        esc_html__('Small', 'blankcanvas') => 'sm',
-        esc_html__('Large', 'blankcanvas') => 'lg',
-      ],
-      'weight' => 100
-    ],
+    // [
+    //   'type' => 'dropdown',
+    //   'heading' => esc_html__('Size', 'blankcanvas'),
+    //   'param_name' => 'size',
+    //   'value' => [
+    //     esc_html__('Default', 'blankcanvas') => '',
+    //     esc_html__('Small', 'blankcanvas') => 'sm',
+    //     esc_html__('Large', 'blankcanvas') => 'lg',
+    //   ],
+    //   'weight' => 100
+    // ],
     [
       'type' => 'dropdown',
       'heading' => esc_html__('Style', 'blankcanvas'),
@@ -44,6 +45,7 @@ return [
       'value' => [
         esc_html__('Solid', 'blankcanvas') => '',
         esc_html__('Outline', 'blankcanvas') => 'outline',
+        // esc_html__('Iconic', 'blankcanvas') => 'iconic',
       ],
       'weight' => 100
     ],
@@ -107,8 +109,20 @@ return [
       'value' => [
         esc_html__('Start', 'js_composer') => '',
         esc_html__('End', 'js_composer') => 'end',
-        esc_html__('Top', 'js_composer') => 'top',
-        esc_html__('Bottom', 'js_composer') => 'bottom'
+      ],
+      'dependency' => [
+        'element' => 'icon',
+        'not_empty' => true,
+      ],
+      'weight' => 100
+    ],
+    [
+      'type' => 'dropdown',
+      'heading' => esc_html__('Icon style', 'blankcanvas'),
+      'param_name' => 'icon_style',
+      'value' => [
+        esc_html__('Normal', 'js_composer') => '',
+        esc_html__('Emphasis', 'js_composer') => 'emphasis',
       ],
       'dependency' => [
         'element' => 'icon',

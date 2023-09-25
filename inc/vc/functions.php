@@ -82,16 +82,16 @@ $elements = [
   'accordion', 
   'accordion_item', 
   'image', 
-  'bootstrap_icon', 
+  // 'bootstrap_icon', 
   'text',
   'button',
-  'advanced_list',
-  'advanced_list_item',
+  // 'advanced_list',
+  // 'advanced_list_item',
   'html',
   'glide',
   'glide_slide',
-  'group',
-  'group_column',
+  // 'group',
+  // 'group_column',
   'lottie_player',
   'video_player'
 ];
@@ -176,7 +176,7 @@ add_filter('vc_shortcode_content_filter_after', function ($output, $shortcode, $
   $img = wp_get_attachment_image_src($atts['background_image'], 'full');
 
   if (is_array($img)) {
-    $style[] = sprintf('background-image: url(%s); background-size: cover', $img[0]);
+    $style[] = sprintf('background-image: url(%s); background-size: cover; background-position: center;', $img[0]);
   }
 
   return $output;

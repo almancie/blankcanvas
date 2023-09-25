@@ -6,7 +6,7 @@ return [
   'base' => 'column',
   'php_class_name' => 'Blankcanvas\Vc\Shortcodes\Column',
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
-  'class' => 'wpb_vc_column',
+  'class' => 'wpb_vc_column bc-column bc-element',
   'is_container' => true,
   'content_element' => false, // Hides it from "Add element"
   'as_child' => [

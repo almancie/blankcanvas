@@ -6,7 +6,7 @@ return [
   'base' => 'advanced_list_item',
   'php_class_name' => 'Blankcanvas\Vc\Shortcodes\AdvancedListItem',
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
-  'class' => 'wpb_vc_column',
+  'class' => 'wpb_vc_column bc-element',
   'is_container' => true,
   'content_element' => false,
   'as_child' => [

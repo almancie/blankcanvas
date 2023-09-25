@@ -33,7 +33,9 @@
     document
       .querySelectorAll('.theme-toggle')
         .forEach(element => {
-          element.setAttribute('aria-label', theme.value)
+          element.setAttribute('aria-label', theme.value);
+
+          element.checked = theme.value == 'dark';
         });
     
     setTimeout(() => {
@@ -59,7 +61,6 @@
         .forEach(element => {
           element.addEventListener('click', onClick)
         });
-      
   }
 
   // sync with system changes

@@ -21,8 +21,10 @@ return [
   'base' => 'image',
   'php_class_name' => 'Blankcanvas\Vc\Shortcodes\Image',
   'icon' => 'icon-wpb-single-image',
+  'class' => 'bc-element',
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
   'description' => esc_html__('Simple image', 'blankcanvas'),
+  'show_settings_on_create' => false,
   'as_child' => [
     'except' => ', section',
   ],
@@ -82,7 +84,7 @@ return [
     ],
     [
       'type' => 'textfield',
-      'heading' => esc_html__('Wrapper', 'blankcanvas'),
+      'heading' => esc_html__('HTML tag', 'blankcanvas'),
       'param_name' => 'wrapper_tag',
       'description' => esc_html__('Choose a wrapper for your image or leave empty if you don\'t want to wrap your image.', 'blankcanvas'),
       'value' => 'figure',

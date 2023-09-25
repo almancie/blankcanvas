@@ -1,12 +1,12 @@
 <?php
 
 return [
-  'name' => esc_html__('Tab Panel', 'js_composer'),
+  'name' => esc_html__('Section', 'js_composer'),
   'base' => 'panel',
   'php_class_name' => 'Blankcanvas\Vc\Shortcodes\Panel',
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
-  'class' => 'wpb_vc_tta_section',
   'icon' => 'icon-wpb-ui-tta-section',
+  'class' => 'wpb_vc_tta_section bc-element',
   'allowed_container_element' => 'row_inner',
   "is_container" => true,
   'show_settings_on_create' => false,

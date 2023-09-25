@@ -7,6 +7,7 @@ return [
   'php_class_name' => 'Blankcanvas\Vc\Shortcodes\Text',
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
   'icon' => 'icon-wpb-layer-shape-text',
+  'class' => 'bc-element',
   'show_settings_on_create' => false,
   'as_child' => [
     'except' => ', section',

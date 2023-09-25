@@ -50,7 +50,7 @@ if ($full_height) {
 
 // Content alignment
 if ($content_placement) {
-  $classes[] = sprintf('d-flex align-items-%s', $content_placement);
+  $classes[] = sprintf('d-flex flex-column justify-content-%s', $content_placement);
 }
 
 // Has background video

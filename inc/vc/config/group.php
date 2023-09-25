@@ -7,23 +7,14 @@ return [
   'php_class_name' => 'Blankcanvas\Vc\Shortcodes\Group',
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
   'icon' => 'icon-wpb-row',
-  'class' => 'wpb_vc_row',
-  'is_container' => true,
+  'class' => 'wpb_vc_row shortcodes_container bc-element',
+  'content_element' => true,
   'show_settings_on_create' => false,
+  'is_container' => true,
   'as_child' => [
-    'only' => 'column'
+    'except' => ',section'
   ],
-  'js_view' => 'VcRowView',
-  'default_content' => '[group_column][/group_column]',
   'params' => [
-    // [
-    //   'type' => 'textfield',
-    //   'param_name' => 'child_class',
-    //   'heading' => esc_html__('Elements class name', 'blankcanvas'),
-    //   'group' => esc_html__('Style', 'blankcanvas'),
-    //   'description' => esc_html__('Add the same class names to every element inside this group.', 'blankcanvas'),
-    //   'weight' => 59
-    // ],
     ...require THEME_DIR . '/inc/vc/params/general.php'
   ],
 ];

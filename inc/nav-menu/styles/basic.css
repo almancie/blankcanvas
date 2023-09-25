@@ -10,7 +10,7 @@
 .bc-menu {
   --item-spacing-y: 1.5rem;
   --item-spacing-x: 1rem;
-  --item-font-size: calc(var(--body-font-size) * 1);
+  --item-font-size: 1rem;
   --title-item-spacing-x: .75rem;
   display: flex;
   flex-direction: column;
@@ -36,7 +36,7 @@
 }
 
 .bc-menu .menu-item-title .bi {
-  font-size: 1.15em;
+  font-size: 1.35em;
   display: block;
 }
 
@@ -54,6 +54,16 @@
 
 .bc-menu a {
   text-decoration: none;
+}
+
+.bc-menu a::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  content: "";
 }
 
 .bc-menu .menu-item-title {
@@ -78,6 +88,8 @@
 .bc-menu .menu-item-title > .sub-menu-btn {
   margin-inline-start: auto;
   transition: rotate 1s;
+  position: relative;
+  z-index: 2;
 }
 
 .bc-menu .menu-item-title > .sub-menu-btn img {
@@ -125,7 +137,7 @@ body[direction="rtl"] .bc-menu > li > .external-link-arrow {
 
 @media (min-width: 992px) {
   .bc-menu {
-    --item-spacing-y: 1rem;
+    --item-spacing-y: 1.5rem;
     --item-spacing-x: 3rem;
     flex-direction: row;
   }

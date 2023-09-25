@@ -82,28 +82,6 @@ add_action('widgets_init', function () {
 
 /*
 |--------------------------------------------------------------------------
-| Scripts
-|--------------------------------------------------------------------------
-|
-| Includes theme frontend and backend scripts and styles.
-|
-*/
-
-require THEME_DIR . '/inc/scripts.php';
-
-/*
-|--------------------------------------------------------------------------
-| Template Tags
-|--------------------------------------------------------------------------
-|
-| Functions that generate HTML tags.
-|
-*/
-
-require THEME_DIR . '/inc/tags.php';
-
-/*
-|--------------------------------------------------------------------------
 | Enhancements
 |--------------------------------------------------------------------------
 |
@@ -189,3 +167,25 @@ require THEME_DIR . '/inc/acf/functions.php';
 */
 
 require THEME_DIR . '/inc/wpcf7/functions.php';
+
+/*
+|--------------------------------------------------------------------------
+| Template Tags
+|--------------------------------------------------------------------------
+|
+| Functions that generate HTML tags.
+|
+*/
+
+require THEME_DIR . '/inc/tags.php';
+
+/*
+|--------------------------------------------------------------------------
+| Scripts
+|--------------------------------------------------------------------------
+|
+| Includes theme frontend and backend scripts and styles.
+|
+*/
+
+require THEME_DIR . '/inc/scripts.php';

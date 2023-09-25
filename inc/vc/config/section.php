@@ -6,18 +6,18 @@ return [
   'base' => 'section',
   'php_class_name' => 'Blankcanvas\Vc\Shortcodes\Section',
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
-  'icon' => 'vc_icon-vc-section',
-  'class' => 'wpb_vc_section vc_main-sortable-element',
+  'icon' => 'vc_icon-vc-section bc-section',
+  'class' => 'wpb_vc_section vc_main-sortable-element bc-element',
   'is_container' => true,
   'show_settings_on_create' => false,
   'as_child' => [
     'only' => '', // Only root
   ],
-  'as_parent' => [
-    'only' => 'row, video_player'
-  ],
+  // 'as_parent' => [
+  //   'only' => 'row'
+  // ],
   'js_view' => 'VcSectionView',
-  'default_content' => '[row][/row]',
+  // 'default_content' => '[row][/row]',  // Creates a JS error
   'params' => [
     [
       'type' => 'dropdown',

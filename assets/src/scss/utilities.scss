@@ -1,3 +1,4 @@
+
 $utilities: map-merge(
   $utilities,
   (
@@ -63,17 +64,6 @@ $utilities: map-merge(
   align-items: center;
 }
 
-// .absolute-middle {
-//   @extend .position-absolute;
-//   top: 50%;
-//   inset-inline-start: 50%;
-//   // translate: -50% -50%;
-// }
-
-// .position-full {
-  
-// }
-
 .overlay {
   position: relative;
   --overlay-color: var(--body-bg);
@@ -103,4 +93,47 @@ $utilities: map-merge(
   // border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(25px) !important;
+}
+
+@each $size, $value in $grid-breakpoints {
+  @media (min-width: $value) {
+
+    // Container
+    .container {
+      --container-max-width: #{map-get($container-max-widths, $size)};
+    }
+
+    // Column
+    .col-#{$size}-bg-spill {
+      --bg-width: calc(100% + ((100vw - var(--container-max-width)) / 2));
+      background-size: 0 !important;
+      position: relative;
+
+      * {
+        position: relative;
+      }
+
+      &:before {
+        background-image: inherit;
+        background-size: cover;
+        background-position: 50% 0;
+      }
+
+      &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        inset-inline-start: initial;
+        inset-inline-end: 0;
+        height: 100%;
+        width: var(--bg-width);
+      }
+
+      // Last column
+      &:last-child:before {
+        inset-inline-start: 0;
+        inset-inline-end: initial;
+      }
+    }
+  }
 }

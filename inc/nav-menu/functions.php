@@ -59,7 +59,7 @@ add_filter('walker_nav_menu_start_el', function ($output, $item, $depth, $args) 
 
 add_filter('walker_nav_menu_start_el', function ($output, $item, $depth, $args) {
 
-  // If not a parent item, bail out.
+  // If not an external link, bail out.
   if (! in_array('menu-item-type-custom', $item->classes)) {
     return $output;
   }
@@ -67,7 +67,6 @@ add_filter('walker_nav_menu_start_el', function ($output, $item, $depth, $args) 
   ob_start(); ?>
 
   <i class="external-link-arrow bi bi-arrow-right-short"></i>
-  <!-- <img src="<?= get_template_directory_uri().'/inc/nav-menu/imgs/arrow-circle-down.svg' ?>" class="external-link-arrow" /> -->
 
   <?php
   return $output .= ob_get_clean();
@@ -109,7 +108,7 @@ add_filter('walker_nav_menu_start_el', function ($output, $item, $depth, $args) 
 | Menu Item Wrapper
 |--------------------------------------------------------------------------
 |
-| Updates the output of nav menu items to add toggle buttons for mobile.
+| 
 |
 */
 
@@ -127,7 +126,7 @@ add_filter('walker_nav_menu_start_el', function ($output, $item, $depth, $args) 
 | Menu Item Desciption
 |--------------------------------------------------------------------------
 |
-| Updates the output of nav menu items to add toggle buttons for mobile.
+| 
 |
 */
 
@@ -147,6 +146,25 @@ add_filter('walker_nav_menu_start_el', function ($output, $item, $depth, $args) 
   <?php
   return $output .= ob_get_clean();
 }, 10, 4);
+
+/*
+|--------------------------------------------------------------------------
+| Menu Item Anchor
+|--------------------------------------------------------------------------
+|
+| Stretches menu item anchor to cover the icon.
+|
+*/
+
+// add_filter('nav_menu_link_attributes', function ($atts, $item, $args, $depth) {
+//   if (empty($atts['class'])) {
+//     $atts['class'] = '';
+//   }
+
+//   $atts['class'] = 'stretched-link';
+
+//   return $atts;
+// }, 10, 4);
 
 /*
 |--------------------------------------------------------------------------

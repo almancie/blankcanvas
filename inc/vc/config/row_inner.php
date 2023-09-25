@@ -7,10 +7,10 @@ return [
   'php_class_name' => 'Blankcanvas\Vc\Shortcodes\RowInner',
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
   'icon' => 'icon-wpb-row',
-  'class' => 'wpb_vc_row',
+  'class' => 'wpb_vc_row bc-row bc-element',
   'is_container' => true,
   'as_child' => [
-    'only' => 'column, advanced_list_item'
+    'only' => 'column,glide_slide'
   ],
   'show_settings_on_create' => false,
   'js_view' => 'VcRowView', // Allows us to reorder columns

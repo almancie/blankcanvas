@@ -107,10 +107,12 @@ $script = sprintf(
 // Arrows
 $arrows = sprintf(
   '<div class="%s" data-glide-el="controls">
-    <button class="glide__arrow glide__arrow--left" data-glide-dir="<">prev</button>
-    <button class="glide__arrow glide__arrow--right" data-glide-dir=">">next</button>
+    <button class="glide__arrow glide__arrow--left" data-glide-dir="<">%s</button>
+    <button class="glide__arrow glide__arrow--right" data-glide-dir=">">%s</button>
   </div>',
-  implode(' ', $arrowsClasses)
+  implode(' ', $arrowsClasses),
+  '<i class="bi bi-arrow-left"></i>',
+  '<i class="bi bi-arrow-right"></i>',
 );
 
 // Bullets

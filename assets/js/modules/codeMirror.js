@@ -11,6 +11,14 @@ export default function(field, settings = {}) {
     indentUnit: 2,
     indentWithTabs: false,
     continueComments: true,
+    autoCloseBrackets: true,
+    styleActiveLine: true,
+    
+    lineWrapping: true,
+    foldGutter: true,
+    gutters: ["CodeMirror-lint-markers","CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+    matchBrackets: true,
+
     extraKeys: {
       "Ctrl-/": "toggleComment",
       "Cmd-/":  "toggleComment",
@@ -25,9 +33,16 @@ export default function(field, settings = {}) {
             Array(cm.getOption("indentUnit") + 1).join(" "), "end", "+input");
         }
       },
+      'Shift-Alt-Down': (cm) => {
+        var selections = cm.listSelections();
+        var lastSelection = selections[selections.length - 1];
+        cm.setSelection(lastSelection.anchor, lastSelection.head);
+        cm.execCommand('goLineDown');
+        var newSelection = cm.listSelections()[0];
+        cm.setSelections(selections);
+        cm.addSelection(newSelection.anchor, newSelection.head);
+    }
     },
-    autoCloseBrackets: true,
-    styleActiveLine: true,
     ...settings
   };
 

@@ -37,7 +37,7 @@ if ($color) {
 }
 
 if ($icon) {
-  $classes[] = 'btn-has-icon';
+  // $classes[] = 'btn-has-icon';
 
   // if ($gap) {
   //   $classes[] = sprintf('gap-%s', $gap);
@@ -45,7 +45,6 @@ if ($icon) {
 
   $iconClasses = [
     'btn-icon',
-    'bi',
   ];
 
   // if ($icon_size) {
@@ -53,18 +52,18 @@ if ($icon) {
   // }
 
   if ($icon_name) {
-    $iconClasses[] = sprintf('bi-%s', $icon_name);
+    $iconClasses[] = sprintf('bi bi-%s', $icon_name);
   }
 
-  $text = sprintf(
-    '<i class="%s"></i>%s', 
-    implode(' ', $iconClasses),
-    $text,
-  );
-
-  if ($icon_position) {
-    $classes[] = sprintf('btn-has-icon-%s', $icon_position);
+  if ($icon_position === 'end') {
+    $classes[] = 'flex-row-reverse';
   }
+
+  if ($icon_style === 'emphasis') {
+    $iconClasses[] = $icon_position === 'end' ? 'btn-icon-emphasis-end' : 'btn-icon-emphasis';
+  }
+
+  $text = sprintf('<i class="%s"></i>%s', implode(' ', $iconClasses), $text);
 }
 
 // Class

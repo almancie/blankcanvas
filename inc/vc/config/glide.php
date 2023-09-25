@@ -1,23 +1,27 @@
 <?php
 
 return [
-  'name' => esc_html__('Slider', 'blankcanvas'),
+  'name' => esc_html__('Glide Slider', 'blankcanvas'),
   'description' => esc_html__('Place content elements inside slider', 'blankcanvas'),
   'base' => 'glide',
   'php_class_name' => 'Blankcanvas\Vc\Shortcodes\Glide',
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
   'icon' => 'icon-wpb-row',
-  'class' => 'wpb_vc_row',
+  'class' => 'wpb_vc_row bc-row bc-element',
   'is_container' => true,
   'show_settings_on_create' => false,
   'as_child' => [
-    'only' => 'column',
+    'only' => 'section, column',
   ],
   'js_view' => 'VcRowView',
   'default_content' => '
-    [vc_column width="1/3"][/vc_column]
-    [vc_column width="1/3"][/vc_column]
-    [vc_column width="1/3"][/vc_column]',
+    [glide_slide width="1/3"][/glide_slide]
+    [glide_slide width="1/3"][/glide_slide]
+    [glide_slide width="1/3"][/glide_slide]',
+  // 'default_content' => '
+  //   [vc_column width="1/3"][/vc_column]
+  //   [vc_column width="1/3"][/vc_column]
+  //   [vc_column width="1/3"][/vc_column]',
   'params' => [
     [
       'type' => 'textarea_raw_html',

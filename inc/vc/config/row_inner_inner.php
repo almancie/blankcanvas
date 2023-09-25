@@ -7,7 +7,7 @@ return [
   'php_class_name' => 'Blankcanvas\Vc\Shortcodes\RowInnerInner',
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
   'icon' => 'icon-wpb-row',
-  'class' => 'wpb_vc_row',
+  'class' => 'wpb_vc_row bc-row bc-element',
   'is_container' => true,
   'as_child' => [
     'only' => 'column_inner'
@@ -32,13 +32,14 @@ return [
       'type' => 'dropdown',
       'heading' => esc_html__('Columns position (Y)', 'js_composer'),
       'param_name' => 'columns_position_y',
+      'description' => esc_html__('Select columns position within row.', 'js_composer'),
       'value' => [
         esc_html__('Equal height', 'blankcanvas') => '',
         esc_html__('Top', 'js_composer') => 'start',
         esc_html__('Middle', 'js_composer') => 'center',
         esc_html__('Bottom', 'js_composer') => 'end',
       ],
-      'description' => esc_html__('Select columns position within row.', 'js_composer'),
+      'weight' => 100,
     ],
     [
       'type' => 'textfield',
