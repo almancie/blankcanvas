@@ -29,7 +29,7 @@
    * Attach elements to the observer 
    */
   function startObserving(container) {
-    container.querySelectorAll('[data-reveal="true"]').forEach(element => {
+    container.querySelectorAll('[data-reveal]').forEach(element => {
       element.style.opacity = 0;
 
       onScreen(element, () => {

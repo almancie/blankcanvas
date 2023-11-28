@@ -143,7 +143,7 @@ add_action('vc_after_init', function () use ($elements, $fields) {
 
 add_filter(VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, function ($classes, $shortcode, $atts) {
   $options = [
-    'overlay_color' => 'overlay',
+    'overlay_color' => 'has-overlay',
     'border' => 'border',
   ];
 

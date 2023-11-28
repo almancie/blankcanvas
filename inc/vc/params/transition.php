@@ -21,7 +21,8 @@ return [
       esc_html__('Fade down rotate bounce', 'blankcanvas') => 'fadeDownRotateBounce',
       esc_html__('Fade zoom in', 'blankcanvas') => 'fadeZoomIn',
       esc_html__('Fade zoom out', 'blankcanvas') => 'fadeZoomOut',
-      esc_html__('Tiles', 'blankcanvas') => 'tiles',
+      esc_html__('Fade roll start', 'blankcanvas') => 'fadeRollStart',
+      esc_html__('Fade roll end', 'blankcanvas') => 'fadeRollEnd',
     ],
     'weight' => 0
   ],

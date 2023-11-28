@@ -1,6 +1,8 @@
 (function() {
 
-  const easing = 'cubicBezier(0.130, 0.390, 0.415, 0.920)';
+  // const easing = 'cubicBezier(0.130, 0.390, 0.415, 0.920)';
+  const easing = 'easeOutElastic(1, .35)';
+  const duration = 3000;
 
   /**
    * Animations
@@ -9,84 +11,84 @@
     fade: (element) => {
       return {
         targets: element,
-        // opacity: 1,
-        duration: 800,
+        opacity: 1,
+        duration,
         easing,
       }
     },
     fadeStart: (element) => {
       return {
         targets: element,
-        translateX: ['100px', 0],
-        // opacity: 1,
-        duration: 800,
+        translateX: ['75px', 0],
+        opacity: 1,
+        duration,
         easing,
       }
     },
     fadeEnd: (element) => {
       return {
         targets: element,
-        translateX: ['-100px', 0],
-        // opacity: 1,
-        duration: 800,
+        translateX: ['-75px', 0],
+        opacity: 1,
+        duration,
         easing,
       }
     },
     fadeUp: (element) => {
       return {
         targets: element,
-        translateY: ['100px', 0],
-        // opacity: 1,
-        duration: 800,
+        translateY: ['75px', 0],
+        opacity: 1,
+        duration,
         easing,
       }
     },
     fadeDown: (element) => {
       return {
         targets: element,
-        translateY: ['-100px', 0],
-        // opacity: 1,
-        duration: 800,
+        translateY: ['-75px', 0],
+        opacity: 1,
+        duration,
         easing,
       }
     },
     fadeUpStart: (element) => {
       return {
         targets: element,
-        translateX: ['100px', 0],
-        translateY: ['100px', 0],
-        // opacity: 1,
-        duration: 800,
+        translateX: ['75px', 0],
+        translateY: ['75px', 0],
+        opacity: 1,
+        duration,
         easing,
       }
     },
     fadeUpEnd: (element) => {
       return {
         targets: element,
-        translateX: ['-100px', 0],
-        translateY: ['100px', 0],
-        // opacity: 1,
-        duration: 800,
+        translateX: ['-75px', 0],
+        translateY: ['75px', 0],
+        opacity: 1,
+        duration,
         easing,
       }
     },
     fadeDownStart: (element) => {
       return {
         targets: element,
-        translateX: ['100px', 0],
-        translateY: ['-100px', 0],
-        // opacity: 1,
-        duration: 800,
+        translateX: ['75px', 0],
+        translateY: ['-75px', 0],
+        opacity: 1,
+        duration,
         easing,
       }
     },
     fadeDownEnd: (element) => {
       return {
         targets: element,
-        translateX: ['-100px', 0],
-        translateY: ['-100px', 0],
-        // opacity: 1,
-        duration: 800,
+        translateX: ['-75px', 0],
+        translateY: ['-75px', 0],
+        opacity: 1,
+        duration,
         easing,
       }
     },
@@ -94,75 +96,72 @@
       return {
         targets: element,
         scale: [.85, 1],
-        // opacity: 1,
-        duration: 800,
+        opacity: 1,
+        duration,
         easing,
       }
     },
-    fadeZoomIn: (element) => {
+    fadeZoomOut: (element) => {
       return {
         targets: element,
         scale: [1.175, 1],
-        // opacity: 1,
-        duration: 800,
+        opacity: 1,
+        duration,
         easing,
       }
     },
     fadeDownBounce: (element) => {
       return {
         targets: element,
-        translateY: ['-2100px', 0],
-        // opacity: 1,
-        // delay: 200,
-        duration: 1800,
+        translateY: ['-200px', 0],
+        opacity: {value: 1, duration: 600, easing: 'easeOutQuart'},
+        duration: 1200,
         easing: 'easeOutBounce',
       }
     },
     fadeDownRotateBounce: (element) => {
       return {
         targets: element,
-        translateY: ['-2100px', 0],
+        translateY: ['-200px', 0],
         rotate: ['-180deg', 0],
-        // opacity: 1,
-        // delay: 200,
-        duration: 1800,
+        opacity: {value: 1, duration: 600, easing: 'easeOutQuart'},
+        duration: 1200,
         easing: 'easeOutBounce',
       }
     },
-    tiles: (element) => {
-      const tileWidth = 150;
-      const tileHeight = 150;
-      const countX = Math.floor(element.offsetWidth / tileWidth);
-      const countY = Math.floor(element.offsetHeight / tileHeight);
-      const count = countX * countY;
-
-      const wrapper = document.createElement('div');
-      wrapper.classList.add('tiles');
-      const tiles = [];
-
-      [...Array(count + countX)].map((_, i) => {
-        const tile = document.createElement('div');
-        wrapper.appendChild(tile);
-        tiles.push(tile);
-      });
-
-      element.prepend(wrapper);
+    fadeRollStart: (element) => {
+      const circ = element.offsetWidth * Math.PI;
 
       return {
-        targets: tiles.sort(() => Math.random() - 0.5),
-        opacity: 0,
-        duration: 800,
-        easing: 'easeOutSine', 
-        delay: anime.stagger(250, {grid: [3, 3]}),
-        complete: () => {
-          wrapper.remove();
-        }
+        targets: element,
+        translateX: [circ * .5, 0],
+        rotate: ['.5turn', 0],
+        opacity: {value: 1, duration: 1000},
+        duration: 4000,
+        easing: 'easeOutElastic(1, .3)',
+      }
+    },
+    fadeRollEnd: (element) => {
+      const circ = element.offsetWidth * Math.PI;
+
+      return {
+        targets: element,
+        translateX: [circ * -.5, 0],
+        rotate: ['-.5turn', 0],
+        opacity: {value: 1, duration: 1000},
+        duration: 4000,
+        easing: 'easeOutElastic(1, .3)',
       }
     }
   }
 
   function add(element) {
-    const {transition, transitionDuration, transitionDelay, transitionAnchor = element} = element.dataset;
+    const {
+      transition, 
+      transitionDuration, 
+      transitionDelay, 
+      transitionAnchor = element
+    } = element.dataset;
 
     if (! settings[transition]) return;
 

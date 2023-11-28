@@ -11,7 +11,7 @@ return [
   'is_container' => true,
   'show_settings_on_create' => false,
   'as_child' => [
-    'only' => 'section, column',
+    'only' => 'section,column',
   ],
   'js_view' => 'VcRowView',
   'default_content' => '
@@ -28,7 +28,7 @@ return [
       'heading' => esc_html__('Options', 'blankcanvas'),
       'param_name' => 'config',
       'description' => __('For available options, <a target="_blank" href="https://glidejs.com/docs/options/">click here</a>.', 'blankcanvas'),
-      'value' => urlencode(base64_encode("type: 'carousel',\nautoplay: 3000, \n")),
+      'value' => urlencode(base64_encode("type: 'carousel',\nautoplay: 3000")),
       'weight' => 100
     ],
     [

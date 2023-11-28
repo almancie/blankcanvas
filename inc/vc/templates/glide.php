@@ -76,32 +76,19 @@ if (! empty($classes)) {
   $attributes[] = sprintf('class="%s"', trim($classes));
 }
 
-// $default = "
-//   type: 'slider', 
-//   autoplay: 2000, 
-//   hoverpause: true,
-// ";
-
 $script = sprintf(
-  "<script>
-    window.addEventListener('load', function () {
-      const element = document.querySelector('#%s');
-
-      const slider = new Glide(element, {
-        %s
-      });
-
-      %s
-
-      element.slider = slider;
-
-      slider.mount();
-    });
-  </script>",
-  $el_id,
-  // $default,
-  urldecode(base64_decode($config)),
-  urldecode(base64_decode($events))
+"<script>
+  window.addEventListener('load', function () {
+    const element = document.querySelector('#%s');
+    const slider = new Glide(element, {%s});
+    %s
+    element.slider = slider;
+    slider.mount();
+  });
+</script>",
+$el_id,
+trim(preg_replace('/\s+/', ' ', urldecode(base64_decode($config)))),
+urldecode(base64_decode($events))
 );
 
 // Arrows

@@ -91,6 +91,13 @@ return [
       'weight' => 100
     ],
     [
+      'type' => 'checkbox',
+      'heading' => esc_html__('Convert to SVG', 'blankcanvas'),
+      'param_name' => 'svg',
+      'description' => esc_html__('Convert <img> tag to <svg>. This only works on SVG images.', 'blankcanvas'),
+      'weight' => 100
+    ],
+    [
       'type' => 'textfield',
       'heading' => esc_html__('Image size', 'js_composer'),
       'param_name' => 'external_img_size',

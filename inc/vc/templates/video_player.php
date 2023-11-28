@@ -73,10 +73,6 @@ if ($state) {
   }
 }
 
-if ($video_width) {
-  $style[] = sprintf('width: %s;', $video_width);
-}
-
 // Filter: VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG
 $classes = apply_filters(
   VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 
@@ -85,15 +81,19 @@ $classes = apply_filters(
   $atts
 );
 
-$style = implode(' ', ($style));
+// $style = implode(' ', $style);
 
 // Attributes
 $attributes = [];
 
 $attributes[] = sprintf('id="%s"', $el_id);
 
-if ($style) {
-  $attributes[] = sprintf('style="%s"', $style);
+// if ($style) {
+//   $attributes[] = sprintf('style="%s"', $style);
+// }
+
+if ($video_width) {
+  $attributes[] = sprintf('width="%s;"', $video_width);
 }
 
 if (! empty($classes)) {
@@ -103,7 +103,7 @@ if (! empty($classes)) {
 if ($source === 'youtube') {
   // Output
   return sprintf(
-    '<div %s %s></div>',
+    '<div %s %s ></div>',
     implode(' ', $attributes),
     implode(' ', $youtubeSettings)
   );
@@ -113,7 +113,7 @@ $attributes[] = implode(' ', $directSettings);
 
 // Output
 return sprintf(
-  '<video %s>
+  '<video %s >
     <source src=%s>
   </video>
   %s', 

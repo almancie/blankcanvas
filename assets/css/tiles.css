@@ -1,0 +1,30 @@
+[data-tiles] {
+  --tile-color: var(--body-bg, #fff);
+  position: relative;
+  opacity: 0;
+}
+
+[data-tiles] .tiles {
+  position: absolute;
+  top: 0;
+  inset-inline-start: 0;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  padding: 0;
+}
+
+/* [data-tiles] > * {
+  position: relative;
+} */
+
+[data-tiles] .tiles > * {
+  background-color: var(--tile-color);
+	transition: background-color var(--body-bg-transition-duration) var(--body-bg-transition-easing);
+}
+
+[data-tiles-on-top] .tiles,
+.tiles-on-top .tiles {
+  z-index: 2;
+}

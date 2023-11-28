@@ -59,11 +59,11 @@ if ($icon) {
     $classes[] = 'flex-row-reverse';
   }
 
-  if ($icon_style === 'emphasis') {
-    $iconClasses[] = $icon_position === 'end' ? 'btn-icon-emphasis-end' : 'btn-icon-emphasis';
-  }
+  // if ($icon_style === 'emphasis') {
+  //   $iconClasses[] = $icon_position === 'end' ? 'btn-icon-emphasis-end' : 'btn-icon-emphasis';
+  // }
 
-  $text = sprintf('<i class="%s"></i>%s', implode(' ', $iconClasses), $text);
+  $content = sprintf('<i class="%s"></i>%s', implode(' ', $iconClasses), $content);
 }
 
 // Class
@@ -99,5 +99,5 @@ if (! empty($classes)) {
 return sprintf(
   '<a %s>%s</a>', 
   implode(' ', $attributes), 
-  $text
+  wpb_js_remove_wpautop($content)
 );

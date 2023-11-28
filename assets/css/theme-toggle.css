@@ -1,62 +1,60 @@
-.sun-and-moon > :is(.moon, .sun, .sun-beams) {
-  transform-origin: center;
+body {
+	--body-bg-transition-duration: .5s;
+	--body-color-transition-duration: .5s;
+	--body-bg-transition-easing: cubic-bezier(0.65,0,0.35,1);
+	--body-color-transition-easing: cubic-bezier(0.65,0,0.35,1);
+	transition: 
+		background-color var(--body-bg-transition-duration) var(--body-bg-transition-easing), 
+		color var(--body-color-transition-duration) var(--body-color-transition-easing);
 }
 
-[data-bs-theme].theme-updating * {
-  transition: background-color .6s ease-in-out;
+.theme-toggle-switch .btn {
+	padding: 0;
+    height: 2rem;
+    width: 3rem;
+    justify-content: center;
+	--btn-font-size: .925rem;
+	--btn-border-width: 1px;
+	letter-spacing: 0;
 }
 
-[data-bs-theme="dark"] .sun-and-moon > .sun {
-  transform: scale(1.75);
+.theme-toggle-input:checked ~ .dark,
+.theme-toggle-input:not(:checked) ~ .light {
+	--btn-bg: var(--primary);
+	--btn-color: var(--dark);
+	--btn-border-color: var(--primary);
 }
 
-[data-bs-theme="dark"] .sun-and-moon > .sun-beams {
-  opacity: 0;
+.theme-toggle .icon {
+	width: 36px;
 }
 
-[data-bs-theme="dark"] .sun-and-moon > .moon > circle {
-  transform: translateX(-7px);
+/* .theme-toggle-switch {
+	--width: 70px;
+	width: var(--width);
+	height: var(--width);
+	overflow: hidden;
+	display: flex;
+	border: var(--border-width) var(--border-style) var(--primary);
+	border-radius: 50%;
+	gap: var(--width);
+	transition: all var(--body-bg-transition-duration) var(--body-bg-transition-easing);
 }
 
-@supports (cx: 1) {
-  [data-bs-theme="dark"] .sun-and-moon > .moon > circle {
-    cx: 17;
-    transform: translateX(0);
-  }
+.theme-toggle-switch img {
+	height: 100%;
+	width: 100%;;
+	position: relative;
+	transition: all 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+	left: 50%;
+	top: 50%;
+	translate: -50% -50%;
+	position: relative;
+	filter: var(--filter-body-color);
+	padding: .75rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .sun-and-moon > .sun {
-    transition: transform 1s var(--ease-elastic-3);
-  }
-
-  .sun-and-moon > .sun-beams {
-    transition: transform 1s var(--ease-elastic-4), opacity 1s var(--ease-3);
-  }
-
-  .sun-and-moon .moon > circle {
-    transition: transform .5s var(--ease-out-5);
-  }
-
-  @supports (cx: 1) {
-    .sun-and-moon .moon > circle {
-      transition: cx .5s var(--ease-out-5);
-    }
-  }
-
-  [data-bs-theme="dark"] .sun-and-moon > .sun {
-    transition-timing-function: var(--ease-3);
-    transition-duration: .5s;
-    transform: scale(1.75);
-  }
-
-  [data-bs-theme="dark"] .sun-and-moon > .sun-beams {
-    transition-duration: .3s;
-    transform: rotateZ(-25deg);
-  }
-
-  [data-bs-theme="dark"] .sun-and-moon > .moon > circle {
-    transition-duration: 1s;
-    transition-delay: .5s;
-  }
-}
+[data-bs-theme="dark"] .theme-toggle-switch img {
+	left: calc(-100% - var(--width) / 2);
+	rotate: -720deg;
+} */

@@ -23,7 +23,7 @@ return [
       'value' => [
         esc_html__('Start', 'blankcanvas') => '',
         esc_html__('Center', 'blankcanvas') => 'center',
-        esc_html__('End', 'blankcanvas') => 'flex-end',
+        esc_html__('End', 'blankcanvas') => 'end',
       ],
       'description' => esc_html__('Select columns position within row.', 'js_composer'),
       'weight' => 100,

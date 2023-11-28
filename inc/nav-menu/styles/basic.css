@@ -241,12 +241,16 @@ body[direction="rtl"] .bc-menu > li > .external-link-arrow {
   position: absolute;
   height: 2px;
   width: 100%;
-  background: var(--body-color);
+  background: var(--btn-color, --body-color);
   border-radius: 9px;
   opacity: 1;
   inset-inline-start: 0;
   transform: rotate(0deg);
-  transition: .5s ease-in-out;
+  transition: all .5s ease-in-out, background .1s ease-in-out;
+}
+
+.bc-menu-btn:hover .bc-menu-btn-icon span {
+  background: var(--btn-hover-color, --body-color);
 }
 
 .bc-menu-btn-icon span:nth-child(1) {

@@ -125,40 +125,40 @@ return [
       'value' => 'custom'
     ]
   ],
-  [
-    'type' => 'checkbox',
-    // 'heading' => esc_html__('Border?', 'blankcanvas'),
-    'param_name' => 'border',
-    'group' => esc_html__('Design', 'blankcanvas'),
-    // 'description' => esc_html__('Add border', 'blankcanvas'),
-    'value' => [
-      esc_html__(' Border', 'blankcanvas') => 'yes' 
-    ],
-  ],
-  [
-    'type' => 'dropdown',
-    'heading' => esc_html__('Border color', 'blankcanvas'),
-    'param_name' => 'border_color',
-    'group' => esc_html__('Design', 'blankcanvas'),
-    'edit_field_class' => 'vc_col-xs-4',
-    'dependency' => [
-      'element' => 'border',
-      'not_empty' => true
-    ],
-    'value' => $text
-  ],
-  [
-    'type' => 'textfield',
-    'heading' => esc_html__('Border size', 'blankcanvas'),
-    'param_name' => 'border_size',
-    'group' => esc_html__('Design', 'blankcanvas'),
-    'edit_field_class' => 'vc_col-xs-4',
-    'dependency' => [
-      'element' => 'border',
-      'not_empty' => true
-    ],
-    'value' => '1px'
-  ],
+  // [
+  //   'type' => 'checkbox',
+  //   // 'heading' => esc_html__('Border?', 'blankcanvas'),
+  //   'param_name' => 'border',
+  //   'group' => esc_html__('Design', 'blankcanvas'),
+  //   // 'description' => esc_html__('Add border', 'blankcanvas'),
+  //   'value' => [
+  //     esc_html__(' Border', 'blankcanvas') => 'yes' 
+  //   ],
+  // ],
+  // [
+  //   'type' => 'dropdown',
+  //   'heading' => esc_html__('Border color', 'blankcanvas'),
+  //   'param_name' => 'border_color',
+  //   'group' => esc_html__('Design', 'blankcanvas'),
+  //   'edit_field_class' => 'vc_col-xs-4',
+  //   'dependency' => [
+  //     'element' => 'border',
+  //     'not_empty' => true
+  //   ],
+  //   'value' => $text
+  // ],
+  // [
+  //   'type' => 'textfield',
+  //   'heading' => esc_html__('Border size', 'blankcanvas'),
+  //   'param_name' => 'border_size',
+  //   'group' => esc_html__('Design', 'blankcanvas'),
+  //   'edit_field_class' => 'vc_col-xs-4',
+  //   'dependency' => [
+  //     'element' => 'border',
+  //     'not_empty' => true
+  //   ],
+  //   'value' => '1px'
+  // ],
   [
     'type' => 'colorpicker',
     'heading' => esc_html__('Custom color', 'blankcanvas'),

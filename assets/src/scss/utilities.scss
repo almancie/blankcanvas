@@ -1,11 +1,10 @@
-
 $utilities: map-merge(
   $utilities,
   (
     "z-index": (
       class: z-index,
       property: z-index,
-      values: (0 1 2 3 4 5 10 20 30 40 50),
+      values: (0 1 2 3 4 5 10 20 30 40 50 60 70 80 90),
     ),
     "bg-opacity": (
       css-var: true,
@@ -13,86 +12,173 @@ $utilities: map-merge(
       class: bg-opacity,
       values: (1: .01, 5: .05, 10: .1, 20: .2, 25: .25, 30: .3, 40: .4, 50: .5, 60: .6, 70: .7, 75: .75, 80: .8, 90: .9, 95: .95, 99: .99)
     ),
-    "overlay-color": (
-      css-var: true,
-      css-variable-name: overlay-color,
-      class: overlay,
-      // values: $utilities-bg-colors
-      values: $theme-colors
-    ),
-    "overlay-opacity": (
-      css-var: true,
-      css-variable-name: overlay-opacity,
-      class: overlay,
-      values: (1: .01, 5: .05, 10: .1, 20: .2, 25: .25, 30: .3, 40: .4, 50: .5, 60: .6, 70: .7, 75: .75, 80: .8, 90: .9, 95: .95, 99: .99)
-    ),
+    // "overlay-color": (
+    //   css-var: true,
+    //   css-variable-name: overlay-color,
+    //   class: overlay,
+    //   // values: $utilities-bg-colors
+    //   values: $theme-colors
+    // ),
+    // "overlay-opacity": (
+    //   css-var: true,
+    //   css-variable-name: overlay-opacity,
+    //   class: overlay,
+    //   values: (1: .01, 5: .05, 10: .1, 20: .2, 25: .25, 30: .3, 40: .4, 50: .5, 60: .6, 70: .7, 75: .75, 80: .8, 90: .9, 95: .95, 99: .99)
+    // ),
     "opacity": (
       class: opacity,
       property: opacity,
       values: (0: 0, 1: .01, 5: .05, 10: .1, 20: .2, 25: .25, 30: .3, 40: .4, 50: .5, 60: .6, 70: .7, 75: .75, 80: .8, 90: .9, 95: .95, 99: .99)
-    ),
-    // "start": (
-    //   class: start,
-    //   property: inset-inline-start,
-    //   values: (0: 0, 25: 25%, 50: 50%, 75: 75%, 100: 100%)
-    // ),
+    )
   )
 );
-
-.filter-light {
-  filter: var(--filter-light);
-}
-
-.filter-dark {
-  filter: var(--filter-dark);
-}
-
-.filter-body-color {
-  filter: var(--filter-body-color);
-}
-
-.filter-body-bg {
-  filter: var(--filter-body-bg);
-}
-
-.filter-primary {
-  filter: var(--filter-primary);
-}
 
 .flex-center {
   justify-content: center;
   align-items: center;
 }
 
-.overlay {
+// .filter-light {
+//   filter: var(--filter-light);
+// }
+
+// .filter-dark {
+//   filter: var(--filter-dark);
+// }
+
+// .filter-body-color {
+//   filter: var(--filter-body-color);
+// }
+
+// .filter-body-bg {
+//   filter: var(--filter-body-bg);
+// }
+
+// .display-1 {
+//   letter-spacing: -12px;
+//   word-spacing: 18px;
+// }
+
+// .display-2 {
+//   letter-spacing: -10.67px;
+//   word-spacing: 16px;
+// }
+
+// .display-3 {
+//   letter-spacing: -9.34px;
+//   word-spacing: 12px;
+// }
+
+// .display-4 {
+//   letter-spacing: -8px;
+//   word-spacing: 9px;
+// }
+
+// .display-5 {
+//   letter-spacing: -7.67px;
+//   word-spacing: 6px;
+// }
+
+// .display-5 {
+//   letter-spacing: -6.34px;
+//   word-spacing: 3px;
+// }
+
+// .display-6 {
+//   letter-spacing: -6px;
+//   word-spacing: 3px;
+// }
+
+.has-before,
+.has-overlay {
   position: relative;
-  --overlay-color: var(--body-bg);
-  --overlay-opacity: .75;
 }
 
-.overlay > * {
+.has-before > *,
+.has-overlay > * {
   position: relative;
-  z-index: 1;
 }
 
-.overlay:after {
+.has-before:before,
+.has-overlay:before {
   content: '';
   position: absolute;
   top: 0;
   inset-inline-start: 0;
   height: 100%;
   width: 100%;
-  background-color: var(--overlay-color);
-  opacity: var(--overlay-opacity);
-  z-index: 0;
-  transition: background-color .6s ease-in-out;
+  // z-index: 0;
 }
 
-.effect-glass {
-  background: rgba(255, 255, 255, 0.1);
-  // border-radius: 16px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(25px) !important;
+// .has-before > *,
+// .has-overlay > * {
+//   z-index: 2;
+// }
+
+.has-overlay {
+  --overlay-color: var(--body-bg);
+  --overlay-opacity: .75;
+}
+
+.has-overlay:before {
+  background-color: var(--overlay-color);
+  opacity: var(--overlay-opacity);
+  transition: background-color var(--body-bg-transition-duration) var(--body-bg-transition-easing);
+}
+
+.overlay-on-top:before {
+  z-index: 2;
+}
+
+.has-canvas {
+  @extend .has-before;
+  display: inline-block;
+  --canvas-width: 4px;
+  --canvas-color: var(--body-color);
+  --text-bg: var(--body-bg);
+  background-color: var(--text-bg);
+}
+
+.has-canvas:before {
+  border: var(--canvas-width) solid var(--canvas-color);
+  width: 50%;
+  inset-inline-start: 25%;
+  height: 200%;
+  top: -50%;
+  z-index: -1;
+}
+
+// .effect-glass {
+//   background: rgba(255, 255, 255, 0.1);
+//   // border-radius: 16px;
+//   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+//   backdrop-filter: blur(25px) !important;
+// }
+
+@each $color, $value in $theme-colors {
+  .fill-#{$color} {
+    --svg-fill: #{$value};
+  }
+
+  .stroke-#{$color} {
+    --svg-stroke: #{$value};
+  }
+}
+
+.fill-body {
+  --svg-fill: var(--body-color);
+}
+
+.stroke-body {
+  --svg-stroke: var(--body-color);
+}
+
+[class*="fill-"] [fill] {
+  fill: var(--svg-fill);
+}
+
+[class*="stroke-"] [stroke] {
+  stroke: var(--svg-stroke);
 }
 
 @each $size, $value in $grid-breakpoints {
@@ -104,36 +190,38 @@ $utilities: map-merge(
     }
 
     // Column
-    .col-#{$size}-bg-spill {
-      --bg-width: calc(100% + ((100vw - var(--container-max-width)) / 2));
-      background-size: 0 !important;
-      position: relative;
+    // .col-#{$size}-bg-spill {
+    //   --bg-width: calc(100% + ((100vw - var(--container-max-width)) / 2));
+    //   background-size: 0 !important;
+    //   position: relative;
 
-      * {
-        position: relative;
-      }
+    //   * {
+    //     position: relative;
+    //   }
 
-      &:before {
-        background-image: inherit;
-        background-size: cover;
-        background-position: 50% 0;
-      }
+    //   &:before {
+    //     background-image: inherit;
+    //     background-size: cover;
+    //     background-position: 50% 0;
+    //   }
 
-      &:before {
-        content: "";
-        position: absolute;
-        top: 0;
-        inset-inline-start: initial;
-        inset-inline-end: 0;
-        height: 100%;
-        width: var(--bg-width);
-      }
+    //   &:before,
+    //   &.overlay:after {
+    //     content: "";
+    //     position: absolute;
+    //     top: 0;
+    //     inset-inline-start: initial;
+    //     inset-inline-end: 0;
+    //     height: 100%;
+    //     width: var(--bg-width);
+    //   }
 
-      // Last column
-      &:last-child:before {
-        inset-inline-start: 0;
-        inset-inline-end: initial;
-      }
-    }
+    //   // Last column
+    //   &:last-child:before,
+    //   &.overlay:last-child:after {
+    //     inset-inline-start: 0;
+    //     inset-inline-end: initial;
+    //   }
+    // }
   }
 }

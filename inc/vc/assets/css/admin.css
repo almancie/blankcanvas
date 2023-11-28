@@ -27,8 +27,8 @@
   /* --row-margin-y: 3rem; */
   --element-bg: #ffffff;
   --element-bg-alt: #f5f5f5;
-  --element-margin-bottom: 1.5rem;
-  --element-wrapper-padding-x: 1.5rem;
+  --element-margin-bottom: 1rem;
+  --element-wrapper-padding-x: 1rem;
   --control-height: 25px;
   --control-width: 35px;
   --control-margin: 1px;
@@ -43,7 +43,7 @@
   margin-bottom: var(--element-margin-bottom) !important;
 }
 
-.bc-row [data-element_type]:not(.bc-element) {
+.bc-row [data-element_type]:not(.bc-element):not(.vc_tta-tab) {
   margin-bottom: var(--element-margin-bottom) !important;
 }
 
@@ -79,6 +79,8 @@
 .bc-row > .vc_controls .vc_row_layouts .custom_columns {
   width: auto;
   margin: 0;
+  border-bottom: 0;
+  font-size: 10px;
 }
 
 .bc-row > .vc_controls .vc_row_layouts:not(:hover) > *:not(.vc_active) {
@@ -194,6 +196,10 @@
   padding-bottom: var(--row-margin-y, var(--element-margin-bottom)) !important;
 }
 
+.bc-element .vc_row-hash-id {
+  margin-right: .5rem;
+}
+
 /**
  * Rows
  */
@@ -307,7 +313,19 @@
   align-items: center;
 }
 
-.wpb_section .textarea_html {
+.wpb_text .textarea_html {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/**
+ * Button
+ */
+
+.wpb_button .admin_label_content {
+  display: inline-block !important;
+  max-width: calc(100% - 48px);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -386,6 +404,14 @@
   z-index: 1;
   min-height: 30px;
   margin-top: 20px;
+}
+
+/**
+ * Code mirror
+ */
+
+.CodeMirror-hints {
+  z-index: 50001 !important; /* Edit popup is 50000 */
 }
 
 /**

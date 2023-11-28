@@ -10,14 +10,23 @@ return [
   'class' => 'bc-element',
   'show_settings_on_create' => false,
   'as_child' => [
-    'except' => ', section',
+    'except' => ',section',
   ],
   'params' => [
+    // [
+    //   'type' => 'textfield',
+    //   'heading' => esc_html__('Text', 'js_composer'),
+    //   'param_name' => 'text',
+    //   'value' => esc_html__('Button', 'blankcanvas'),
+    //   'admin_label' => true,
+    //   'weight' => 100
+    // ],
     [
-      'type' => 'textfield',
+      'type' => 'textarea_html',
+      // 'holder' => 'div',
       'heading' => esc_html__('Text', 'js_composer'),
-      'param_name' => 'text',
-      'value' => esc_html__('Button', 'blankcanvas'),
+      'param_name' => 'content',
+      // 'value' => esc_html__('Button', 'blankcanvas'),
       'admin_label' => true,
       'weight' => 100
     ],
@@ -55,10 +64,11 @@ return [
       'param_name' => 'color',
       'value' => [
         esc_html__('None', 'blankcanvas') => '', 
-        esc_html__('Light', 'blankcanvas') => 'light', 
-        esc_html__('Dark', 'blankcanvas') => 'dark', 
+        esc_html__('Default', 'blankcanvas') => 'body', 
         esc_html__('Primary', 'blankcanvas') => 'primary', 
         esc_html__('Secondary', 'blankcanvas') => 'secondary', 
+        esc_html__('Light', 'blankcanvas') => 'light', 
+        esc_html__('Dark', 'blankcanvas') => 'dark', 
         esc_html__('Link', 'blankcanvas') => 'link', 
       ],
       'weight' => 100
@@ -116,20 +126,20 @@ return [
       ],
       'weight' => 100
     ],
-    [
-      'type' => 'dropdown',
-      'heading' => esc_html__('Icon style', 'blankcanvas'),
-      'param_name' => 'icon_style',
-      'value' => [
-        esc_html__('Normal', 'js_composer') => '',
-        esc_html__('Emphasis', 'js_composer') => 'emphasis',
-      ],
-      'dependency' => [
-        'element' => 'icon',
-        'not_empty' => true,
-      ],
-      'weight' => 100
-    ],
+    // [
+    //   'type' => 'dropdown',
+    //   'heading' => esc_html__('Icon style', 'blankcanvas'),
+    //   'param_name' => 'icon_style',
+    //   'value' => [
+    //     esc_html__('Normal', 'js_composer') => '',
+    //     esc_html__('Emphasis', 'js_composer') => 'emphasis',
+    //   ],
+    //   'dependency' => [
+    //     'element' => 'icon',
+    //     'not_empty' => true,
+    //   ],
+    //   'weight' => 100
+    // ],
     // [
     //   'type' => 'dropdown',
     //   'heading' => esc_html__('Gap', 'blankcanvas'),

@@ -1,0 +1,8 @@
+[data-letterize] {
+    opacity: 0;
+}
+
+.letter {
+    display: inline-block;
+    opacity: 0;
+}

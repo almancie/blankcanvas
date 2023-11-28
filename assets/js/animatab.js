@@ -134,7 +134,8 @@
       targets: highlighter,
       opacity: 1,
       duration: 800,
-      easing: 'easeInOutCirc',
+      // easing: 'easeInOutCirc',
+      easing: 'easeOutBack',
       ...settings.highlighterAnimation ?? {},
       ...additionalAnimation,
       ...(isActive ? getActiveElementPosition(element, settings) : getElementPosition(element))
@@ -158,7 +159,7 @@
         opacity: 0,
         position: 'absolute',
         pointerEvents: 'none',
-        zIndex: 0,
+        // zIndex: 1,
         ...settings.highlighterStyle ?? {}
       }
     );
@@ -216,7 +217,7 @@
     settings = {...defaultSettings, ...settings};
 
     // Dynamically selected
-    const animatabElements = document.querySelectorAll('[data-animatab="true"]');
+    const animatabElements = document.querySelectorAll('[data-animatab]');
 
     animatabElements.forEach(element => {
       const data = element.dataset;

@@ -1,16 +1,45 @@
-:root, 
-[data-bs-theme=light] {
-  --filter-dark: brightness(0) saturate(100%) invert(8%) sepia(5%) saturate(2044%) hue-rotate(339deg) brightness(99%) contrast(82%);
-  --filter-light: brightness(0) invert(1);
-  --filter-primary: brightness(0) saturate(100%) invert(68%) sepia(11%) saturate(1613%) hue-rotate(194deg) brightness(97%) contrast(92%);
-  --filter-body-color: var(--filter-dark);
-  --filter-body-bg: var(--filter-light);
+:root,
+[data-bs-theme="light"] {
+  // --filter-dark: brightness(0) saturate(100%) invert(8%) sepia(5%) saturate(2044%) hue-rotate(339deg) brightness(99%) contrast(82%);
+  // --filter-light: brightness(0) invert(1);
+  // --filter-body-color: var(--filter-dark);
+  // --filter-body-bg: var(--filter-light);
   // --body-secondary-font-family: 'Montserrat';
   // --heading-font-family: 'Sora';
   // --section-spacing: 6rem;
+
+  .btn-body {
+    @include button-variant(
+      $dark,
+      $dark,
+      $hover-background: tint-color($dark, $btn-hover-bg-tint-amount),
+      $hover-border: tint-color($dark, $btn-hover-border-tint-amount),
+      $active-background: tint-color($dark, $btn-active-bg-tint-amount),
+      $active-border: tint-color($dark, $btn-active-border-tint-amount)
+    );
+  }
+
+  .btn-outline-body {
+    @include button-outline-variant($dark);
+  }
 }
 
 [data-bs-theme="dark"] {
   --filter-body-color: var(--filter-light);
   --filter-body-bg: var(--filter-dark);
+
+  .btn-body {
+    @include button-variant(
+      $light,
+      $light,
+      $hover-background: tint-color($light, $btn-hover-bg-tint-amount),
+      $hover-border: tint-color($light, $btn-hover-border-tint-amount),
+      $active-background: tint-color($light, $btn-active-bg-tint-amount),
+      $active-border: tint-color($light, $btn-active-border-tint-amount)
+    );
+  }
+
+  .btn-outline-body {
+    @include button-outline-variant($light);
+  }
 }

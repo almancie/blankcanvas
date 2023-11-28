@@ -9,7 +9,7 @@
 
 .section {
   --section-spacing: 8rem;
-  --title-margin-bottom: 5rem;
+  --title-margin-bottom: 8rem;
   padding-top: var(--section-spacing);
 }
 
@@ -26,6 +26,11 @@
   padding-inline-end: calc((var(--section-width) - 100%) / 2);
   position: relative;
 }
+
+// .section-stretched > .row,
+// .section-stretched-content > .row {
+//   margin-inline-start: 0;
+// }
 
 .section-stretched-content {
   padding-inline-start: calc(var(--gutter-x) * .5);
@@ -66,22 +71,6 @@
   margin-bottom: 0;
 }
 
-// .text-block[style*="font-size"] > * {
-//   font-size: inherit;
-// }
-
-// .text-block[style*="font-weight"] > * {
-//   font-weight: inherit;
-// }
-
-// .text-block[style*="line-height"] > * {
-//   line-height: inherit;
-// }
-
-// .text-block[style*="color"] > * {
-//   color: inherit;
-// }
-
 /*
 |--------------------------------------------------------------------------
 | Section Title
@@ -95,6 +84,12 @@
   margin-bottom: var(--title-margin-bottom);
 }
 
+.section-subtitle {
+  font-size: $h5-font-size;
+  letter-spacing: 5px;
+  word-spacing: 5px;
+  // margin-bottom: rem;
+}
 
 /*
 |--------------------------------------------------------------------------
@@ -125,6 +120,18 @@ $icon-sizes: (
   }
 }
 
+@each $color, $value in $theme-colors {
+  .bg-#{$color} {
+    .icon {
+      @if color-contrast($value) == $color-contrast-dark {
+        filter: var(--filter-dark);
+      } @else {
+        filter: var(--filter-light)
+      }
+    }
+  }
+}
+
 /*
 |--------------------------------------------------------------------------
 | Bootstrap Icon
@@ -142,19 +149,9 @@ $font-sizes: (
   xxl: 3rem,
 );
 
-// Bootstrap icon
 .bi {
   font-size: map-get($font-sizes, 'md');
-  // display: flex;
-  // align-items: center;
-  // justify-content: center;
 }
-
-// .element.bi {
-//   display: flex;
-//   justify-content: flex-start;
-//   align-items: flex-start;
-// }
 
 @each $size, $value in $font-sizes {
   .bi-#{$size} {
@@ -172,44 +169,71 @@ $font-sizes: (
 */
 
 .btn {
-  --btn-gap: calc(var(--btn-padding-x) * 1);
+  // --btn-gap: calc(var(--btn-padding-x) * .75);
+  --btn-gap: 1.25rem;
+  // --btn-font-size: 1.25rem;
   display: inline-flex;
   align-items: center;
   gap: var(--btn-gap);
+  --svg-fill: var(--btn-color);
+  --svg-stroke: var(--btn-color);
 }
 
 .btn-icon {
   display: inline-flex;
   justify-content: center;
   align-items: center;
+  font-size: calc(var(--btn-font-size) + .5rem);
 }
 
-.btn-icon-emphasis,
-.btn-icon-emphasis-end {
-  --btn-icon-gap: .35rem;
-  margin-top: calc(var(--btn-padding-y) * -1 + var(--btn-icon-gap));
-  margin-bottom: calc(var(--btn-padding-y) * -1 + var(--btn-icon-gap));
-  padding: 1rem;
-  border-radius: var(--btn-border-radius);
+.btn-icon:before {
+  font-weight: var(--btn-font-weight) !important;
 }
 
-.btn-icon-emphasis {
-  margin-inline-start: calc(var(--btn-padding-x) * -1 + var(--btn-icon-gap));
+.btn [fill] {
+  fill: var(--svg-fill);
 }
 
-.btn-icon-emphasis-end {
-  margin-inline-end: calc(var(--btn-padding-x) * -1 + var(--btn-icon-gap));
+.btn [stroke] {
+  stroke: var(--svg-stroke);
 }
+
+// .btn-icon-emphasis,
+// .btn-icon-emphasis-end {
+//   --btn-icon-gap: .35rem;
+//   margin-top: calc(var(--btn-padding-y) * -1 + var(--btn-icon-gap));
+//   margin-bottom: calc(var(--btn-padding-y) * -1 + var(--btn-icon-gap));
+//   padding: 1rem;
+//   border-radius: var(--btn-border-radius);
+// }
+
+// .btn-icon-emphasis {
+//   margin-inline-start: calc(var(--btn-padding-x) * -1 + var(--btn-icon-gap));
+// }
+
+// .btn-icon-emphasis-end {
+//   margin-inline-end: calc(var(--btn-padding-x) * -1 + var(--btn-icon-gap));
+// }
 
 @each $color, $value in $theme-colors {
-  .btn-#{$color} .btn-icon-emphasis,
-  .btn-#{$color} .btn-icon-emphasis-end {
-    // color: var(--btn-bg);
-    @if color-contrast($value) == $color-contrast-dark {
-      color: $color-contrast-light;
-    } @else {
-      color: $color-contrast-dark;
-    }
-    background-color: var(--btn-color);
+  .btn-#{$color}:hover {
+    --svg-fill: var(--btn-hover-color);
+    --svg-stroke: var(--btn-color);
   }
+  
+  .btn-#{$color}:active {
+    --svg-fill: var(--btn-active-color);
+    --svg-stroke: var(--btn-color);
+  }
+
+  // .btn-#{$color} .btn-icon-emphasis,
+  // .btn-#{$color} .btn-icon-emphasis-end {
+  //   // color: var(--btn-bg);
+  //   @if color-contrast($value) == $color-contrast-dark {
+  //     color: $color-contrast-light;
+  //   } @else {
+  //     color: $color-contrast-dark;
+  //   }
+  //   background-color: var(--btn-color);
+  // }
 }

@@ -3,11 +3,9 @@
   /**
    * Observer settings
    */
-  const offset = 25;
-
   const observerSettings = {
-    rootMargin: `-${offset}%`, 
-    // threshold: .5
+    rootMargin: '-10%', 
+    threshold: .5
   };
 
   /**
@@ -32,8 +30,8 @@
    * Create on screen observer
    */
   const observer = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-
+    
+    entries.forEach(entry => {      
       // Stops script from running on initial load.
       if (entry.intersectionRatio === 0) return;
 
@@ -53,7 +51,8 @@
   const isBeyond = element => {
 
     // How much is scrolled + 80% of window height
-    const triggerPoint = window.scrollY + window.innerHeight * (100 - offset) / 100;
+    // const triggerPoint = window.scrollY + window.innerHeight * (100 - offset) / 100;
+    const triggerPoint = window.scrollY - (element.offsetHeight / 2);
 
     // Element offset from top
     const elementOffset = element.getBoundingClientRect().top;
@@ -73,7 +72,7 @@
       return;
     }
 
-    if (isBeyond(element)) return callback();
+    // if (isBeyond(element)) return callback();
 
     if (addCallback(element, callback)) return;
 

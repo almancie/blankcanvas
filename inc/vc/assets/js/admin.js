@@ -22,9 +22,8 @@ window.addEventListener('load', () => {
     'row': 'column',
     'row_inner': 'column_inner',
     'row_inner_inner': 'column_inner_inner',
-    'advanced_list': 'advanced_list_item',
     'glide': 'glide_slide',
-    'group': true
+    // 'group': true
   };
 
   const containers = {
@@ -37,9 +36,7 @@ window.addEventListener('load', () => {
     > [data-element_type=column], 
     > [data-element_type=column_inner], 
     > [data-element_type=column_inner_inner], 
-    > [data-element_type=group_column], 
-    > [data-element_type=glide_slide], 
-    > [data-element_type=advanced_list_item]`;
+    > [data-element_type=glide_slide]`;
 
   /**
    * Elements title
@@ -68,46 +65,46 @@ window.addEventListener('load', () => {
   /**
    * Elements icons (attribute)
    */
-  vc.events.on('shortcodes:add shortcodes:update shortcodes:sync', function(model) {
-    const params = model.attributes.params;
+  // vc.events.on('shortcodes:add shortcodes:update shortcodes:sync', function(model) {
+  //   const params = model.attributes.params;
 
-    const element = model.view.el;
+  //   const element = model.view.el;
 
-    const iconParams = ['custom_css', 'custom_js', 'background_image'];
+  //   const iconParams = ['custom_css', 'custom_js', 'background_image'];
 
-    const icons = iconParams.filter(value => params[value]);
+  //   const icons = iconParams.filter(value => params[value]);
 
-    element.setAttribute('data-icons', icons.join('|'));
-  });
+  //   element.setAttribute('data-icons', icons.join('|'));
+  // });
 
   /**
    * Elements icons (HTML)
    */
-  vc.events.on('shortcodeView:ready', function(view) {
-    const element = view.$el;
+  // vc.events.on('shortcodeView:ready', function(view) {
+  //   const element = view.$el;
 
-    const title = element.find('.element-title');
+  //   const title = element.find('.element-title');
 
-    if (element.find('> .icons').length) return;
+  //   if (element.find('> .icons').length) return;
 
-    let icons = `
-    <div class="icons">
-      <i class="icon-css"></i>
-      <i class="icon-js"></i>
-      <i class="icon-bg"></i>
-    </div>`;
+  //   let icons = `
+  //   <div class="icons">
+  //     <i class="icon-css"></i>
+  //     <i class="icon-js"></i>
+  //     <i class="icon-bg"></i>
+  //   </div>`;
 
-    const shortcode = view.model.attributes.shortcode;
+  //   const shortcode = view.model.attributes.shortcode;
 
-    // If container or section, append the icons inside controls
-    if (rows[shortcode] || shortcode === 'section') {
-      title.after(icons);
+  //   // If container or section, append the icons inside controls
+  //   if (rows[shortcode] || shortcode === 'section') {
+  //     title.after(icons);
 
-      return;
-    };
+  //     return;
+  //   };
 
-    element.append(icons);
-  });
+  //   element.append(icons);
+  // });
 
   /**
    * Alternate elements colors (white/silver)
@@ -131,6 +128,31 @@ window.addEventListener('load', () => {
     }
 
     element.attr('data-alternate', ! parent.$el.data('alternate'));
+  });
+
+  /**
+   * Open edit window on [Style] tab when double clicking an element
+   */
+  vc.events.on('shortcodeView:ready', function(view) {
+    view.$el.on('dblclick', e => {
+      e.stopPropagation();
+      
+      vc.edit_element_block_view.once('afterRender', function () {
+        this.$tabsMenu.find(':contains("Style")').find('button').click();
+
+        const cssInput = this.$el.find('[name="el_class"]');
+
+        setTimeout(() => {
+          const cssInputLength = cssInput.val().length;
+
+          cssInput.focus();
+
+          cssInput[0].setSelectionRange(cssInputLength, cssInputLength);
+        }, 100);
+      });
+
+      view.editElement();
+    });
   });
 
   /**
@@ -260,8 +282,6 @@ window.addEventListener('load', () => {
    */
   vc.events.on('shortcodes:vc_tta_section:add', function(model) {
     let parent = vc.shortcodes.get(model.attributes.parent_id).attributes.shortcode;
-
-    console.log(parent);
 
     const map = {
       tabs: 'panel',
@@ -459,6 +479,22 @@ window.addEventListener('load', () => {
   //     model.view?.toggleElement();
   //   });
   // });
+
+  /**
+   * Keyboard shortcuts
+   */
+  document.addEventListener('keydown', e => {
+    if (e.ctrlKey && e.key === 's') {
+
+      // Prevent the Save dialog to open
+      e.preventDefault();
+      
+      // Place your code here
+      if (vc.edit_element_block_view.isVisible()) {
+        vc.edit_element_block_view.$el.find('[data-vc-ui-element="button-save"]').click();
+      }
+    }
+  });
 
   /**
    * Elements filter

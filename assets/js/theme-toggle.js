@@ -1,43 +1,52 @@
 (function() {
   const storageKey = 'theme-preference'
-
-  const onClick = () => {
+  
+  const onChange = () => {
     // flip current value
     theme.value = theme.value === 'light'
       ? 'dark'
       : 'light'
-
-    setPreference()
+      
+    setPreference();
   }
-
+  
   const getColorPreference = () => {
-    if (localStorage.getItem(storageKey))
+    if (localStorage.getItem(storageKey)) {
       return localStorage.getItem(storageKey)
-    else
-      return window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? 'dark'
-        : 'light'
+    }
+
+    return window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark'
+      : 'light'
+  }
+  
+  const setPreferenceAs = value => {
+    if (! value) return;
+
+    theme.value = value;
+
+    setPreference();
   }
 
   const setPreference = () => {
     localStorage.setItem(storageKey, theme.value)
-    reflectPreference()
+    reflectPreference();
   }
 
   const reflectPreference = () => {
     document.firstElementChild.classList.add('theme-updating');
 
     document.firstElementChild
-      .setAttribute('data-bs-theme', theme.value)
+      .setAttribute('data-bs-theme', theme.value);
 
     document
-      .querySelectorAll('.theme-toggle')
+      .querySelectorAll('.theme-toggle-input')
         .forEach(element => {
           element.setAttribute('aria-label', theme.value);
 
           element.checked = theme.value == 'dark';
         });
-    
+
     setTimeout(() => {
       document.firstElementChild.classList.remove('theme-updating');
     }, 600);
@@ -45,6 +54,7 @@
 
   const theme = {
     value: getColorPreference(),
+    setPreferenceAs
   }
 
   // set early so no page flashes / CSS is made aware
@@ -57,9 +67,9 @@
 
     // now this script can find and listen for clicks on the control
     document
-      .querySelectorAll('.theme-toggle')
+      .querySelectorAll('.theme-toggle-input')
         .forEach(element => {
-          element.addEventListener('click', onClick)
+          element.addEventListener('change', onChange)
         });
   }
 
@@ -70,4 +80,7 @@
       theme.value = isDark ? 'dark' : 'light'
       setPreference()
     })
+  
+  // add ability to change theme manually
+  window.theme = theme;
 })();
