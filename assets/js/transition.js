@@ -1,11 +1,9 @@
 (function() {
-
-  // const easing = 'cubicBezier(0.130, 0.390, 0.415, 0.920)';
-  const easing = 'easeOutElastic(1, .35)';
-  const duration = 3000;
+  const easing = 'cubicBezier(0.33, 1, 0.68, 1)';
+  const duration = 1000;
 
   /**
-   * Animations
+   * Animation settings
    */
   const settings = {
     fade: (element) => {
@@ -19,7 +17,7 @@
     fadeStart: (element) => {
       return {
         targets: element,
-        translateX: ['75px', 0],
+        translateX: ['100px', 0],
         opacity: 1,
         duration,
         easing,
@@ -28,7 +26,7 @@
     fadeEnd: (element) => {
       return {
         targets: element,
-        translateX: ['-75px', 0],
+        translateX: ['-100px', 0],
         opacity: 1,
         duration,
         easing,
@@ -37,7 +35,7 @@
     fadeUp: (element) => {
       return {
         targets: element,
-        translateY: ['75px', 0],
+        translateY: ['100px', 0],
         opacity: 1,
         duration,
         easing,
@@ -46,7 +44,7 @@
     fadeDown: (element) => {
       return {
         targets: element,
-        translateY: ['-75px', 0],
+        translateY: ['-100px', 0],
         opacity: 1,
         duration,
         easing,
@@ -55,8 +53,8 @@
     fadeUpStart: (element) => {
       return {
         targets: element,
-        translateX: ['75px', 0],
-        translateY: ['75px', 0],
+        translateX: ['100px', 0],
+        translateY: ['100px', 0],
         opacity: 1,
         duration,
         easing,
@@ -65,8 +63,8 @@
     fadeUpEnd: (element) => {
       return {
         targets: element,
-        translateX: ['-75px', 0],
-        translateY: ['75px', 0],
+        translateX: ['-100px', 0],
+        translateY: ['100px', 0],
         opacity: 1,
         duration,
         easing,
@@ -75,8 +73,8 @@
     fadeDownStart: (element) => {
       return {
         targets: element,
-        translateX: ['75px', 0],
-        translateY: ['-75px', 0],
+        translateX: ['100px', 0],
+        translateY: ['-100px', 0],
         opacity: 1,
         duration,
         easing,
@@ -85,8 +83,8 @@
     fadeDownEnd: (element) => {
       return {
         targets: element,
-        translateX: ['-75px', 0],
-        translateY: ['-75px', 0],
+        translateX: ['-100px', 0],
+        translateY: ['-100px', 0],
         opacity: 1,
         duration,
         easing,
@@ -110,7 +108,7 @@
         easing,
       }
     },
-    fadeDownBounce: (element) => {
+    fadeBounceDown: (element) => {
       return {
         targets: element,
         translateY: ['-200px', 0],
@@ -119,7 +117,7 @@
         easing: 'easeOutBounce',
       }
     },
-    fadeDownRotateBounce: (element) => {
+    fadeBounceDownAndRotate: (element) => {
       return {
         targets: element,
         translateY: ['-200px', 0],
@@ -155,7 +153,24 @@
     }
   }
 
-  function add(element) {
+  /**
+   * On begin event handler
+   */
+  function onBegin(element) {
+    element.classList.add('transition-start');
+  }
+
+  /**
+   * On complete event handler
+   */
+  function onComplete(element) {
+    element.classList.add('transition-done');
+  }
+
+  /** 
+   * Setup transition from data attributes
+   */
+  function setup(element) {
     const {
       transition, 
       transitionDuration, 
@@ -163,35 +178,57 @@
       transitionAnchor = element
     } = element.dataset;
 
-    if (! settings[transition]) return;
-
-    const customTiming = {};
+    const animation = settings[transition] instanceof Function 
+      ? settings[transition](element, anime)
+      : settings[transition]
 
     // Duration
     if (transitionDuration) {
-      customTiming.duration = transitionDuration;
+      animation.duration = transitionDuration;
     }
 
     // Delay
     if (transitionDelay) {
-      customTiming.delay = transitionDelay;
+
+      // If the delay is a function (anime.stagger) add it
+      // to the timeout, and if it's a normal value, add it
+      // as a delay property.
+      // if (animation.delay instanceof Function) {
+      //   animation.startDelay = transitionDelay;
+      // } else {
+      //   animation.delay = animation.delay 
+      //     ? +animation.delay + +transitionDelay
+      //     : transitionDelay;
+      // }
+
+      animation.startDelay = transitionDelay;
     }
 
     onScreen(transitionAnchor, () => {
-      anime({
-        begin: () => {
-          element.classList.add('transitioning');
-        },
-        complete: () => {
-          element.classList.remove('transitioning');
-          element.classList.add('transition-done');
-        },
-        ...settings[transition](element),
-        ...customTiming
-      });
+      setTimeout(() => {
+        anime({
+          targets: element,
+          ...animation,
+          begin: () => {
+            onBegin(element);
+            animation.begin?.call(null, element);
+          },
+          complete: () => {
+            animation.complete?.call(null, element);
+            onComplete(element);
+          },
+        });
+      }, animation.startDelay ?? 0);
     });
-
+  
     element.classList.add('transition-init');
+  }
+
+  /**
+   * Allows to extend settings list
+   */
+  function addSetting(name, animation) {
+    settings[name] = animation;
   }
 
   /**
@@ -202,8 +239,8 @@
       ? document.querySelector(container)
       : container
 
-    container.querySelectorAll('[data-transition]').forEach(add);
+    container.querySelectorAll('[data-transition]').forEach(setup);
   };
 
-  window.Transition = {init}
+  window.Transition = {init, addSetting}
 })();

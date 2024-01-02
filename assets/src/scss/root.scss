@@ -7,27 +7,11 @@
   // --body-secondary-font-family: 'Montserrat';
   // --heading-font-family: 'Sora';
   // --section-spacing: 6rem;
-
-  .btn-body {
-    @include button-variant(
-      $dark,
-      $dark,
-      $hover-background: tint-color($dark, $btn-hover-bg-tint-amount),
-      $hover-border: tint-color($dark, $btn-hover-border-tint-amount),
-      $active-background: tint-color($dark, $btn-active-bg-tint-amount),
-      $active-border: tint-color($dark, $btn-active-border-tint-amount)
-    );
-  }
-
-  .btn-outline-body {
-    @include button-outline-variant($dark);
-  }
 }
 
 [data-bs-theme="dark"] {
-  --filter-body-color: var(--filter-light);
-  --filter-body-bg: var(--filter-dark);
-
+  // --filter-body-color: var(--filter-light);
+  // --filter-body-bg: var(--filter-dark);
   .btn-body {
     @include button-variant(
       $light,
@@ -38,7 +22,7 @@
       $active-border: tint-color($light, $btn-active-border-tint-amount)
     );
   }
-
+  
   .btn-outline-body {
     @include button-outline-variant($light);
   }

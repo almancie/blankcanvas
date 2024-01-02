@@ -1,0 +1,91 @@
+.blob {
+  position: fixed;
+  top: 0;
+  left: 0;
+  translate: -50% -50%;
+  width: 35vw;
+  height: 35vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  animation: blobMovement1 30s ease-in-out infinite, blobFade 15s infinite;
+}
+
+[data-blob-follow="true"] {
+  position: absolute;
+}
+
+.blob > * {
+  --opacity: .2;
+  filter: blur(10rem);
+  mix-blend-mode: color;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  inset-inline-start: 0;
+  border-radius: 50%;
+  translate: 0 15vw;
+}
+
+.blob > *:nth-child(1) {
+  background: #4f01b2;
+  opacity: var(--opacity);
+  translate: -10vw -5vh;
+  opacity: var(--opacity);
+}
+
+.blob > *:nth-child(2) {
+  background: var(--primary);
+  opacity: var(--opacity);
+  translate: 10vw 5vh;
+  animation-name: blobMovement 9s ease-in-out infinite;;
+}
+
+.blob > *:nth-child(3) {
+  background: var(--primary);
+  opacity: var(--opacity);
+  animation-name: blobMovement3 12s ease-in-out infinite;;
+}
+
+/* Animation */
+@keyframes blobFade {
+  0% {opacity: 0;}
+  10% {opacity: 1;}
+  90% {opacity: 1;}
+  100% {opacity: 0;}
+}
+@keyframes blobMovement1 {
+  0% {
+    transform: translate(0,0) rotate(0);
+  }
+  50% {
+    transform: translate(3%, 3%) rotate(150deg) scale(.85);
+  }
+  100% {
+    transform: translate(0,0) rotate(0);
+  }
+}
+@keyframes blobMovement {
+  0% {
+    transform: translate(0,0) rotate(0);
+  }
+  30% {
+    transform: translate(3%, -3%) rotate(-60deg) scale(1.15);
+  }
+  100% {
+    transform: translate(0,0) rotate(0);
+  }
+}
+@keyframes blobMovement3 {
+  0% {
+    transform: translate(0,0) rotate(0);
+  }
+  70% {
+    transform: translate(-3%, 0%) rotate(45deg) scale(.9);
+  }
+  100% {
+    transform: translate(0,0) rotate(0);
+  }
+}

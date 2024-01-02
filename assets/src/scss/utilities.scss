@@ -94,10 +94,10 @@ $utilities: map-merge(
   position: relative;
 }
 
-.has-before > *,
-.has-overlay > * {
-  position: relative;
-}
+// .has-before > *,
+// .has-overlay > * {
+//   position: relative;
+// }
 
 .has-before:before,
 .has-overlay:before {
@@ -130,23 +130,23 @@ $utilities: map-merge(
   z-index: 2;
 }
 
-.has-canvas {
-  @extend .has-before;
-  display: inline-block;
-  --canvas-width: 4px;
-  --canvas-color: var(--body-color);
-  --text-bg: var(--body-bg);
-  background-color: var(--text-bg);
-}
+// .has-canvas {
+//   @extend .has-before;
+//   display: inline-block;
+//   --canvas-width: 4px;
+//   --canvas-color: var(--body-color);
+//   --text-bg: var(--body-bg);
+//   background-color: var(--text-bg);
+// }
 
-.has-canvas:before {
-  border: var(--canvas-width) solid var(--canvas-color);
-  width: 50%;
-  inset-inline-start: 25%;
-  height: 200%;
-  top: -50%;
-  z-index: -1;
-}
+// .has-canvas:before {
+//   border: var(--canvas-width) solid var(--canvas-color);
+//   width: 50%;
+//   inset-inline-start: 25%;
+//   height: 200%;
+//   top: -50%;
+//   z-index: -1;
+// }
 
 // .effect-glass {
 //   background: rgba(255, 255, 255, 0.1);
@@ -155,7 +155,15 @@ $utilities: map-merge(
 //   backdrop-filter: blur(25px) !important;
 // }
 
-@each $color, $value in $theme-colors {
+// .w-50vw {
+//   width: 50vw;
+// }
+
+$theme-colors-with-body: map-merge($theme-colors, (
+  body: var(--body-color)
+));
+
+@each $color, $value in $theme-colors-with-body {
   .fill-#{$color} {
     --svg-fill: #{$value};
   }
@@ -163,22 +171,35 @@ $utilities: map-merge(
   .stroke-#{$color} {
     --svg-stroke: #{$value};
   }
+  
+  .svg-#{$color} {
+    --svg-fill: #{$value};
+    --svg-stroke: #{$value};
+  }
 }
 
-.fill-body {
-  --svg-fill: var(--body-color);
-}
-
-.stroke-body {
-  --svg-stroke: var(--body-color);
-}
-
+[class*="fill-"][fill],
 [class*="fill-"] [fill] {
   fill: var(--svg-fill);
 }
 
+[class*="stroke-"][stroke],
 [class*="stroke-"] [stroke] {
   stroke: var(--svg-stroke);
+}
+
+[class*="svg-"][stroke],
+[class*="svg-"] [stroke] {
+  stroke: var(--svg-stroke);
+}
+
+[class*="svg-"][fill],
+[class*="svg-"] [fill] {
+  fill: var(--svg-fill);
+}
+
+[fill="none"] {
+  fill: none !important;
 }
 
 @each $size, $value in $grid-breakpoints {

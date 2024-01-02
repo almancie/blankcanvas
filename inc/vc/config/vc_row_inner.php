@@ -1,20 +1,20 @@
 <?php
 
 return [
-  'name' => esc_html__('Row', 'blankcanvas'),
+  'name' => esc_html__('Row 1', 'blankcanvas'),
   'description' => esc_html__('Place content elements inside the row', 'js_composer'),
-  'base' => 'row_inner',
-  'php_class_name' => 'Blankcanvas\Vc\Shortcodes\RowInner',
+  'base' => 'vc_row_inner',
+  'php_class_name' => 'Blankcanvas\Vc\Shortcodes\VcRowInner',
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
   'icon' => 'icon-wpb-row',
-  'class' => 'wpb_vc_row bc-row bc-element',
+  'class' => 'wpb_vc_row bc-row bc-row-inner bc-element',
   'is_container' => true,
   'as_child' => [
-    'only' => 'column,glide_slide'
+    'only' => 'vc_column,glide_slide'
   ],
   'show_settings_on_create' => false,
   'js_view' => 'VcRowView', // Allows us to reorder columns
-  'default_content' => '[vc_column][/vc_column]', // Changing row layout creates vc_column that is why we default to it and then change it with JS.
+  'default_content' => '[vc_column_inner][/vc_column_inner]', // Changing row layout creates vc_column that is why we default to it and then change it with JS.
   'params' => [
     [
       'type' => 'dropdown',
@@ -23,7 +23,7 @@ return [
       'value' => [
         esc_html__('Start', 'blankcanvas') => '',
         esc_html__('Center', 'blankcanvas') => 'center',
-        esc_html__('End', 'blankcanvas') => 'flex-end',
+        esc_html__('End', 'blankcanvas') => 'end',
       ],
       'description' => esc_html__('Select columns position within row.', 'js_composer'),
       'weight' => 100,

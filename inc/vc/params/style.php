@@ -10,7 +10,7 @@ return [
     'weight' => 60,
   ],
   [
-    'type' => 'textarea',
+    'type' => 'textarea_raw_html',
     'heading' => esc_html__('Custom CSS', 'blankcanvas'),
     'param_name' => 'custom_css',
     'group' => esc_html__('Style', 'blankcanvas'),

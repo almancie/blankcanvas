@@ -159,15 +159,15 @@ return [
   //   ],
   //   'value' => '1px'
   // ],
-  [
-    'type' => 'colorpicker',
-    'heading' => esc_html__('Custom color', 'blankcanvas'),
-    'param_name' => 'custom_border_color',
-    'group' => esc_html__('Design', 'blankcanvas'),
-    // 'edit_field_class' => 'vc_col-xs-4',
-    'dependency' => [
-      'element' => 'border_color',
-      'value' => 'custom'
-    ]
-  ],
+  // [
+  //   'type' => 'colorpicker',
+  //   'heading' => esc_html__('Custom color', 'blankcanvas'),
+  //   'param_name' => 'custom_border_color',
+  //   'group' => esc_html__('Design', 'blankcanvas'),
+  //   // 'edit_field_class' => 'vc_col-xs-4',
+  //   'dependency' => [
+  //     'element' => 'border_color',
+  //     'value' => 'custom'
+  //   ]
+  // ],
 ];

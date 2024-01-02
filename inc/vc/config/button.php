@@ -54,7 +54,7 @@ return [
       'value' => [
         esc_html__('Solid', 'blankcanvas') => '',
         esc_html__('Outline', 'blankcanvas') => 'outline',
-        // esc_html__('Iconic', 'blankcanvas') => 'iconic',
+        esc_html__('Link', 'blankcanvas') => 'link', 
       ],
       'weight' => 100
     ],
@@ -69,7 +69,10 @@ return [
         esc_html__('Secondary', 'blankcanvas') => 'secondary', 
         esc_html__('Light', 'blankcanvas') => 'light', 
         esc_html__('Dark', 'blankcanvas') => 'dark', 
-        esc_html__('Link', 'blankcanvas') => 'link', 
+      ],
+      'dependency' => [
+        'element' => 'style',
+        'value' => ['', 'outline']
       ],
       'weight' => 100
     ],

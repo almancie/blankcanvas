@@ -5,7 +5,7 @@ return [
   'base' => 'accordion_item',
   'php_class_name' => 'Blankcanvas\Vc\Shortcodes\AccordionItem',
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
-  'class' => 'wpb_vc_tta_section bc-element',
+  'class' => 'wpb_vc_tta_section bc-container bc-accordion-item bc-element',
   'icon' => 'icon-wpb-ui-tta-section',
   'allowed_container_element' => 'row_inner',
   'is_container' => true,
@@ -18,8 +18,8 @@ return [
     '<div class="vc_tta-panel-heading">
       <h4 class="vc_tta-panel-title">
         <a href="javascript:;" data-vc-target="[data-model-id=\'{{ model_id }}\']" data-vc-accordion data-vc-container=".vc_tta-container">
+        <i class="vc_tta-controls-icon vc_tta-controls-icon-plus"></i>
           <span class="vc_tta-title-text">{{ section_title }}</span>
-          <i class="vc_tta-controls-icon vc_tta-controls-icon-plus"></i>
         </a>
       </h4>
     </div>

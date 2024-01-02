@@ -6,7 +6,7 @@ return [
   'base' => 'column_inner_inner',
   'php_class_name' => 'Blankcanvas\Vc\Shortcodes\ColumnInnerInner',
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
-  'class' => 'wpb_vc_column bc-column bc-element',
+  'class' => 'wpb_vc_column bc-container bc-column bc-column-inner-inner bc-element',
   'is_container' => true,
   'content_element' => false, 
   'as_child' => [

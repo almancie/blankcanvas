@@ -8,21 +8,32 @@ body {
 		color var(--body-color-transition-duration) var(--body-color-transition-easing);
 }
 
+[class*="bg-"],
+[style*="background-color"] {
+  transition: 
+    background-color var(--body-bg-transition-duration) var(--body-bg-transition-easing) !important;
+}
+
+.has-overlay:before {
+  transition: 
+    background var(--body-bg-transition-duration) var(--body-bg-transition-easing);
+}
+
 .theme-toggle-switch .btn {
 	padding: 0;
     height: 2rem;
     width: 3rem;
     justify-content: center;
 	--btn-font-size: .925rem;
-	--btn-border-width: 1px;
 	letter-spacing: 0;
+	--btn-border-color: var(--border-color);
 }
 
 .theme-toggle-input:checked ~ .dark,
 .theme-toggle-input:not(:checked) ~ .light {
-	--btn-bg: var(--primary);
+	--btn-bg: var(--secondary);
 	--btn-color: var(--dark);
-	--btn-border-color: var(--primary);
+	--btn-border-color: var(--secondary);
 }
 
 .theme-toggle .icon {
@@ -35,7 +46,7 @@ body {
 	height: var(--width);
 	overflow: hidden;
 	display: flex;
-	border: var(--border-width) var(--border-style) var(--primary);
+	border: var(--border-width) var(--border-style) var(--secondary);
 	border-radius: 50%;
 	gap: var(--width);
 	transition: all var(--body-bg-transition-duration) var(--body-bg-transition-easing);

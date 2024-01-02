@@ -1,53 +1,40 @@
 <?php
 
 return [
-  'name' => esc_html__('Section', 'blankcanvas'),
-  'description' => esc_html__('Group multiple rows in section', 'js_composer'),
-  'base' => 'vc_section',
-  'php_class_name' => 'Blankcanvas\Vc\Shortcodes\VcSection',
+  'name' => esc_html__('Row', 'blankcanvas'),
+  'description' => esc_html__('Place content elements inside the row', 'js_composer'),
+  'base' => 'vc_row',
+  'php_class_name' => 'Blankcanvas\Vc\Shortcodes\VcRow',
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
-  'icon' => 'vc_icon-vc-section bc-section',
-  'class' => 'wpb_vc_section vc_main-sortable-element bc-element',
+  'icon' => 'icon-wpb-row',
+  'class' => 'wpb_vc_row bc-row bc-element',
   'is_container' => true,
-  'show_settings_on_create' => false,
   'as_child' => [
-    'only' => '', // Only root
+    'only' => 'vc_section'
   ],
-  // 'as_parent' => [
-  //   'only' => 'row'
-  // ],
-  'js_view' => 'VcSectionView',
-  // 'default_content' => '[row][/row]',  // Creates a JS error
+  'show_settings_on_create' => false,
+  'js_view' => 'VcRowView', // Allows us to reorder columns
+  'default_content' => '[vc_column][/vc_column]', // Changing row layout creates vc_column that is why we default to it and then change it with JS.
   'params' => [
     [
       'type' => 'dropdown',
-      'heading' => esc_html__('Section stretch', 'js_composer'),
-      'param_name' => 'full_width',
+      'heading' => esc_html__('Columns position (X)', 'js_composer'),
+      'param_name' => 'columns_position_x',
       'value' => [
-        esc_html__('Default', 'js_composer') => '',
-        esc_html__('Stretch section', 'js_composer') => 'stretch',
-        esc_html__('Stretch section and content', 'js_composer') => 'stretch_content',
+        esc_html__('Start', 'blankcanvas') => '',
+        esc_html__('Center', 'blankcanvas') => 'center',
+        esc_html__('End', 'blankcanvas') => 'end',
       ],
-      'description' => esc_html__('Stretch section to be screen wide.', 'js_composer'),
+      'description' => esc_html__('Select columns position within row.', 'js_composer'),
       'weight' => 100,
     ],
     [
-      'type' => 'checkbox',
-      'heading' => esc_html__('Full height section?', 'js_composer'),
-      'param_name' => 'full_height',
-      'description' => esc_html__('If checked section will be set to full height.', 'js_composer'),
-      'value' => [ 
-        esc_html__('Yes', 'js_composer') => 'yes' 
-      ],
-      'weight' => 100
-    ],
-    [
       'type' => 'dropdown',
-      'heading' => esc_html__('Content position', 'js_composer'),
-      'param_name' => 'content_placement',
-      'description' => esc_html__('Select content position within section.', 'js_composer'),
+      'heading' => esc_html__('Columns position (Y)', 'js_composer'),
+      'param_name' => 'columns_position_y',
+      'description' => esc_html__('Select columns position within row.', 'js_composer'),
       'value' => [
-        esc_html__('Default', 'js_composer') => '',
+        esc_html__('Equal height', 'blankcanvas') => '',
         esc_html__('Top', 'js_composer') => 'start',
         esc_html__('Middle', 'js_composer') => 'center',
         esc_html__('Bottom', 'js_composer') => 'end',
@@ -58,9 +45,9 @@ return [
     //   'type' => 'checkbox',
     //   'heading' => esc_html__('Use video background?', 'js_composer'),
     //   'param_name' => 'video_bg',
-    //   'description' => esc_html__('If checked, video will be used as section background.', 'js_composer'),
-    //   'value' => [ 
-    //     esc_html__('Yes', 'js_composer') => 'yes' 
+    //   'description' => esc_html__('If checked, video will be used as row background.', 'js_composer'),
+    //   'value' => [
+    //     esc_html__('Yes', 'js_composer') => 'yes'
     //   ],
     //   'weight' => 100
     // ],
@@ -68,8 +55,7 @@ return [
     //   'type' => 'textfield',
     //   'heading' => esc_html__('YouTube link', 'js_composer'),
     //   'param_name' => 'video_bg_url',
-    //   'value' => 'https://www.youtube.com/watch?v=lMJXxhRFO1k',
-    //   // default video url
+    //   'value' => 'https://www.youtube.com/watch?v=lMJXxhRFO1k', // default video url
     //   'description' => esc_html__('Add YouTube link.', 'js_composer'),
     //   'dependency' => [
     //     'element' => 'video_bg',
@@ -81,12 +67,12 @@ return [
     //   'type' => 'dropdown',
     //   'heading' => esc_html__('Parallax', 'js_composer'),
     //   'param_name' => 'video_bg_parallax',
+    //   'description' => esc_html__('Add parallax type background for row.', 'js_composer'),
     //   'value' => [
     //     esc_html__('None', 'js_composer') => '',
     //     esc_html__('Simple', 'js_composer') => 'content-moving',
     //     esc_html__('With fade', 'js_composer') => 'content-moving-fade',
     //   ],
-    //   'description' => esc_html__('Add parallax type background for section.', 'js_composer'),
     //   'dependency' => [
     //     'element' => 'video_bg',
     //     'not_empty' => true,
@@ -97,12 +83,12 @@ return [
     //   'type' => 'dropdown',
     //   'heading' => esc_html__('Parallax', 'js_composer'),
     //   'param_name' => 'parallax',
+    //   'description' => esc_html__('Add parallax type background for row (Note: If no image is specified, parallax will use background image from Design Options).', 'js_composer'),
     //   'value' => [
     //     esc_html__('None', 'js_composer') => '',
     //     esc_html__('Simple', 'js_composer') => 'content-moving',
     //     esc_html__('With fade', 'js_composer') => 'content-moving-fade',
     //   ],
-    //   'description' => esc_html__('Add parallax type background for section (Note: If no image is specified, parallax will use background image from Design Options).', 'js_composer'),
     //   'dependency' => [
     //     'element' => 'video_bg',
     //     'is_empty' => true,
@@ -113,8 +99,8 @@ return [
     //   'type' => 'attach_image',
     //   'heading' => esc_html__('Image', 'js_composer'),
     //   'param_name' => 'parallax_image',
-    //   'value' => '',
     //   'description' => esc_html__('Select image from media library.', 'js_composer'),
+    //   'value' => '',
     //   'dependency' => [
     //     'element' => 'parallax',
     //     'not_empty' => true,
@@ -125,10 +111,22 @@ return [
     //   'type' => 'textfield',
     //   'heading' => esc_html__('Parallax speed', 'js_composer'),
     //   'param_name' => 'parallax_speed_video',
-    //   'value' => '1.5',
     //   'description' => esc_html__('Enter parallax speed ratio (Note: Default value is 1.5, min value is 1)', 'js_composer'),
+    //   'value' => '1.5',
     //   'dependency' => [
     //     'element' => 'video_bg_parallax',
+    //     'not_empty' => true,
+    //   ],
+    //   'weight' => 100
+    // ],
+    // [
+    //   'type' => 'textfield',
+    //   'heading' => esc_html__('Parallax speed', 'js_composer'),
+    //   'param_name' => 'parallax_speed_bg',
+    //   'description' => esc_html__('Enter parallax speed ratio (Note: Default value is 1.5, min value is 1)', 'js_composer'),
+    //   'value' => '1.5',
+    //   'dependency' => [
+    //     'element' => 'parallax',
     //     'not_empty' => true,
     //   ],
     //   'weight' => 100
@@ -164,15 +162,11 @@ return [
     ],
     [
       'type' => 'textfield',
-      'heading' => esc_html__('Parallax speed', 'js_composer'),
-      'param_name' => 'parallax_speed_bg',
-      'value' => '1.5',
-      'description' => esc_html__('Enter parallax speed ratio (Note: Default value is 1.5, min value is 1)', 'js_composer'),
-      'dependency' => [
-        'element' => 'parallax',
-        'not_empty' => true,
-      ],
-      'weight' => 100
+      'param_name' => 'col_class',
+      'heading' => esc_html__('Columns class name', 'blankcanvas'),
+      'group' => esc_html__('Style', 'blankcanvas'),
+      'description' => esc_html__('Add the same class names to every column inside this row.', 'blankcanvas'),
+      'weight' => 59
     ],
     ...require THEME_DIR . '/inc/vc/params/general.php'
   ],

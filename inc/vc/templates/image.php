@@ -73,7 +73,7 @@ $classes = apply_filters(
 );
 
 array_push($imgAttributes,
-  sprintf($svg ? 'data-svg-src="%s"' : 'src="%s"', is_array($src) ? $src[0] : $src),
+  sprintf($svg ? 'data-svg="%s"' : 'src="%s"', is_array($src) ? $src[0] : $src),
   sprintf('data-img-src="%s"', $source),
   sprintf('data-img-size="%s"', $img_size ?: $external_img_size),
 );

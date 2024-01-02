@@ -48,17 +48,17 @@
   /**
    * Check if element is already scrolled beyoned
    */
-  const isBeyond = element => {
+  // const isBeyond = element => {
 
-    // How much is scrolled + 80% of window height
-    // const triggerPoint = window.scrollY + window.innerHeight * (100 - offset) / 100;
-    const triggerPoint = window.scrollY - (element.offsetHeight / 2);
+  //   // How much is scrolled + 80% of window height
+  //   // const triggerPoint = window.scrollY + window.innerHeight * (100 - offset) / 100;
+  //   const triggerPoint = window.scrollY - (element.offsetHeight / 2);
 
-    // Element offset from top
-    const elementOffset = element.getBoundingClientRect().top;
+  //   // Element offset from top
+  //   const elementOffset = element.getBoundingClientRect().top;
 
-    return triggerPoint >= elementOffset;
-  }
+  //   return triggerPoint >= elementOffset;
+  // }
 
   /**
    * Attach element to the observer

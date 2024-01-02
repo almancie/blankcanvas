@@ -2,7 +2,7 @@
 
 namespace Blankcanvas\Vc\Shortcodes;
 
-class RowInner extends \WPBakeryShortCode_Vc_Row_Inner {
+class VcRow extends \WPBakeryShortCode_Vc_Row {
 
   /**
    * Create instance
@@ -12,12 +12,12 @@ class RowInner extends \WPBakeryShortCode_Vc_Row_Inner {
   }
 
   /**
-   * Create row layout options
+   * 
    */
   public function getLayoutsControl() {
     // global $vc_row_layouts;
 
-    $vc_row_layouts = [
+    $layouts = [
       [
         'cells' => '11',
         'mask' => '12',
@@ -92,16 +92,40 @@ class RowInner extends \WPBakeryShortCode_Vc_Row_Inner {
       // ]
     ]; 
 
-    $controls_layout = '<span class="vc_row_layouts vc_control">';
+    // $controls_layout = '<span class="vc_row_layouts vc_control">';
 
-    foreach ( $vc_row_layouts as $layout ) {
-      $controls_layout .= '<a class="vc_control-set-column set_columns" data-cells="' . $layout['cells'] . '" data-cells-mask="' . $layout['mask'] . '" title="' . $layout['title'] . '"><i class="vc-composer-icon vc-c-icon-' . $layout['icon_class'] . '"></i></a> ';
+    // foreach ( $vc_row_layouts as $layout ) {
+    //   $controls_layout .= '<a class="vc_control-set-column set_columns" data-cells="' . $layout['cells'] . '" data-cells-mask="' . $layout['mask'] . '" title="' . $layout['title'] . '"><i class="vc-composer-icon vc-c-icon-' . $layout['icon_class'] . '"></i></a> ';
+    // }
+
+    // $controls_layout .= '<br/><a class="vc_control-set-column set_columns custom_columns" data-cells="custom" data-cells-mask="custom" title="' . esc_attr__( 'Custom layout', 'js_composer' ) . '">' . esc_html__( 'Custom', 'js_composer' ) . '</a> ';
+
+    // $controls_layout .= '</span>';
+
+    // return $controls_layout;
+
+    $layoutsList = [];
+
+    foreach ($layouts as $layout) {
+      $layoutsList[] = sprintf(
+        '<a class="vc_control-set-column set_columns" data-cells="%s" data-cells-mask="%s" title="%s"><i class="vc-composer-icon vc-c-icon-%s"></i></a>',
+        $layout['cells'], 
+        $layout['mask'], 
+        $layout['title'], 
+        $layout['icon_class']
+      );
     }
 
-    $controls_layout .= '<br/><a class="vc_control-set-column set_columns custom_columns" data-cells="custom" data-cells-mask="custom" title="' . esc_attr__( 'Custom layout', 'js_composer' ) . '">' . esc_html__( 'Custom', 'js_composer' ) . '</a> ';
+    $customLayout = sprintf(
+      '<a class="vc_control-set-column set_columns custom_columns" data-cells="custom" data-cells-mask="custom" title="%s">%s</a>', 
+      esc_attr__('Custom layout', 'js_composer'), 
+      esc_html__('Custom', 'blankcanvas')
+    );
 
-    $controls_layout .= '</span>';
-
-    return $controls_layout;
+    return sprintf(
+      '<span class="vc_row_layouts vc_control">%s<br/>%s</span>', 
+      implode('', $layoutsList), 
+      $customLayout
+    );
   }
 }

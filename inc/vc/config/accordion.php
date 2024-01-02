@@ -6,12 +6,12 @@ return [
   'base' => 'accordion',
   'php_class_name' => 'Blankcanvas\Vc\Shortcodes\Accordion',
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
-  'class' => 'wpb_vc_tta_accordion bc-element',
+  'class' => 'wpb_vc_tta_accordion bc-accordion bc-element',
   'icon' => 'icon-wpb-ui-accordion',
   'is_container' => true,
   'show_settings_on_create' => false,
   'as_child' => [
-    'only' => 'column',
+    'only' => 'vc_column',
   ],
   'js_view' => 'VcBackendTtaAccordionView',
   'custom_markup' => 

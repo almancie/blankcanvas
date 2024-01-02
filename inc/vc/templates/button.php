@@ -31,10 +31,8 @@ if ($size) {
   $classes[] = sprintf('btn-%s', $size);
 }
 
-// Style & color
-if ($color) {
-  $classes[] = sprintf('btn-%s%s', $style ? $style . '-' : '', $color);
-}
+// Style
+$classes[] = sprintf('btn%s%s', $style ? '-' . $style : '', $color ? '-' . $color : '');
 
 if ($icon) {
   // $classes[] = 'btn-has-icon';
@@ -94,6 +92,9 @@ $classes = apply_filters(
 if (! empty($classes)) {
   $attributes[] = sprintf('class="%s"', trim($classes));
 }
+
+// Remove empty HTML tags
+$content = preg_replace('/<(.*)><\/\1>/', '', $content);
 
 // Output
 return sprintf(

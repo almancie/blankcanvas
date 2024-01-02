@@ -8,8 +8,8 @@
 */
 
 .section {
-  --section-spacing: 8rem;
-  --title-margin-bottom: 8rem;
+  --section-spacing: 10rem;
+  --title-margin-bottom: 6rem;
   padding-top: var(--section-spacing);
 }
 
@@ -105,13 +105,24 @@ $icon-sizes: (
   md: 32px,
   lg: 48px,
   xl: 64px,
-  xxl: 96px,
+  xxl: 80px,
+  xxxl: 96px,
 );
+
+// $icon-sizes: (
+//   sm: 24px,
+//   md: 32px,
+//   lg: 42px,
+//   xl: 56px,
+//   xxl: 74px,
+//   xxxl: 100px,
+// );
 
 .icon {
   aspect-ratio: 1/1;
   height: auto;
   width: map-get($icon-sizes, 'md');
+  pointer-events: none;
 }
 
 @each $size, $value in $icon-sizes {
@@ -147,16 +158,54 @@ $font-sizes: (
   lg: 1.5rem,
   xl: 2rem,
   xxl: 3rem,
-);
-
-.bi {
-  font-size: map-get($font-sizes, 'md');
-}
-
-@each $size, $value in $font-sizes {
+  );
+  
+  .bi {
+    font-size: map-get($font-sizes, 'md');
+  }
+  
+  @each $size, $value in $font-sizes {
   .bi-#{$size} {
     font-size: #{$value};
   }
+}
+
+/*
+|--------------------------------------------------------------------------
+| Tabs
+|--------------------------------------------------------------------------
+|
+| 
+|
+*/
+
+.nav-links-animated {
+  margin-bottom: 10px;
+}
+
+.nav-links-animated .animatab-highlighter::before {
+  width: 10px;
+  height: 10px;
+  background-color: var(--primary);
+  top: 50%;
+  inset-inline-start: 0;
+  translate: -50% -50%;
+  border-radius: 50%;
+}
+
+.nav-links-animated .nav-item {
+  margin-inline-end: 2.5rem;
+}
+
+.nav-links-animated .nav-link {
+  padding: 1rem 1.25rem;
+  font-size: 1.5rem;
+  letter-spacing: -1px;
+  color: var(--body-color);
+}
+
+.nav-links-animated .nav-link.active {
+  color: var(--primary);
 }
 
 /*
@@ -169,9 +218,7 @@ $font-sizes: (
 */
 
 .btn {
-  // --btn-gap: calc(var(--btn-padding-x) * .75);
   --btn-gap: 1.25rem;
-  // --btn-font-size: 1.25rem;
   display: inline-flex;
   align-items: center;
   gap: var(--btn-gap);
@@ -184,6 +231,7 @@ $font-sizes: (
   justify-content: center;
   align-items: center;
   font-size: calc(var(--btn-font-size) + .5rem);
+  pointer-events: none;
 }
 
 .btn-icon:before {
@@ -198,42 +246,75 @@ $font-sizes: (
   stroke: var(--svg-stroke);
 }
 
-// .btn-icon-emphasis,
-// .btn-icon-emphasis-end {
-//   --btn-icon-gap: .35rem;
-//   margin-top: calc(var(--btn-padding-y) * -1 + var(--btn-icon-gap));
-//   margin-bottom: calc(var(--btn-padding-y) * -1 + var(--btn-icon-gap));
-//   padding: 1rem;
-//   border-radius: var(--btn-border-radius);
-// }
+.btn-body {
+  @include button-variant(
+    $dark,
+    $dark,
+    $hover-background: tint-color($dark, $btn-hover-bg-tint-amount),
+    $hover-border: tint-color($dark, $btn-hover-border-tint-amount),
+    $active-background: tint-color($dark, $btn-active-bg-tint-amount),
+    $active-border: tint-color($dark, $btn-active-border-tint-amount)
+    );
+    --svg-fill: var(--btn-color);
+  }
 
-// .btn-icon-emphasis {
-//   margin-inline-start: calc(var(--btn-padding-x) * -1 + var(--btn-icon-gap));
-// }
+  .btn-outline-body {
+    @include button-outline-variant($dark);
+    --svg-fill: var(--btn-color);
+  }
 
-// .btn-icon-emphasis-end {
-//   margin-inline-end: calc(var(--btn-padding-x) * -1 + var(--btn-icon-gap));
-// }
-
-@each $color, $value in $theme-colors {
-  .btn-#{$color}:hover {
+  .btn-body:hover,
+  .btn-outline-body:hover {
     --svg-fill: var(--btn-hover-color);
-    --svg-stroke: var(--btn-color);
+    --svg-stroke: var(--btn-hover-color);
   }
   
-  .btn-#{$color}:active {
+  .btn-body:active,
+  .btn-outline-body:active {
     --svg-fill: var(--btn-active-color);
-    --svg-stroke: var(--btn-color);
+    --svg-stroke: var(--btn-active-color);
   }
+  
+  @each $color, $value in $theme-colors {
+    .btn-#{$color}:hover,
+    .btn-outline-#{$color}:hover {
+      --svg-fill: var(--btn-hover-color);
+      --svg-stroke: var(--btn-hover-color);
+    }
+    
+    .btn-#{$color}:active,
+    .btn-outline-#{$color}:active {
+      --svg-fill: var(--btn-active-color);
+      --svg-stroke: var(--btn-active-color);
+    }
+}
 
-  // .btn-#{$color} .btn-icon-emphasis,
-  // .btn-#{$color} .btn-icon-emphasis-end {
-  //   // color: var(--btn-bg);
-  //   @if color-contrast($value) == $color-contrast-dark {
-  //     color: $color-contrast-light;
-  //   } @else {
-  //     color: $color-contrast-dark;
-  //   }
-  //   background-color: var(--btn-color);
-  // }
+.btn-iconic {
+  // --btn-padding-x: 1.5rem;
+  // --btn-padding-y: 1.5rem;
+  // --btn-font-size: 1.5rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  aspect-ratio: 1 / 1;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Figure
+|--------------------------------------------------------------------------
+|
+| 
+|
+*/
+
+.figure-iconic {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* padding: 1rem; */
+  width: 100px;
+  aspect-ratio: 1 / 1;
 }

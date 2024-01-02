@@ -2,7 +2,7 @@
 
 namespace Blankcanvas\Vc\Shortcodes;
 
-class Column extends \WPBakeryShortCode_Vc_Column {
+class VcColumn extends \WPBakeryShortCode_Vc_Column {
 
   /**
    * Create instance

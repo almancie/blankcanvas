@@ -15,13 +15,38 @@
   wp_body_open(); ?>
 
   <div class="site">
-    <header class="site-header">
+
+    <!-- <div class="blobs" data-blob-follow="true">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+    </div> -->
+
+    <header class="site-header p-3">
       <div class="container-fluid">
-        <div class="row px-4 py-2">
+        <div class="row">
 
           <!-- Menu -->
           <div class="col-3 d-flex align-items-center position-relative main-navigation-col">
             <nav class="navbar navbar-expand-lg main-navigation d-flex align-items-center justify-content-center">
+              <!-- <button 
+                aria-controls="offcanvasMenu" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu"
+                class="bc-menu-btn btn btn-outline-primary btn-iconic me-2" 
+              >
+                <div class="bc-menu-btn-icon">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </button>
+              <a 
+                href="" title="" target="" rel="" 
+                class="btn btn-primary me-1 btn-iconic" 
+                style="--btn-padding-x: 2.25rem; --btn-font-size: 1.25rem; --btn-font-weight: 600; letter-spacing: 0px; text-wrap: nowrap;" 
+                data-transition="fadeEnd" data-transition-delay="1000"
+              >
+                get in touch
+              </a> -->
               <button 
                 type="button" 
                 class="bc-menu-btn btn btn-outline-primary border-0 header-btn p-0 d-flex flex-center d-lg-none" 
@@ -33,7 +58,7 @@
                   <span></span>
                 </div>
               </button>
-              <div class="offcanvas" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
+              <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
                 <!-- <div class="offcanvas-header">
                   Menu
                 </div> -->
@@ -53,13 +78,13 @@
           </div>
 
           <!-- Logo -->
-          <div class="col-6 d-flex align-items-center justify-content-center">
-            <div class="site-branding fs-4" style="letter-spacing: -2px">
+          <div class="col-6 d-flex flex-center">
+            <div class="site-branding fs-4 text-capitalize">
 
               <?php
               // the_custom_logo(); ?>
               <!-- blank <span class="px-2 pb-1 border border-2 border-dark ms-1">canvas</span> -->
-              blank canvas
+              BC
 
             </div>
           </div>
@@ -82,7 +107,7 @@
               <input class="theme-toggle form-check-input mt-0" type="checkbox" id="theme-toggle-theme-toggle-switch">
             </div> -->
             <div class="theme-toggle d-flex" aria-label="auto" aria-live="polite">
-              <img class="icon icon-lg stroke-body me-2" data-svg src="http://localhost/wp/wp-content/uploads/2023/11/lamp-1-svgrepo-com.svg">
+              <i class="icon icon-lg stroke-body me-3" data-svg="http://localhost/wp/wp-content/uploads/2023/11/lamp-1-svgrepo-com.svg"></i>
               <label class="theme-toggle-switch d-flex align-items-center">
                 <input class="theme-toggle-input d-none" type="checkbox" role="theme-toggle-switch" />
                 <div class="btn btn-outline-body light me-1">on</div>

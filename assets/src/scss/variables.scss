@@ -76,44 +76,31 @@ $min-contrast-ratio:   3;
 // $color-contrast-light:     $white !default;
 
 // scss-docs-start theme-color-variables
-$primary:       #fff083;
-// $primary:       #f5a828;
-// $primary:       #cdccf4;
-// $primary:       #FFD28F;
-// $primary:       #913175;
-// $primary:       #48e5c2;
-// $primary:       #06d6a0;
-$secondary:     #8691e1;
-// $primary:       #c9184a;
-// $tertiary:      #c5283d;
-// $primary:       #E76161;
-// $secondary:     $gray-600;
-// $secondary:     #ff9767;
 $success:       $green;
 $info:          $cyan;
 $warning:       $yellow;
 $danger:        $red;
-$light:         #ffffff;
-$dark:          #111111;
-// $dark:          #2B2730;
-// $dark:          #072541;
+// $primary:       #f7da01;
+// $primary:       #ff6433;
+// $secondary:     #20a178;
+$primary:       #b19777;
+$secondary:     #b19777;
+// $tertiary:      #fff083;
+$light:         #f8f1de;
+$dark:          #141414;
 // scss-docs-end theme-color-variables
 
 // scss-docs-start theme-colors-map
 $theme-colors: (
   "primary":         $primary,
-  // "primary-light":   tint-color($primary, 40%),
-  // "primary-dark":    shade-color($primary, 40%),
   "secondary":       $secondary,
-  // "secondary-light": tint-color($secondary, 40%),
-  // "secondary-dark":  shade-color($secondary, 40%),
   // "tertiary":        $tertiary,
-  // "tertiary-light": tint-color($tertiary, 40%),
-  // "tertiary-dark":  shade-color($tertiary, 40%),
   // "success":         $success,
   // "info":            $info,
   // "warning":         $warning,
   // "danger":          $danger,
+  // "primary-light":   tint-color($primary, 40%),
+  // "primary-dark":    shade-color($primary, 40%),
   "light":           $light,
   "dark":            $dark
 );
@@ -287,7 +274,7 @@ $link-decoration:                         none;
 //
 // Style p element.
 
-$paragraph-margin-bottom:   1.5rem;
+$paragraph-margin-bottom:   1rem;
 
 
 // Grid breakpoints
@@ -316,14 +303,14 @@ $grid-breakpoints: (
 // Define the maximum width of `.container` for different screen sizes.
 
 // scss-docs-start container-max-widths
-// $container-max-widths: (
-//   sm: 540px,
-//   md: 720px,
-//   lg: 960px,
-//   xl: 1140px,
-//   xxl: 1320px,
-//   // xxxl: 1500px
-// );
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1360px,
+  // xxxl: 1500px
+);
 // $container-max-widths: (
 //   sm: 540px,
 //   md: 720px,
@@ -354,7 +341,7 @@ $grid-breakpoints: (
 // Define common padding and border radius sizes and more.
 
 // scss-docs-start border-variables
-$border-width:                1px;
+$border-width:                2px;
 // $border-widths: (
 //   1: 1px,
 //   2: 2px,
@@ -363,7 +350,7 @@ $border-width:                1px;
 //   5: 5px
 // ) !default;
 // $border-style:                solid !default;
-$border-color:                rgba(var(--body-color-rgb), .15);
+$border-color:                rgba(var(--body-color-rgb), .35);
 // $border-color-translucent:    rgba($black, .175) !default;
 // scss-docs-end border-variables
 
@@ -449,7 +436,7 @@ $font-weight-lighter:         200;
 // $font-weight-bold:            700 !default;
 $font-weight-bolder:          800;
 
-// $font-weight-base:            $font-weight-normal !default;
+$font-weight-base:            300;
 
 // $line-height-base:            1.175;
 // $line-height-sm:              1;

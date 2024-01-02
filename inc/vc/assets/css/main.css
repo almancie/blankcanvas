@@ -12,7 +12,7 @@
   z-index: 1;
 }
 
-[class*="-spill"],
+/* [class*="-spill"],
 [class*="-spill"].vc_parallax {
   overflow-x: visible;
   overflow-y: clip;
@@ -37,4 +37,4 @@
 
 [class*="-spill"].vc_parallax:after {
   content: none;
-}
+} */

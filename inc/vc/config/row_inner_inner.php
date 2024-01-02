@@ -1,7 +1,7 @@
 <?php
 
 return [
-  'name' => esc_html__('Row', 'blankcanvas'),
+  'name' => esc_html__('Row 2', 'blankcanvas'),
   'description' => esc_html__('Place content elements inside the row', 'js_composer'),
   'base' => 'row_inner_inner',
   'php_class_name' => 'Blankcanvas\Vc\Shortcodes\RowInnerInner',
@@ -10,11 +10,11 @@ return [
   'class' => 'wpb_vc_row bc-row bc-element',
   'is_container' => true,
   'as_child' => [
-    'only' => 'column_inner'
+    'only' => 'vc_column_inner'
   ],
   'show_settings_on_create' => false,
   'js_view' => 'VcRowView', // Allows us to reorder columns
-  'default_content' => '[vc_column][/vc_column]', // Changing row layout creates vc_column that is why we default to it and then change it with JS.
+  'default_content' => '[column_inner_inner][/column_inner_inner]', // Changing row layout creates vc_column that is why we default to it and then change it with JS.
   'params' => [
     [
       'type' => 'dropdown',

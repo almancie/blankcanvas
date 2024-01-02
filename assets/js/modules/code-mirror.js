@@ -1,3 +1,5 @@
+// We put this script under assets instread of vc (WPBakery) because
+// we are using it for contact form 7 as well.
 export default function(field, settings = {}) {
 
   // Check if exists
@@ -13,7 +15,7 @@ export default function(field, settings = {}) {
     continueComments: true,
     autoCloseBrackets: true,
     styleActiveLine: true,
-    
+
     lineWrapping: true,
     foldGutter: true,
     gutters: ["CodeMirror-lint-markers","CodeMirror-linenumbers", "CodeMirror-foldgutter"],
@@ -72,6 +74,8 @@ export default function(field, settings = {}) {
 
   // Stamp as initilized.
   field.setAttribute('data-init', true);
+
+  field.editor = editor;
 
   return editor;
 }

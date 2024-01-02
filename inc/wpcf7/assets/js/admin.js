@@ -1,4 +1,4 @@
-import codeMirror from '../../../../assets/js/modules/codeMirror.js';
+import codeMirror from '../../../../assets/js/modules/code-mirror.js';
 
 window.addEventListener('load', () => {
   const cf7Field = document.querySelector('#wpcf7-form');

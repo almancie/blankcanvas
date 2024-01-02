@@ -70,30 +70,30 @@ vc_set_shortcodes_templates_dir(THEME_DIR . '/inc/vc/templates');
 */
 
 $elements = [
-  'section', 
-  'row', 
-  'column', 
-  'row_inner', 
-  'column_inner',
+  'vc_section',         // Had to override it to avoid issues
+  'vc_row',             // Had to override it to avoid issues
+  'vc_column',          // Had to override it to avoid issues
+  'vc_row_inner',       // Had to override it to avoid issues
+  'vc_column_inner',    // Had to override it to avoid issues
   'row_inner_inner', 
-  'column_inner_inner', 
+  'column_inner_inner',
   'tabs', 
   'panel', 
   'accordion', 
   'accordion_item', 
   'image', 
-  // 'bootstrap_icon', 
   'text',
   'button',
-  // 'advanced_list',
-  // 'advanced_list_item',
-  'html',
   'glide',
+  'html',
   'glide_slide',
-  // 'group',
-  // 'group_column',
   'lottie_player',
   'video_player'
+  // 'bootstrap_icon', 
+  // 'advanced_list',
+  // 'advanced_list_item',
+  // 'group',
+  // 'group_column',
 ];
 
 add_action('vc_before_init', function() use ($elements) {
@@ -238,7 +238,11 @@ add_filter('vc_shortcode_content_filter_after', function ($output, $shortcode, $
  */
 add_filter('vc_shortcode_content_filter_after', function ($output, $shortcode, $atts, $content) use (&$style) {  
   if (! empty($atts['custom_css'])) {
-    $style[] = $atts['custom_css'];
+
+    // Decode
+    $customCss = urldecode(base64_decode($atts['custom_css']));
+
+    $style[] = $customCss;
   }
 
   return $output;
@@ -286,7 +290,6 @@ add_filter('vc_shortcode_content_filter_after', function ($output, $shortcode, $
 
   $transitionAtts = shortcode_atts([
     'transition' => '',
-    'transition_out' => '',
     'transition_duration' => '',
     'transition_delay' => '',
     'transition_anchor' => '',

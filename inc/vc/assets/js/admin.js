@@ -1,7 +1,10 @@
-import codeMirror from '../../../../assets/js/modules/codeMirror.js';
+import codeMirror from '../../../../assets/js/modules/code-mirror.js';
 import grapick from './modules/grapick.js';
 
-window.addEventListener('load', () => {
+/**
+ * On content load
+ */
+window.addEventListener('DOMContentLoaded', () => {
   if (! window.vc) return;
 
   // Prepare bcWPBakery from local storage
@@ -26,17 +29,17 @@ window.addEventListener('load', () => {
     // 'group': true
   };
 
-  const containers = {
-    ...rows,
-    'tabs': 'panel',
-    'accordion': 'accordion_item',
-  };
+  // const containers = {
+  //   ...rows,
+  //   'tabs': 'panel',
+  //   'accordion': 'accordion_item',
+  // };
 
-  VcRowView.prototype.sortingSelector += `, 
-    > [data-element_type=column], 
-    > [data-element_type=column_inner], 
-    > [data-element_type=column_inner_inner], 
-    > [data-element_type=glide_slide]`;
+  // VcRowView.prototype.sortingSelector += `, 
+  //   > [data-element_type=column], 
+  //   > [data-element_type=column_inner], 
+  //   > [data-element_type=column_inner_inner], 
+  //   > [data-element_type=glide_slide]`;
 
   /**
    * Elements title
@@ -109,61 +112,59 @@ window.addEventListener('load', () => {
   /**
    * Alternate elements colors (white/silver)
    */
-  vc.events.on('shortcodeView:ready', function(view) {
-    const element = view.$el;
+  // vc.shortcodes.on('shortcodes:add', function(collection) {
+  //   console.log(123);
+  //   if (collection.models === undefined) {
+  //     collection = [collection];
+  //   }
 
-    const attributes = view.model.attributes;
+  //   collection.forEach(model => {
+  //     const element = model.view.$el;
+    
+  //     const attributes = model.view.model.attributes;
+  
+  //     if (['vc_section', 'vc_row'].includes(attributes.shortcode)) return;
+  
+  //     // If column, match it with parent.
+  //     const parent = vc.app.views[attributes.parent_id];
 
-    if (['vc_section', 'vc_row', 'section'].includes(attributes.shortcode)) return;
+  //     // if (! parent) return;
+  
+  //     const parentShortcode = parent.model.attributes.shortcode;
+  
+  //     if (containers[parentShortcode] && typeof containers[parentShortcode] === 'string') {
+  //       element.attr('data-alternate', parent.$el.data('alternate'));
+  
+  //       return;
+  //     }
+  
+  //     element.attr('data-alternate', ! parent.$el.data('alternate'));
+  //   })
+  // });
 
-    const parent = vc.app.views[attributes.parent_id];
-
-    // If column, match it with parent.
-    const parentShortcode = parent.model.attributes.shortcode;
-
-    if (containers[parentShortcode] && typeof containers[parentShortcode] === 'string') {
-      element.attr('data-alternate', parent.$el.data('alternate'));
-
-      return;
-    }
-
-    element.attr('data-alternate', ! parent.$el.data('alternate'));
-  });
 
   /**
    * Open edit window on [Style] tab when double clicking an element
    */
   vc.events.on('shortcodeView:ready', function(view) {
+    console.log('ready');
     view.$el.on('dblclick', e => {
       e.stopPropagation();
       
-      vc.edit_element_block_view.once('afterRender', function () {
-        this.$tabsMenu.find(':contains("Style")').find('button').click();
-
-        const cssInput = this.$el.find('[name="el_class"]');
-
-        setTimeout(() => {
-          const cssInputLength = cssInput.val().length;
-
-          cssInput.focus();
-
-          cssInput[0].setSelectionRange(cssInputLength, cssInputLength);
-        }, 100);
-      });
-
       view.editElement();
     });
   });
-
+  
   /**
    * Hide / Show Element
-   */
-  vc.events.on('shortcodes:add shortcodes:update shortcodes:sync', function(model) {
+  */
+ vc.events.on('shortcodes:update shortcodes:sync', function(model) {
+    console.log(model);
     let el = model.view.el;
 
-    let disableElement = model.attributes.params.disable_element;
+    let value = model.attributes.params.disable_element;
 
-    el.setAttribute('data-element-disabled', disableElement === 'yes');
+    el.setAttribute('data-element-disabled', value === 'yes');
 
     // We have to remove them and rely on our data attribute 
     // because they use !important and cannot be overridden.
@@ -175,66 +176,66 @@ window.addEventListener('load', () => {
    * 
    * Creates new section
    */ 
-  vc.events.on('shortcodes:section:add', function(model) {
-    let colModel = vc.shortcodes.get(model.attributes.parent_id);
+  // vc.events.on('shortcodes:section:add', function(model) {
+  //   let colModel = vc.shortcodes.get(model.attributes.parent_id);
 
-    if (! colModel) return;
+  //   if (! colModel) return;
 
-    vc.shortcodes.create({
-      shortcode: 'section',
-      oldRowModel: vc.shortcodes.get(colModel.attributes.parent_id)
-    });
-  });
+  //   vc.shortcodes.create({
+  //     shortcode: 'section',
+  //     oldRowModel: vc.shortcodes.get(colModel.attributes.parent_id)
+  //   });
+  // });
 
-  /**
-   * Section View
-   * 
-   * Removes old section
-   */ 
-  vc.events.on('shortcodeView:ready:section', function(view) {
-    if (! view.model.attributes.oldRowModel) return;
+  // /**
+  //  * Section View
+  //  * 
+  //  * Removes old section
+  //  */ 
+  // vc.events.on('shortcodeView:ready:section', function(view) {
+  //   if (! view.model.attributes.oldRowModel) return;
 
-    // Remove old row model.
-    view.model.attributes.oldRowModel.attributes.destroy();
-  });
+  //   // Remove old row model.
+  //   view.model.attributes.oldRowModel.attributes.destroy();
+  // });
 
   /**
    * Column
-   */ 
+   */
   vc.events.on('shortcodes:vc_column:add', function(model) {
-    let parent = vc.shortcodes.get(model.attributes.parent_id).attributes.shortcode;
+    // let parent = vc.shortcodes.get(model.attributes.parent_id).attributes.shortcode;
 
-    if (! rows[parent]) return;
+    // if (! rows[parent]) return;
 
-    // Update shortcode
-    model.attributes.shortcode = rows[parent];
+    // // Update shortcode
+    // model.attributes.shortcode = rows[parent];
 
-    let widths = ['xxl', 'xl', 'lg', 'md', 'sm', 'default'];
+    // let widths = ['xxl', 'xl', 'lg', 'md', 'sm', 'default'];
 
-    widths.forEach(name => {
-      delete model.attributes.params[`width_${name}`];
-    });
+    // widths.forEach(name => {
+    //   delete model.attributes.params[`width_${name}`];
+    // });
 
     // A bug :/
-    const buggyAttributes = [
-      'video_bg_url',
-      'parallax_speed_video', 
-      'parallax_speed_bg'
-    ];
+    // const buggyAttributes = [
+    //   'video_bg_url',
+    //   'parallax_speed_video', 
+    //   'parallax_speed_bg'
+    // ];
 
     // Remove extra params
-    for (let param in model.attributes.params) {
+    // for (let param in model.attributes.params) {
 
-      // Empty
-      if (! model.attributes.params[param]) {
-        delete model.attributes.params[param];
-      }
+    //   // Empty
+    //   if (! model.attributes.params[param]) {
+    //     delete model.attributes.params[param];
+    //   }
 
-      // Non existing
-      if (model.attributes.shortcode !== 'row' && buggyAttributes.includes(param)) {
-        delete model.attributes.params[param];
-      }
-    }
+    //   // Non existing
+    //   // if (model.attributes.shortcode !== 'row' && buggyAttributes.includes(param)) {
+    //   //   delete model.attributes.params[param];
+    //   // }
+    // }
 
     if (model.attributes.shortcode === 'glide_slide') {
       model.attributes.params.width = '1/3';
@@ -372,24 +373,253 @@ window.addEventListener('load', () => {
   });
 
   /**
+   * Elements toggle
+   */
+  // VcRowView.prototype.events['click > .vc_controls [data-vc-control="toggle"]'] = "toggleElementAndSave";
+
+  // VcRowView.prototype.toggleElementAndSave = function (e) {
+  //   e && e.preventDefault && e.preventDefault();
+
+  //   this.toggleElement();
+
+  //   let toggleElements = bcWPBakery.toggleElements;
+
+  //   const index = toggleElements.indexOf(this.model.cid);
+
+  //   // If does not exist, add it.
+  //   if (index === -1) {
+  //     toggleElements.push(this.model.cid);
+  //   } else {
+  //     delete toggleElements[index];
+
+  //     bcWPBakery.toggleElements = toggleElements.filter(id => id);
+  //   }
+
+  //   updateBcWPBakery();
+  // }
+
+  /**
+   * Elements toggle on load
+   */
+
+  // vc.events.on('app.addAll', () => {
+  //   bcWPBakery.toggleElements.forEach(id => {
+  //     const model = vc.shortcodes.get(id);
+
+  //     // Does not work because changing elements order changes the id.
+  //     console.log(model.view);
+
+  //     model.view?.toggleElement();
+  //   });
+  // });
+
+  /**
+   * Elements edit panel
+   * 
+   * Work around to allow saving while keeping the edit panel open if needed
+   */
+  // vc.edit_element_block_view.hide = () => {
+  //   // if (this.stay) {
+  //   //   return vc.app.preview();
+  //   // }
+
+  //   vc.EditElementPanelView.__super__.hide.call(this);
+  // };
+
+  /**
+   * Keyboard save shortcut
+   */
+  // document.addEventListener('keydown', e => {
+  //   if (! (e.ctrlKey && e.key !== 's')) return;
+
+  //   if (! vc.edit_element_block_view.isVisible()) return;
+
+  //   e.preventDefault();
+
+  //   vc.edit_element_block_view.stay = true;
+    
+  //   // This saves and closes the panel
+  //   vc.edit_element_block_view.save();
+
+  //   delete vc.edit_element_block_view.stay;
+  // });
+
+  /**
+   * Elements filter
+   */
+  // Add checkbox
+  document.querySelector('.vc_ui-panel-header-actions').innerHTML +=
+    `<div class="elements-filter" style="margin-top: 1rem">
+      <input type="checkbox" id="bc-elements-filter">
+      <label for="bc-elements-filter">Hide WPBakery Elements</label>
+    </div>`;
+
+    
+  const toggleVcElements = (value) => {
+    document.querySelector('.elements-filter input').checked = value;
+    
+    // VC elements
+    const vcElements = Array.prototype.filter.call(
+      document.querySelectorAll('.wpb-elements-list [data-element]'), 
+      // element => element.dataset.element.slice(0, 3) === 'vc_'
+      element => ! element.classList.contains('bc-element_o')
+    );
+  
+    vcElements.forEach(element => {
+      element.classList.toggle('element-hidden', value);
+    });
+  }
+
+  // Hide VC elements on load
+  if (bcWPBakery.bcElementsOnly) {
+    toggleVcElements(true);
+  }
+
+  // Add onchange listener
+  document.querySelector('.elements-filter').onchange = (e) => {
+    const active = e.target.checked;
+    
+    bcWPBakery.bcElementsOnly = active;
+    
+    updateBcWPBakery();
+
+    toggleVcElements(active);
+  }
+
+  /**
+   * Context menu
+   */
+  const contextMenu = CtxMenu('#wpbakery_content');
+
+  const getModel = element => vc.shortcodes.get(element.closest('[data-element_type]').dataset.modelId);
+
+  contextMenu.addEventListener('open', function() {
+    this.menuContainer.dataset.element = getModel(this._elementClicked);
+  })
+  
+  // Enable / disable element
+  contextMenu.addItem("Disable / Enable", element => {    
+    const model = getModel(element);
+    
+    const value = model.attributes.params.disable_element;
+    
+    if (value === 'yes') {
+      delete model.attributes.params.disable_element;
+    } else {
+      model.attributes.params.disable_element = 'yes';
+    }
+    
+    // vc.storage.update(model);
+    model.save();
+    vc.events.trigger("shortcodes:update", model);
+  });
+
+  contextMenu.addSeparator();
+  
+  // Copy
+  contextMenu.addItem("Copy", element => {
+    getModel(element).view.copy();
+  });
+
+  // Paste
+  contextMenu.addItem("Paste", element => {
+    getModel(element).view.paste();
+  });
+
+  // Clone
+  contextMenu.addItem("Clone", element => {
+    getModel(element).view.clone();
+  });
+
+  contextMenu.addSeparator();
+  
+  // Copy style
+  contextMenu.addItem("Copy style", element => {
+    navigator.clipboard.writeText(getModel(element).attributes.params.custom_css);
+  });
+
+  // Paste style
+  contextMenu.addItem("Paste style", element => {    
+    vc.edit_element_block_view.once('afterRender', function () {
+      this.$tabsMenu.find(':contains("Style")').find('button').click();
+
+      const style = this.$el.find('[name="custom_css"]');
+      
+      navigator.clipboard.readText().then(clipText => style[0].editor.setValue(clipText));
+      
+      setTimeout(() => style[0].editor.focus(), 100);
+    });
+    
+    getModel(element).view.editElement();
+  });
+
+  contextMenu.addSeparator();
+
+  // Copy class
+  contextMenu.addItem("Copy class", element => {
+    navigator.clipboard.writeText(getModel(element).attributes.params.el_class);
+  });
+  
+  // Paste class
+  contextMenu.addItem("Paste class", element => {    
+    vc.edit_element_block_view.once('afterRender', function () {
+      this.$tabsMenu.find(':contains("Style")').find('button').click();
+      
+      const cssInput = this.$el.find('[name="el_class"]')
+      
+      navigator.clipboard.readText().then(clipText => cssInput.val(clipText));
+      
+      setTimeout(() => {
+        cssInput.focus();
+        const inputLength = cssInput.val().length;
+        cssInput[0].setSelectionRange(inputLength, inputLength);
+      }, 100);
+    });
+    
+    getModel(element).view.editElement();
+  });
+
+  // Change section order
+  // contextMenu.addItem("Change section order", element => {    
+  //   const model = getModel(element);
+
+  //   const section = vc.shortcodes.get(model.attributes.root_id);
+
+  //   // vc.storage.update(model);
+    
+  //   const value = parseInt(prompt("Order:"));
+
+  //   section.attributes.order = value;
+
+  //   console.log(section);
+
+  //   section.save();
+  //   // vc.events.trigger("shortcodes:update", model);
+  // });
+  
+});
+
+/**
+ * On scripts load
+*/
+window.addEventListener('load', () => {
+  if (! window.vc) return;
+
+  /**
    * Coding fields
    */
   vc.edit_element_block_view.on('afterRender', function () {
     const shortcode = this.model.attributes.shortcode;
 
     const settings = {
-      html: [
-        {
-          field: '[name="content"]', 
-          options: {mode: 'htmlmixed'}
-        }
-      ],
-      glide: [
-        {
-          field: '[name="config"]',  
-          options: {}
-        }
-      ]
+      html: {
+        field: '[name="content"]', 
+        options: {mode: 'htmlmixed'}
+      },
+      glide: {
+        field: '[name="config"]',  
+        options: {}
+      }
     };
 
     settings[shortcode]?.forEach(setting => {
@@ -438,104 +668,6 @@ window.addEventListener('load', () => {
 
     grapick(this.$el.find(`[name="${field}"]`));
   });
-
-  /**
-   * Elements toggle
-   */
-  // VcRowView.prototype.events['click > .vc_controls [data-vc-control="toggle"]'] = "toggleElementAndSave";
-
-  // VcRowView.prototype.toggleElementAndSave = function (e) {
-  //   e && e.preventDefault && e.preventDefault();
-
-  //   this.toggleElement();
-
-  //   let toggleElements = bcWPBakery.toggleElements;
-
-  //   const index = toggleElements.indexOf(this.model.cid);
-
-  //   // If does not exist, add it.
-  //   if (index === -1) {
-  //     toggleElements.push(this.model.cid);
-  //   } else {
-  //     delete toggleElements[index];
-
-  //     bcWPBakery.toggleElements = toggleElements.filter(id => id);
-  //   }
-
-  //   updateBcWPBakery();
-  // }
-
-  /**
-   * Elements toggle on load
-   */
-
-  // vc.events.on('app.addAll', () => {
-  //   bcWPBakery.toggleElements.forEach(id => {
-  //     const model = vc.shortcodes.get(id);
-
-  //     // Does not work because changing elements order changes the id.
-  //     console.log(model.view);
-
-  //     model.view?.toggleElement();
-  //   });
-  // });
-
-  /**
-   * Keyboard shortcuts
-   */
-  document.addEventListener('keydown', e => {
-    if (e.ctrlKey && e.key === 's') {
-
-      // Prevent the Save dialog to open
-      e.preventDefault();
-      
-      // Place your code here
-      if (vc.edit_element_block_view.isVisible()) {
-        vc.edit_element_block_view.$el.find('[data-vc-ui-element="button-save"]').click();
-      }
-    }
-  });
-
-  /**
-   * Elements filter
-   */
-  // Add checkbox
-  document.querySelector('.vc_ui-panel-header-actions').innerHTML +=
-    `<div class="elements-filter" style="margin-top: 1rem">
-      <input type="checkbox" id="bc-elements-filter">
-      <label for="bc-elements-filter">Hide WPBakery Elements</label>
-    </div>`;
-
-    
-  const toggleVcElements = (value) => {
-    document.querySelector('.elements-filter input').checked = value;
-    
-    // VC elements
-    const vcElements = Array.prototype.filter.call(
-      document.querySelectorAll('.wpb-elements-list [data-element]'), 
-      element => element.dataset.element.slice(0, 3) === 'vc_'
-    );
-  
-    vcElements.forEach(element => {
-      element.classList.toggle('element-hidden', value);
-    });
-  }
-    
-  // Hide VC elements on load
-  if (bcWPBakery.bcElementsOnly) {
-    toggleVcElements(true);
-  }
-
-  // Add onchange listener
-  document.querySelector('.elements-filter').onchange = (e) => {
-    const active = e.target.checked;
-    
-    bcWPBakery.bcElementsOnly = active;
-    
-    updateBcWPBakery();
-
-    toggleVcElements(active);
-  }
 
   // Switch to WPBakery backend editor automatically.
   vc.events.trigger("vc:backend_editor:show");

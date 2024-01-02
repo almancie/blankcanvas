@@ -6,8 +6,8 @@ return [
   'php_class_name' => 'Blankcanvas\Vc\Shortcodes\Panel',
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
   'icon' => 'icon-wpb-ui-tta-section',
-  'class' => 'wpb_vc_tta_section bc-element',
-  'allowed_container_element' => 'row_inner',
+  'class' => 'wpb_vc_tta_section bc-container bc-panel bc-element',
+  'allowed_container_element' => 'vc_row_inner',
   "is_container" => true,
   'show_settings_on_create' => false,
   'as_child' => [

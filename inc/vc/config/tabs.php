@@ -7,11 +7,11 @@ return [
   'php_class_name' => 'Blankcanvas\Vc\Shortcodes\Tabs',
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
   'icon' => 'icon-wpb-ui-tab-content',
-  'class' => 'wpb_vc_tta_tabs bc-element',
+  'class' => 'wpb_vc_tta_tabs bc-tabs bc-element',
   'is_container' => true,
   'show_settings_on_create' => false,
   'as_child' => [
-    'only' => 'column',
+    'only' => 'vc_column',
   ],
   'js_view' => 'VcBackendTtaTabsView',
   'custom_markup' =>
