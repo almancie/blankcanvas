@@ -159,6 +159,10 @@ $utilities: map-merge(
 //   width: 50vw;
 // }
 
+.border-body {
+  --border-color: var(--body-color);
+}
+
 $theme-colors-with-body: map-merge($theme-colors, (
   body: var(--body-color)
 ));

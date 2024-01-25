@@ -22,12 +22,24 @@
       <div class="blob blob-3"></div>
     </div> -->
 
-    <header class="site-header p-3">
+    <header class="site-header p-4">
       <div class="container-fluid">
         <div class="row">
 
+        <!-- Logo -->
+          <div class="col-3 d-flex align-items-center">
+            <div class="site-branding">
+
+              <?php
+              // the_custom_logo(); ?>
+              <!-- blank <span class="px-2 pb-1 border border-2 border-dark ms-1">canvas</span> -->
+              BC
+
+            </div>
+          </div>
+
           <!-- Menu -->
-          <div class="col-3 d-flex align-items-center position-relative main-navigation-col">
+          <div class="col d-flex align-items-center justify-content-center position-relative main-navigation-col">
             <nav class="navbar navbar-expand-lg main-navigation d-flex align-items-center justify-content-center">
               <!-- <button 
                 aria-controls="offcanvasMenu" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu"
@@ -77,19 +89,7 @@
             </nav>
           </div>
 
-          <!-- Logo -->
-          <div class="col-6 d-flex flex-center">
-            <div class="site-branding fs-4 text-capitalize">
-
-              <?php
-              // the_custom_logo(); ?>
-              <!-- blank <span class="px-2 pb-1 border border-2 border-dark ms-1">canvas</span> -->
-              BC
-
-            </div>
-          </div>
-
-          <!-- Icons 1 -->
+          <!-- Theme -->
           <div class="col-3 d-flex align-items-center justify-content-end position-relative ms-auto">
             <!-- <div class="border-start position-absolute start-0 top-50 translate-middle-y" style="height: 45px;"></div> -->
             <!-- <div class="border overflow-hidden rounded-pill d-flex px-3 me-3">
@@ -107,7 +107,7 @@
               <input class="theme-toggle form-check-input mt-0" type="checkbox" id="theme-toggle-theme-toggle-switch">
             </div> -->
             <div class="theme-toggle d-flex" aria-label="auto" aria-live="polite">
-              <i class="icon icon-lg stroke-body me-3" data-svg="http://localhost/wp/wp-content/uploads/2023/11/lamp-1-svgrepo-com.svg"></i>
+              <i class="icon icon-lg svg-body me-2" data-svg="http://localhost/wp/wp-content/uploads/2023/11/lamp-1-svgrepo-com.svg"></i>
               <label class="theme-toggle-switch d-flex align-items-center">
                 <input class="theme-toggle-input d-none" type="checkbox" role="theme-toggle-switch" />
                 <div class="btn btn-outline-body light me-1">on</div>

@@ -8,9 +8,9 @@ return [
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
   'class' => 'wpb_vc_column bc-container bc-column bc-column-inner-inner bc-element',
   'is_container' => true,
-  'content_element' => false, 
+  'content_element' => false,
   'as_child' => [
-    'only' => 'row_inner_inner',
+    'only' => 'vc_row_inner_inner',
   ],
   'js_view' => 'VcColumnView',
   'params' => [

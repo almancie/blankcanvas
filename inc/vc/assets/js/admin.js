@@ -7,6 +7,12 @@ import grapick from './modules/grapick.js';
 window.addEventListener('DOMContentLoaded', () => {
   if (! window.vc) return;
 
+  // WPBakery storage
+  const vcStorage = {
+    fields: {},
+    elements: {},
+  };
+
   // Prepare bcWPBakery from local storage
   let bcWPBakeryDefaults = {
     // toggleElements: [],
@@ -147,7 +153,6 @@ window.addEventListener('DOMContentLoaded', () => {
    * Open edit window on [Style] tab when double clicking an element
    */
   vc.events.on('shortcodeView:ready', function(view) {
-    console.log('ready');
     view.$el.on('dblclick', e => {
       e.stopPropagation();
       
@@ -159,7 +164,6 @@ window.addEventListener('DOMContentLoaded', () => {
    * Hide / Show Element
   */
  vc.events.on('shortcodes:update shortcodes:sync', function(model) {
-    console.log(model);
     let el = model.view.el;
 
     let value = model.attributes.params.disable_element;
@@ -200,9 +204,9 @@ window.addEventListener('DOMContentLoaded', () => {
   // });
 
   /**
-   * Column
+   * Column + Inner Column
    */
-  vc.events.on('shortcodes:vc_column:add', function(model) {
+  vc.events.on('shortcodes:add', function(model) {
     // let parent = vc.shortcodes.get(model.attributes.parent_id).attributes.shortcode;
 
     // if (! rows[parent]) return;
@@ -237,16 +241,36 @@ window.addEventListener('DOMContentLoaded', () => {
     //   // }
     // }
 
+    if (['vc_column', 'vc_column_inner', 'column_inner_inner'].indexOf(model.attributes.shortcode) === -1) return;
+  
     if (model.attributes.shortcode === 'glide_slide') {
       model.attributes.params.width = '1/3';
 
       return;
     }
 
-    // Set width_default param
+    // // Set width_default param
     model.attributes.params.width_default = model.attributes.params.width;
 
-    model.view.render();
+    model.save();
+    
+    // model.view.render();
+  });
+
+  /**
+   * Inner Inner Column
+   */
+  vc.events.on('shortcodes:vc_column:add', function(model) {
+    let parent = vc.shortcodes.get(model.attributes.parent_id).attributes.shortcode;
+
+    if (parent !== 'row_inner_inner') return;
+
+    delete model.attributes.params.parallax;
+    delete model.attributes.params.parallax_speed_bg;
+
+    model.attributes.shortcode = 'column_inner_inner';
+
+    // model.view.render();
   });
 
   /**
@@ -496,7 +520,7 @@ window.addEventListener('DOMContentLoaded', () => {
   contextMenu.addEventListener('open', function() {
     this.menuContainer.dataset.element = getModel(this._elementClicked);
   })
-  
+
   // Enable / disable element
   contextMenu.addItem("Disable / Enable", element => {    
     const model = getModel(element);
@@ -515,69 +539,106 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 
   contextMenu.addSeparator();
-  
-  // Copy
-  contextMenu.addItem("Copy", element => {
-    getModel(element).view.copy();
-  });
 
-  // Paste
-  contextMenu.addItem("Paste", element => {
-    getModel(element).view.paste();
-  });
-
-  // Clone
-  contextMenu.addItem("Clone", element => {
-    getModel(element).view.clone();
-  });
-
-  contextMenu.addSeparator();
-  
   // Copy style
   contextMenu.addItem("Copy style", element => {
-    navigator.clipboard.writeText(getModel(element).attributes.params.custom_css);
+    const params = getModel(element).attributes.params;
+    vcStorage.fields.customCss = params.custom_css;
+    vcStorage.fields.elClass = params.el_class;
   });
 
   // Paste style
-  contextMenu.addItem("Paste style", element => {    
+  contextMenu.addItem("Paste style", element => {
+    // vc.edit_element_block_view.once('afterRender', function () {
+    //   this.$tabsMenu.find(':contains("Style")').find('button').click();
+
+    //   if (vcStorage.fields.elClass) {
+    //     this.$el.find('[name="el_class"]').val(vcStorage.fields.elClass);
+    //   }
+
+    //   if (vcStorage.fields.customCss) {
+    //     console.log(vcStorage.fields.customCss);
+    //     this.$el.find('[name="custom_css"]')[0].editor.setValue(decodeURIComponent(atob(vcStorage.fields.customCss)));
+    //   }
+    // });
+
+    const model = getModel(element);
+
+    model.attributes.params.el_class = vcStorage.fields.elClass;
+    model.attributes.params.custom_css = vcStorage.fields.customCss;
+
+    model.save();
+
+    element.closest('[data-model-id]').setAttribute('data-element-updated', 'true');
+
+    setTimeout(() => {
+      element.closest('[data-model-id]').removeAttribute('data-element-updated');
+    }, 1500);
+  });
+
+  // Paste style and keep open
+  contextMenu.addItem("Paste and edit style", element => {
     vc.edit_element_block_view.once('afterRender', function () {
       this.$tabsMenu.find(':contains("Style")').find('button').click();
 
-      const style = this.$el.find('[name="custom_css"]');
-      
-      navigator.clipboard.readText().then(clipText => style[0].editor.setValue(clipText));
-      
-      setTimeout(() => style[0].editor.focus(), 100);
+      if (vcStorage.fields.elClass) {
+        this.$el.find('[name="el_class"]').val(vcStorage.fields.elClass);
+      }
+
+      if (vcStorage.fields.customCss) {
+        console.log(vcStorage.fields.customCss);
+        this.$el.find('[name="custom_css"]')[0].editor.setValue(decodeURIComponent(atob(vcStorage.fields.customCss)));
+      }
     });
-    
+
     getModel(element).view.editElement();
   });
 
-  contextMenu.addSeparator();
+  // Copy style
+  // contextMenu.addItem("Copy style", element => {
+  //   navigator.clipboard.writeText(getModel(element).attributes.params.custom_css);
+  // });
 
-  // Copy class
-  contextMenu.addItem("Copy class", element => {
-    navigator.clipboard.writeText(getModel(element).attributes.params.el_class);
-  });
+  // Paste style
+  // contextMenu.addItem("Paste style", element => {    
+  //   vc.edit_element_block_view.once('afterRender', function () {
+  //     this.$tabsMenu.find(':contains("Style")').find('button').click();
+
+  //     const style = this.$el.find('[name="custom_css"]');
+      
+  //     navigator.clipboard.readText().then(clipText => style[0].editor.setValue(clipText));
+      
+  //     setTimeout(() => style[0].editor.focus(), 100);
+  //   });
+    
+  //   getModel(element).view.editElement();
+  // });
+
+  // contextMenu.addSeparator();
+
+  // // Copy class
+  // contextMenu.addItem("Copy class", element => {
+  //   navigator.clipboard.writeText(getModel(element).attributes.params.el_class);
+  // });
   
   // Paste class
-  contextMenu.addItem("Paste class", element => {    
-    vc.edit_element_block_view.once('afterRender', function () {
-      this.$tabsMenu.find(':contains("Style")').find('button').click();
+  // contextMenu.addItem("Paste class", element => {    
+  //   vc.edit_element_block_view.once('afterRender', function () {
+  //     this.$tabsMenu.find(':contains("Style")').find('button').click();
       
-      const cssInput = this.$el.find('[name="el_class"]')
+  //     const cssInput = this.$el.find('[name="el_class"]')
       
-      navigator.clipboard.readText().then(clipText => cssInput.val(clipText));
+  //     navigator.clipboard.readText().then(clipText => cssInput.val(clipText));
       
-      setTimeout(() => {
-        cssInput.focus();
-        const inputLength = cssInput.val().length;
-        cssInput[0].setSelectionRange(inputLength, inputLength);
-      }, 100);
-    });
+  //     setTimeout(() => {
+  //       cssInput.focus();
+  //       const inputLength = cssInput.val().length;
+  //       cssInput[0].setSelectionRange(inputLength, inputLength);
+  //     }, 100);
+  //   });
     
-    getModel(element).view.editElement();
-  });
+  //   getModel(element).view.editElement();
+  // });
 
   // Change section order
   // contextMenu.addItem("Change section order", element => {    
@@ -612,17 +673,23 @@ window.addEventListener('load', () => {
     const shortcode = this.model.attributes.shortcode;
 
     const settings = {
-      html: {
-        field: '[name="content"]', 
-        options: {mode: 'htmlmixed'}
-      },
-      glide: {
-        field: '[name="config"]',  
-        options: {}
-      }
+      html: [
+        {
+          field: '[name="content"]', 
+          options: {mode: 'htmlmixed'}
+        }
+      ],
+      glide: [
+        {
+          field: '[name="config"]', 
+          options: {}
+        }
+      ]
     };
 
-    settings[shortcode]?.forEach(setting => {
+    if (! settings[shortcode]) return;
+
+    settings[shortcode].forEach(setting => {
       const element = this.el.querySelector(setting.field);
 
       codeMirror(element, setting.options);

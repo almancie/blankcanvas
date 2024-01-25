@@ -24,9 +24,10 @@ body {
     height: 2rem;
     width: 3rem;
     justify-content: center;
-	--btn-font-size: .925rem;
+	--btn-font-size: .875rem;
 	letter-spacing: 0;
 	--btn-border-color: var(--border-color);
+	text-transform: uppercase;
 }
 
 .theme-toggle-input:checked ~ .dark,

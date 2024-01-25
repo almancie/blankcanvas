@@ -150,17 +150,13 @@ add_action('admin_enqueue_scripts', function () use ($jsData) {
   wp_enqueue_style('blankcanvas-admin', THEME_URI.'/assets/css/admin.css', [], THEME_VER);
   wp_enqueue_script('blankcanvas-admin', THEME_URI.'/assets/js/admin.js', [], THEME_VER, true);
 
-  // WPBakery
-  wp_enqueue_style('blankcanvas-vc-admin', THEME_URI.'/inc/vc/assets/css/admin.css', [], THEME_VER);
-  wp_enqueue_script('module-blankcanvas-vc-admin', THEME_URI.'/inc/vc/assets/js/admin.js', [], THEME_VER, true);
-
-  // WPBakery
+  // ACF
   // wp_enqueue_style('blankcanvas-acf-admin', THEME_URI.'/inc/acf/assets/css/admin.css', [], THEME_VER);
   wp_enqueue_script('blankcanvas-acf-admin', THEME_URI.'/inc/acf/assets/js/admin.js', [], THEME_VER, true);
-
+  
   // Bootstrap icons
   wp_enqueue_style('bootstrap-icons', 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css', [], '1.9.1');
-
+  
   // Grapick (gradient color picker)
   wp_enqueue_style('grapick', 'https://cdn.jsdelivr.net/gh/artf/grapick@0.1.13/dist/grapick.min.css', [], '0.1.13');
   wp_enqueue_script('grapick', 'https://cdn.jsdelivr.net/gh/artf/grapick@0.1.13/dist/grapick.min.js', [], '0.1.13', true);
@@ -169,11 +165,18 @@ add_action('admin_enqueue_scripts', function () use ($jsData) {
   // Context Menu
   wp_enqueue_style('ctxmenu', THEME_URI.'/inc/vc/assets/css/ctxmenu.css', [], null);
   wp_enqueue_script('ctxmenu', THEME_URI.'/inc/vc/assets/js/ctxmenu.js', [], null, true);
-
+  
   // CodeMirror (code editor)
   wp_enqueue_style('wp-codemirror');
   wp_enqueue_script('wp-codemirror');
   wp_enqueue_script('module-wp-codemirror-editor', THEME_URI.'/assets/js/modules/code-mirror.js', ['wp-codemirror'], THEME_VER, true); // Just a wrapper
+  
+  // Clipboard
+  // wp_enqueue_script('clipboard', 'https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js', [], '2.0.11', true);
+
+  // WPBakery
+  wp_enqueue_style('blankcanvas-vc-admin', THEME_URI.'/inc/vc/assets/css/admin.css', [], THEME_VER);
+  wp_enqueue_script('module-blankcanvas-vc-admin', THEME_URI.'/inc/vc/assets/js/admin.js', [], THEME_VER, true);
 
   // Contact Form 7
   wp_enqueue_script('module-blankcanvas-wpcf7-admin', THEME_URI.'/inc/wpcf7/assets/js/admin.js', [], THEME_VER, true);

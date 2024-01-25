@@ -74,7 +74,7 @@ window?.ImgToSvg.init();
 |
 */
 
-window?.Blob.init('body', true);
+// window?.Blob.init('body', true);
 
 /*
 |--------------------------------------------------------------------------

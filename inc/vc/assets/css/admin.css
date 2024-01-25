@@ -1,4 +1,19 @@
 /**
+ * Variables
+ */
+
+#wpb_wpbakery {
+  /* --row-margin-y: 3rem; */
+  /* --element-bg: #ffffff; */
+  --element-bg: #fff;
+  --element-margin-bottom: 1rem;
+  --element-wrapper-padding-x: 1rem;
+  --control-height: 25px;
+  --control-width: 35px;
+  --control-margin: 1px;
+}
+
+/**
  * General
  */
 
@@ -17,21 +32,6 @@
 
 .element-hidden {
   display: none !important;
-}
-
-/**
- * Sections
- */
-
-.bc-section {
-  /* --row-margin-y: 3rem; */
-  /* --element-bg: #ffffff; */
-  --element-bg: #fff;
-  --element-margin-bottom: 1rem;
-  --element-wrapper-padding-x: 1rem;
-  --control-height: 25px;
-  --control-width: 35px;
-  --control-margin: 1px;
 }
 
 /**
@@ -355,8 +355,9 @@
 /**
  * Elements background color (white/silver)
  */
-
-.bc-element:not(.bc-section):not(.bc-row) > * {
+ 
+ .bc-element:not(.bc-section):not(.bc-row) > * {
+  transition: background-color .5s;
   background-color: var(--element-bg) !important;
 }
 
@@ -373,6 +374,39 @@
 .bc-container .bc-element.wpb_content_element,
 .bc-container .bc-container .bc-container .bc-element.wpb_content_element {
   --element-bg: #fff;
+}
+
+[data-element-updated="true"] > .wpb_element_wrapper,
+[data-element-updated="true"] > .wpb_element_wrapper > * {
+  position: relative;
+}
+
+[data-element-updated="true"] > .wpb_element_wrapper:before {
+  content: "";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  animation: bgSuccess 1.5s;
+}
+
+@keyframes bgSuccess {
+  0% {
+    background-color: rgba(0, 128, 0, .85);
+  }
+  
+  10% {
+    background-color: rgba(0, 128, 0, .85);
+  }
+
+  100% {
+    background-color: transparent;
+  }
 }
 
 /**

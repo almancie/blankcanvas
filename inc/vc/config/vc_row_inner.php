@@ -14,7 +14,7 @@ return [
   ],
   'show_settings_on_create' => false,
   'js_view' => 'VcRowView', // Allows us to reorder columns
-  'default_content' => '[vc_column_inner][/vc_column_inner]', // Changing row layout creates vc_column that is why we default to it and then change it with JS.
+  'default_content' => '[vc_column_inner][/vc_column_inner]',
   'params' => [
     [
       'type' => 'dropdown',

@@ -83,11 +83,11 @@ $danger:        $red;
 // $primary:       #f7da01;
 // $primary:       #ff6433;
 // $secondary:     #20a178;
-$primary:       #b19777;
-$secondary:     #b19777;
+$primary:       #f6f6f6;
+$secondary:     #f6f6f6;
 // $tertiary:      #fff083;
-$light:         #f8f1de;
-$dark:          #141414;
+$light:         #f6f6f6;
+$dark:          #1b1b1b;
 // scss-docs-end theme-color-variables
 
 // scss-docs-start theme-colors-map
@@ -341,7 +341,7 @@ $container-max-widths: (
 // Define common padding and border radius sizes and more.
 
 // scss-docs-start border-variables
-$border-width:                2px;
+// $border-width:                2px;
 // $border-widths: (
 //   1: 1px,
 //   2: 2px,
@@ -428,7 +428,7 @@ $font-size-base:              1rem; // Assumes the browser default, typically `1
 // $font-size-sm:                $font-size-base * .875 !default;
 // $font-size-lg:                $font-size-base * 1.25 !default;
 
-$font-weight-lighter:         200;
+// $font-weight-lighter:         200;
 // $font-weight-light:           300 !default;
 // $font-weight-normal:          400 !default;
 // $font-weight-medium:          500 !default;
@@ -436,7 +436,7 @@ $font-weight-lighter:         200;
 // $font-weight-bold:            700 !default;
 $font-weight-bolder:          800;
 
-$font-weight-base:            300;
+$font-weight-base:            400;
 
 // $line-height-base:            1.175;
 // $line-height-sm:              1;
@@ -466,7 +466,7 @@ $h6-font-size:                $font-size-base;
 // $headings-font-family:        null !default;
 $headings-font-family:        var(--headings-font-family);
 // $headings-font-style:         null !default;
-$headings-font-weight:        700;
+$headings-font-weight:        $font-weight-base;
 $headings-line-height:        1.25;
 // $headings-color:              inherit !default;
 // scss-docs-end headings-variables

@@ -10,7 +10,7 @@ return [
   'class' => 'wpb_vc_row bc-row bc-element',
   'is_container' => true,
   'as_child' => [
-    'only' => 'vc_section'
+    'only' => ',vc_section'
   ],
   'show_settings_on_create' => false,
   'js_view' => 'VcRowView', // Allows us to reorder columns
