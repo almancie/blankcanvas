@@ -15,6 +15,7 @@ export default function(field, settings = {}) {
     continueComments: true,
     autoCloseBrackets: true,
     styleActiveLine: true,
+    // inputStyle: 'contenteditable',
 
     lineWrapping: true,
     foldGutter: true,
@@ -43,14 +44,14 @@ export default function(field, settings = {}) {
         var newSelection = cm.listSelections()[0];
         cm.setSelections(selections);
         cm.addSelection(newSelection.anchor, newSelection.head);
-    }
+      },
     },
     ...settings
   };
 
   let editor = wp.CodeMirror.fromTextArea(field, editorSettings);
 
-  if (settings?.mode === 'htmlmixed') {
+  if (settings.mode === 'htmlmixed') {
     editor.on("keypress", function(cm, e) {
       if (e.key !== '<') return;
 
@@ -58,7 +59,7 @@ export default function(field, settings = {}) {
     })
   }
 
-  if (settings?.mode === 'javascript') {
+  if (settings.mode === 'javascript') {
     editor.on("keyup", function(cm, e) {
       if (e.key !== '.') return;
 

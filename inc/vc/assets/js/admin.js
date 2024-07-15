@@ -9,13 +9,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // WPBakery storage
   const vcStorage = {
-    fields: {},
-    elements: {},
+    copied: null
   };
 
   // Prepare bcWPBakery from local storage
   let bcWPBakeryDefaults = {
-    // toggleElements: [],
     bcElementsOnly: false
   };
 
@@ -27,127 +25,9 @@ window.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('bcWPBakery', JSON.stringify(bcWPBakery));
   }
 
-  const rows = {
-    'row': 'column',
-    'row_inner': 'column_inner',
-    'row_inner_inner': 'column_inner_inner',
-    'glide': 'glide_slide',
-    // 'group': true
-  };
-
-  // const containers = {
-  //   ...rows,
-  //   'tabs': 'panel',
-  //   'accordion': 'accordion_item',
-  // };
-
-  // VcRowView.prototype.sortingSelector += `, 
-  //   > [data-element_type=column], 
-  //   > [data-element_type=column_inner], 
-  //   > [data-element_type=column_inner_inner], 
-  //   > [data-element_type=glide_slide]`;
-
-  /**
-   * Elements title
-   */
-  // vc.events.on('shortcodeView:ready', function(view) {
-  //   const element = view.$el;
-
-  //   const shortcode = view.model.attributes.shortcode;
-
-  //   const name = vc.getMapped(shortcode).name;
-
-  //   // Add title
-  //   if (containers[shortcode] || shortcode === 'section') {
-  //     // const control = element.find('> .vc_controls-row .column_add, > .vc_controls .column_move').last();
-  //     const control = element.find('> .vc_controls-row > div:first-child');
-
-  //     control?.after(`<div class="element-title">${name}</div>`)
-  //   }
-
-  //   // Wrap old title text node
-  //   element.find('> .wpb_element_wrapper > .wpb_element_title').contents().filter(function() { 
-  //     return this.nodeType === 3  && this.data.trim().length > 0;
-  //   }).wrap('<span class="text-node"></span>');
-  // });
-
-  /**
-   * Elements icons (attribute)
-   */
-  // vc.events.on('shortcodes:add shortcodes:update shortcodes:sync', function(model) {
-  //   const params = model.attributes.params;
-
-  //   const element = model.view.el;
-
-  //   const iconParams = ['custom_css', 'custom_js', 'background_image'];
-
-  //   const icons = iconParams.filter(value => params[value]);
-
-  //   element.setAttribute('data-icons', icons.join('|'));
-  // });
-
-  /**
-   * Elements icons (HTML)
-   */
-  // vc.events.on('shortcodeView:ready', function(view) {
-  //   const element = view.$el;
-
-  //   const title = element.find('.element-title');
-
-  //   if (element.find('> .icons').length) return;
-
-  //   let icons = `
-  //   <div class="icons">
-  //     <i class="icon-css"></i>
-  //     <i class="icon-js"></i>
-  //     <i class="icon-bg"></i>
-  //   </div>`;
-
-  //   const shortcode = view.model.attributes.shortcode;
-
-  //   // If container or section, append the icons inside controls
-  //   if (rows[shortcode] || shortcode === 'section') {
-  //     title.after(icons);
-
-  //     return;
-  //   };
-
-  //   element.append(icons);
-  // });
-
-  /**
-   * Alternate elements colors (white/silver)
-   */
-  // vc.shortcodes.on('shortcodes:add', function(collection) {
-  //   console.log(123);
-  //   if (collection.models === undefined) {
-  //     collection = [collection];
-  //   }
-
-  //   collection.forEach(model => {
-  //     const element = model.view.$el;
-    
-  //     const attributes = model.view.model.attributes;
-  
-  //     if (['vc_section', 'vc_row'].includes(attributes.shortcode)) return;
-  
-  //     // If column, match it with parent.
-  //     const parent = vc.app.views[attributes.parent_id];
-
-  //     // if (! parent) return;
-  
-  //     const parentShortcode = parent.model.attributes.shortcode;
-  
-  //     if (containers[parentShortcode] && typeof containers[parentShortcode] === 'string') {
-  //       element.attr('data-alternate', parent.$el.data('alternate'));
-  
-  //       return;
-  //     }
-  
-  //     element.attr('data-alternate', ! parent.$el.data('alternate'));
-  //   })
-  // });
-
+  VcRowView.prototype.sortingSelector += `, 
+    > [data-element_type=column_inner_inner], 
+    > [data-element_type=glide_slide]`;
 
   /**
    * Open edit window on [Style] tab when double clicking an element
@@ -159,102 +39,52 @@ window.addEventListener('DOMContentLoaded', () => {
       view.editElement();
     });
   });
-  
+
   /**
    * Hide / Show Element
-  */
- vc.events.on('shortcodes:update shortcodes:sync', function(model) {
-    let el = model.view.el;
+   */
+  vc.events.on('shortcodeView:ready shortcodes:update shortcodes:sync', function(modelView) {
+    const view = modelView.view ?? modelView;
 
-    let value = model.attributes.params.disable_element;
+    const el = view.el;
 
-    el.setAttribute('data-element-disabled', value === 'yes');
-
+    const disable = view.model.attributes.params.disable_element;
+    
+    el.setAttribute('data-element-disabled', disable === 'yes');
+    
     // We have to remove them and rely on our data attribute 
     // because they use !important and cannot be overridden.
     el.classList.remove('vc_hidden-xs', 'vc_hidden-sm', 'vc_hidden-md', 'vc_hidden-lg');
   });
-
-  /**
-   * Section Element
-   * 
-   * Creates new section
-   */ 
-  // vc.events.on('shortcodes:section:add', function(model) {
-  //   let colModel = vc.shortcodes.get(model.attributes.parent_id);
-
-  //   if (! colModel) return;
-
-  //   vc.shortcodes.create({
-  //     shortcode: 'section',
-  //     oldRowModel: vc.shortcodes.get(colModel.attributes.parent_id)
-  //   });
-  // });
-
-  // /**
-  //  * Section View
-  //  * 
-  //  * Removes old section
-  //  */ 
-  // vc.events.on('shortcodeView:ready:section', function(view) {
-  //   if (! view.model.attributes.oldRowModel) return;
-
-  //   // Remove old row model.
-  //   view.model.attributes.oldRowModel.attributes.destroy();
-  // });
+  
+  vc.events.on('afterLoadShortcode', function(model) {
+    console.log(model);
+  })
 
   /**
    * Column + Inner Column
    */
   vc.events.on('shortcodes:add', function(model) {
-    // let parent = vc.shortcodes.get(model.attributes.parent_id).attributes.shortcode;
+    const columns = ['vc_column', 'vc_column_inner', 'column_inner_inner'];
 
-    // if (! rows[parent]) return;
+    if (columns.indexOf(model.attributes.shortcode) === -1) return;
 
-    // // Update shortcode
-    // model.attributes.shortcode = rows[parent];
-
-    // let widths = ['xxl', 'xl', 'lg', 'md', 'sm', 'default'];
-
-    // widths.forEach(name => {
-    //   delete model.attributes.params[`width_${name}`];
-    // });
-
-    // A bug :/
-    // const buggyAttributes = [
-    //   'video_bg_url',
-    //   'parallax_speed_video', 
-    //   'parallax_speed_bg'
-    // ];
-
-    // Remove extra params
-    // for (let param in model.attributes.params) {
-
-    //   // Empty
-    //   if (! model.attributes.params[param]) {
-    //     delete model.attributes.params[param];
-    //   }
-
-    //   // Non existing
-    //   // if (model.attributes.shortcode !== 'row' && buggyAttributes.includes(param)) {
-    //   //   delete model.attributes.params[param];
-    //   // }
-    // }
-
-    if (['vc_column', 'vc_column_inner', 'column_inner_inner'].indexOf(model.attributes.shortcode) === -1) return;
-  
-    if (model.attributes.shortcode === 'glide_slide') {
-      model.attributes.params.width = '1/3';
-
-      return;
-    }
-
-    // // Set width_default param
+    // Set width_default param
     model.attributes.params.width_default = model.attributes.params.width;
 
     model.save();
-    
-    // model.view.render();
+  });
+
+  /**
+   * Glide slide
+   */
+  vc.events.on('shortcodes:vc_column:add', function(model) {
+    let parent = vc.shortcodes.get(model.attributes.parent_id).attributes.shortcode;
+
+    if (parent !== 'glide') return;
+  
+    model.attributes.params.width = '1/3';
+    model.attributes.shortcode = 'glide_slide';
   });
 
   /**
@@ -269,8 +99,6 @@ window.addEventListener('DOMContentLoaded', () => {
     delete model.attributes.params.parallax_speed_bg;
 
     model.attributes.shortcode = 'column_inner_inner';
-
-    // model.view.render();
   });
 
   /**
@@ -330,27 +158,6 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 
   /**
-   * Icon
-   */
-  // vc.events.on('shortcodes:bootstrap_icon:add shortcodes:bootstrap_icon:update shortcodes:bootstrap_icon:sync', function(model) {
-  //   let element = document.querySelector(`[data-model-id="${model.id}"]`);
-
-  //   let icon = element.querySelector('.vc_element-icon');
-
-  //   let iconClass = model.attributes.params['icon_name'];
-
-  //   if (icon.dataset.icon) {
-  //     icon.classList.remove('bi-' + icon.dataset.icon);
-  //   }
-
-  //   if (iconClass) {
-  //     icon.setAttribute('data-icon', iconClass);
-
-  //     icon.classList.add('bi-' + iconClass);
-  //   }
-  // });
-
-  /**
    * Tabs
    */
   vc.events.on('shortcodes:tabs:sync', function(model) {
@@ -395,78 +202,6 @@ window.addEventListener('DOMContentLoaded', () => {
     // Remove unnecessary params added by WPBakery.
     model.attributes.params = {};
   });
-
-  /**
-   * Elements toggle
-   */
-  // VcRowView.prototype.events['click > .vc_controls [data-vc-control="toggle"]'] = "toggleElementAndSave";
-
-  // VcRowView.prototype.toggleElementAndSave = function (e) {
-  //   e && e.preventDefault && e.preventDefault();
-
-  //   this.toggleElement();
-
-  //   let toggleElements = bcWPBakery.toggleElements;
-
-  //   const index = toggleElements.indexOf(this.model.cid);
-
-  //   // If does not exist, add it.
-  //   if (index === -1) {
-  //     toggleElements.push(this.model.cid);
-  //   } else {
-  //     delete toggleElements[index];
-
-  //     bcWPBakery.toggleElements = toggleElements.filter(id => id);
-  //   }
-
-  //   updateBcWPBakery();
-  // }
-
-  /**
-   * Elements toggle on load
-   */
-
-  // vc.events.on('app.addAll', () => {
-  //   bcWPBakery.toggleElements.forEach(id => {
-  //     const model = vc.shortcodes.get(id);
-
-  //     // Does not work because changing elements order changes the id.
-  //     console.log(model.view);
-
-  //     model.view?.toggleElement();
-  //   });
-  // });
-
-  /**
-   * Elements edit panel
-   * 
-   * Work around to allow saving while keeping the edit panel open if needed
-   */
-  // vc.edit_element_block_view.hide = () => {
-  //   // if (this.stay) {
-  //   //   return vc.app.preview();
-  //   // }
-
-  //   vc.EditElementPanelView.__super__.hide.call(this);
-  // };
-
-  /**
-   * Keyboard save shortcut
-   */
-  // document.addEventListener('keydown', e => {
-  //   if (! (e.ctrlKey && e.key !== 's')) return;
-
-  //   if (! vc.edit_element_block_view.isVisible()) return;
-
-  //   e.preventDefault();
-
-  //   vc.edit_element_block_view.stay = true;
-    
-  //   // This saves and closes the panel
-  //   vc.edit_element_block_view.save();
-
-  //   delete vc.edit_element_block_view.stay;
-  // });
 
   /**
    * Elements filter
@@ -516,6 +251,13 @@ window.addEventListener('DOMContentLoaded', () => {
   const contextMenu = CtxMenu('#wpbakery_content');
 
   const getModel = element => vc.shortcodes.get(element.closest('[data-element_type]').dataset.modelId);
+  const notifyUpdate = element => {
+    element.closest('[data-model-id]').setAttribute('data-element-updated', 'true');
+
+    setTimeout(() => {
+      element.closest('[data-model-id]').removeAttribute('data-element-updated');
+    }, 1000);
+  }
 
   contextMenu.addEventListener('open', function() {
     this.menuContainer.dataset.element = getModel(this._elementClicked);
@@ -532,132 +274,129 @@ window.addEventListener('DOMContentLoaded', () => {
     } else {
       model.attributes.params.disable_element = 'yes';
     }
-    
-    // vc.storage.update(model);
+
     model.save();
+
     vc.events.trigger("shortcodes:update", model);
   });
 
   contextMenu.addSeparator();
 
-  // Copy style
-  contextMenu.addItem("Copy style", element => {
-    const params = getModel(element).attributes.params;
-    vcStorage.fields.customCss = params.custom_css;
-    vcStorage.fields.elClass = params.el_class;
+  // Copy element
+  contextMenu.addItem("Copy", element => {
+    getModel(element).view.copy();
+
+    vcStorage.copied = getModel(element);
+  });
+  
+  // Paste element
+  contextMenu.addItem("Paste", element => {
+    let view = getModel(element).view;
+
+    if (view.el.classList.contains('wpb_content_element') || view.el.dataset.element_type === 'row_inner_inner') {
+      view = vc.shortcodes.get(view.model.attributes.parent_id).view;
+    }
+
+    view.paste();
   });
 
-  // Paste style
-  contextMenu.addItem("Paste style", element => {
-    // vc.edit_element_block_view.once('afterRender', function () {
-    //   this.$tabsMenu.find(':contains("Style")').find('button').click();
-
-    //   if (vcStorage.fields.elClass) {
-    //     this.$el.find('[name="el_class"]').val(vcStorage.fields.elClass);
-    //   }
-
-    //   if (vcStorage.fields.customCss) {
-    //     console.log(vcStorage.fields.customCss);
-    //     this.$el.find('[name="custom_css"]')[0].editor.setValue(decodeURIComponent(atob(vcStorage.fields.customCss)));
-    //   }
-    // });
-
+  // Separator
+  contextMenu.addSeparator();
+  
+  // Paste settings
+  contextMenu.addItem("Paste settings", element => {
+    if (! vcStorage.copied) return;
+    
     const model = getModel(element);
+    
+    if (model.attributes.shortcode !== vcStorage.copied.attributes.shortcode) return;
+    
+    const updatedParams = {...vcStorage.copied.attributes.params};
+    
+    delete updatedParams.content;
+    delete updatedParams.image;
+    delete updatedParams.source;
+    delete updatedParams.link;
 
-    model.attributes.params.el_class = vcStorage.fields.elClass;
-    model.attributes.params.custom_css = vcStorage.fields.customCss;
-
-    model.save();
-
-    element.closest('[data-model-id]').setAttribute('data-element-updated', 'true');
-
-    setTimeout(() => {
-      element.closest('[data-model-id]').removeAttribute('data-element-updated');
-    }, 1500);
-  });
-
-  // Paste style and keep open
-  contextMenu.addItem("Paste and edit style", element => {
-    vc.edit_element_block_view.once('afterRender', function () {
-      this.$tabsMenu.find(':contains("Style")').find('button').click();
-
-      if (vcStorage.fields.elClass) {
-        this.$el.find('[name="el_class"]').val(vcStorage.fields.elClass);
-      }
-
-      if (vcStorage.fields.customCss) {
-        console.log(vcStorage.fields.customCss);
-        this.$el.find('[name="custom_css"]')[0].editor.setValue(decodeURIComponent(atob(vcStorage.fields.customCss)));
-      }
+    model.save('params', {
+      ...model.attributes.params,
+      ...updatedParams
     });
 
-    getModel(element).view.editElement();
+    notifyUpdate(element);
+  });
+  
+  // Paste content
+  contextMenu.addItem("Paste content", element => {
+    if (! vcStorage.copied) return;
+    
+    const model = getModel(element);
+    
+    if (model.attributes.shortcode !== vcStorage.copied.attributes.shortcode) return;
+    
+    const params = vcStorage.copied.attributes.params;
+    
+    const updatedParams = {};
+
+    if (params.content) {
+      updatedParams.content = params.content;
+    }
+
+    if (params.image) {
+      updatedParams.image = params.image;
+    }
+    
+    model.save('params', {
+      ...model.attributes.params,
+      ...updatedParams
+    });
+    
+    notifyUpdate(element);
+  });
+  
+  // Paste style
+  contextMenu.addItem("Paste style", element => {
+    if (! vcStorage.copied) return;
+    
+    const model = getModel(element);
+
+    const targetParams = model.attributes.params;
+
+    const params = vcStorage.copied.attributes.params;
+
+    const updatedParams = {};
+
+    if (model.attributes.shortcode === vcStorage.copied.attributes.shortcode) { 
+      for (const param in params) {
+        if (! param.endsWith('_class')) continue;
+
+        updatedParams[param] = params[param];
+      }
+    }
+
+    model.save('params', {
+      ...model.attributes.params,
+      ...updatedParams,
+      el_class: params.el_class,
+      custom_css: params.custom_css
+    });
+  
+    notifyUpdate(element);
   });
 
-  // Copy style
-  // contextMenu.addItem("Copy style", element => {
-  //   navigator.clipboard.writeText(getModel(element).attributes.params.custom_css);
-  // });
-
-  // Paste style
-  // contextMenu.addItem("Paste style", element => {    
-  //   vc.edit_element_block_view.once('afterRender', function () {
-  //     this.$tabsMenu.find(':contains("Style")').find('button').click();
-
-  //     const style = this.$el.find('[name="custom_css"]');
-      
-  //     navigator.clipboard.readText().then(clipText => style[0].editor.setValue(clipText));
-      
-  //     setTimeout(() => style[0].editor.focus(), 100);
-  //   });
-    
-  //   getModel(element).view.editElement();
-  // });
-
+  // Separator
   // contextMenu.addSeparator();
-
-  // // Copy class
-  // contextMenu.addItem("Copy class", element => {
-  //   navigator.clipboard.writeText(getModel(element).attributes.params.el_class);
-  // });
   
-  // Paste class
-  // contextMenu.addItem("Paste class", element => {    
-  //   vc.edit_element_block_view.once('afterRender', function () {
-  //     this.$tabsMenu.find(':contains("Style")').find('button').click();
-      
-  //     const cssInput = this.$el.find('[name="el_class"]')
-      
-  //     navigator.clipboard.readText().then(clipText => cssInput.val(clipText));
-      
-  //     setTimeout(() => {
-  //       cssInput.focus();
-  //       const inputLength = cssInput.val().length;
-  //       cssInput[0].setSelectionRange(inputLength, inputLength);
-  //     }, 100);
-  //   });
-    
-  //   getModel(element).view.editElement();
-  // });
-
-  // Change section order
-  // contextMenu.addItem("Change section order", element => {    
+  // Reveal in classic mode
+  // contextMenu.addItem("Reveal in Classic Mode", element => {
   //   const model = getModel(element);
 
-  //   const section = vc.shortcodes.get(model.attributes.root_id);
+  //   const shortcodeString = vc.shortcodes.createShortcodeString(model);
 
-  //   // vc.storage.update(model);
-    
-  //   const value = parseInt(prompt("Order:"));
+  //   vc.app.switchComposer();
 
-  //   section.attributes.order = value;
-
-  //   console.log(section);
-
-  //   section.save();
-  //   // vc.events.trigger("shortcodes:update", model);
+  //   const content = tinymce.getContent();
   // });
-  
 });
 
 /**
@@ -665,16 +404,16 @@ window.addEventListener('DOMContentLoaded', () => {
 */
 window.addEventListener('load', () => {
   if (! window.vc) return;
-
+  
   /**
    * Coding fields
-   */
-  vc.edit_element_block_view.on('afterRender', function () {
-    const shortcode = this.model.attributes.shortcode;
-
-    const settings = {
-      html: [
-        {
+  */
+ vc.edit_element_block_view.on('afterRender', function () {
+   const shortcode = this.model.attributes.shortcode;
+   
+   const settings = {
+     html: [
+       {
           field: '[name="content"]', 
           options: {mode: 'htmlmixed'}
         }

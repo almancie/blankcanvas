@@ -6,7 +6,7 @@
 // Color system
 
 // scss-docs-start gray-color-variables
-// $white:    #fff !default;
+$white:    #fff;
 $gray-100: #f8f9fa;
 // $gray-200: #e9ecef !default;
 // $gray-300: #dee2e6 !default;
@@ -80,21 +80,32 @@ $success:       $green;
 $info:          $cyan;
 $warning:       $yellow;
 $danger:        $red;
+// $primary:        #fa9a4e;
+$primary:        #1bb1b1;
+// $secondary:      #6E81FB;
+$secondary:      #fa9a4e;
+// $tertiary:       #FFBB86;
+// $tertiary:       #1bb1b1;
+$tertiary:       #6E81FB;
+$light:          #cdd0cf;
+// $dark:          #14100e;
+$dark:           #1f2127;
+// $dark:          #0d1117;
 // $primary:       #f7da01;
 // $primary:       #ff6433;
 // $secondary:     #20a178;
-$primary:       #f6f6f6;
-$secondary:     #f6f6f6;
-// $tertiary:      #fff083;
-$light:         #f6f6f6;
-$dark:          #1b1b1b;
+// $primary:       #ffd074; //Yellow
+// $primary:       #ff6457;
+// $secondary:     #8c7dff;
+// $light:         #f6f6f6;
+// $dark:          #222222;
 // scss-docs-end theme-color-variables
 
 // scss-docs-start theme-colors-map
 $theme-colors: (
   "primary":         $primary,
   "secondary":       $secondary,
-  // "tertiary":        $tertiary,
+  "tertiary":        $tertiary,
   // "success":         $success,
   // "info":            $info,
   // "warning":         $warning,
@@ -182,7 +193,7 @@ $prefix:                      '';
 // The gradient which is added to components if `$enable-gradients` is `true`
 // This gradient is also added to elements with `.bg-gradient`
 // scss-docs-start variable-gradient
-$gradient: linear-gradient(345deg, rgba(var(--light-rgb), .15), transparent);
+$gradient: linear-gradient(345deg, rgba(var(--#{$prefix}light-rgb), .15), transparent);
 // scss-docs-end variable-gradient
 
 // Spacing
@@ -350,7 +361,7 @@ $container-max-widths: (
 //   5: 5px
 // ) !default;
 // $border-style:                solid !default;
-$border-color:                rgba(var(--body-color-rgb), .35);
+$border-color:                rgba(var(--#{$prefix}body-color-rgb), .25);
 // $border-color-translucent:    rgba($black, .175) !default;
 // scss-docs-end border-variables
 
@@ -431,12 +442,12 @@ $font-size-base:              1rem; // Assumes the browser default, typically `1
 // $font-weight-lighter:         200;
 // $font-weight-light:           300 !default;
 // $font-weight-normal:          400 !default;
-// $font-weight-medium:          500 !default;
+$font-weight-medium:          500;
 // $font-weight-semibold:        600 !default;
 // $font-weight-bold:            700 !default;
 $font-weight-bolder:          800;
 
-$font-weight-base:            400;
+$font-weight-base:            300;
 
 // $line-height-base:            1.175;
 // $line-height-sm:              1;
@@ -464,9 +475,9 @@ $h6-font-size:                $font-size-base;
 // scss-docs-start headings-variables
 // $headings-margin-bottom:      $spacer * .5 !default;
 // $headings-font-family:        null !default;
-$headings-font-family:        var(--headings-font-family);
+$headings-font-family:        var(--#{$prefix}heading-font-family);
 // $headings-font-style:         null !default;
-$headings-font-weight:        $font-weight-base;
+$headings-font-weight:        $font-weight-medium;
 $headings-line-height:        1.25;
 // $headings-color:              inherit !default;
 // scss-docs-end headings-variables

@@ -25,11 +25,11 @@ import 'bootstrap/js/dist/tab';
  * React Components
  */
 
-import { createRoot } from 'react-dom/client';
-import Search from './react-components/Search.jsx';
+// import { createRoot } from 'react-dom/client';
+// import Search from './react-components/Search.jsx';
 
-const searchRoot = document.getElementById('offcanvasSearchBody');
-createRoot(searchRoot)?.render(<Search />);
+// const searchRoot = document.getElementById('offcanvasSearchBody');
+// createRoot(searchRoot)?.render(<Search />);
 
 /**
  * Body Width

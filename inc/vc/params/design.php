@@ -3,6 +3,7 @@
 $colors = [
   esc_html__('Primary', 'blankcanvas') => 'var(--primary)',
   esc_html__('Secondary', 'blankcanvas') => 'var(--secondary)',
+  esc_html__('Tertiary', 'blankcanvas') => 'var(--tertiary)',
   esc_html__('Light', 'blankcanvas') => 'var(--light)',
   esc_html__('Dark', 'blankcanvas') => 'var(--dark)',
   esc_html__('Custom', 'blankcanvas') => 'custom',

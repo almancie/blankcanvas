@@ -27,11 +27,6 @@
   position: relative;
 }
 
-// .section-stretched > .row,
-// .section-stretched-content > .row {
-//   margin-inline-start: 0;
-// }
-
 .section-stretched-content {
   padding-inline-start: calc(var(--gutter-x) * .5);
   padding-inline-end: calc(var(--gutter-x) * .5);
@@ -39,6 +34,34 @@
 
 .section-full-height {
   min-height: 100vh;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Row
+|--------------------------------------------------------------------------
+|
+| 
+|
+*/
+
+.row-stretched,
+.row-stretched-content {
+  --row-width: var(--body-width, 100vw);
+  width: calc(var(--row-width) + var(--gutter-x));
+  inset-inline-start: calc((var(--row-width) - 100%) / -2);
+  padding-inline-start: calc((var(--row-width) - 100%) / 2);
+  padding-inline-end: calc((var(--row-width) - 100%) / 2);
+  position: relative;
+
+  &.g-0, &.gx-0 {
+    --gutter-x: 0px;
+  }
+}
+
+.row-stretched-content {
+  padding-inline-start: calc(var(--gutter-x) * .5);
+  padding-inline-end: calc(var(--gutter-x) * .5);
 }
 
 /*
@@ -119,29 +142,34 @@ $icon-sizes: (
 // );
 
 .icon {
+  --icon-width: #{map-get($icon-sizes, 'md')};
   aspect-ratio: 1/1;
   height: auto;
-  width: map-get($icon-sizes, 'md');
-  pointer-events: none;
+  width: var(--icon-width);
+}
+
+.icon > * {
+  max-width: 100%;
+  max-height: 100%;
 }
 
 @each $size, $value in $icon-sizes {
   .icon-#{$size} {
-    width: #{$value};
+    --icon-width: #{$value};
   }
 }
 
-@each $color, $value in $theme-colors {
-  .bg-#{$color} {
-    .icon {
-      @if color-contrast($value) == $color-contrast-dark {
-        filter: var(--filter-dark);
-      } @else {
-        filter: var(--filter-light)
-      }
-    }
-  }
-}
+// @each $color, $value in $theme-colors {
+//   .bg-#{$color} {
+//     .icon {
+//       @if color-contrast($value) == $color-contrast-dark {
+//         filter: var(--filter-dark);
+//       } @else {
+//         filter: var(--filter-light)
+//       }
+//     }
+//   }
+// }
 
 /*
 |--------------------------------------------------------------------------
@@ -219,11 +247,11 @@ $font-sizes: (
 
 .btn {
   --btn-gap: 1.25rem;
+  --svg-fill: var(--btn-color);
+  --svg-stroke: var(--btn-color);
   display: inline-flex;
   align-items: center;
   gap: var(--btn-gap);
-  --svg-fill: var(--btn-color);
-  --svg-stroke: var(--btn-color);
 }
 
 .btn-icon {
@@ -268,7 +296,7 @@ $font-sizes: (
     --svg-fill: var(--btn-hover-color);
     --svg-stroke: var(--btn-hover-color);
   }
-  
+
   .btn-body:active,
   .btn-outline-body:active {
     --svg-fill: var(--btn-active-color);
@@ -289,17 +317,17 @@ $font-sizes: (
     }
 }
 
-.btn-iconic {
-  // --btn-padding-x: 1.5rem;
-  // --btn-padding-y: 1.5rem;
-  // --btn-font-size: 1.5rem;
+// .btn-iconic {
+//   // --btn-padding-x: 1.5rem;
+//   // --btn-padding-y: 1.5rem;
+//   // --btn-font-size: 1.5rem;
 
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 88px;
-  aspect-ratio: 1 / 1;
-}
+//   display: inline-flex;
+//   align-items: center;
+//   justify-content: center;
+//   // width: 88px;
+//   aspect-ratio: 1 / 1;
+// }
 
 /*
 |--------------------------------------------------------------------------
@@ -310,11 +338,11 @@ $font-sizes: (
 |
 */
 
-.figure-iconic {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* padding: 1rem; */
-  width: 92px;
-  aspect-ratio: 1 / 1;
-}
+// .figure-iconic {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   /* padding: 1rem; */
+//   width: 92px;
+//   aspect-ratio: 1 / 1;
+// }

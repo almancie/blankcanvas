@@ -15,17 +15,26 @@
     elementY: 0
   }
 
+  /**
+   * Blob element
+   */
   let blob = null;
+
+  /**
+   * Particles
+   */
+  let particles = null;
 
   /**
    * Create the blob
    */
-  function createBlob(container, follow) {
+  function createBlob(container) {
 
     // Create the parent div
     blob = document.createElement("div");
 
-    blob.classList.add('blob')
+    // Add class name
+    blob.classList.add('blob');
 
     // Create the child divs
     for (let i = 1; i <= 3; i++) {
@@ -33,20 +42,40 @@
       blob.appendChild(childDiv);
     }
 
-    if (follow) {
-      blob.setAttribute('data-blob-follow', follow);
+    document.addEventListener("mousemove", (e) => {
+      blob.classList.add('active');
 
-      document.addEventListener("mousemove", (e) => {
-        position.mouseX = e.pageX;
-        position.mouseY = e.pageY;
-      })
-      
-      animate();
-    }
+      position.mouseX = e.pageX;
+      position.mouseY = e.pageY;
+    });
+
+    anime({
+      targets: blob,
+      opacity: 1,
+      duration: 2000,
+      easing: 'easeOutQuad'
+    });
+
+    animate(1);
+
+    center();
 
     // Append the parent div to the body (or any other element)
     container.prepend(blob);
+  }
 
+  /**
+   * Center blob movement
+   */
+  function center() {
+    const blobHalfWidth = blob.offsetWidth / 2;
+    const blobHalfHeight = blob.offsetHeight / 2;
+  
+    position.mouseX = window.innerWidth / 2 - blobHalfWidth;
+    position.mouseY = window.innerHeight / 2 - blobHalfHeight;
+
+    position.elementX = window.innerWidth / 2 - blobHalfWidth;
+    position.elementY = window.innerHeight / 3;
   }
 
   /**
@@ -56,7 +85,7 @@
   function animate() {
     const distX = position.mouseX - position.elementX;
     const distY = position.mouseY - position.elementY;
-    
+
     position.elementX = position.elementX + (distX * speed);
     position.elementY = position.elementY + (distY * speed);
   
@@ -69,12 +98,12 @@
   /**
    * Initilize
    */
-  function init(container = 'body', follow = false) {
+  function init(container = 'body') {
     container = typeof container === 'string'
       ? document.querySelector(container)
       : container
 
-    createBlob(container, follow);
+    createBlob(container);
   };
 
   window.Blob = {init}

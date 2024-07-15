@@ -1,7 +1,7 @@
 <?php
 
 return [
-  'name' => esc_html__('Row 2', 'blankcanvas'),
+  'name' => esc_html__('Row', 'blankcanvas'),
   'description' => esc_html__('Place content elements inside the row', 'js_composer'),
   'base' => 'row_inner_inner',
   'php_class_name' => 'Blankcanvas\Vc\Shortcodes\RowInnerInner',

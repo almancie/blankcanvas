@@ -9,12 +9,12 @@
 |
 */
 
-$jsData = [
+$jsData = fn() => [
   'home' => home_url(),
   'theme' => get_template_directory_uri(),
   'l10n' => [
     'search' => [
-      'button' => __('Search', 'blankcanvas'),
+      'button' => __('Full Name', 'blankcanvas'),
       'placeholder' => __('Type Something', 'blankcanvas'),
       'noResults' => __('No Results Found', 'blankcanvas'),
     ],
@@ -64,6 +64,10 @@ add_action('wp_enqueue_scripts', function () use ($jsData) {
 
   // Google icons (Material Symbols)
   wp_enqueue_style('google-icons', 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@32,200,0,0', [], 'latest');
+      
+  // Blankcavas theme toggle
+  wp_enqueue_style('blankcanvas-theme-toggle', THEME_URI.'/assets/css/theme-toggle.css', [], THEME_VER);
+  wp_enqueue_script('blankcanvas-theme-toggle', THEME_URI.'/assets/js/theme-toggle.js', [], THEME_VER);
 
   // Animejs 
   wp_enqueue_script('animejs', 'https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js', [], '3.2.1', true);
@@ -73,7 +77,7 @@ add_action('wp_enqueue_scripts', function () use ($jsData) {
   wp_enqueue_script('blankcanvas-animatab', THEME_URI.'/assets/js/animatab.js', ['animejs'], THEME_VER);
 
   // Particles
-  // wp_enqueue_script('particles', 'https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js', [], '2.0.0', true);
+  wp_enqueue_script('particles', 'https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js', [], '2.0.0', true);
 
   // Blankcanvas onscreen   
   wp_enqueue_script('blankcanvas-onscreen', THEME_URI.'/assets/js/onscreen.js', [], THEME_VER);
@@ -98,10 +102,6 @@ add_action('wp_enqueue_scripts', function () use ($jsData) {
   
   // Blankcanvas video player
   wp_enqueue_script('blankcanvas-video-player', THEME_URI.'/assets/js/video-player.js', ['blankcanvas-onscreen'], THEME_VER, true);
-    
-  // Blankcavas theme toggle
-  wp_enqueue_style('blankcanvas-theme-toggle', THEME_URI.'/assets/css/theme-toggle.css', [], THEME_VER);
-  wp_enqueue_script('blankcanvas-theme-toggle', THEME_URI.'/assets/js/theme-toggle.js', [], THEME_VER);
 
   // Glide slider   
   wp_register_style('glide', 'https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.6.0/css/glide.core.min.css', [], '3.6.0');
@@ -110,7 +110,10 @@ add_action('wp_enqueue_scripts', function () use ($jsData) {
 
   // Simple parallax
   wp_enqueue_script('simple-parallax', 'https://cdn.jsdelivr.net/npm/simple-parallax-js@5.5.1/dist/simpleParallax.min.js', [], THEME_VER);
-  
+
+  // Rellax
+  wp_enqueue_script('rellax', 'https://cdnjs.cloudflare.com/ajax/libs/rellax/1.12.1/rellax.min.js', [], '1.12.1', true);
+
   // Img to svg
   wp_enqueue_script('img-to-svg', THEME_URI.'/assets/js/img-to-svg.js', [], THEME_VER, true);
 
@@ -121,6 +124,11 @@ add_action('wp_enqueue_scripts', function () use ($jsData) {
   // Blob
   wp_enqueue_style('blob', THEME_URI.'/assets/css/blob.css', [], THEME_VER);
   wp_enqueue_script('blob', THEME_URI.'/assets/js/blob.js', [], THEME_VER, true);
+  
+  // Atropos (3D Parallax)
+  wp_enqueue_style('atropos', 'https://cdn.jsdelivr.net/npm/atropos@2.0.2/atropos.min.css', [], '2.0.2');
+  wp_enqueue_script('atropos', 'https://cdn.jsdelivr.net/npm/atropos@2.0.2/atropos.min.js', [], '2.0.2');
+  wp_enqueue_script('blankcanvas-parallax3d', THEME_URI.'/assets/js/parralax3d.js', ['atropos'], THEME_VER);
   
   // Theme main JS & CSS
   wp_enqueue_style('blankcanvas', get_stylesheet_uri(), [], THEME_VER);
@@ -133,6 +141,11 @@ add_action('wp_enqueue_scripts', function () use ($jsData) {
 
   // WPBakery main CSS
   wp_enqueue_style('blankcanvas-vc-main', THEME_URI.'/inc/vc/assets/css/main.css', [], THEME_VER);
+
+  /**
+   * Localize data
+   */
+  wp_localize_script('blankcanvas', 'bc', $jsData());
 });
 
 /*
@@ -144,7 +157,7 @@ add_action('wp_enqueue_scripts', function () use ($jsData) {
 |
 */
 
-add_action('admin_enqueue_scripts', function () use ($jsData) {
+add_action('admin_enqueue_scripts', function () {
 
   // Admin main assets
   wp_enqueue_style('blankcanvas-admin', THEME_URI.'/assets/css/admin.css', [], THEME_VER);
@@ -180,9 +193,4 @@ add_action('admin_enqueue_scripts', function () use ($jsData) {
 
   // Contact Form 7
   wp_enqueue_script('module-blankcanvas-wpcf7-admin', THEME_URI.'/inc/wpcf7/assets/js/admin.js', [], THEME_VER, true);
-
-  /**
-   * Localize data
-   */
-  wp_localize_script('blankcanvas-admin', 'bc', $jsData);
 }, 99);

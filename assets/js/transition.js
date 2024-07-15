@@ -1,128 +1,114 @@
 (function() {
-  const easing = 'cubicBezier(0.33, 1, 0.68, 1)';
-  const duration = 1000;
-
   /**
    * Animation settings
    */
   const settings = {
-    fade: (element) => {
+    default: {
+      opacity: 1,
+    },
+    fade: () => {
       return {
-        targets: element,
-        opacity: 1,
-        duration,
-        easing,
+        opacity: {value: 1, delay: 1000 / 4},
+        duration: 1000,
+        easing: 'cubicBezier(0.33, 1, 0.68, 1)',
       }
     },
-    fadeStart: (element) => {
+    fadeStart: () => {
       return {
-        targets: element,
-        translateX: ['100px', 0],
-        opacity: 1,
-        duration,
-        easing,
+        translateX: ['150px', 0],
+        duration: 1000,
+        opacity: {value: 1, delay: 1000 / 4},
+        easing: 'cubicBezier(0.33, 1, 0.68, 1)',
       }
     },
-    fadeEnd: (element) => {
+    fadeEnd: () => {
       return {
-        targets: element,
-        translateX: ['-100px', 0],
-        opacity: 1,
-        duration,
-        easing,
+        translateX: ['-150px', 0],
+        opacity: {value: 1, delay: 1000 / 4},
+        duration: 1000,
+        easing: 'cubicBezier(0.33, 1, 0.68, 1)',
       }
     },
-    fadeUp: (element) => {
+    fadeUp: () => {
       return {
-        targets: element,
-        translateY: ['100px', 0],
-        opacity: 1,
-        duration,
-        easing,
+        translateY: ['150px', 0],
+        opacity: {value: 1, delay: 1000 / 4},
+        duration: 1000,
+        easing: 'cubicBezier(0.33, 1, 0.68, 1)',
       }
     },
-    fadeDown: (element) => {
+    fadeDown: () => {
       return {
-        targets: element,
-        translateY: ['-100px', 0],
-        opacity: 1,
-        duration,
-        easing,
+        translateY: ['-150px', 0],
+        opacity: {value: 1, delay: 1000 / 4},
+        easing: 'cubicBezier(0.33, 1, 0.68, 1)',
       }
     },
-    fadeUpStart: (element) => {
+    fadeUpStart: () => {
       return {
-        targets: element,
-        translateX: ['100px', 0],
-        translateY: ['100px', 0],
-        opacity: 1,
-        duration,
-        easing,
+        translateX: ['150px', 0],
+        translateY: ['150px', 0],
+        opacity: {value: 1, delay: 1000 / 4},
+        duration: 1000,
+        easing: 'cubicBezier(0.33, 1, 0.68, 1)',
       }
     },
-    fadeUpEnd: (element) => {
+    fadeUpEnd: () => {
       return {
-        targets: element,
-        translateX: ['-100px', 0],
-        translateY: ['100px', 0],
-        opacity: 1,
-        duration,
-        easing,
+        translateX: ['-150px', 0],
+        translateY: ['150px', 0],
+        opacity: {value: 1, delay: 1000 / 4},
+        duration: 1000,
+        easing: 'cubicBezier(0.33, 1, 0.68, 1)',
       }
     },
-    fadeDownStart: (element) => {
+    fadeDownStart: () => {
       return {
-        targets: element,
-        translateX: ['100px', 0],
-        translateY: ['-100px', 0],
-        opacity: 1,
-        duration,
-        easing,
+        translateX: ['150px', 0],
+        translateY: ['-150px', 0],
+        opacity: {value: 1, delay: 1000 / 4},
+        duration: 1000,
+        easing: 'cubicBezier(0.33, 1, 0.68, 1)',
       }
     },
-    fadeDownEnd: (element) => {
+    fadeDownEnd: () => {
       return {
-        targets: element,
-        translateX: ['-100px', 0],
-        translateY: ['-100px', 0],
-        opacity: 1,
-        duration,
-        easing,
+        translateX: ['-150px', 0],
+        translateY: ['-150px', 0],
+        opacity: {value: 1, delay: 1000 / 4},
+        duration: 1000,
+        easing: 'cubicBezier(0.33, 1, 0.68, 1)',
       }
     },
-    fadeZoomIn: (element) => {
+    fadeZoomIn: () => {
       return {
-        targets: element,
         scale: [.85, 1],
-        opacity: 1,
-        duration,
-        easing,
+        opacity: {value: 1, delay: 1000 / 4},
+        duration: 1500,
+        easing: 'easeInOutQuart',
       }
     },
-    fadeZoomOut: (element) => {
+    fadeZoomOut: () => {
       return {
-        targets: element,
         scale: [1.175, 1],
-        opacity: 1,
-        duration,
-        easing,
+        opacity: {value: 1, delay: 1000 / 4},
+        duration: 1500,
+        easing: 'easeInOutQuart',
       }
     },
-    fadeBounceDown: (element) => {
+    fadeBounceDown: () => {
       return {
-        targets: element,
         translateY: ['-200px', 0],
-        opacity: {value: 1, duration: 600, easing: 'easeOutQuart'},
+        opacity: {value: 1, duration: 1000, easing: 'easeOutQuart'},
         duration: 1200,
         easing: 'easeOutBounce',
       }
     },
-    fadeBounceDownAndRotate: (element) => {
+    fadeBounceDownAndRotate: () => {
       return {
-        targets: element,
         translateY: ['-200px', 0],
         rotate: ['-180deg', 0],
-        opacity: {value: 1, duration: 600, easing: 'easeOutQuart'},
+        opacity: {value: 1, duration: 1000, easing: 'easeOutQuart'},
         duration: 1200,
         easing: 'easeOutBounce',
       }
@@ -131,10 +117,9 @@
       const circ = element.offsetWidth * Math.PI;
 
       return {
-        targets: element,
         translateX: [circ * .5, 0],
         rotate: ['.5turn', 0],
-        opacity: {value: 1, duration: 1000},
+        opacity: {value: 1},
         duration: 4000,
         easing: 'easeOutElastic(1, .3)',
       }
@@ -143,10 +128,9 @@
       const circ = element.offsetWidth * Math.PI;
 
       return {
-        targets: element,
         translateX: [circ * -.5, 0],
         rotate: ['-.5turn', 0],
-        opacity: {value: 1, duration: 1000},
+        opacity: {value: 1},
         duration: 4000,
         easing: 'easeOutElastic(1, .3)',
       }
@@ -180,7 +164,7 @@
 
     const animation = settings[transition] instanceof Function 
       ? settings[transition](element, anime)
-      : settings[transition]
+      : settings[transition] ?? settings.default;
 
     // Duration
     if (transitionDuration) {
@@ -189,18 +173,6 @@
 
     // Delay
     if (transitionDelay) {
-
-      // If the delay is a function (anime.stagger) add it
-      // to the timeout, and if it's a normal value, add it
-      // as a delay property.
-      // if (animation.delay instanceof Function) {
-      //   animation.startDelay = transitionDelay;
-      // } else {
-      //   animation.delay = animation.delay 
-      //     ? +animation.delay + +transitionDelay
-      //     : transitionDelay;
-      // }
-
       animation.startDelay = transitionDelay;
     }
 

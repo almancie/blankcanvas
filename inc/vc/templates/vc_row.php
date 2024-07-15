@@ -30,6 +30,16 @@ if ($el_id) {
 }
 
 // Stretch
+if ($full_width === 'stretch') {
+  $classes[] = 'row-stretched';
+}
+
+// Stretch content
+if ($full_width === 'stretch_content') {
+  $classes[] = 'row-stretched-content';
+}
+
+// Stretch
 // if ($full_width) {
 //   array_push($attributes, 'data-vc-full-width="true"', 'data-vc-full-width-init="false"');
 

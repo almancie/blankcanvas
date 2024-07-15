@@ -134,7 +134,6 @@
       targets: highlighter,
       opacity: 1,
       duration: 800,
-      // easing: 'easeInOutCirc',
       easing: 'easeOutBack',
       ...settings.highlighterAnimation ?? {},
       ...additionalAnimation,
@@ -166,6 +165,8 @@
 
     // Event handlers
     [...element.children].forEach(child => {
+      if (window?.getComputedStyle(child).display === 'none') return;
+  
       child.classList.add(settings.itemClass);
 
       if (isTrue(settings.animateOnClick)) {
@@ -236,9 +237,11 @@
 
     // Manually selected
     userElements.forEach(userElement => {
-      const element = document.querySelector(userElement.selector);
+      const element = typeof userElement.selector === 'string'
+        ? document.querySelector(userElement.selector)
+        : userElement.selector;
 
-      if (! element) return;
+      if (element === 'undefined') return;
 
       animatab(element,  {
         ...settings, 

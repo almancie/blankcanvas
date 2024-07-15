@@ -27,7 +27,12 @@
  
 [data-element-disabled="true"] {
   opacity: .35;
-  filter: grayscale(1)
+  filter: grayscale(1);
+}
+ 
+[data-element-disabled="true"] [data-element-disabled="true"] {
+  opacity: 1;
+  filter: none;
 }
 
 .element-hidden {
@@ -151,6 +156,10 @@
   color: #fff !important;
 }
 
+.bc-element > .vc_controls .vc_control-btn-delete > .vc_btn-content:hover {
+  background-color: #dc3545;
+}
+
 .bc-panel > .wpb_element_wrapper > .vc_tta-panel-body > .vc_controls > *,
 .bc-accordion-item > .wpb_element_wrapper > .vc_tta-panel-body > .vc_controls > * {
   justify-content: center;
@@ -241,9 +250,10 @@
 }
 
 .bc-column[data-width="auto"] {
-  flex: 0 0 auto;
+  /* flex: 0 0 auto; */
+  /* min-width: 250px; */
+  flex: 1 1 auto;
   width: auto;
-  min-width: 250px;
 }
 
 .bc-column[data-width="max"] {
@@ -299,15 +309,15 @@
 /**
  * Image
  */
-.wpb_image [data-name="image"][src$="svg"] {
+.wpb_image [data-name="image"]:not([src=""]) {
   background-image: none;
 }
 
 /* Prevents hidden fields from showing on edit window inital opening */
-.vc_properties-list-init [data-vc-shortcode-param-name="custom_src"],
+/* .vc_properties-list-init [data-vc-shortcode-param-name="custom_src"],
 .vc_properties-list-init [data-vc-shortcode-param-name="external_img_size"] {
   display: none;
-}
+} */
 
 /**
  * Text
@@ -356,7 +366,7 @@
  * Elements background color (white/silver)
  */
  
- .bc-element:not(.bc-section):not(.bc-row) > * {
+.bc-element:not(.bc-section):not(.bc-row) > * {
   transition: background-color .5s;
   background-color: var(--element-bg) !important;
 }
@@ -377,11 +387,14 @@
 }
 
 [data-element-updated="true"] > .wpb_element_wrapper,
+[data-element-updated="true"][data-element_type*="vc_column"] > *,
 [data-element-updated="true"] > .wpb_element_wrapper > * {
   position: relative;
 }
 
-[data-element-updated="true"] > .wpb_element_wrapper:before {
+[data-element-updated="true"] > .wpb_element_wrapper:before,
+[data-element-updated="true"][data-element_type*="vc_column"] > *:before,
+[data-element-updated="true"][data-element_type*="vc_row"] > .wpb_element_wrapper:after {
   content: "";
   display: flex;
   align-items: center;
@@ -490,6 +503,15 @@
   }
 
   .bc-element > .vc_controls .vc_element-move {
+    display: none !important;
+  }
+}
+
+@media (width > 1200px) {
+  .bc-element > .vc_controls .vc_control-btn-copy,
+  .bc-element > .vc_controls .vc_control-btn-paste,
+  .bc-element > .vc_controls .vc_column-copy,
+  .bc-element > .vc_controls .vc_column-paste {
     display: none !important;
   }
 }

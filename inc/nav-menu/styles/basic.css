@@ -166,6 +166,10 @@ body[direction="rtl"] .bc-menu > li > .external-link-arrow {
     padding-inline-start: calc(var(--item-spacing-x) * .5);
     padding-inline-end: calc(var(--item-spacing-x) * .5);
   }
+  
+  .bc-menu > li:first-child {
+    margin-inline-start: calc(var(--item-spacing-x) * -.5);
+  }
 
   .bc-menu ul li {
     --item-spacing-x: 1.25rem;

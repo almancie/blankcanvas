@@ -29,16 +29,17 @@ return [
   ],
   [
     'type' => 'textfield',
-    'heading' => esc_html__('Anchor (optional)', 'blankcanvas'),
+    'heading' => esc_html__('Anchor', 'blankcanvas'),
     'param_name' => 'transition_anchor',
     'group' => esc_html__('Transition', 'blankcanvas'),
-    'description' => esc_html__('Add a selector to a different element that will trigger the animation of this element.', 'blankcanvas'),
+    'description' => esc_html__('Optional: Add a selector to a different element that will trigger the animation of this element.', 'blankcanvas'),
   ],
   [
     'type' => 'textfield',
     'heading' => esc_html__('Duration (ms)', 'blankcanvas'),
     'param_name' => 'transition_duration',
     'group' => esc_html__('Transition', 'blankcanvas'),
+    'description' => esc_html__('Optional: Add a custom duration time.', 'blankcanvas'),
     'edit_field_class' => 'vc_col-xs-4',
   ],
   [
@@ -46,6 +47,7 @@ return [
     'heading' => esc_html__('Delay (ms)', 'blankcanvas'),
     'param_name' => 'transition_delay',
     'group' => esc_html__('Transition', 'blankcanvas'),
+    'description' => esc_html__('Optional: Add a custom delay time.', 'blankcanvas'),
     'edit_field_class' => 'vc_col-xs-4',
   ],
 ];

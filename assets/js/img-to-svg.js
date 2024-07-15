@@ -6,14 +6,24 @@
   /**
    * Converts img to SVG
    */
-  function convert(element) {
+  async function convert(element, callback) {
 
     if (typeof element === 'string') {
       element = document.querySelector(element);
     }
 
+    if (! element) return;
+
+    let src = element.getAttribute('src');
+
+    if (! src) {
+      src = element.dataset.svg;
+    }
+
+    if (! src) return;
+
     // Fetch the file from the server.
-    fetch(element.dataset.svg ? element.dataset.svg : element.src)
+    await fetch(src)
       .then(response => response.text())
       .then(text => {
 
@@ -22,7 +32,10 @@
 
         // Select the <svg> element from that document.
         const svg = parsed.querySelector('svg');
-        
+
+        // Add original image source as an attribute
+        svg.setAttribute('data-svg-src', element.src);
+
         if (element.classList) {
           svg.classList = element.classList;
         }
@@ -31,14 +44,19 @@
           svg.style.cssText = element.style.cssText;
         }
 
-        delete element.dataset.svgSrc;
-        
-        for (attr in element.dataset) {
-          svg.dataset[attr] = element.dataset[attr];
+        if (element.dataset.svg) {
+          delete element.dataset.svg;
         }
         
+        // for (attribute in element.dataset) {
+        //   svg.setAttribute(attribute, element.dataset[attribute]);
+        // }
+
         // Replace the image with the svg.
         element.replaceWith(svg);
+
+        // Call the optional passed callback
+        if (typeof callback === 'function') callback.call(svg);
       });
   }
 
@@ -50,8 +68,10 @@
       ? document.querySelector(container)
       : container
 
-    container.querySelectorAll('[data-svg], .svg').forEach(convert);
+    container.querySelectorAll('[data-svg$="svg"]').forEach(convert);
+    container.querySelectorAll('[data-svg][src$="svg"]').forEach(convert);
+    container.querySelectorAll('[data-svg] [src$="svg"]').forEach(convert);
   };
 
-  window.ImgToSvg = {init}
+  window.ImgToSvg = {init, convert}
 })()

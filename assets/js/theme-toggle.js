@@ -1,12 +1,12 @@
 (function() {
-  const storageKey = 'theme-preference'
+  const storageKey = 'theme-preference';
   
   const onChange = () => {
     // flip current value
     theme.value = theme.value === 'light'
       ? 'dark'
-      : 'light'
-      
+      : 'light';
+
     setPreference();
   }
   
@@ -19,7 +19,7 @@
       ? 'dark'
       : 'light'
   }
-  
+
   const setPreferenceAs = value => {
     if (! value) return;
 
@@ -34,7 +34,7 @@
   }
 
   const reflectPreference = () => {
-    document.firstElementChild.classList.add('theme-updating');
+    // document.firstElementChild.classList.add('theme-updating');
 
     document.firstElementChild
       .setAttribute('data-bs-theme', theme.value);
@@ -47,13 +47,23 @@
           element.checked = theme.value == 'dark';
         });
 
-    setTimeout(() => {
-      document.firstElementChild.classList.remove('theme-updating');
-    }, 600);
+    theme.onChange.handlers.forEach(handler => {
+      handler.call();
+    })
+
+    // setTimeout(() => {
+    //   document.firstElementChild.classList.remove('theme-updating');
+    // }, 600);
   }
 
   const theme = {
     value: getColorPreference(),
+    onChange: {
+      handlers: [],
+      add: (handler) => {
+        theme.onChange.handlers.push(handler);
+      }
+    },
     setPreferenceAs
   }
 
@@ -80,7 +90,7 @@
       theme.value = isDark ? 'dark' : 'light'
       setPreference()
     })
-  
+
   // add ability to change theme manually
   window.theme = theme;
 })();

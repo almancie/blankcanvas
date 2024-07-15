@@ -5,41 +5,38 @@ body {
 	--body-color-transition-easing: cubic-bezier(0.65,0,0.35,1);
 	transition: 
 		background-color var(--body-bg-transition-duration) var(--body-bg-transition-easing), 
-		color var(--body-color-transition-duration) var(--body-color-transition-easing);
+		color var(--body-color-transition-duration) var(--body-color-transition-easing) !important;
 }
 
-[class*="bg-"],
-[style*="background-color"] {
+.theme-toggle {
+	font-size: 1.125rem;
+	text-transform: uppercase;
+	font-weight: 700;
+}
+
+/* .theme-updating [class*="bg-"],
+.theme-updating [style*="background-color"] {
   transition: 
     background-color var(--body-bg-transition-duration) var(--body-bg-transition-easing) !important;
-}
+} */
 
 .has-overlay:before {
   transition: 
     background var(--body-bg-transition-duration) var(--body-bg-transition-easing);
 }
 
-.theme-toggle-switch .btn {
-	padding: 0;
-    height: 2rem;
-    width: 3rem;
-    justify-content: center;
-	--btn-font-size: .875rem;
-	letter-spacing: 0;
-	--btn-border-color: var(--border-color);
-	text-transform: uppercase;
+.theme-toggle-btn {
+	cursor: pointer;
 }
 
-.theme-toggle-input:checked ~ .dark,
-.theme-toggle-input:not(:checked) ~ .light {
-	--btn-bg: var(--secondary);
-	--btn-color: var(--dark);
-	--btn-border-color: var(--secondary);
+.theme-toggle-input:checked ~ .light,
+.theme-toggle-input:not(:checked) ~ .dark {
+	color: rgba(var(--body-color-rgb), .35);
 }
 
-.theme-toggle .icon {
+/* .theme-toggle .icon {
 	width: 36px;
-}
+} */
 
 /* .theme-toggle-switch {
 	--width: 70px;

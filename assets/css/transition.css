@@ -1,17 +1,5 @@
+[data-transition=""],
+[data-transition="default"],
 [data-transition^="fade"] {
   opacity: 0;
 }
-
-/* [data-transition*="fade"].transitioning {
-  opacity: 1;
-  animation: fadeIn .4s;
-}
-
-[data-transition*="fade"].transition-done {
-  opacity: 1;
-} */
-
-/* @keyframes fadeIn {
-  from {opacity: 0}
-  to {opacity: 1}
-} */

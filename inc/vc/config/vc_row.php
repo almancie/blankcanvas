@@ -18,6 +18,18 @@ return [
   'params' => [
     [
       'type' => 'dropdown',
+      'heading' => esc_html__('Row stretch', 'js_composer'),
+      'param_name' => 'full_width',
+      'value' => [
+        esc_html__('Default', 'js_composer') => '',
+        esc_html__('Stretch row', 'js_composer') => 'stretch',
+        esc_html__('Stretch row and content', 'js_composer') => 'stretch_content',
+      ],
+      'description' => esc_html__('Stretch row to be screen wide.', 'js_composer'),
+      'weight' => 100,
+    ],
+    [
+      'type' => 'dropdown',
       'heading' => esc_html__('Columns position (X)', 'js_composer'),
       'param_name' => 'columns_position_x',
       'value' => [

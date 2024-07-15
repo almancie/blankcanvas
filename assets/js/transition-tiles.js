@@ -27,9 +27,9 @@ window?.Transition.addSetting('tiles', (element, anime) => {
   return {
     targets: tiles.sort(() => Math.random() - 0.5),
     opacity: 0,
-    duration: 500,
-    easing: 'easeOutSine', 
-    delay: anime.stagger(200, {grid: [tilesToHideEachIteration, tilesToHideEachIteration]}),
+    duration: 1600,
+    easing: 'easeInOutBack', 
+    delay: anime.stagger(75, {grid: [tilesToHideEachIteration, tilesToHideEachIteration]}),
     complete: () => {
       wrapper.remove();
     }

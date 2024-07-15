@@ -121,7 +121,7 @@ $utilities: map-merge(
 }
 
 .has-overlay:before {
-  background-color: var(--overlay-color);
+  background: var(--overlay-color);
   opacity: var(--overlay-opacity);
   transition: background-color var(--body-bg-transition-duration) var(--body-bg-transition-easing);
 }
@@ -183,23 +183,17 @@ $theme-colors-with-body: map-merge($theme-colors, (
 }
 
 [class*="fill-"][fill],
-[class*="fill-"] [fill] {
+[class*="fill-"] [fill],
+[class*="svg-"][fill],
+[class*="svg-"] [fill] {
   fill: var(--svg-fill);
 }
 
 [class*="stroke-"][stroke],
-[class*="stroke-"] [stroke] {
-  stroke: var(--svg-stroke);
-}
-
+[class*="stroke-"] [stroke],
 [class*="svg-"][stroke],
 [class*="svg-"] [stroke] {
   stroke: var(--svg-stroke);
-}
-
-[class*="svg-"][fill],
-[class*="svg-"] [fill] {
-  fill: var(--svg-fill);
 }
 
 [fill="none"] {

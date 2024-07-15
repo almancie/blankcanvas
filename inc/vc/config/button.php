@@ -67,6 +67,7 @@ return [
         esc_html__('Default', 'blankcanvas') => 'body', 
         esc_html__('Primary', 'blankcanvas') => 'primary', 
         esc_html__('Secondary', 'blankcanvas') => 'secondary', 
+        esc_html__('Tertiary', 'blankcanvas') => 'tertiary', 
         esc_html__('Light', 'blankcanvas') => 'light', 
         esc_html__('Dark', 'blankcanvas') => 'dark', 
       ],

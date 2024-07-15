@@ -4,7 +4,7 @@
  * Allows to add letterize effect to text
  */
 
-window?.Transition.addSetting('letterize', (element, anime) => {
+window.Transition?.addSetting('letterize', (element, anime) => {
   const animations = {
     roll: {
       translateX: (element) => {
