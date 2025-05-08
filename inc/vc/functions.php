@@ -16,7 +16,7 @@ if (! defined('WPB_VC_VERSION')) return;
  */
 spl_autoload_register(function ($class) {
   if (! str_starts_with($class, 'WPBakeryShortCode_Vc_')) return;
-
+  
   // Converts WPBakeryShortCode_Vc_Foo to vc-foo Because 
   // WPBakery names classes different than their files.
   require WPB_PLUGIN_DIR . sprintf(
@@ -30,7 +30,7 @@ spl_autoload_register(function ($class) {
  */
 spl_autoload_register(function ($class) {
   if (! str_starts_with($class, 'Blankcanvas\Vc\Shortcode')) return;
-
+  
   require THEME_DIR . sprintf('/inc/vc/shortcodes/%s.php', substr($class, 26));
 });
 
@@ -42,13 +42,6 @@ spl_autoload_register(function ($class) {
 | Configures WPBakery.
 |
 */
-
-/**
- * Disables Gutenberg for pages so we can load WPBakery editor.
- */
-add_filter('use_block_editor_for_post', function ($bool, $post) {
-  return $post->post_type === 'page' ? false : $bool;
-}, 0, 2);
 
 /**
  * Disables frontend editor.
@@ -88,12 +81,7 @@ $elements = [
   'html',
   'glide_slide',
   'lottie_player',
-  'video_player'
-  // 'bootstrap_icon', 
-  // 'advanced_list',
-  // 'advanced_list_item',
-  // 'group',
-  // 'group_column',
+  'video_player',
 ];
 
 add_action('vc_before_init', function() use ($elements) {
@@ -124,12 +112,37 @@ add_action('vc_after_init', function () use ($elements, $fields) {
   foreach ($elements as $element) {
     foreach ($fields as $field) {
       $settings = include THEME_DIR . sprintf('/inc/vc/params/%s.php', $field);
-
+      
       foreach ($settings as $setting) {
         vc_add_param($element, $setting);
       }
     }
   };
+});
+
+/*
+|--------------------------------------------------------------------------
+| Custom Field Types
+|--------------------------------------------------------------------------
+|
+| Defines custom field types
+|
+*/
+
+$types = [
+  'attach_video'
+];
+
+add_action('vc_after_init', function () use ($types) {
+    foreach ($types as $type) {
+      vc_add_shortcode_param($type, function ($settings, $value) use ($type) {
+        ob_start();
+
+        include sprintf(THEME_DIR . '/inc/vc/params/templates/%s.php', $type);
+
+        return ob_get_clean();
+      });
+    }
 });
 
 /*
@@ -144,15 +157,14 @@ add_action('vc_after_init', function () use ($elements, $fields) {
 add_filter(VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, function ($classes, $shortcode, $atts) {
   $options = [
     'overlay_color' => 'has-overlay',
-    'border' => 'border',
   ];
-
+  
   foreach ($options as $name => $value) {
     if (empty($atts[$name])) continue;
-
+    
     $classes .= ' ' . $value;
   }
-
+  
   return trim($classes);
 }, 99, 3);
 
@@ -168,23 +180,23 @@ add_filter(VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, function ($classes, $shortcode, $
 $style = [];
 
 /**
- * Background image
- */
+* Background image
+*/
 add_filter('vc_shortcode_content_filter_after', function ($output, $shortcode, $atts, $content) use (&$style) {
   if (empty($atts['background_image'])) return $output;
-
+  
   $img = wp_get_attachment_image_src($atts['background_image'], 'full');
-
+  
   if (is_array($img)) {
     $style[] = sprintf('background-image: url(%s); background-size: cover; background-position: center;', $img[0]);
   }
-
+  
   return $output;
 }, 99, 4);
 
 /**
- * Design options
- */
+* Design options
+*/
 add_filter('vc_shortcode_content_filter_after', function ($output, $shortcode, $atts, $content) use (&$style) { 
   $options = [
     'background_color'          => 'background-color: %s',
@@ -194,24 +206,22 @@ add_filter('vc_shortcode_content_filter_after', function ($output, $shortcode, $
     'custom_overlay_color'      => '--overlay-color: %s',
     'overlay_opacity'           => '--overlay-opacity: %s',
     'text_color'                => 'color: %s',
-    'border_color'              => '--border-color: %s',
-    'border_size'               => '--border-width: %s',
   ];
- 
+  
   foreach ($options as $name => $value) {
     if (empty($atts[$name])) continue;
-
+    
     if ($atts[$name] === 'custom') continue;
-
+    
     $style[] = sprintf($value, $atts[$name]);
   }
-
+  
   return $output;
 }, 99, 4);
 
 /**
- * Spacing
- */
+* Spacing
+*/
 add_filter('vc_shortcode_content_filter_after', function ($output, $shortcode, $atts, $content) use (&$style) { 
   $options = [
     'padding_top'    => 'padding-top: %s',
@@ -223,40 +233,25 @@ add_filter('vc_shortcode_content_filter_after', function ($output, $shortcode, $
     'margin_start'   => 'margin-inline-start: %s',
     'margin_end'     => 'margin-inline-end: %s',
   ];
- 
+  
   foreach ($options as $name => $value) {
     if (empty($atts[$name])) continue;
-
+    
     $style[] = sprintf($value, $atts[$name]);
   }
-
+  
   return $output;
 }, 99, 4);
 
 /**
- * Custom CSS
- */
-add_filter('vc_shortcode_content_filter_after', function ($output, $shortcode, $atts, $content) use (&$style) {  
-  if (! empty($atts['custom_css'])) {
-
-    // Decode
-    $customCss = urldecode(base64_decode($atts['custom_css']));
-
-    $style[] = $customCss;
-  }
-
-  return $output;
-}, 99, 4);
-
-/**
- * Style
- */
+* Style
+*/
 add_filter('vc_shortcode_content_filter_after', function ($output, $shortcode, $atts, $content) use (&$style) {
   if (empty($style)) return $output;
-
+  
   // Get the HTML tags from output
   preg_match('/<.*?>/', $output, $tags);
-
+  
   // Extract style from the root tag only
   preg_match('/style="(.*?)"/', empty($tags) ? '' : $tags[0], $tagStyle);
   
@@ -285,26 +280,94 @@ add_filter('vc_shortcode_content_filter_after', function ($output, $shortcode, $
 
 add_filter('vc_shortcode_content_filter_after', function ($output, $shortcode, $atts, $content) {
   $dataAtts = empty($atts['attributes']) 
-    ? [] 
-    : explode(',', $atts['attributes']);
-
+  ? [] 
+  : explode(',', $atts['attributes']);
+  
   $transitionAtts = shortcode_atts([
     'transition' => '',
     'transition_duration' => '',
     'transition_delay' => '',
     'transition_anchor' => '',
+    'transition_offset' => '',
   ], $atts, $shortcode);
-
+  
   foreach ($transitionAtts as $name => $value) {
     if (! $value) continue;
-
+    
     $dataAtts[] = sprintf('data-%s="%s"', str_replace('_', '-', $name), $value);
   }
-
+  
   return empty($dataAtts) 
     ? $output 
     : preg_replace('/>/', sprintf(' %s>', implode(' ', $dataAtts)), $output, 1);
 }, 99, 4);
+
+/*
+|--------------------------------------------------------------------------
+| Custom CSS
+|--------------------------------------------------------------------------
+|
+| Modifies shortcode's HTML output to add custom css.
+|
+*/
+
+$sizes = [
+  'xxl'     => '1400px',
+  'xl'      => '1200px',
+  'lg'      => '992px',
+  'md'      => '768px',
+  'sm'      => '575px',
+];
+
+$styleRules = [
+  'base' => [], // Non-media query rules
+];
+
+/**
+ * Collect style from all elements
+ */
+add_filter('vc_shortcode_content_filter_after', function ($output, $shortcode, $atts, $content) use (&$sizes, &$styleRules) {
+  if (empty($atts['custom_css'])) return $output;
+
+  $class = 'css-' . mt_rand();
+
+  $cssBlocks = preg_split('/(?=@)/', urldecode(base64_decode($atts['custom_css'])), -1, PREG_SPLIT_NO_EMPTY);
+
+  foreach ($cssBlocks as $block) {
+    preg_match('/@(\w+)/', $block, $m);
+
+    $media = $m[1] ?? 'base';
+
+    $style = trim(substr($block, strlen($m[0] ?? '')));
+
+    $query = $media === 'base' ? 'base' : (isset($sizes[$media]) ? "(min-width: {$sizes[$media]})" : $media);
+
+    $styleRules[$query][] = ".$class { $style }";
+  }
+
+  return preg_replace('/class="(.*?)"/', 'class="$1 ' . $class . '"', $output, 1);
+}, 99, 4);
+
+/**
+ * Append style in footer
+ */
+add_action('wp_footer', function () use (&$styleRules) {
+  if (empty($styleRules)) return;
+
+  echo "<style>\n";
+
+  // Output base styles and remove the key
+  echo implode("\n", $styleRules['base'] ?? []) . "\n";
+
+  unset($styleRules['base']);
+
+  // Output grouped media query blocks
+  foreach ($styleRules as $media => $rules) {
+    echo "@media {$media} {\n" . implode("\n", $rules) . "\n}\n";
+  }
+
+  echo "</style>";
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -319,19 +382,19 @@ add_filter('vc_shortcode_content_filter_after', function ($output, $shortcode, $
   if (empty($atts['custom_js'])) return $output;
 
   // Generate random custom class to refer to it in our JS.
-  $class = sprintf('custom-%s', mt_rand());
-
+  $class = sprintf('js-%s', mt_rand());
+  
   $output = preg_replace('/class="(.*?)"/', sprintf('class="\1 %s"', $class), $output, 1);
 
   // Decode
   $js = urldecode(base64_decode($atts['custom_js']));
-
+  
   // Attach script to the element's HTML output.
   $output .= sprintf(
     "<script>(() => {\nconst $0 = document.querySelector('.%s');\n%s\n})()</script>", 
     $class, 
     $js
   );
-
+  
   return $output;
 }, 99, 4);

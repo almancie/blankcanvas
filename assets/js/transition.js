@@ -1,3 +1,12 @@
+/*
+| Transition
+| Ver. 1.0.0
+| Author: Blank Canvas (www.blankcanvas.me)
+|
+| This library allows us to add transition effects to elements.
+|
+*/
+
 (function() {
   /**
    * Animation settings
@@ -8,7 +17,7 @@
     },
     fade: () => {
       return {
-        opacity: {value: 1, delay: 1000 / 4},
+        opacity: {value: 1, delay: 250},
         duration: 1000,
         easing: 'cubicBezier(0.33, 1, 0.68, 1)',
       }
@@ -17,14 +26,14 @@
       return {
         translateX: ['150px', 0],
         duration: 1000,
-        opacity: {value: 1, delay: 1000 / 4},
+        opacity: {value: 1, delay: 250},
         easing: 'cubicBezier(0.33, 1, 0.68, 1)',
       }
     },
     fadeEnd: () => {
       return {
         translateX: ['-150px', 0],
-        opacity: {value: 1, delay: 1000 / 4},
+        opacity: {value: 1, delay: 250},
         duration: 1000,
         easing: 'cubicBezier(0.33, 1, 0.68, 1)',
       }
@@ -32,7 +41,7 @@
     fadeUp: () => {
       return {
         translateY: ['150px', 0],
-        opacity: {value: 1, delay: 1000 / 4},
+        opacity: {value: 1, delay: 250},
         duration: 1000,
         easing: 'cubicBezier(0.33, 1, 0.68, 1)',
       }
@@ -40,7 +49,7 @@
     fadeDown: () => {
       return {
         translateY: ['-150px', 0],
-        opacity: {value: 1, delay: 1000 / 4},
+        opacity: {value: 1, delay: 250},
         easing: 'cubicBezier(0.33, 1, 0.68, 1)',
       }
     },
@@ -48,7 +57,7 @@
       return {
         translateX: ['150px', 0],
         translateY: ['150px', 0],
-        opacity: {value: 1, delay: 1000 / 4},
+        opacity: {value: 1, delay: 250},
         duration: 1000,
         easing: 'cubicBezier(0.33, 1, 0.68, 1)',
       }
@@ -57,7 +66,7 @@
       return {
         translateX: ['-150px', 0],
         translateY: ['150px', 0],
-        opacity: {value: 1, delay: 1000 / 4},
+        opacity: {value: 1, delay: 250},
         duration: 1000,
         easing: 'cubicBezier(0.33, 1, 0.68, 1)',
       }
@@ -66,7 +75,7 @@
       return {
         translateX: ['150px', 0],
         translateY: ['-150px', 0],
-        opacity: {value: 1, delay: 1000 / 4},
+        opacity: {value: 1, delay: 250},
         duration: 1000,
         easing: 'cubicBezier(0.33, 1, 0.68, 1)',
       }
@@ -75,7 +84,7 @@
       return {
         translateX: ['-150px', 0],
         translateY: ['-150px', 0],
-        opacity: {value: 1, delay: 1000 / 4},
+        opacity: {value: 1, delay: 250},
         duration: 1000,
         easing: 'cubicBezier(0.33, 1, 0.68, 1)',
       }
@@ -83,7 +92,7 @@
     fadeZoomIn: () => {
       return {
         scale: [.85, 1],
-        opacity: {value: 1, delay: 1000 / 4},
+        opacity: {value: 1, delay: 250},
         duration: 1500,
         easing: 'easeInOutQuart',
       }
@@ -91,7 +100,7 @@
     fadeZoomOut: () => {
       return {
         scale: [1.175, 1],
-        opacity: {value: 1, delay: 1000 / 4},
+        opacity: {value: 1, delay: 250},
         duration: 1500,
         easing: 'easeInOutQuart',
       }
@@ -134,6 +143,46 @@
         duration: 4000,
         easing: 'easeOutElastic(1, .3)',
       }
+    },
+    fadeLettersSpaceOut: () => {
+      return {
+        letterSpacing: '.5em',
+        opacity: {value: 1},
+        duration: 2000,
+        easing: 'easeOutQuad',
+      }
+    },
+    revealStart: () => {
+      return {
+        clipPath: ['inset(0 0 0 100%)', 'inset(0 0 0 0%)'],
+        opacity: {value: 1, duration: 0},
+        duration: 2000,
+        easing: 'easeOutQuad',
+      }
+    },
+    revealEnd: () => {
+      return {
+        clipPath: ['inset(0 100% 0 0)', 'inset(0 0% 0 0)'],
+        opacity: {value: 1, duration: 0},
+        duration: 2000,
+        easing: 'easeOutQuad',
+      }
+    },
+    revealUp: () => {
+      return {
+        clipPath: ['inset(100% 0 0 0)', 'inset(0% 0 0 0)'],
+        opacity: {value: 1, duration: 0},
+        duration: 2000,
+        easing: 'easeOutQuad',
+      }
+    },
+    revealDown: () => {
+      return {
+        clipPath: ['inset(0 0 100% 0)', 'inset(0 0 0% 0)'],
+        opacity: {value: 1, duration: 0},
+        duration: 2000,
+        easing: 'easeOutQuad',
+      }
     }
   }
 
@@ -152,48 +201,65 @@
   }
 
   /** 
+   * Attach element to the observer to be animated
+   */
+  function animate(animation = {}) {
+
+    // Animation
+    const transition = settings[animation.transition] instanceof Function 
+      ? settings[animation.transition](animation.target, anime)
+      : settings[animation.transition] ?? settings.default;
+
+    // Duration
+    if (animation.duration) {
+      transition.duration = animation.duration;
+    }
+
+    // Offset
+    if (animation.anchor) {
+      animation.offset = document.querySelector(animation.anchor)?.dataset.transitionOffset;
+    }
+
+    onScreen(animation.anchor ?? animation.target, () => {
+      setTimeout(() => {
+        anime({
+          targets: animation.target,
+          ...transition,
+          begin: () => {
+            onBegin(animation.target);
+            transition.begin?.call(null, animation.target);
+          },
+          complete: () => {
+            transition.complete?.call(null, animation.target);
+            onComplete(animation.target);
+          },
+        });
+      }, animation.delay ?? 0);
+    }, animation.offset);
+  
+    animation.target?.classList.add('transition-init');
+  }
+
+  /** 
    * Setup transition from data attributes
    */
   function setup(element) {
-    const {
+    let {
       transition, 
       transitionDuration, 
       transitionDelay, 
-      transitionAnchor = element
+      transitionOffset, 
+      transitionAnchor
     } = element.dataset;
 
-    const animation = settings[transition] instanceof Function 
-      ? settings[transition](element, anime)
-      : settings[transition] ?? settings.default;
-
-    // Duration
-    if (transitionDuration) {
-      animation.duration = transitionDuration;
-    }
-
-    // Delay
-    if (transitionDelay) {
-      animation.startDelay = transitionDelay;
-    }
-
-    onScreen(transitionAnchor, () => {
-      setTimeout(() => {
-        anime({
-          targets: element,
-          ...animation,
-          begin: () => {
-            onBegin(element);
-            animation.begin?.call(null, element);
-          },
-          complete: () => {
-            animation.complete?.call(null, element);
-            onComplete(element);
-          },
-        });
-      }, animation.startDelay ?? 0);
+    animate({
+      target: element,
+      transition,
+      duration: transitionDuration,
+      delay: transitionDelay,
+      offset: transitionOffset,
+      anchor: transitionAnchor
     });
-  
-    element.classList.add('transition-init');
   }
 
   /**
@@ -214,5 +280,5 @@
     container.querySelectorAll('[data-transition]').forEach(setup);
   };
 
-  window.Transition = {init, addSetting}
+  window.Transition = {init, settings, addSetting}
 })();

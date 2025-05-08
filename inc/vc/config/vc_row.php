@@ -2,7 +2,7 @@
 
 return [
   'name' => esc_html__('Row', 'blankcanvas'),
-  'description' => esc_html__('Place content elements inside the row', 'js_composer'),
+  'description' => esc_html__('Add Bootstrap row', 'blankcanvas'),
   'base' => 'vc_row',
   'php_class_name' => 'Blankcanvas\Vc\Shortcodes\VcRow',
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
@@ -16,6 +16,13 @@ return [
   'js_view' => 'VcRowView', // Allows us to reorder columns
   'default_content' => '[vc_column][/vc_column]', // Changing row layout creates vc_column that is why we default to it and then change it with JS.
   'params' => [
+    [
+			'type' => 'textfield',
+			'heading' => esc_html__('Row Title', 'js_composer'),
+			'param_name' => 'row_title',
+			'description' => esc_html__('This title is visible only in the admin area and helps site editors differentiate rows.', 'js_composer'),
+      'weight' => 100,
+		],
     [
       'type' => 'dropdown',
       'heading' => esc_html__('Row stretch', 'js_composer'),

@@ -38,21 +38,23 @@ $utilities: map-merge(
   align-items: center;
 }
 
-// .filter-light {
-//   filter: var(--filter-light);
-// }
+.pointer-events-none {
+  pointer-events: none;
+}
 
-// .filter-dark {
-//   filter: var(--filter-dark);
-// }
+.h-header {
+  height: var(--header-height);
+}
 
-// .filter-body-color {
-//   filter: var(--filter-body-color);
-// }
+.filter-body,
+.filter-dark {
+  filter: var(--filter-dark)
+}
 
-// .filter-body-bg {
-//   filter: var(--filter-body-bg);
-// }
+.filter-light,
+[data-bs-theme="dark"] .filter-body {
+  filter: var(--filter-light)
+}
 
 // .display-1 {
 //   letter-spacing: -12px;
@@ -130,24 +132,6 @@ $utilities: map-merge(
   z-index: 2;
 }
 
-// .has-canvas {
-//   @extend .has-before;
-//   display: inline-block;
-//   --canvas-width: 4px;
-//   --canvas-color: var(--body-color);
-//   --text-bg: var(--body-bg);
-//   background-color: var(--text-bg);
-// }
-
-// .has-canvas:before {
-//   border: var(--canvas-width) solid var(--canvas-color);
-//   width: 50%;
-//   inset-inline-start: 25%;
-//   height: 200%;
-//   top: -50%;
-//   z-index: -1;
-// }
-
 // .effect-glass {
 //   background: rgba(255, 255, 255, 0.1);
 //   // border-radius: 16px;
@@ -163,41 +147,47 @@ $utilities: map-merge(
   --border-color: var(--body-color);
 }
 
+svg [fill]:not([fill="none"]) {
+  fill: var(--svg-fill);
+}
+
+svg [stroke] {
+  stroke: var(--svg-stroke);
+}
+
+svg [stroke-width] {
+  stroke-width: var(--svg-stroke-width);
+}
+
 $theme-colors-with-body: map-merge($theme-colors, (
   body: var(--body-color)
 ));
 
 @each $color, $value in $theme-colors-with-body {
-  .fill-#{$color} {
-    --svg-fill: #{$value};
-  }
-
-  .stroke-#{$color} {
-    --svg-stroke: #{$value};
-  }
-  
   .svg-#{$color} {
     --svg-fill: #{$value};
     --svg-stroke: #{$value};
   }
 }
 
-[class*="fill-"][fill],
-[class*="fill-"] [fill],
-[class*="svg-"][fill],
-[class*="svg-"] [fill] {
-  fill: var(--svg-fill);
+[style*="font-size"] * {
+  font-size: inherit;
 }
 
-[class*="stroke-"][stroke],
-[class*="stroke-"] [stroke],
-[class*="svg-"][stroke],
-[class*="svg-"] [stroke] {
-  stroke: var(--svg-stroke);
+[style*="line-height"] * {
+  line-height: inherit;
 }
 
-[fill="none"] {
-  fill: none !important;
+[style*="font-weight"] * {
+  font-weight: inherit;
+}
+
+// [style*="--svg-stroke-width"] [stroke-width]:not([stroke-width="0"]) {
+//   stroke-width: var(--svg-stroke-width, 1);
+// }
+
+[style*="--height"] {
+  height: var(--height);
 }
 
 @each $size, $value in $grid-breakpoints {
@@ -206,6 +196,11 @@ $theme-colors-with-body: map-merge($theme-colors, (
     // Container
     .container {
       --container-max-width: #{map-get($container-max-widths, $size)};
+    }
+
+    // Useful to set image height on different screen sizes
+    [style*="--height-#{$size}"] {
+      height: var(--height-#{$size});
     }
 
     // Column

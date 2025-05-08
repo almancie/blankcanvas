@@ -1,11 +1,19 @@
-(function() {
+/*
+| onScreen
+| Ver. 1.0.0
+| Author: Blank Canvas (www.blankcanvas.me)
+|
+| This library allows us to observe elements for viewport intersection.
+|
+*/
 
+(function() {
   /**
    * Observer settings
    */
   const observerSettings = {
-    rootMargin: '-10%', 
-    threshold: .5
+    rootMargin: '0%',
+    threshold: [0, 0.25, 0.5, 0.75, 1]
   };
 
   /**
@@ -18,10 +26,10 @@
   /**
    * Push to stack of callbacks
    */
-  const addCallback = (element, callback) => {
-    if (element.onScreen) return element.onScreen.push(callback);
+  const addCallback = (element, callback, offset) => {
+    if (element.onScreen) return element.onScreen.push({callback, offset});
 
-    element.onScreen = [callback];
+    element.onScreen = [{callback, offset}];
 
     return false;
   }
@@ -31,17 +39,28 @@
    */
   const observer = new IntersectionObserver((entries, observer) => {
     
-    entries.forEach(entry => {      
+    entries.forEach(entry => {
       // Stops script from running on initial load.
-      if (entry.intersectionRatio === 0) return;
+      // if (entry.intersectionRatio === 0) return;
 
       const element = entry.target;
 
-      element.onScreen?.forEach(callback => callback());
+      element.onScreen = element.onScreen?.filter(callback => {
+        if (entry.intersectionRatio >= callback.offset) {
+          callback.callback();
 
-      observer.unobserve(element);
+          return false;
+        }
 
-      element.classList.add('onscreen-done');
+        return true;
+      });
+
+      if (element.onScreen.length === 0) {
+        observer.unobserve(element);
+
+        element.classList.add('onscreen-done');
+      }
+
     });
   }, observerSettings);
 
@@ -63,7 +82,7 @@
   /**
    * Attach element to the observer
    */
-  const onScreen = (selector, callback) => {
+  const onScreen = (selector, callback, offset = .5) => {
     const element = getElement(selector);
 
     if (! element) {
@@ -74,7 +93,7 @@
 
     // if (isBeyond(element)) return callback();
 
-    if (addCallback(element, callback)) return;
+    if (addCallback(element, callback, offset)) return;
 
     observer.observe(element);
 

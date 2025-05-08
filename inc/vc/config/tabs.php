@@ -2,7 +2,7 @@
 
 return [
   'name' => esc_html__('Tabs', 'js_composer'),
-  'description' => esc_html__('Tabbed content', 'js_composer'),
+  'description' => esc_html__('Add Bootstrap tabs', 'blankcanvas'),
   'base' => 'tabs',
   'php_class_name' => 'Blankcanvas\Vc\Shortcodes\Tabs',
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
@@ -13,7 +13,12 @@ return [
   'as_child' => [
     'only' => 'vc_column',
   ],
-  'js_view' => 'VcBackendTtaTabsView',
+  'as_parent' => [
+    'only' => 'panel',
+    'hide_add' => true
+  ],
+  'js_view' => 'TabsView', // extends VcBackendTtaTabsView and overrides addSection function
+  // 'js_view' => 'VcBackendTtaTabsView',
   'custom_markup' =>
     '<div class="vc_tta-container" data-vc-action="collapse">
       <div class="vc_general vc_tta vc_tta-tabs vc_tta-color-backend-tabs-white vc_tta-style-flat vc_tta-shape-rounded vc_tta-spacing-1 vc_tta-tabs-position-top vc_tta-controls-align-left">
@@ -31,9 +36,10 @@ return [
         </div>
       </div>
     </div>',
-  'default_content' => '[vc_tta_section title="' . esc_html__('Tab', 'js_composer') . '"][/vc_tta_section]',
+  'default_content' => '[panel title="' . esc_html__('Tab', 'js_composer') . '"][/panel]',
+  // 'default_content' => '[vc_tta_section title="' . esc_html__('Tab', 'js_composer') . '"][/vc_tta_section]',
   'admin_enqueue_js' => [
-    vc_asset_url('lib/vc_tabs/vc-tabs.min.js')
+    vc_asset_url('lib/vc/vc_tabs/vc-tabs.min.js')
   ],
   'params' => [
     [

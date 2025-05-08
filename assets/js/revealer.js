@@ -1,5 +1,13 @@
-(function () {
+/*
+| Revealer
+| Ver. 1.0.0
+| Author: Blank Canvas (www.blankcanvas.me)
+|
+| This library allows us to attach cool reveal effect on elements.
+|
+*/
 
+(function () {
   /**
    * Variables
    */

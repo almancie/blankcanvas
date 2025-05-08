@@ -1,0 +1,17 @@
+@if $enable-grid-classes {
+  // Adds a class for 20% width col
+  .col-2\.4 {
+    flex: 0 0 auto;
+    width: 20%;
+  }
+
+  @each $size, $value in $grid-breakpoints {
+    @media (min-width: $value) {
+      // Adds responsive classes for 20% width col
+      .col-#{$size}-2\.4 {
+        flex: 0 0 auto;
+        width: 20%;
+      }
+    }
+  }
+}

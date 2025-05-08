@@ -26,7 +26,7 @@ class PostType
   }
 
   public function tax($name, $singular = null, $plural = null, array $settings = []) {
-    $this->taxonomies[] = new PostType\Taxonomy($name, $singular ?: $name, $plural ?: $name . 's', $settings, $this);
+    $this->taxonomies[] = new PostType\Taxonomy($this, $name, $singular ?: $name, $plural ?: $name . 's', $settings);
 
     return $this;
   }

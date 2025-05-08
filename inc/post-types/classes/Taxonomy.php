@@ -14,7 +14,7 @@ class Taxonomy
 
   protected $postType;
 
-  public function __construct($name, $singular, $plural, array $settings = [], $postType)
+  public function __construct($postType, $name, $singular, $plural, array $settings = [])
   {
     $this->name = $name;
 

@@ -17,11 +17,11 @@ $classes = [
 
 // Hide
 if ($disable_element) {
-  $classes[] = 'd-none';
+  $classes[] = 'element-hidden';
 }
 
 // Has background
-if ($background_image || $video_bg || $parallax) {
+if ($background_image || $video_bg || $parallax || $background_color || $custom_background_color) {
   $classes[] = 'section-has-fill';
 }
 

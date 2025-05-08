@@ -51,13 +51,16 @@ add_filter('script_loader_tag', function($tag, $handle) {
 
 add_action('wp_enqueue_scripts', function () use ($jsData) {
 
+  // Lenis (smooth scroll)
+  wp_enqueue_script('lenis', 'https://unpkg.com/lenis@1.3.1/dist/lenis.min.js', [], '1.3.1', true);
+  wp_enqueue_style('lenis', 'https://unpkg.com/lenis@1.3.1/dist/lenis.css', [], '1.3.1');
+
   // Lottie player
   wp_enqueue_script('lottie-player', 'https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js', [], 'latest');
 
   // Theme bundle (contains customized version of bootstrap 5.3)
   wp_enqueue_style('blankcanvas-bundle', THEME_URI.'/assets/css/bundle.min.css', [], THEME_VER);
   wp_enqueue_script('blankcanvas-bundle', THEME_URI.'/assets/js/bundle.min.js', [], THEME_VER, true);
-  wp_localize_script('blankcanvas-bundle', 'bc', $jsData);
 
   // Bootstrap icons
   wp_enqueue_style('bootstrap-icons', 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css', [], '1.11.2');
@@ -90,6 +93,8 @@ add_action('wp_enqueue_scripts', function () use ($jsData) {
   wp_enqueue_script('letterize', 'https://cdn.jsdelivr.net/npm/letterizejs@2.0.1/lib/letterize.min.js', [], '2.0.1', true);
   wp_enqueue_style('blankcanvas-transition-letterize', THEME_URI.'/assets/css/transition-letterize.css', [], THEME_VER);
   wp_enqueue_script('blankcanvas-transition-letterize', THEME_URI.'/assets/js/transition-letterize.js', ['blankcanvas-transition', 'letterize'], THEME_VER, true);
+  // wp_enqueue_style('blankcanvas-transition-reveal', THEME_URI.'/assets/css/transition-reveal.css', [], THEME_VER);
+  // wp_enqueue_script('blankcanvas-transition-reveal', THEME_URI.'/assets/js/transition-reveal.js', ['blankcanvas-transition'], THEME_VER, true);
 
   // Blankcanvas revealer
   wp_enqueue_style('blankcanvas-revealer', THEME_URI.'/assets/css/revealer.css', [], THEME_VER);
@@ -114,16 +119,16 @@ add_action('wp_enqueue_scripts', function () use ($jsData) {
   // Rellax
   wp_enqueue_script('rellax', 'https://cdnjs.cloudflare.com/ajax/libs/rellax/1.12.1/rellax.min.js', [], '1.12.1', true);
 
-  // Img to svg
-  wp_enqueue_script('img-to-svg', THEME_URI.'/assets/js/img-to-svg.js', [], THEME_VER, true);
+  // Blankcanvas Img to svg
+  wp_enqueue_script('blankcanvas-img-to-svg', THEME_URI.'/assets/js/img-to-svg.js', [], THEME_VER, true);
 
-  // React to mouse
-  wp_enqueue_style('react-to-mouse', THEME_URI.'/assets/css/react-to-mouse.css', [], THEME_VER);
-  wp_enqueue_script('react-to-mouse', THEME_URI.'/assets/js/react-to-mouse.js', [], THEME_VER, true);
+  // Blankcanvas React to mouse
+  wp_enqueue_style('blankcanvas-react-to-mouse', THEME_URI.'/assets/css/react-to-mouse.css', [], THEME_VER);
+  wp_enqueue_script('blankcanvas-react-to-mouse', THEME_URI.'/assets/js/react-to-mouse.js', [], THEME_VER, true);
 
-  // Blob
-  wp_enqueue_style('blob', THEME_URI.'/assets/css/blob.css', [], THEME_VER);
-  wp_enqueue_script('blob', THEME_URI.'/assets/js/blob.js', [], THEME_VER, true);
+  // Blankcanvas Blob
+  wp_enqueue_style('blankcanvas-blob', THEME_URI.'/assets/css/blob.css', [], THEME_VER);
+  wp_enqueue_script('blankcanvas-blob', THEME_URI.'/assets/js/blob.js', [], THEME_VER, true);
   
   // Atropos (3D Parallax)
   wp_enqueue_style('atropos', 'https://cdn.jsdelivr.net/npm/atropos@2.0.2/atropos.min.css', [], '2.0.2');
@@ -131,8 +136,8 @@ add_action('wp_enqueue_scripts', function () use ($jsData) {
   wp_enqueue_script('blankcanvas-parallax3d', THEME_URI.'/assets/js/parralax3d.js', ['atropos'], THEME_VER);
   
   // Theme main JS & CSS
-  wp_enqueue_style('blankcanvas', get_stylesheet_uri(), [], THEME_VER);
-  wp_enqueue_script('blankcanvas', THEME_URI.'/assets/js/main.js', [], THEME_VER, true);
+  wp_enqueue_style('blankcanvas-main', get_stylesheet_uri(), [], THEME_VER);
+  wp_enqueue_script('blankcanvas-main', THEME_URI.'/assets/js/main.js', [], THEME_VER, true);
 
   //  WP comment
   if (is_singular() && comments_open() && get_option('thread_comments')) {
@@ -145,7 +150,7 @@ add_action('wp_enqueue_scripts', function () use ($jsData) {
   /**
    * Localize data
    */
-  wp_localize_script('blankcanvas', 'bc', $jsData());
+  wp_localize_script('blankcanvas-bundle', 'bc', $jsData());
 });
 
 /*
@@ -177,7 +182,7 @@ add_action('admin_enqueue_scripts', function () {
   
   // Context Menu
   wp_enqueue_style('ctxmenu', THEME_URI.'/inc/vc/assets/css/ctxmenu.css', [], null);
-  wp_enqueue_script('ctxmenu', THEME_URI.'/inc/vc/assets/js/ctxmenu.js', [], null, true);
+  wp_enqueue_script('module-ctxmenu', THEME_URI.'/inc/vc/assets/js/modules/ctxmenu.js', [], null, true);
   
   // CodeMirror (code editor)
   wp_enqueue_style('wp-codemirror');

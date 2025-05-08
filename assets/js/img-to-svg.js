@@ -1,5 +1,13 @@
-(function () {
+/*
+| ImgToSVG
+| Ver. 1.0.0
+| Author: Blank Canvas (www.blankcanvas.me)
+|
+| This library allows us to convert img tags to SVG in runtime.
+|
+*/
 
+(function () {
   // Create a new dom parser to turn the SVG string into an element.
   const parser = new DOMParser();
 
@@ -57,7 +65,32 @@
 
         // Call the optional passed callback
         if (typeof callback === 'function') callback.call(svg);
-      });
+
+        return svg;
+      })
+      .then(svg => {
+        svg.querySelectorAll('[style*="stroke:"], [style*="stroke-width:"]').forEach(element => {
+
+          // Stroke
+          if (element.style.stroke) {
+            element.setAttribute('stroke', element.style.stroke)
+            element.style.stroke = null;
+          }
+
+          // Stroke width
+          if (element.style.strokeWidth) {
+            element.setAttribute('stroke-width', element.style.strokeWidth)
+            element.style.strokeWidth = null;
+          }
+        })
+
+        svg.querySelectorAll('[style*="fill:"]').forEach(element => {
+
+          // Fill
+          element.setAttribute('fill', element.style.fill)
+          element.style.fill = null;
+        })
+      })
   }
 
   /**

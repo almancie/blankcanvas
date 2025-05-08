@@ -1,13 +1,13 @@
-(function() {
-  /*
-  | Animatab
-  | Ver. 1.0.0
-  | Author: Blank Canvas (www.blankcanvas.me)
-  |
-  | This library allows us to create smooth click/hover effect on menus and tabs
-  |
-  */
+/*
+| Animatab
+| Ver. 1.0.0
+| Author: Blank Canvas (www.blankcanvas.me)
+|
+| This library allows us to create smooth click/hover effect on menus and tabs.
+|
+*/
 
+(function() {
   /*
   |--------------------------------------------------------------------------
   | Globals

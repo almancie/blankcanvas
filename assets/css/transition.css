@@ -1,5 +1,6 @@
 [data-transition=""],
 [data-transition="default"],
-[data-transition^="fade"] {
+[data-transition^="fade"],
+[data-transition^="reveal"] {
   opacity: 0;
 }

@@ -7,7 +7,7 @@ return [
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
   'class' => 'wpb_vc_tta_section bc-container bc-accordion-item bc-element',
   'icon' => 'icon-wpb-ui-tta-section',
-  'allowed_container_element' => 'row_inner',
+  'allowed_container_element' => 'vc_row_inner',
   'is_container' => true,
   'show_settings_on_create' => false,
   'as_child' => [

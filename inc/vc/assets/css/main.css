@@ -38,3 +38,16 @@
 [class*="-spill"].vc_parallax:after {
   content: none;
 } */
+
+/*
+|--------------------------------------------------------------------------
+| WPBakery Additions
+|--------------------------------------------------------------------------
+|
+| Adds extra WPBakery styling.
+|
+*/
+
+.element-hidden {
+  display: none !important;
+}

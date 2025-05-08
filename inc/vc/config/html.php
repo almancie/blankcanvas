@@ -3,7 +3,7 @@
 return [
   'name' => esc_html__('HTML', 'blankcanvas'),
   'base' => 'html',
-  'description' => esc_html__('A block of HTML content', 'blankcanvas'),
+  'description' => esc_html__('Add HTML content', 'blankcanvas'),
   'php_class_name' => 'Blankcanvas\Vc\Shortcodes\Html',
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
   'icon' => 'icon-wpb-raw-html',

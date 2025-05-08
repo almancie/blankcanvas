@@ -24,12 +24,9 @@ $directSettings = [
   'muted'
 ];
 
-// Direct video script
-$directScript = '';
-
 // Hide
 if ($disable_element) {
-  $classes[] = 'd-none';
+  $classes[] = 'element-hidden';
 }
 
 // Class
@@ -109,15 +106,15 @@ if ($source === 'youtube') {
   );
 }
 
+$video_url = $video_id ? wp_get_attachment_url($video_id) : '';
+
 $attributes[] = implode(' ', $directSettings);
 
 // Output
 return sprintf(
-  '<video %s >
+  '<video %s>
     <source src=%s>
-  </video>
-  %s', 
+  </video>', 
   implode(' ', $attributes),
-  filter_var($link, FILTER_SANITIZE_URL),
-  $directScript
+  filter_var($video_url, FILTER_SANITIZE_URL),
 );

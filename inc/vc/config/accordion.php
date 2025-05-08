@@ -2,7 +2,7 @@
 
 return [
   'name' => esc_html__('Accordion', 'js_composer'),
-  'description' => esc_html__('Collapsible content panels', 'js_composer'),
+  'description' => esc_html__('Add Bootstrap accordion', 'blankcanvas'),
   'base' => 'accordion',
   'php_class_name' => 'Blankcanvas\Vc\Shortcodes\Accordion',
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
@@ -13,7 +13,8 @@ return [
   'as_child' => [
     'only' => 'vc_column',
   ],
-  'js_view' => 'VcBackendTtaAccordionView',
+  'js_view' => 'AccordionView', // extends VcBackendTtaAccordionView and overrides addSection function
+  // 'js_view' => 'VcBackendTtaAccordionView',
   'custom_markup' => 
     '<div class="vc_tta-container" data-vc-action="collapseAll">
       <div class="vc_general vc_tta vc_tta-accordion vc_tta-color-backend-accordion-white vc_tta-style-flat vc_tta-shape-rounded vc_tta-o-shape-group vc_tta-controls-align-left vc_tta-gap-2">
@@ -32,11 +33,12 @@ return [
          </div>
       </div>
     </div>',
-  'default_content' => '[vc_tta_section title="' . esc_html__('Tab', 'js_composer') . '"][/vc_tta_section]',
+  'default_content' => '[accordion_item title="' . esc_html__('Section', 'js_composer') . '"][/accordion_item]',
+  // 'default_content' => '[vc_tta_section title="' . esc_html__('Section', 'js_composer') . '"][/vc_tta_section]',
   'params' => [
     [
       'type' => 'checkbox',
-      'heading' => esc_html__('Flush?', 'blankcanvas'),
+      'heading' => esc_html__('Flush', 'blankcanvas'),
       'param_name' => 'flush',
       'description' => esc_html__('If checked, the background color will be removed.', 'blankcanvas'),
       'value' => [
@@ -46,7 +48,7 @@ return [
     ],
     [
       'type' => 'checkbox',
-      'heading' => esc_html__('Alway close?', 'blankcanvas'),
+      'heading' => esc_html__('Alway close', 'blankcanvas'),
       'param_name' => 'always_close',
       'description' => esc_html__('If checked, opening a new section will close other sections.', 'blankcanvas'),
       'value' => [

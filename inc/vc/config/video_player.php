@@ -6,7 +6,7 @@ return [
   'base' => 'video_player',
   'php_class_name' => 'Blankcanvas\Vc\Shortcodes\VideoPlayer',
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
-  'icon' => 'icon-wpb-layer-shape-text',
+  'icon' => 'icon-wpb-film-youtube',
   'class' => 'bc-element',
   'show_settings_on_create' => false,
   'as_child' => [
@@ -19,7 +19,7 @@ return [
       'param_name' => 'source',
       'value' => [
         esc_html__('Youtube', 'blankcanvas') => 'youtube',
-        esc_html__('Direct', 'blankcanvas') => 'direct',
+        esc_html__('Media library', 'blankcanvas') => 'direct',
       ],
       'weight' => 100,
     ],
@@ -27,6 +27,21 @@ return [
       'type' => 'textfield',
       'heading' => esc_html__('Link', 'blankcanvas'),
       'param_name' => 'link',
+      'dependency' => [
+        'element' => 'source',
+        'value' => 'youtube',
+      ],
+      'weight' => 100
+    ],
+    [
+      'type' => 'attach_video',
+      'heading' => esc_html__('Video', 'blankcanvas'),
+      'param_name' => 'video_id',
+      'description' => __('Select video from media library.', 'blankcanvas'),
+      'dependency' => [
+        'element' => 'source',
+        'value' => 'direct',
+      ],
       'weight' => 100
     ],
     [
@@ -43,7 +58,7 @@ return [
       'value' => [
         esc_html__('Paused', 'blankcanvas') => '',
         esc_html__('Playing', 'blankcanvas') => 'playing',
-        esc_html__('Playing on scroll', 'blankcanvas') => 'scroll',
+        esc_html__('Starts playing when visible', 'blankcanvas') => 'scroll',
       ],
       'weight' => 100,
     ],
@@ -58,7 +73,7 @@ return [
     // ],
     [
       'type' => 'checkbox',
-      'heading' => esc_html__('Hide controls?', 'blankcanvas'),
+      'heading' => esc_html__('Hide controls', 'blankcanvas'),
       'param_name' => 'hide_controls',
       'value' => [
         esc_html__( 'Yes', 'blankcanvas' ) => 'yes'

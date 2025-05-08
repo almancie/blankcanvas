@@ -80,17 +80,23 @@ $success:       $green;
 $info:          $cyan;
 $warning:       $yellow;
 $danger:        $red;
-// $primary:        #fa9a4e;
-$primary:        #1bb1b1;
+// $primary:        #1bb1b1;
+$primary:      #feaa0b;
+// $primary:        #8ddc8d;
+// $primary:        #00adff;
+// $primary:        #1bb1b1;
 // $secondary:      #6E81FB;
-$secondary:      #fa9a4e;
+// $secondary:      #1bb1b1;
 // $tertiary:       #FFBB86;
 // $tertiary:       #1bb1b1;
-$tertiary:       #6E81FB;
-$light:          #cdd0cf;
-// $dark:          #14100e;
-$dark:           #1f2127;
-// $dark:          #0d1117;
+// $tertiary:       #4766ec;
+$light:          #f3f3f1;
+// $light:          #f8f1de;
+$dark:           #161313;
+// $dark:           #14100e;
+// $dark:           #26272c;
+// $dark:           #202020;
+// $dark:           #171516;
 // $primary:       #f7da01;
 // $primary:       #ff6433;
 // $secondary:     #20a178;
@@ -104,8 +110,8 @@ $dark:           #1f2127;
 // scss-docs-start theme-colors-map
 $theme-colors: (
   "primary":         $primary,
-  "secondary":       $secondary,
-  "tertiary":        $tertiary,
+  // "secondary":       $secondary,
+  // "tertiary":        $tertiary,
   // "success":         $success,
   // "info":            $info,
   // "warning":         $warning,
@@ -210,6 +216,7 @@ $spacers: (
   2: $spacer * .5,
   3: $spacer,
   4: $spacer * 1.5,
+  43: $spacer * 2,
   5: $spacer * 3,
   6: $spacer * 5,
   7: $spacer * 7.5,
@@ -225,7 +232,7 @@ $spacers: (
 // scss-docs-start position-map
 $position-values: (
   0: 0,
-  10: 10%,
+  // 10: 10%,
   // 20: 20%,
   25: 25%,
   // 30: 30%,
@@ -435,7 +442,7 @@ $transition-fade:             opacity .25s linear;
 // $font-size-root affects the value of `rem`, which is used for as well font sizes, paddings, and margins
 // $font-size-base affects the font size of the body text
 // $font-size-root:              null !default;
-$font-size-base:              1rem; // Assumes the browser default, typically `16px`
+$font-size-base:              1.25rem; // Assumes the browser default, typically `16px`
 // $font-size-sm:                $font-size-base * .875 !default;
 // $font-size-lg:                $font-size-base * 1.25 !default;
 
@@ -447,9 +454,9 @@ $font-weight-medium:          500;
 // $font-weight-bold:            700 !default;
 $font-weight-bolder:          800;
 
-$font-weight-base:            300;
+// $font-weight-base:            300;
 
-// $line-height-base:            1.175;
+$line-height-base:            1.25;
 // $line-height-sm:              1;
 // $line-height-lg:              1.5;
 

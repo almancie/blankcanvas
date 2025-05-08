@@ -2,9 +2,9 @@
 
 return [
   'name' => esc_html__('Section', 'blankcanvas'),
-  'description' => esc_html__('Group multiple rows in section', 'js_composer'),
+  'description' => esc_html__('Add section', 'blankcanvas'),
   'base' => 'vc_section',
-  // 'php_class_name' => 'Blankcanvas\Vc\Shortcodes\Section',
+  'php_class_name' => 'Blankcanvas\Vc\Shortcodes\VcSection',
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
   'icon' => 'vc_icon-vc-section',
   'class' => 'wpb_vc_section vc_main-sortable-element bc-section bc-element',

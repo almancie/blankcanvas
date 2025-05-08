@@ -2,7 +2,7 @@
 
 return [
   'name' => esc_html__('Text Block', 'blankcanvas'),
-  'description' => esc_html__('A block of text with WYSIWYG editor', 'js_composer'),
+  'description' => esc_html__('Add text with WYSIWYG editor', 'blankcanvas'),
   'base' => 'text',
   'php_class_name' => 'Blankcanvas\Vc\Shortcodes\Text',
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),

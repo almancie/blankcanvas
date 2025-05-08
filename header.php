@@ -16,52 +16,18 @@
 
   <div class="site">
 
-    <header class="site-header py-2 px-2">
-      <div class="container-fluid">
+    <header class="site-header px-3">
+      <div class="container">
         <div class="row align-items-center">
 
-          <!-- Menu -->
-          <div class="col-5 d-flex gap-3">
-            <nav class="navbar navbar-expand--lg main-navigation">
-              <button 
-                aria-controls="offcanvasMenu" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu"
-                class="bc-menu-btn btn btn-outline-primary" 
-                style="z-index: 9999; --btn-padding-x: 1.125rem; --btn-padding-y: 1.125rem;"
-              >
-                <div class="bc-menu-btn-icon" style="---icon-width: 36px;">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </button>
-
-              <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasMenu">
-                <!-- <div class="offcanvas-header">
-                  Menu
-                </div> -->
-                <div class="offcanvas-body">
-
-                  <?php
-                  wp_nav_menu([
-                    'theme_location' => 'menu-1',
-                    'menu_id'        => 'main-menu',
-                    'menu_class'     => 'menu main-menu bc-menu flex-column h-100 justify-content-center',
-                    'container'      => false
-                  ]); ?>
-
-                </div>
-              </div>
-            </nav>
-
-          </div>
-               
           <!-- Logo -->
-          <div class="col-2 d-flex align-items-center justify-content-center">
-            <div class="site-branding py-3 me-2">
+          <div class="col-3">
+            <div class="site-branding">
               <!-- <a href="<?= home_url() ?>" class="custom-logo-link border border-2 border-body rounded-circle d-flex flex-center text-body fs-5" 
                 style="letter-spacing: -1px; height: 60px; width: 60px; padding-bottom: 2px" rel="home" aria-current="page">
                 BC
               </a> -->
+              <a style="letter-spacing: 7px; font-size: 1rem; font-weight: 600">BLANK <i class="text-primary">CANVAS</i></a>
 
               <?php
               //the_custom_logo(); ?>
@@ -69,8 +35,43 @@
             </div>
           </div>
 
-          <!-- Theme -->
-          <div class="col-5 d-flex align-items-center justify-content-end position-relative">
+          <!-- Menu -->
+          <div class="col-6">
+            <nav class="navbar navbar-expand-lg main-navigation">
+              <a 
+                aria-controls="offcanvasMenu" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu"
+                class="bc-menu-btn btn btn-link d-lg-none" 
+                style="z-index: 9999; --btn-padding-x: 1rem; aspect-ratio: 1;"
+              >
+                <div class="bc-menu-btn-icon" style="--icon-height: 24px; --icon-width: 32px;">
+                  <span></span>
+                  <span class="d-none"></span>
+                  <span></span>
+                </div>
+                <!-- <span class="text-uppercase" style="font-size: 1.125rem; font-weight: 500;">menu</span> -->
+              </a>
+
+              <div class="offcanvas offcanvas-start offcanvas-menu" tabindex="-1" id="offcanvasMenu">
+                <!-- <div class="offcanvas-header h-header justify-content-end">
+                  <a class="btn btn-primary">Inquire</a>
+                </div> -->
+                <div class="offcanvas-body justify-content-center">
+
+                  <?php
+                  wp_nav_menu([
+                    'theme_location' => 'menu-1',
+                    'menu_id'        => 'main-menu',
+                    'menu_class'     => 'menu main-menu bc-menu',
+                    'container'      => false
+                  ]); ?>
+
+                </div>
+              </div>
+            </nav>
+          </div>
+
+          <!-- Extra options -->
+          <div class="col-3 d-flex align-items-center justify-content-end position-relative gx-0">
 
             <!-- <div class="border-start position-absolute start-0 top-50 translate-middle-y" style="height: 45px;"></div> -->
             <!-- <div class="border overflow-hidden rounded-pill d-flex px-3 me-3">
@@ -87,21 +88,38 @@
             <!-- <div class="form-check form-theme-toggle-switch form-check-reverse mb-0">
               <input class="theme-toggle form-check-input mt-0" type="checkbox" id="theme-toggle-theme-toggle-switch">
             </div> -->
-            <div class="theme-toggle d-flex align-items-center me-4" aria-label="auto" aria-live="polite">
-              <label class="theme-toggle-switch d-flex align-items-center position-relative">
-                <input class="theme-toggle-input d-none" type="checkbox" role="theme-toggle-switch" />
-                <div class="theme-toggle-btn light me-2">Light</div>
-                <div class="theme-toggle-btn dark">Dark</div>
+
+            <!-- <div class="theme-toggle ms-4 me-n2" aria-label="auto" aria-live="polite"> -->
+            <div class="theme-toggle" aria-label="auto" aria-live="polite">
+              <label class="theme-toggle-switch d-inline-flex align-items-center position-relative" for="themeToggleInput">
+                <input id="themeToggleInput" class="theme-toggle-input d-none" type="checkbox" role="theme-toggle-switch" />
+                <!-- <i class="icon icon-md svg-body me-3" 
+                   data-svg="http://localhost/wp/wp-content/uploads/2023/11/lamp-1-svgrepo-com.svg"
+                   style="--svg-stroke-width: 1.5px"></i> -->
+                <img src="<?= get_stylesheet_directory_uri() . '/assets/imgs/moon.png' ?>" width="35px" class="me-3" style="rotate: 45deg;">
+                <!-- <span class="theme-toggle-title ms-1 me-2">LIGHTS</span> -->
+                <div class="theme-toggle-btns d-flex gap-2 text-uppercase">
+                  <span class="theme-toggle-highlighter"></span>
+                  <div class="theme-toggle-btn light">L</div>
+                  <div class="theme-toggle-btn dark">D</div>
+                </div>
               </label>
-              <!-- <i class="icon icon-md svg-body ms-3" data-svg="http://localhost/wp/wp-content/uploads/2023/11/lamp-1-svgrepo-com.svg"></i> -->
-              <!-- <span class="theme-toggle-title ms-2">Mode</span> -->
             </div>
 
-            <a href="#inquireOffcanvas" class="btn btn-secondary my-3" 
-              style="letter-spacing: -1px; --btn-font-weight: 700; --btn-font-size: 1.25rem;" 
-              data-bs-toggle="offcanvas" role="button" aria-controls="offcanvasExample">
+            <!-- <a href="#offcanvasInquire" 
+               class="btn btn-link ms-4 text-uppercase" 
+               style="--btn-font-size: 1rem; --btn-font-weight: 500; --btn-padding-x: 1rem; --btn-padding-y: 1rem; --btn-color: var(--primary); 
+                      text-decoration: underline; text-underline-offset: 10px; text-decoration-thickness: 2px;" 
+               data-bs-toggle="offcanvas" role="button" aria-controls="offcanvasInquire">
               Inquire
-            </a>
+            </a> -->
+
+            <!-- <a href="#offcanvasInquire" 
+               class="btn btn-primary text-uppercase" 
+               style="--btn-font-size: 1rem; --btn-font-weight: 500; --btn-padding-x: 1rem; --btn-padding-y: .875rem; --btn-border-radius: 1rem; letter-spacing: 1px;" 
+               data-bs-toggle="offcanvas" role="button" aria-controls="offcanvasInquire">
+              Inquire
+            </a> -->
 
           </div>
         </div>

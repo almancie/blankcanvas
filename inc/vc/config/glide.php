@@ -2,13 +2,13 @@
 
 return [
   'name' => esc_html__('Glide Slider', 'blankcanvas'),
-  'description' => esc_html__('Place content elements inside slider', 'blankcanvas'),
+  'description' => esc_html__('Add Glide slider', 'blankcanvas'),
   'base' => 'glide',
   'php_class_name' => 'Blankcanvas\Vc\Shortcodes\Glide',
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
-  'icon' => 'icon-wpb-row',
+  'icon' => 'icon-wpb-slideshow',
   'class' => 'wpb_vc_row bc-row bc-element',
-  'is_container' => true,
+  // 'is_container' => true,
   'show_settings_on_create' => false,
   'as_child' => [
     'only' => 'section,vc_column',

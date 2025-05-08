@@ -8,11 +8,11 @@ body {
 		color var(--body-color-transition-duration) var(--body-color-transition-easing) !important;
 }
 
-.theme-toggle {
+/* .theme-toggle {
 	font-size: 1.125rem;
 	text-transform: uppercase;
 	font-weight: 700;
-}
+} */
 
 /* .theme-updating [class*="bg-"],
 .theme-updating [style*="background-color"] {
@@ -25,14 +25,44 @@ body {
     background var(--body-bg-transition-duration) var(--body-bg-transition-easing);
 }
 
-.theme-toggle-btn {
+.theme-toggle-switch {
 	cursor: pointer;
 }
 
-.theme-toggle-input:checked ~ .light,
+.theme-toggle-btns {
+	position: relative;
+}
+
+.theme-toggle-highlighter {
+	position: absolute;
+	height: 3px;
+	width: 40%;
+	background-color: var(--primary);
+	bottom: 0;
+	transition: all .4s;
+	inset-inline-start: 0;
+}
+
+.theme-toggle-input:checked ~ .theme-toggle-btns .theme-toggle-highlighter {
+	inset-inline-start: 60%;
+}
+
+/* .theme-toggle-btn.dark {
+	display: none;
+}
+
+.theme-toggle-input:checked ~ .theme-toggle-btns .dark {
+	display: block;
+}
+
+.theme-toggle-input:checked ~ .theme-toggle-btns .light {
+	display: none;
+} */
+
+/* .theme-toggle-input:checked ~ .light,
 .theme-toggle-input:not(:checked) ~ .dark {
 	color: rgba(var(--body-color-rgb), .35);
-}
+} */
 
 /* .theme-toggle .icon {
 	width: 36px;

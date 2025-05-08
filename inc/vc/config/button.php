@@ -3,7 +3,7 @@
 return [
   'name' => esc_html__('Button', 'blankcanvas'),
   'base' => 'button',
-  'description' => esc_html__('A simple button with link.', 'blankcanvas'),
+  'description' => esc_html__('Add Bootstrap button', 'blankcanvas'),
   'php_class_name' => 'Blankcanvas\Vc\Shortcodes\Button',
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
   'icon' => 'icon-wpb-ui-button',

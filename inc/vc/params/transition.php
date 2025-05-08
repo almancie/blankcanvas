@@ -24,6 +24,11 @@ return [
       esc_html__('Roll start', 'blankcanvas') => 'fadeRollStart',
       esc_html__('Roll end', 'blankcanvas') => 'fadeRollEnd',
       esc_html__('Tiles', 'blankcanvas') => 'tiles',
+      esc_html__('Letters Space Out', 'blankcanvas') => 'fadeLettersSpaceOut',
+      esc_html__('Reveal start', 'blankcanvas') => 'revealStart',
+      esc_html__('Reveal end', 'blankcanvas') => 'revealEnd',
+      esc_html__('Reveal up', 'blankcanvas') => 'revealUp',
+      esc_html__('Reveal down', 'blankcanvas') => 'revealDown',
     ],
     'weight' => 0
   ],
@@ -48,6 +53,14 @@ return [
     'param_name' => 'transition_delay',
     'group' => esc_html__('Transition', 'blankcanvas'),
     'description' => esc_html__('Optional: Add a custom delay time.', 'blankcanvas'),
+    'edit_field_class' => 'vc_col-xs-4',
+  ],
+  [
+    'type' => 'textfield',
+    'heading' => esc_html__('Offset (0 to 1)', 'blankcanvas'),
+    'param_name' => 'transition_offset',
+    'group' => esc_html__('Transition', 'blankcanvas'),
+    'description' => esc_html__('Optional: Add a custom offset value (default is .5).', 'blankcanvas'),
     'edit_field_class' => 'vc_col-xs-4',
   ],
 ];

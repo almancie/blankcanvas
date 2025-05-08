@@ -24,7 +24,7 @@
 /**
  * Utilities
  */
- 
+
 [data-element-disabled="true"] {
   opacity: .35;
   filter: grayscale(1);
@@ -48,11 +48,12 @@
   margin-bottom: var(--element-margin-bottom) !important;
 }
 
-.bc-row [data-element_type]:not(.bc-element):not(.vc_tta-tab) {
+.bc-row [data-element_type]:not(.bc-element):not(.vc_tta-tab):not(:last-child) {
   margin-bottom: var(--element-margin-bottom) !important;
 }
 
-.bc-row .bc-element:last-child {
+.bc-row .bc-element:last-child,
+.bc-panel {
   margin-bottom: 0 !important;
 }
 
@@ -114,10 +115,14 @@
   margin-left: auto;
 }
 
-.bc-element.wpb_content_element > .vc_controls {
+/* .bc-element.wpb_content_element > .vc_controls {
   visibility: visible;
   opacity: 1;
   height: unset;
+} */
+
+.bc-element.wpb_content_element > .vc_controls > * > .vc_element-name {
+  display: none;
 }
 
 .bc-element.wpb_content_element > .vc_controls > *,
@@ -475,12 +480,121 @@
   margin-top: 20px;
 }
 
+.vc_checkbox-label {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 14px;
+  padding-left: 50px;
+}
+
+.vc_checkbox-label input[type="checkbox"] {
+  opacity: 0;
+  position: absolute;
+  left: 0;
+}
+
+.vc_checkbox-label::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 40px;
+  height: 20px;
+  background-color: #ccc;
+  border-radius: 34px;
+  transition: background-color 0.2s;
+}
+
+.vc_checkbox-label::after {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  width: 16px;
+  height: 16px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+
+.vc_checkbox-label:has(input[type="checkbox"]:checked)::before {
+  /* background-color: #4CAF50; */
+  background-color: #0772ce;
+}
+
+.vc_checkbox-label:has(input[type="checkbox"]:checked)::after {
+  transform: translateX(20px);
+}
+
+/**
+ * Add element panel
+ */
+
+.bc-switch {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.bc-switch-toggle {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.bc-switch-input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.bc-switch-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #ccc;
+  transition: 0.3s;
+  border-radius: 20px;
+}
+
+.bc-switch-slider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.3s;
+  border-radius: 50%;
+}
+
+.bc-switch-input:checked + .bc-switch-slider {
+  background-color: #4CAF50;
+}
+
+.bc-switch-input:checked + .bc-switch-slider:before {
+  transform: translateX(16px);
+}
+
+.bc-switch-label {
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
 /**
  * Code mirror
  */
 
 .CodeMirror-hints {
   z-index: 50001 !important; /* Edit popup is 50000 */
+}
+
+[name="custom_css"] + .CodeMirror {
+  height: 200px;
 }
 
 /**

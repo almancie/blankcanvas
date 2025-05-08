@@ -2,7 +2,7 @@
 
 return [
   'name' => esc_html__('Row', 'blankcanvas'),
-  'description' => esc_html__('Place content elements inside the row', 'js_composer'),
+  'description' => esc_html__('Add Bootstrap row', 'blankcanvas'),
   'base' => 'vc_row_inner',
   'php_class_name' => 'Blankcanvas\Vc\Shortcodes\VcRowInner',
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),

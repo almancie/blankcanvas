@@ -18,7 +18,7 @@ $classes = [
 
 // Hide
 if ($disable_element) {
-  $classes[] = 'd-none';
+  $classes[] = 'element-hidden';
 }
 
 // Attributes

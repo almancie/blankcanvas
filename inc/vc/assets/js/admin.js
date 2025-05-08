@@ -1,5 +1,6 @@
 import codeMirror from '../../../../assets/js/modules/code-mirror.js';
 import grapick from './modules/grapick.js';
+import Ctx from './modules/ctxmenu.js';
 
 /**
  * On content load
@@ -41,6 +42,42 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 
   /**
+   * Extend VcBackendTtaTourView to override some functions
+   */
+  window.TabsView = window.VcBackendTtaTabsView.extend({
+    addSection: function(e) {
+      e = {
+          shortcode: 'panel',
+          params: {
+              title: this.defaultSectionTitle
+          },
+          parent_id: this.model.get("id"),
+          order: _.isBoolean(e) && e ? vc.add_element_block_view.getFirstPositionIndex() : vc.shortcodes.getNextOrder(),
+          prepend: e
+      };
+      return vc.shortcodes.create(e);
+    }
+  });
+
+  /**
+   * Extend VcBackendTtaTourView to override some functions
+   */
+  window.AccordionView = window.VcBackendTtaAccordionView.extend({
+    addSection: function(e) {
+      e = {
+          shortcode: 'accordion_item',
+          params: {
+              title: this.defaultSectionTitle
+          },
+          parent_id: this.model.get("id"),
+          order: _.isBoolean(e) && e ? vc.add_element_block_view.getFirstPositionIndex() : vc.shortcodes.getNextOrder(),
+          prepend: e
+      };
+      return vc.shortcodes.create(e);
+    }
+  });
+
+  /**
    * Hide / Show Element
    */
   vc.events.on('shortcodeView:ready shortcodes:update shortcodes:sync', function(modelView) {
@@ -56,10 +93,6 @@ window.addEventListener('DOMContentLoaded', () => {
     // because they use !important and cannot be overridden.
     el.classList.remove('vc_hidden-xs', 'vc_hidden-sm', 'vc_hidden-md', 'vc_hidden-lg');
   });
-  
-  vc.events.on('afterLoadShortcode', function(model) {
-    console.log(model);
-  })
 
   /**
    * Column + Inner Column
@@ -131,25 +164,6 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 
   /**
-   * Tab
-   */
-  vc.events.on('shortcodes:vc_tta_section:add', function(model) {
-    let parent = vc.shortcodes.get(model.attributes.parent_id).attributes.shortcode;
-
-    const map = {
-      tabs: 'panel',
-      accordion: 'accordion_item'
-    };
-
-    if (! map[parent]) return;
-  
-    // Update shortcode
-    model.attributes.shortcode = map[parent];
-
-    model.view.render();
-  });
-
-  /**
    * Text
    */ 
   vc.events.on('shortcodes:text:add shortcodes:text:update shortcodes:text:sync', function(model) {
@@ -186,44 +200,27 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 
   /**
-   * Panel item / Accordion item
-   */
-  vc.events.on('shortcodes:vc_tta_section:add', function(model) {
-    const parent = vc.shortcodes.get(model.attributes.parent_id).attributes.shortcode;
-
-    if (parent === 'tabs') {
-      model.attributes.shortcode = 'panel';
-    }
-
-    if (parent === 'accordion') {
-      model.attributes.shortcode = 'accordion_item';
-    }
-
-    // Remove unnecessary params added by WPBakery.
-    model.attributes.params = {};
-  });
-
-  /**
    * Elements filter
    */
-  // Add checkbox
   document.querySelector('.vc_ui-panel-header-actions').innerHTML +=
-    `<div class="elements-filter" style="margin-top: 1rem">
-      <input type="checkbox" id="bc-elements-filter">
-      <label for="bc-elements-filter">Hide WPBakery Elements</label>
-    </div>`;
+  `<div class="bc-switch bc-elements-filter">
+    <div class="bc-switch-toggle">
+      <input type="checkbox" class="bc-switch-input" id="blankCanvasElement">
+      <label class="bc-switch-slider" for="blankCanvasElement"></label>
+    </div>
+    <label class="bc-switch-label" for="blankCanvasElement">Blank Canvas elements only</label>
+  </div>`;
 
-    
   const toggleVcElements = (value) => {
-    document.querySelector('.elements-filter input').checked = value;
-    
+    document.querySelector('.bc-elements-filter input').checked = value;
+
     // VC elements
     const vcElements = Array.prototype.filter.call(
       document.querySelectorAll('.wpb-elements-list [data-element]'), 
       // element => element.dataset.element.slice(0, 3) === 'vc_'
       element => ! element.classList.contains('bc-element_o')
     );
-  
+
     vcElements.forEach(element => {
       element.classList.toggle('element-hidden', value);
     });
@@ -235,7 +232,7 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   // Add onchange listener
-  document.querySelector('.elements-filter').onchange = (e) => {
+  document.querySelector('.bc-elements-filter').onchange = (e) => {
     const active = e.target.checked;
     
     bcWPBakery.bcElementsOnly = active;
@@ -248,9 +245,10 @@ window.addEventListener('DOMContentLoaded', () => {
   /**
    * Context menu
    */
-  const contextMenu = CtxMenu('#wpbakery_content');
+  const ctx = Ctx.createMenu('#wpbakery_content');
 
   const getModel = element => vc.shortcodes.get(element.closest('[data-element_type]').dataset.modelId);
+
   const notifyUpdate = element => {
     element.closest('[data-model-id]').setAttribute('data-element-updated', 'true');
 
@@ -259,160 +257,177 @@ window.addEventListener('DOMContentLoaded', () => {
     }, 1000);
   }
 
-  contextMenu.addEventListener('open', function() {
-    this.menuContainer.dataset.element = getModel(this._elementClicked);
-  })
-
-  // Enable / disable element
-  contextMenu.addItem("Disable / Enable", element => {    
-    const model = getModel(element);
-    
-    const value = model.attributes.params.disable_element;
-    
-    if (value === 'yes') {
-      delete model.attributes.params.disable_element;
-    } else {
-      model.attributes.params.disable_element = 'yes';
-    }
-
-    model.save();
-
-    vc.events.trigger("shortcodes:update", model);
+  ctx.on('open', function() {
+    this.container.dataset.element = getModel(this._elementClicked);
   });
 
-  contextMenu.addSeparator();
+  ctx.addItems({
+    'Copy': element => {
+      getModel(element).view.copy();
 
-  // Copy element
-  contextMenu.addItem("Copy", element => {
-    getModel(element).view.copy();
+      vcStorage.copied = getModel(element);
+    },
+    'Paste': element => {
+      let view = getModel(element).view;
 
-    vcStorage.copied = getModel(element);
-  });
-  
-  // Paste element
-  contextMenu.addItem("Paste", element => {
-    let view = getModel(element).view;
+      if (view.el.classList.contains('wpb_content_element') || view.el.dataset.element_type === 'row_inner_inner') {
+        view = vc.shortcodes.get(view.model.attributes.parent_id).view;
+      }
 
-    if (view.el.classList.contains('wpb_content_element') || view.el.dataset.element_type === 'row_inner_inner') {
-      view = vc.shortcodes.get(view.model.attributes.parent_id).view;
-    }
+      view.paste();
+    },
+    'Separator': null,
+    'Paste settings': element => {
+      if (! vcStorage.copied) return;
+      
+      const model = getModel(element);
+      
+      if (model.attributes.shortcode !== vcStorage.copied.attributes.shortcode) return;
+      
+      const updatedParams = {...vcStorage.copied.attributes.params};
+      
+      delete updatedParams.content;
+      delete updatedParams.image;
+      delete updatedParams.source;
+      delete updatedParams.link;
 
-    view.paste();
-  });
+      model.save('params', {
+        ...model.attributes.params,
+        ...updatedParams
+      });
 
-  // Separator
-  contextMenu.addSeparator();
-  
-  // Paste settings
-  contextMenu.addItem("Paste settings", element => {
-    if (! vcStorage.copied) return;
-    
-    const model = getModel(element);
-    
-    if (model.attributes.shortcode !== vcStorage.copied.attributes.shortcode) return;
-    
-    const updatedParams = {...vcStorage.copied.attributes.params};
-    
-    delete updatedParams.content;
-    delete updatedParams.image;
-    delete updatedParams.source;
-    delete updatedParams.link;
+      notifyUpdate(element);
+    },
+    'Paste content': element => {
+      if (! vcStorage.copied) return;
+      
+      const model = getModel(element);
+      
+      if (model.attributes.shortcode !== vcStorage.copied.attributes.shortcode) return;
+      
+      const params = vcStorage.copied.attributes.params;
+      
+      const updatedParams = {};
 
-    model.save('params', {
-      ...model.attributes.params,
-      ...updatedParams
-    });
+      if (params.content) {
+        updatedParams.content = params.content;
+      }
 
-    notifyUpdate(element);
-  });
-  
-  // Paste content
-  contextMenu.addItem("Paste content", element => {
-    if (! vcStorage.copied) return;
-    
-    const model = getModel(element);
-    
-    if (model.attributes.shortcode !== vcStorage.copied.attributes.shortcode) return;
-    
-    const params = vcStorage.copied.attributes.params;
-    
-    const updatedParams = {};
+      if (params.image) {
+        updatedParams.image = params.image;
+      }
+      
+      model.save('params', {
+        ...model.attributes.params,
+        ...updatedParams
+      });
+      
+      notifyUpdate(element);
+    },
+    'Paste Attributes': element => {
+      if (! vcStorage.copied) return;
 
-    if (params.content) {
-      updatedParams.content = params.content;
-    }
+      const model = getModel(element);
 
-    if (params.image) {
-      updatedParams.image = params.image;
-    }
-    
-    model.save('params', {
-      ...model.attributes.params,
-      ...updatedParams
-    });
-    
-    notifyUpdate(element);
-  });
-  
-  // Paste style
-  contextMenu.addItem("Paste style", element => {
-    if (! vcStorage.copied) return;
-    
-    const model = getModel(element);
+      const params = vcStorage.copied.attributes.params;
 
-    const targetParams = model.attributes.params;
+      model.save('params', {
+        ...model.attributes.params,
+        attributes: params.attributes,
+      });
 
-    const params = vcStorage.copied.attributes.params;
+      notifyUpdate(element);
+    },
+    'Paste style': element => {
+      if (! vcStorage.copied) return;
 
-    const updatedParams = {};
+      const model = getModel(element);
 
-    if (model.attributes.shortcode === vcStorage.copied.attributes.shortcode) { 
+      // const targetParams = model.attributes.params;
+
+      const params = vcStorage.copied.attributes.params;
+
+      const updatedParams = {};
+      
+      if (model.attributes.shortcode === vcStorage.copied.attributes.shortcode) { 
+        for (const param in params) {
+          if (! param.endsWith('_class')) continue;
+          
+          updatedParams[param] = params[param];
+        }
+      }
+
+      model.save('params', {
+        ...model.attributes.params,
+        ...updatedParams,
+        el_class: params.el_class,
+        custom_css: params.custom_css,
+        internal_css: params.internal_css
+      });
+      
+      notifyUpdate(element);
+    },
+    'Paste style on similar': () => {
+      if (! vcStorage.copied) return;
+      
+      const models = vc.shortcodes.models.filter(model => model.attributes.shortcode === vcStorage.copied.attributes.shortcode);
+
+      const params = vcStorage.copied.attributes.params;
+
+      const updatedParams = {};
+
+      // CSS fields
       for (const param in params) {
         if (! param.endsWith('_class')) continue;
-
+        
         updatedParams[param] = params[param];
       }
+
+      for (const model of models) {
+        model.save('params', {
+          ...model.attributes.params,
+          ...updatedParams,
+          el_class: params.el_class,
+          custom_css: params.custom_css,
+          internal_css: params.internal_css
+        });
+
+        notifyUpdate(model.view.el);
+      }
+    },
+    'Separator2': null,
+    'Disable / Enable': element => {    
+      const model = getModel(element);
+      
+      const value = model.attributes.params.disable_element;
+      
+      if (value === 'yes') {
+        delete model.attributes.params.disable_element;
+      } else {
+        model.attributes.params.disable_element = 'yes';
+      }
+
+      model.save();
+
+      vc.events.trigger("shortcodes:update", model);
     }
-
-    model.save('params', {
-      ...model.attributes.params,
-      ...updatedParams,
-      el_class: params.el_class,
-      custom_css: params.custom_css
-    });
-  
-    notifyUpdate(element);
   });
-
-  // Separator
-  // contextMenu.addSeparator();
-  
-  // Reveal in classic mode
-  // contextMenu.addItem("Reveal in Classic Mode", element => {
-  //   const model = getModel(element);
-
-  //   const shortcodeString = vc.shortcodes.createShortcodeString(model);
-
-  //   vc.app.switchComposer();
-
-  //   const content = tinymce.getContent();
-  // });
 });
 
 /**
  * On scripts load
-*/
+ */
 window.addEventListener('load', () => {
   if (! window.vc) return;
-  
+
   /**
    * Coding fields
-  */
- vc.edit_element_block_view.on('afterRender', function () {
-   const shortcode = this.model.attributes.shortcode;
+   */
+  vc.edit_element_block_view.on('afterRender', function () {
+    const shortcode = this.model.attributes.shortcode;
    
-   const settings = {
-     html: [
+    const settings = {
+      html: [
        {
           field: '[name="content"]', 
           options: {mode: 'htmlmixed'}
@@ -439,29 +454,43 @@ window.addEventListener('load', () => {
     const tab = this.el.querySelector('.vc_ui-tabs-line .vc_active button').innerText.toLowerCase();
 
     const settings = {
-      style: {
-        field: '[name="custom_css"]',
-        options: {}
-      },
-      script: {
-        field: '[name="custom_js"]',
-        options: {mode: 'javascript'}
-      },
-      attributes: {
-        field: '[name="attributes"]',
-        options: {}
-      },
-      events: {
-        field: '[name="events"]',
-        options: {mode: 'javascript'}
-      }
+      style: [
+        {
+          field: '[name="custom_css"]',
+          options: {}
+        },
+        {
+          field: '[name="internal_css"]',
+          options: {mode: 'text/css'}
+        }
+      ],
+      script: [
+        {
+          field: '[name="custom_js"]',
+          options: {mode: 'javascript'}
+        }
+      ],
+      attributes: [
+        {
+          field: '[name="attributes"]',
+          options: {}
+        }
+      ],
+      events: [
+        {
+          field: '[name="events"]',
+          options: {mode: 'javascript'}
+        }
+      ]
     };
 
     if (! settings[tab]) return;
 
-    const element = this.el.querySelector(settings[tab].field);
+    for (const fieldSettings of settings[tab]) {
+      const element = this.el.querySelector(fieldSettings.field);
 
-    codeMirror(element, settings[tab].options);
+      codeMirror(element, fieldSettings.options);
+    }
   });
 
   /**
@@ -475,6 +504,49 @@ window.addEventListener('load', () => {
     grapick(this.$el.find(`[name="${field}"]`));
   });
 
+  /**
+   * Attach video field
+   */
+  function initVideoField(field) {
+    if (! field) return;
+
+    const button = field.querySelector('.attach-video-button');
+    const input = field.querySelector('input.wpb_vc_param_value');
+    const preview = field.querySelector('.video-preview');
+    
+    if (!button || !input || !preview) return;
+
+    button.addEventListener('click', function (e) {
+      e.preventDefault();
+
+      const frame = wp.media({
+        title: 'Select or Upload a Video',
+        button: {
+            text: 'Use this video'
+        },
+        library: {
+            type: 'video'
+        },
+        multiple: false
+      });
+
+      frame.on('select', function () {
+        const attachment = frame.state().get('selection').first().toJSON();
+        input.value = attachment.id;
+        input.dispatchEvent(new Event('change'));
+        preview.innerHTML = `<video width="300" controls><source src="${attachment.url}">`;
+      });
+
+      frame.open();
+    });
+  }
+
+  vc.edit_element_block_view.on('afterRender', function () {
+    const field = this.$el.find('.custom-video-attach-wrapper')[0];
+
+    if (field) initVideoField(field);
+  });
+
   // Switch to WPBakery backend editor automatically.
-  vc.events.trigger("vc:backend_editor:show");
+  // vc.events.trigger("vc:backend_editor:show");
 });

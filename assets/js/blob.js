@@ -1,3 +1,12 @@
+/*
+| Blob
+| Ver. 1.0.0
+| Author: Blank Canvas (www.blankcanvas.me)
+|
+| This library allows us to add a blob that follows the mouse movement.
+|
+*/
+
 (function() {
 
   /**
@@ -21,11 +30,6 @@
   let blob = null;
 
   /**
-   * Particles
-   */
-  let particles = null;
-
-  /**
    * Create the blob
    */
   function createBlob(container) {
@@ -37,16 +41,13 @@
     blob.classList.add('blob');
 
     // Create the child divs
-    for (let i = 1; i <= 3; i++) {
-      const childDiv = document.createElement("div");
-      blob.appendChild(childDiv);
-    }
+    [...Array(3)].forEach(_ => blob.appendChild(document.createElement("div")));
+
+    document.addEventListener("mousemove", () => blob.classList.add('active'));
 
     document.addEventListener("mousemove", (e) => {
-      blob.classList.add('active');
-
-      position.mouseX = e.pageX;
-      position.mouseY = e.pageY;
+      position.mouseX = e.clientX;
+      position.mouseY = e.clientY;
     });
 
     anime({
@@ -56,7 +57,7 @@
       easing: 'easeOutQuad'
     });
 
-    animate(1);
+    animate();
 
     center();
 

@@ -59,10 +59,15 @@ add_filter('walker_nav_menu_start_el', function ($output, $item, $depth, $args) 
 
 add_filter('walker_nav_menu_start_el', function ($output, $item, $depth, $args) {
 
-  // If not an external link, bail out.
-  if (! in_array('menu-item-type-custom', $item->classes)) {
-    return $output;
-  }
+  // Checks if it's not a URL (ID)
+  if (filter_var($item->url, FILTER_VALIDATE_URL) === false) return $output;
+
+  // Checks if it's not an internal link
+  if (strpos($item->url, $_SERVER['HTTP_HOST']) !== false) return $output;
+
+  // if (! in_array('menu-item-type-custom', $item->classes)) {
+  //   return $output;
+  // }
 
   ob_start(); ?>
 

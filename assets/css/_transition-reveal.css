@@ -1,0 +1,24 @@
+:is([data-transition="reveal"], [data-transition="revealStart"]) {
+  --cover-bg: var(--body-bg, #fff);
+  position: relative;
+}
+
+:is([data-transition="reveal"], [data-transition="revealStart"]) .cover {
+  background-color: var(--cover-bg);
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+}
+
+[data-transition="reveal"] .cover {
+  inset-inline-end: 0;
+}
+
+[data-transition="revealStart"] .cover {
+  inset-inline-start: 0;
+}
+
+.cover-on-top .cover {
+  z-index: 2;
+}

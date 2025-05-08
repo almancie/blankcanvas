@@ -50,7 +50,7 @@ $body-bg-dark:                      $dark;
 // $body-emphasis-color-dark:          $white;
 $border-color-dark:                 rgba(var(--#{$prefix}body-color-rgb), .1);
 // $border-color-translucent-dark:     rgba($white, .15) !default;
-$headings-color-dark:               $white;
+$headings-color-dark:               lighten($light, 5%);
 // $link-color-dark:                   tint-color($primary, 40%) !default;
 // $link-hover-color-dark:             shift-color($link-color-dark, -$link-shade-percentage) !default;
 // $code-color-dark:                   tint-color($code-color, 40%) !default;

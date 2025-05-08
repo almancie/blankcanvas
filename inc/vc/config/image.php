@@ -9,12 +9,17 @@ $iconSizes = [
 ];
 
 $sizes = array_merge(
-  array_combine(
-    array_map(fn ($v) => ucfirst(str_replace('_', ' ', $v)), get_intermediate_image_sizes()), 
-    get_intermediate_image_sizes()
-  ),
+  array_map(fn ($v) => ucfirst(str_replace('_', ' ', $v)), get_intermediate_image_sizes()), 
   $iconSizes
 );
+
+// $sizes = array_merge(
+//   array_combine(
+//     array_map(fn ($v) => ucfirst(str_replace('_', ' ', $v)), get_intermediate_image_sizes()), 
+//     get_intermediate_image_sizes()
+//   ),
+//   $iconSizes
+// );
 
 return [
   'name' => esc_html__('Image', 'blankcanvas'),
@@ -23,7 +28,7 @@ return [
   'icon' => 'icon-wpb-single-image',
   'class' => 'bc-element',
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
-  'description' => esc_html__('Simple image', 'blankcanvas'),
+  'description' => esc_html__('Add image', 'blankcanvas'),
   'show_settings_on_create' => false,
   'as_child' => [
     'except' => ', section',

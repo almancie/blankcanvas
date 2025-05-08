@@ -14,7 +14,8 @@ return [
     'heading' => esc_html__('Custom CSS', 'blankcanvas'),
     'param_name' => 'custom_css',
     'group' => esc_html__('Style', 'blankcanvas'),
-    'description' => esc_html__('Enter custom CSS (Note: it will be added to this element as inline style).', 'blankcanvas'),
+    'value' => esc_html__('', 'blankcanvas'),
+    'description' => esc_html__('Enter responsive custom CSS.', 'blankcanvas'),
     'weight' => 50,
   ],
 ];
