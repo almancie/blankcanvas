@@ -17,7 +17,7 @@
  * General
  */
 
- .vc-disable-editor {
+.vc-disable-editor {
   display: none;
 }
 
@@ -219,6 +219,21 @@
 }
 
 /**
+ * Sections
+ */
+
+.bc-section {
+  --section-margin-y: calc(var(--element-margin-bottom) * 2);
+  padding-bottom: 0 !important;
+  margin-bottom: var(--section-margin-y, var(--element-margin-bottom)) !important;
+
+}
+
+.bc-section:not(:first-child) {
+  margin-top: var(--section-margin-y) !important;
+}
+
+/**
  * Rows
  */
 
@@ -371,7 +386,7 @@
  * Elements background color (white/silver)
  */
  
-.bc-element:not(.bc-section):not(.bc-row) > * {
+.bc-element:not(.bc-section):not(.bc-row):not(.bc-tabs) > * {
   transition: background-color .5s;
   background-color: var(--element-bg) !important;
 }
@@ -391,29 +406,50 @@
   --element-bg: #fff;
 }
 
-[data-element-updated="true"] > .wpb_element_wrapper,
-[data-element-updated="true"][data-element_type*="vc_column"] > *,
-[data-element-updated="true"] > .wpb_element_wrapper > * {
+.bc-accordion-item > .wpb_element_wrapper > * {
+  background-color: unset !important;
+}
+
+[data-element-updated="true"].bc-section > :is(.wpb_element_wrapper, .bottom-controls),
+[data-element-updated="true"].bc-row > .wpb_element_wrapper > * > * > *,
+[data-element-updated="true"].bc-column > *,
+[data-element-updated="true"]:is(.bc-panel, .bc-accordion-item, .wpb_content_element) > .wpb_element_wrapper,
+[data-element-updated="true"].bc-tabs .bc-panel > .wpb_element_wrapper,
+[data-element-updated="true"].bc-tabs .vc_tta-tab,
+[data-element-updated="true"].bc-accordion .bc-accordion-item > .wpb_element_wrapper,
+[data-element-updated="true"].bc-accordion .vc_tta-section-append {
   position: relative;
 }
 
-[data-element-updated="true"] > .wpb_element_wrapper:before,
-[data-element-updated="true"][data-element_type*="vc_column"] > *:before,
-[data-element-updated="true"][data-element_type*="vc_row"] > .wpb_element_wrapper:after {
+[data-element-updated="true"].bc-section > :is(.wpb_element_wrapper, .bottom-controls):before,
+[data-element-updated="true"].bc-row > .wpb_element_wrapper > * > * > *:before,
+[data-element-updated="true"].bc-column > *:before,
+[data-element-updated="true"]:is(.bc-panel, .bc-accordion-item, .wpb_content_element) > .wpb_element_wrapper:before,
+[data-element-updated="true"].bc-tabs .bc-panel > .wpb_element_wrapper:before,
+[data-element-updated="true"].bc-tabs .vc_tta-tab:after,
+[data-element-updated="true"].bc-accordion .bc-accordion-item > .wpb_element_wrapper:before,
+[data-element-updated="true"].bc-accordion .vc_tta-section-append:after {
   content: "";
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
   position: absolute;
   top: 0;
   left: 0;
   height: 100%;
   width: 100%;
-  animation: bgSuccess 1.5s;
+  animation: success 1s;
 }
 
-@keyframes bgSuccess {
+[data-element-updated="true"].bc-tabs .vc_tta-tab:after {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+/* Fixes gap created by last row margin */
+[data-element-updated="true"][data-element_type*="vc_section"] > .bottom-controls:before {
+  height: calc(100% + var(--element-margin-bottom));
+  translate: 0 calc(var(--element-margin-bottom) * -1);
+}
+
+@keyframes success {
   0% {
     background-color: rgba(0, 128, 0, .85);
   }
@@ -428,7 +464,7 @@
 }
 
 /**
- * Edit form fields 
+ * Fields
  */
 
 .vc_col-xs-3:first-child + .vc_col-xs-3,
@@ -485,8 +521,9 @@
   display: inline-flex;
   align-items: center;
   cursor: pointer;
-  font-size: 14px;
-  padding-left: 50px;
+  font-size: 0;
+  /* padding-left: 50px; */
+  height: 20px;
 }
 
 .vc_checkbox-label input[type="checkbox"] {
@@ -509,10 +546,10 @@
 .vc_checkbox-label::after {
   content: "";
   position: absolute;
-  left: 2px;
-  top: 2px;
-  width: 16px;
-  height: 16px;
+  left: 4px;
+  top: 4px;
+  width: 12px;
+  height: 12px;
   background-color: white;
   border-radius: 50%;
   transition: transform 0.2s;
@@ -527,10 +564,6 @@
   transform: translateX(20px);
 }
 
-/**
- * Add element panel
- */
-
 .bc-switch {
   display: flex;
   align-items: center;
@@ -540,8 +573,8 @@
 .bc-switch-toggle {
   position: relative;
   display: inline-block;
-  width: 36px;
-  height: 20px;
+  width: 42px;
+  height: 22px;
   margin-right: 8px;
 }
 
@@ -554,35 +587,42 @@
 .bc-switch-slider {
   position: absolute;
   cursor: pointer;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background-color: #ccc;
-  transition: 0.3s;
-  border-radius: 20px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: transparent;
+  border: 2px solid #fff; /* thicker, lighter border */
+  transition: 0.3s ease;
+  border-radius: 22px;
+  box-sizing: border-box;
 }
 
 .bc-switch-slider:before {
   position: absolute;
   content: "";
-  height: 14px;
-  width: 14px;
-  left: 3px;
-  bottom: 3px;
-  background-color: white;
-  transition: 0.3s;
+  height: 10px;              /* smaller toggle circle */
+  width: 10px;
+  left: 4px;
+  top: 4px;
+  background-color: #fff;    /* soft light gray circle */
+  transition: 0.3s ease;
   border-radius: 50%;
 }
 
 .bc-switch-input:checked + .bc-switch-slider {
-  background-color: #4CAF50;
+  background-color: #4CAF50;    /* dark gray when ON */
+  border-color: #4CAF50;        /* hide border in ON state */
 }
 
 .bc-switch-input:checked + .bc-switch-slider:before {
-  transform: translateX(16px);
+  transform: translateX(20px); /* match new smaller circle offset */
 }
 
 .bc-switch-label {
   font-size: 0.9rem;
   cursor: pointer;
+  color: #fff;
 }
 
 /**
@@ -595,6 +635,58 @@
 
 [name="custom_css"] + .CodeMirror {
   height: 200px;
+}
+
+/**
+ * Icons
+ */
+.icon-bc-section {
+  background-image: url('../imgs/section.svg') !important;
+}
+
+.icon-bc-row {
+  background-image: url('../imgs/row.svg') !important;
+}
+
+.icon-bc-button {
+  background-image: url('../imgs/button.svg') !important;
+}
+
+.icon-bc-image {
+  background-image: url('../imgs/image.svg') !important;
+}
+
+.icon-bc-video {
+  background-image: url('../imgs/video.svg') !important;
+}
+
+.icon-bc-lottie {
+  background-image: url('../imgs/lottie.svg') !important;
+}
+
+.icon-bc-tabs {
+  background-image: url('../imgs/tabs.svg') !important;
+}
+
+.icon-bc-accordion {
+  background-image: url('../imgs/accordion.svg') !important;
+}
+
+.icon-bc-text {
+  background-image: url('../imgs/text.svg') !important;
+}
+
+.icon-bc-html {
+  background-image: url('../imgs/html.svg') !important;
+}
+
+.icon-bc-slider {
+  background-image: url('../imgs/slider.svg') !important;
+}
+
+/* Purple */
+[class*="icon-bc"] {
+  filter: brightness(0) saturate(100%) invert(17%) sepia(100%) saturate(3946%) hue-rotate(230deg) brightness(101%) contrast(101%);
 }
 
 /**
@@ -621,11 +713,11 @@
   }
 }
 
-@media (width > 1200px) {
+/* @media (width > 1200px) {
   .bc-element > .vc_controls .vc_control-btn-copy,
   .bc-element > .vc_controls .vc_control-btn-paste,
   .bc-element > .vc_controls .vc_column-copy,
   .bc-element > .vc_controls .vc_column-paste {
     display: none !important;
   }
-}
+} */

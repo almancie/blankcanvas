@@ -148,15 +148,15 @@ $utilities: map-merge(
 }
 
 svg [fill]:not([fill="none"]) {
-  fill: var(--svg-fill);
+  fill: var(--svg-fill, var(--body-color, $dark));
 }
 
 svg [stroke] {
-  stroke: var(--svg-stroke);
+  stroke: var(--svg-stroke, var(--body-color, $dark));
 }
 
 svg [stroke-width] {
-  stroke-width: var(--svg-stroke-width);
+  stroke-width: var(--svg-stroke-width, 20);
 }
 
 $theme-colors-with-body: map-merge($theme-colors, (

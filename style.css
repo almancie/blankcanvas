@@ -53,7 +53,7 @@ Text Domain: blankcanvas
 :root {
   --body-font-family: 'Cal Sans', sans-serif;
   --header-height: 106px;
-  --gradient: linear-gradient(-90deg, rgba(var(--light-rgb), 0.25), transparent);
+  /* --gradient: linear-gradient(-90deg, rgba(var(--light-rgb), 0.25), transparent); */
 }
 
 /*
@@ -71,6 +71,10 @@ Text Domain: blankcanvas
 
 .playwrite {
   font-family: "Playwrite DK Loopet", cursive;
+}
+
+.chillax {
+  font-family: "Chillax", sans-serif;
 }
 
 /*
@@ -186,11 +190,11 @@ i {
   letter-spacing: 1px;
 }
 
-.bc-menu a::after {
+/* .bc-menu a::after {
   display: none;
-}
+} */
 
-.bc-menu > li:not(:last-child):after {
+/* .bc-menu > li:not(:last-child):after {
   content: ".";
   position: absolute;
   inset-inline-end: 0;
@@ -198,34 +202,30 @@ i {
   translate: 50% -50%;
   font-weight: 200;
   opacity: .35;
-}
+} */
 
 .theme-toggle {
+  --gradient: linear-gradient(-90deg, rgba(var(--light-rgb), .05), transparent);
   font-size: 1rem;
   /* font-weight: 500; */
   /* letter-spacing: 2px; */
-  /* position: fixed; */
-  /* bottom: 0; */
-  /* inset-inline-start: 0; */
-  /* margin: 1rem 2rem; */
-  /* padding: .5rem 1rem; */
-  /* background-color: var(--light-bg-subtle); */
-  /* border-radius: 1rem; */
+  position: fixed;
+  bottom: 0;
+  inset-inline-start: 0;
+  margin: 1rem 2rem;
+  padding: .5rem 1rem;
+  background-color: var(--light-bg-subtle);
+  background-image: var(--gradient);
+  /* color: var(--primary); */
+  /* --svg-stroke: var(--primary); */
+  border-radius: 1rem;
+  transition: background-color var(--body-bg-transition-duration) var(--body-bg-transition-easing);
 }
 
-.theme-toggle-switch .animatab-highlighter,
-.bc-menu .animatab-highlighter {
-  height: 100%;
-}
-
-.theme-toggle-switch .animatab-highlighter:before,
-.bc-menu .animatab-highlighter:before {
-  border-radius: .5rem;
-  top: 100%;
-  height: 5px;
-  width: 5px;
-  background-color: var(--primary);
-  margin-inline-start: -1px;
+[data-bs-theme="light"] .theme-toggle {
+  background-color: var(--dark-bg-subtle);
+  color: var(--primary);
+  --svg-stroke: var(--primary);
 }
 
 .atropos-inner {
@@ -482,7 +482,7 @@ i {
 @media (min-width: 576px) {}
 
 @media (min-width: 768px) {
-  .section {
+  /* .section {
     --section-spacing: 4.5rem;
   }
 
@@ -493,11 +493,11 @@ i {
   .intro-section {
     min-height: 100vh;
     padding-top: 3rem;
-  }
+  } */
 }
 
 @media (min-width: 992px) {
-  .paragraph {
+  /* .paragraph {
     font-size: 1.375rem;
     line-height: 1.375;
   }
@@ -508,28 +508,10 @@ i {
 
   .text-large {
     letter-spacing: -.25rem;
-  }
+  } */
 }
 
 @media (min-width: 1200px) {
-  .paragraph {
-    font-size: 1.75rem;
-    line-height: 1.5;
-    letter-spacing: -1px;
-  }
-
-  .paragraph.project-desc {
-    line-height: 1.25;
-  }
-
-  .section {
-    --section-spacing: 8rem;
-  }
-
-  .project-img {
-    height: 400px;
-  }
-
   /* .project-details > * {
     opacity: 0;
     translate: -50px 70px;
@@ -539,39 +521,16 @@ i {
     opacity: 1;
     translate: 0 0;
   } */
-  
-  .project .project-img img {
-    transition: scale .6s cubic-bezier(0.33, 1, 0.68, 1); 
-    scale: 1.075;
-  }
-  
-  .project:hover .project-img img {
-    scale: 1;
-  }
 
-  .project-details > *:nth-child(1) { transition: all .3s;}
+  /* .project-details > *:nth-child(1) { transition: all .3s;}
   .project-details > *:nth-child(2) { transition: all .4s;}
   .project-details > *:nth-child(3) { transition: all .5s;}
-  .project-details > *:nth-child(4) { transition: all .6s;}
-
-  .contact-email {
-    margin-bottom: 2rem;
-  }
+  .project-details > *:nth-child(4) { transition: all .6s;} */
 }
 
-@media (min-width: 1400px) {
-  .section {
-    --section-spacing: 10rem;
-  }
-}
+@media (min-width: 1400px) {}
 
-@media (min-width: 1600px) {
-  .row-max {
-    max-width: 1560px;
-    inset-inline-start: 50%;
-    translate: -50%;
-  }
-}
+@media (min-width: 1600px) {}
 
 /*
 |--------------------------------------------------------------------------
@@ -582,16 +541,16 @@ i {
 |
 */
 
-@media (max-width: 575.98px) {}
-
-@media (max-width: 767.98px) {}
-
-@media (max-width: 991.98px) {
-  .main-navigation {
-    --navbar-padding-y: 0;
-  }
-}
+@media (max-width: 1399.98px) {}
 
 @media (max-width: 1199.98px) {}
 
-@media (max-width: 1399.98px) {}
+@media (max-width: 991.98px) {
+  /* .main-navigation {
+    --navbar-padding-y: 0;
+  } */
+}
+
+@media (max-width: 767.98px) {}
+
+@media (max-width: 575.98px) {}

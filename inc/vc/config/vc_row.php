@@ -6,7 +6,7 @@ return [
   'base' => 'vc_row',
   'php_class_name' => 'Blankcanvas\Vc\Shortcodes\VcRow',
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
-  'icon' => 'icon-wpb-row',
+  'icon' => 'icon-bc-row',
   'class' => 'wpb_vc_row bc-row bc-element',
   'is_container' => true,
   'as_child' => [

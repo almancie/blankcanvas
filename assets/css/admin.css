@@ -1,0 +1,15 @@
+/* #adminmenu a[href="bc-menu-item-separator"] {
+  position: relative;
+  pointer-events: none;
+  color: transparent;
+  font-size: 0;
+}
+
+#adminmenu a[href="bc-menu-item-separator"]::before {
+  content: "";
+  display: block;
+  border-top: 1px solid rgba(204, 204, 204, .25);
+  margin: 8px 0;
+  width: calc(100% + 40px);
+  margin-inline-start: -20px;
+} */

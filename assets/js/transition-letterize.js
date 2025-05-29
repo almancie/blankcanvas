@@ -42,7 +42,6 @@ window.Transition?.addSetting('letterize', (element, anime) => {
 
   targets.forEach(target => {
     const sentence = target.textContent.trim();
-    console.log(sentence);
     const words = sentence.split(/\s+/);
 
     // Clear the original content

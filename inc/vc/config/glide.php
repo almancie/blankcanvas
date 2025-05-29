@@ -6,9 +6,9 @@ return [
   'base' => 'glide',
   'php_class_name' => 'Blankcanvas\Vc\Shortcodes\Glide',
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
-  'icon' => 'icon-wpb-slideshow',
+  'icon' => 'icon-bc-slider',
   'class' => 'wpb_vc_row bc-row bc-element',
-  // 'is_container' => true,
+  'is_container' => true,
   'show_settings_on_create' => false,
   'as_child' => [
     'only' => 'section,vc_column',
@@ -42,7 +42,7 @@ return [
     ],
     [
       'type' => 'checkbox',
-      // 'heading' => esc_html__('Hide Arrows?', 'blankcanvas'),
+      'heading' => esc_html__('Hide Arrows', 'blankcanvas'),
       'param_name' => 'hide_arrows',
       'description' => __('Hide control arrows.', 'blankcanvas'),
       'value' => [
@@ -52,7 +52,7 @@ return [
     ],
     [
       'type' => 'checkbox',
-      // 'heading' => esc_html__('Hide Bullets?', 'blankcanvas'),
+      'heading' => esc_html__('Hide Bullets', 'blankcanvas'),
       'param_name' => 'hide_bullets',
       'description' => __('Hide control bullets.', 'blankcanvas'),
       'value' => [

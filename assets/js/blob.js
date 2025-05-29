@@ -50,12 +50,12 @@
       position.mouseY = e.clientY;
     });
 
-    anime({
-      targets: blob,
-      opacity: 1,
-      duration: 2000,
-      easing: 'easeOutQuad'
-    });
+    // anime({
+    //   targets: blob,
+    //   opacity: 1,
+    //   duration: 2000,
+    //   easing: 'easeOutQuad'
+    // });
 
     animate();
 

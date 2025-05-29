@@ -6,7 +6,7 @@ return [
   'description' => esc_html__('Add Bootstrap button', 'blankcanvas'),
   'php_class_name' => 'Blankcanvas\Vc\Shortcodes\Button',
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
-  'icon' => 'icon-wpb-ui-button',
+  'icon' => 'icon-bc-button',
   'class' => 'bc-element',
   'show_settings_on_create' => false,
   'as_child' => [

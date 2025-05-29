@@ -6,16 +6,16 @@ return [
   'base' => 'vc_section',
   'php_class_name' => 'Blankcanvas\Vc\Shortcodes\VcSection',
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
-  'icon' => 'vc_icon-vc-section',
+  'icon' => 'icon-bc-section',
   'class' => 'wpb_vc_section vc_main-sortable-element bc-section bc-element',
   'is_container' => true,
   'show_settings_on_create' => false,
   'as_child' => [
     'only' => '', // Only root
   ],
-  // 'as_parent' => [
-  //   'only' => 'row'
-  // ],
+  'as_parent' => [
+    'only' => 'vc_row'
+  ],
   'js_view' => 'VcSectionView',
   // 'default_content' => '[row][/row]',  // Creates a JS error
   'params' => [

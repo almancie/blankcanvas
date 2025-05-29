@@ -1,6 +1,7 @@
 import codeMirror from '../../../../assets/js/modules/code-mirror.js';
 import grapick from './modules/grapick.js';
-import Ctx from './modules/ctxmenu.js';
+// import Ctx from './modules/ctxmenu.js';
+import createContextMenu from './modules/context-menu.js';
 
 /**
  * On content load
@@ -42,9 +43,10 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 
   /**
-   * Extend VcBackendTtaTourView to override some functions
+   * Extend VcBackendTtaTourView to override addSection function
    */
-  window.TabsView = window.VcBackendTtaTabsView.extend({
+  window.TabsView = window.VcTabView.extend({
+  // window.TabsView = window.VcBackendTtaTabsView.extend({
     addSection: function(e) {
       e = {
           shortcode: 'panel',
@@ -55,13 +57,15 @@ window.addEventListener('DOMContentLoaded', () => {
           order: _.isBoolean(e) && e ? vc.add_element_block_view.getFirstPositionIndex() : vc.shortcodes.getNextOrder(),
           prepend: e
       };
+
       return vc.shortcodes.create(e);
     }
   });
 
   /**
-   * Extend VcBackendTtaTourView to override some functions
+   * Extend VcBackendTtaTourView to override addSection function
    */
+  // window.AccordionView = window.VcAccordionView.extend({
   window.AccordionView = window.VcBackendTtaAccordionView.extend({
     addSection: function(e) {
       e = {
@@ -73,6 +77,7 @@ window.addEventListener('DOMContentLoaded', () => {
           order: _.isBoolean(e) && e ? vc.add_element_block_view.getFirstPositionIndex() : vc.shortcodes.getNextOrder(),
           prepend: e
       };
+
       return vc.shortcodes.create(e);
     }
   });
@@ -97,12 +102,17 @@ window.addEventListener('DOMContentLoaded', () => {
   /**
    * Column + Inner Column
    */
-  vc.events.on('shortcodes:add', function(model) {
-    const columns = ['vc_column', 'vc_column_inner', 'column_inner_inner'];
+  vc.events.on('shortcodes:vc_column:add shortcodes:vc_column_inner:add shortcodes:column_inner_inner:add', function(model) {
+    const params = model.attributes.params;
 
-    if (columns.indexOf(model.attributes.shortcode) === -1) return;
+    const breakpoints = ['width_xxl', 'width_xl', 'width_lg', 'width_md', 'width_sm', 'width_default'];
 
-    // Set width_default param
+    let largestActiveBreakpoint = breakpoints.find(breakpoint => params[breakpoint] && params[breakpoint] != '');
+
+    if (params.width === params[largestActiveBreakpoint]) return;
+
+    breakpoints.forEach(breakpoint => delete model.attributes.params[breakpoint]);
+
     model.attributes.params.width_default = model.attributes.params.width;
 
     model.save();
@@ -116,6 +126,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     if (parent !== 'glide') return;
   
+    model.attributes.params = [];
     model.attributes.params.width = '1/3';
     model.attributes.shortcode = 'glide_slide';
   });
@@ -243,11 +254,9 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   /**
-   * Context menu
+   * Custom Context menu
    */
-  const ctx = Ctx.createMenu('#wpbakery_content');
-
-  const getModel = element => vc.shortcodes.get(element.closest('[data-element_type]').dataset.modelId);
+  const menu = createContextMenu('#wpbakery_content');
 
   const notifyUpdate = element => {
     element.closest('[data-model-id]').setAttribute('data-element-updated', 'true');
@@ -257,133 +266,50 @@ window.addEventListener('DOMContentLoaded', () => {
     }, 1000);
   }
 
-  ctx.on('open', function() {
-    this.container.dataset.element = getModel(this._elementClicked);
-  });
-
-  ctx.addItems({
-    'Copy': element => {
-      getModel(element).view.copy();
-
-      vcStorage.copied = getModel(element);
+  menu.addItems([
+    {
+      label: 'Edit',
+      callback: (model) => model.view.editElement()
     },
-    'Paste': element => {
-      let view = getModel(element).view;
+    {
+      label: 'Duplicate',
+      callback: (model) => model.view.clone()
+    },
+    {
+      label: 'Copy',
+      callback: (model) => {
+        model.view.copy();
 
-      if (view.el.classList.contains('wpb_content_element') || view.el.dataset.element_type === 'row_inner_inner') {
-        view = vc.shortcodes.get(view.model.attributes.parent_id).view;
+        vcStorage.copied = model;
       }
-
-      view.paste();
     },
-    'Separator': null,
-    'Paste settings': element => {
-      if (! vcStorage.copied) return;
-      
-      const model = getModel(element);
-      
-      if (model.attributes.shortcode !== vcStorage.copied.attributes.shortcode) return;
-      
-      const updatedParams = {...vcStorage.copied.attributes.params};
-      
-      delete updatedParams.content;
-      delete updatedParams.image;
-      delete updatedParams.source;
-      delete updatedParams.link;
+    {
+      label: 'Paste',
+      callback: (model) => {
+        let view = model.view;
 
-      model.save('params', {
-        ...model.attributes.params,
-        ...updatedParams
-      });
+        if (view.el.classList.contains('wpb_content_element') || view.el.dataset.element_type === 'row_inner_inner') {
+          view = vc.shortcodes.get(model.attributes.parent_id).view;
+        }
 
-      notifyUpdate(element);
-    },
-    'Paste content': element => {
-      if (! vcStorage.copied) return;
-      
-      const model = getModel(element);
-      
-      if (model.attributes.shortcode !== vcStorage.copied.attributes.shortcode) return;
-      
-      const params = vcStorage.copied.attributes.params;
-      
-      const updatedParams = {};
-
-      if (params.content) {
-        updatedParams.content = params.content;
+        view.paste();
       }
-
-      if (params.image) {
-        updatedParams.image = params.image;
-      }
-      
-      model.save('params', {
-        ...model.attributes.params,
-        ...updatedParams
-      });
-      
-      notifyUpdate(element);
     },
-    'Paste Attributes': element => {
-      if (! vcStorage.copied) return;
+    {
+      label: 'Paste style',
+      notify: true,
+      expectedType: (model) => model.attributes.shortcode === vcStorage.copied?.attributes?.shortcode && model !== vcStorage.copied,
+      callback: (model) => {
+        const params = vcStorage.copied.attributes.params;
 
-      const model = getModel(element);
-
-      const params = vcStorage.copied.attributes.params;
-
-      model.save('params', {
-        ...model.attributes.params,
-        attributes: params.attributes,
-      });
-
-      notifyUpdate(element);
-    },
-    'Paste style': element => {
-      if (! vcStorage.copied) return;
-
-      const model = getModel(element);
-
-      // const targetParams = model.attributes.params;
-
-      const params = vcStorage.copied.attributes.params;
-
-      const updatedParams = {};
-      
-      if (model.attributes.shortcode === vcStorage.copied.attributes.shortcode) { 
+        const updatedParams = {};
+        
         for (const param in params) {
           if (! param.endsWith('_class')) continue;
           
           updatedParams[param] = params[param];
         }
-      }
 
-      model.save('params', {
-        ...model.attributes.params,
-        ...updatedParams,
-        el_class: params.el_class,
-        custom_css: params.custom_css,
-        internal_css: params.internal_css
-      });
-      
-      notifyUpdate(element);
-    },
-    'Paste style on similar': () => {
-      if (! vcStorage.copied) return;
-      
-      const models = vc.shortcodes.models.filter(model => model.attributes.shortcode === vcStorage.copied.attributes.shortcode);
-
-      const params = vcStorage.copied.attributes.params;
-
-      const updatedParams = {};
-
-      // CSS fields
-      for (const param in params) {
-        if (! param.endsWith('_class')) continue;
-        
-        updatedParams[param] = params[param];
-      }
-
-      for (const model of models) {
         model.save('params', {
           ...model.attributes.params,
           ...updatedParams,
@@ -391,27 +317,80 @@ window.addEventListener('DOMContentLoaded', () => {
           custom_css: params.custom_css,
           internal_css: params.internal_css
         });
-
-        notifyUpdate(model.view.el);
       }
     },
-    'Separator2': null,
-    'Disable / Enable': element => {    
-      const model = getModel(element);
-      
-      const value = model.attributes.params.disable_element;
-      
-      if (value === 'yes') {
-        delete model.attributes.params.disable_element;
-      } else {
-        model.attributes.params.disable_element = 'yes';
+    {
+      label: 'Paste responsive',
+      notify: true,
+      expectedType: (model) => model.attributes.shortcode === vcStorage.copied?.attributes?.shortcode && ['vc_column', 'vc_column_inner', 'column_inner_inner'].includes(model.attributes.shortcode),
+      callback: (model) => {
+        const params = vcStorage.copied.attributes.params;
+
+        const updatedParams = {};
+
+        const breakpoints = ['width_xxl', 'width_xl', 'width_lg', 'width_md', 'width_sm', 'width_default', 'width'];
+
+        breakpoints.forEach(breakpoint => {
+          if (! params[breakpoint] || params[breakpoint] == '') return;
+
+          updatedParams[breakpoint] = params[breakpoint];
+        });
+
+        model.save('params', {
+          ...model.attributes.params,
+          ...updatedParams,
+        });
       }
+    },
+    {
+      label: 'Paste settings',
+      notify: true,
+      expectedType: (model) => model.attributes.shortcode === vcStorage.copied?.attributes?.shortcode,
+      callback: (model) => {
+        const params = vcStorage.copied.attributes.params;
 
-      model.save();
+        // Content fields
+        const ignore = ['content', 'image', 'src', 'source', 'link'];
 
-      vc.events.trigger("shortcodes:update", model);
-    }
-  });
+        ignore.forEach(field => delete params[field]);
+
+        model.save('params', {
+          ...model.attributes.params,
+          ...params,
+        });
+      }
+    },
+    '-',
+    {
+      label: 'Delete',
+      callback: (model) => model.view.remove()
+    },
+    '-',
+    {
+      label: 'Disable',
+      expectedType: (model) =>  ! model.attributes.params.disable_element,
+      callback: (model) => {              
+        model.attributes.params.disable_element = 'yes';
+
+        // Adds the parameter to the shortcode [vc_section disable_element="yes"]
+        model.save();
+
+        // Updates the view to reflect changes and adds the event to the history list.
+        vc.events.trigger("shortcodes:update", model);
+      },
+    },
+    {
+      label: 'Enable',
+      expectedType: (model) => model.attributes.params.disable_element === 'yes',
+      callback: (model) => {              
+        delete model.attributes.params.disable_element;
+
+        model.save();
+
+        vc.events.trigger("shortcodes:update", model);
+      },
+    },
+  ])
 });
 
 /**
@@ -548,5 +527,5 @@ window.addEventListener('load', () => {
   });
 
   // Switch to WPBakery backend editor automatically.
-  // vc.events.trigger("vc:backend_editor:show");
+  vc.events.trigger("vc:backend_editor:show");
 });

@@ -78,8 +78,8 @@ $elements = [
   'text',
   'button',
   'glide',
-  'html',
   'glide_slide',
+  'html',
   'lottie_player',
   'video_player',
 ];
@@ -122,23 +122,23 @@ add_action('vc_after_init', function () use ($elements, $fields) {
 
 /*
 |--------------------------------------------------------------------------
-| Custom Field Types
+| Custom Fields Templates
 |--------------------------------------------------------------------------
 |
-| Defines custom field types
+| Registers custom fields templates
 |
 */
 
-$types = [
+$fieldTemplates = [
   'attach_video'
 ];
 
-add_action('vc_after_init', function () use ($types) {
-    foreach ($types as $type) {
-      vc_add_shortcode_param($type, function ($settings, $value) use ($type) {
+add_action('vc_after_init', function () use ($fieldTemplates) {
+    foreach ($fieldTemplates as $template) {
+      vc_add_shortcode_param($template, function ($settings, $value) use ($template) {
         ob_start();
 
-        include sprintf(THEME_DIR . '/inc/vc/params/templates/%s.php', $type);
+        include sprintf(THEME_DIR . '/inc/vc/params/templates/%s.php', $template);
 
         return ob_get_clean();
       });
@@ -353,6 +353,8 @@ add_filter('vc_shortcode_content_filter_after', function ($output, $shortcode, $
  */
 add_action('wp_footer', function () use (&$styleRules) {
   if (empty($styleRules)) return;
+
+  echo "<!-- WPBakery Responsive Style -->\n";
 
   echo "<style>\n";
 

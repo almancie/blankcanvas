@@ -6,7 +6,7 @@ return [
   'base' => 'tabs',
   'php_class_name' => 'Blankcanvas\Vc\Shortcodes\Tabs',
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
-  'icon' => 'icon-wpb-ui-tab-content',
+  'icon' => 'icon-bc-tabs',
   'class' => 'wpb_vc_tta_tabs bc-tabs bc-element',
   'is_container' => true,
   'show_settings_on_create' => false,
@@ -18,6 +18,8 @@ return [
     'hide_add' => true
   ],
   'js_view' => 'TabsView', // extends VcBackendTtaTabsView and overrides addSection function
+  // 'js_view' => 'VcTabView',
+  // 'js_view' => 'VcAccordionTabView',
   // 'js_view' => 'VcBackendTtaTabsView',
   'custom_markup' =>
     '<div class="vc_tta-container" data-vc-action="collapse">

@@ -1,0 +1,38 @@
+.wpbakery-context-menu {
+  position: absolute;
+  background-color: #333;
+  color: #fff;
+  border-radius: 6px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  padding: 8px 0;
+  z-index: 9999;
+  min-width: 160px;
+  display: none;
+}
+
+.wpbakery-context-menu .menu-item {
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.wpbakery-context-menu .menu-item:hover {
+  background-color: #4a4a4a;
+  color: #fff;
+}
+
+.wpbakery-context-menu .menu-item:active {
+  background-color: #666;
+}
+
+.wpbakery-context-menu .menu-item:focus {
+  outline: none;
+}
+
+.wpbakery-context-menu .separator {
+  height: 1px;
+  background-color: #555;
+  margin: 4px 0;
+}

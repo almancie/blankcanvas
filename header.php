@@ -36,14 +36,16 @@
           </div>
 
           <!-- Menu -->
-          <div class="col-6">
-            <nav class="navbar navbar-expand-lg main-navigation">
+          <div class="col-auto ms-auto">
+            <nav class="navbar main-navigation">
+            <!-- <nav class="navbar navbar-expand-lg main-navigation"> -->
               <a 
                 aria-controls="offcanvasMenu" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu"
-                class="bc-menu-btn btn btn-link d-lg-none" 
-                style="z-index: 9999; --btn-padding-x: 1rem; aspect-ratio: 1;"
+                class="bc-menu-btn btn btn-link" 
+                style="z-index: 9999; --btn-padding-x: 1rem; aspect-ratio: 1; --btn-color: var(--body-color)"
               >
-                <div class="bc-menu-btn-icon" style="--icon-height: 24px; --icon-width: 32px;">
+                <!-- <div class="bc-menu-btn-icon" style="--icon-height: 24px; --icon-width: 32px;"> -->
+                <div class="bc-menu-btn-icon" style="--icon-height: 24px; --icon-width: 40px; --line-thickness: 1px;">
                   <span></span>
                   <span class="d-none"></span>
                   <span></span>
@@ -71,7 +73,7 @@
           </div>
 
           <!-- Extra options -->
-          <div class="col-3 d-flex align-items-center justify-content-end position-relative gx-0">
+          <div class="col-auto d-flex align-items-center justify-content-end position-relative gx-0">
 
             <!-- <div class="border-start position-absolute start-0 top-50 translate-middle-y" style="height: 45px;"></div> -->
             <!-- <div class="border overflow-hidden rounded-pill d-flex px-3 me-3">
@@ -93,10 +95,10 @@
             <div class="theme-toggle" aria-label="auto" aria-live="polite">
               <label class="theme-toggle-switch d-inline-flex align-items-center position-relative" for="themeToggleInput">
                 <input id="themeToggleInput" class="theme-toggle-input d-none" type="checkbox" role="theme-toggle-switch" />
-                <!-- <i class="icon icon-md svg-body me-3" 
+                <i class="icon icon-md me-3" 
                    data-svg="http://localhost/wp/wp-content/uploads/2023/11/lamp-1-svgrepo-com.svg"
-                   style="--svg-stroke-width: 1.5px"></i> -->
-                <img src="<?= get_stylesheet_directory_uri() . '/assets/imgs/moon.png' ?>" width="35px" class="me-3" style="rotate: 45deg;">
+                   style="--svg-stroke-width: 1.5px"></i>
+                <!-- <img src="<?= get_stylesheet_directory_uri() . '/assets/imgs/moon.png' ?>" width="35px" class="me-3" style="rotate: 45deg;"> -->
                 <!-- <span class="theme-toggle-title ms-1 me-2">LIGHTS</span> -->
                 <div class="theme-toggle-btns d-flex gap-2 text-uppercase">
                   <span class="theme-toggle-highlighter"></span>

@@ -181,8 +181,12 @@ add_action('admin_enqueue_scripts', function () {
   wp_enqueue_script('module-grapick', THEME_URI.'/inc/vc/assets/js/modules/grapick.js', ['grapick'], THEME_VER, true); // Just a wrapper
   
   // Context Menu
-  wp_enqueue_style('ctxmenu', THEME_URI.'/inc/vc/assets/css/ctxmenu.css', [], null);
-  wp_enqueue_script('module-ctxmenu', THEME_URI.'/inc/vc/assets/js/modules/ctxmenu.js', [], null, true);
+  // wp_enqueue_style('ctxmenu', THEME_URI.'/inc/vc/assets/css/ctxmenu.css', [], null);
+  // wp_enqueue_script('module-ctxmenu', THEME_URI.'/inc/vc/assets/js/modules/ctxmenu.js', [], null, true);
+
+  // Blank Canvas VC Context Menu
+  wp_enqueue_style('blankcanvas-vc-context-menu', THEME_URI.'/inc/vc/assets/css/context-menu.css', [], null);
+  wp_enqueue_script('module-blankcanvas-vc-context-menu', THEME_URI.'/inc/vc/assets/js/modules/context-menu.js', [], null, true);
   
   // CodeMirror (code editor)
   wp_enqueue_style('wp-codemirror');

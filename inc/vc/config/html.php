@@ -6,7 +6,7 @@ return [
   'description' => esc_html__('Add HTML content', 'blankcanvas'),
   'php_class_name' => 'Blankcanvas\Vc\Shortcodes\Html',
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
-  'icon' => 'icon-wpb-raw-html',
+  'icon' => 'icon-bc-html',
   'class' => 'bc-element',
   'show_settings_on_create' => false,
   'as_child' => [

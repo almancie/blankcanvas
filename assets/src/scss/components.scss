@@ -312,11 +312,11 @@ $font-sizes: (
   font-weight: var(--btn-font-weight) !important;
 }
 
-.btn [fill] {
+.btn [fill]:not([fill="none"]) {
   fill: var(--svg-fill);
 }
 
-.btn [stroke] {
+.btn [stroke]:not([stroke="none"]) {
   stroke: var(--svg-stroke);
 }
 
@@ -328,39 +328,39 @@ $font-sizes: (
     $hover-border: tint-color($dark, $btn-hover-border-tint-amount),
     $active-background: tint-color($dark, $btn-active-bg-tint-amount),
     $active-border: tint-color($dark, $btn-active-border-tint-amount)
-    );
+  );
     --svg-fill: var(--btn-color);
-  }
+}
 
-  .btn-outline-body {
-    @include button-outline-variant($dark);
-    --svg-fill: var(--btn-color);
-  }
+.btn-outline-body {
+  @include button-outline-variant($dark);
+  --svg-fill: var(--btn-color);
+}
 
-  .btn-body:hover,
-  .btn-outline-body:hover {
+.btn-body:hover,
+.btn-outline-body:hover {
+  --svg-fill: var(--btn-hover-color);
+  --svg-stroke: var(--btn-hover-color);
+}
+
+.btn-body:active,
+.btn-outline-body:active {
+  --svg-fill: var(--btn-active-color);
+  --svg-stroke: var(--btn-active-color);
+}
+
+@each $color, $value in $theme-colors {
+  .btn-#{$color}:hover,
+  .btn-outline-#{$color}:hover {
     --svg-fill: var(--btn-hover-color);
     --svg-stroke: var(--btn-hover-color);
   }
-
-  .btn-body:active,
-  .btn-outline-body:active {
+  
+  .btn-#{$color}:active,
+  .btn-outline-#{$color}:active {
     --svg-fill: var(--btn-active-color);
     --svg-stroke: var(--btn-active-color);
   }
-  
-  @each $color, $value in $theme-colors {
-    .btn-#{$color}:hover,
-    .btn-outline-#{$color}:hover {
-      --svg-fill: var(--btn-hover-color);
-      --svg-stroke: var(--btn-hover-color);
-    }
-    
-    .btn-#{$color}:active,
-    .btn-outline-#{$color}:active {
-      --svg-fill: var(--btn-active-color);
-      --svg-stroke: var(--btn-active-color);
-    }
 }
 
 // Button X

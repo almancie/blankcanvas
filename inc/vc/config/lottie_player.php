@@ -6,7 +6,7 @@ return [
   'base' => 'lottie_player',
   'php_class_name' => 'Blankcanvas\Vc\Shortcodes\LottiePlayer',
   'category' => esc_html__('Blank Canvas', 'blankcanvas'),
-  'icon' => 'icon-wpb-film-youtube',
+  'icon' => 'icon-bc-lottie',
   'class' => 'bc-element',
   'show_settings_on_create' => false,
   'as_child' => [
